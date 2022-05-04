@@ -40,4 +40,4 @@ end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'sorcery'
-
+gem "letter_opener", group: :development
