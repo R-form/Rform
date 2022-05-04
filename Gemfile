@@ -20,10 +20,9 @@ gem 'webpacker', '~> 5.0'
 # gem 'image_processing', '~> 1.2'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'rubocop', '~> 1.28', '>= 1.28.2'
-
+gem 'dotenv', '~> 2.7', '>= 2.7.6'
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'dotenv', '~> 2.7', '>= 2.7.6'
 end
 
 group :development do
