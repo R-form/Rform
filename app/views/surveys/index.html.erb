@@ -1,22 +1,26 @@
-<h1 class="text-pink-600"><%= link_to '我的問卷', surveys_path %></h1>
+<h1 class="text-5xl text-center text-gray-700"><%= link_to '我的問卷', surveys_path %></h1>
 
-<table>
-  <thead>
-    <tr class="bg-pink-500">
-      <th class="text-xl">Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<section>
+  <div class="container mt-4 mx-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <% @surveys.each do |survey| %>
+      
+      <div class="card m-2 cursor-pointer border border-gray-400 rounded-lg hover:shadow-md hover:border-opacity-0 transform hover:-translate-y-1 transition-all duration-200">
+        <div class="m-3">
+        <span class="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">Tag</span>
+        <h2 class="text-lg mb-2"><%= survey.title %></h2>
+        <p class="font-light font-mono text-sm text-gray-700 hover:text-gray-900 transition-all duration-200"><%= survey.description %></p> 
+        <div class="text-right mt-6">
+          <%= link_to '檢視', survey , class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded-full"%>
+          <%= link_to '修改', edit_survey_path(survey), class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded-full" %>
+          <i class="fa-solid fa-trash-can"></i>
+          <%= link_to '刪除', survey, method: :delete, data: { confirm: '確定要刪除問卷嗎?' }, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded-full" %>
+        </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</section>
 
-  <tbody>
-    <% @surveys.each do |survey| %>
-      <tr class="border-2">
-        <td class="border-2"><%= survey.title %></td>
-        <td class="border-2"><%= link_to '檢視', survey %></td>
-        <td class="border-2"><%= link_to '修改', edit_survey_path(survey) %></td>
-        <td class="border-2"><%= link_to '刪除', survey, method: :delete, data: { confirm: '確定要刪除問卷嗎?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<%= link_to '建立問卷', new_survey_path %>
+<div class="text-right"><%= link_to '建立問卷', new_survey_path ,class: "absolute bottom-5 right-5 bg-gray-500 hover:bg-gray-700 text-white font-bold py-5 px-10 rounded-full"%></div>
