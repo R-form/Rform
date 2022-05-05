@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_04_160959) do
+ActiveRecord::Schema.define(version: 2022_05_05_071219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,12 +60,22 @@ ActiveRecord::Schema.define(version: 2022_05_04_160959) do
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
+  create_table "authentications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "provider", null: false
+    t.string "uid", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["provider", "uid"], name: "index_authentications_on_provider_and_uid"
+  end
+
   create_table "questions", force: :cascade do |t|
     t.string "title"
     t.integer "question_type"
     t.bigint "survey_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "required"
     t.index ["survey_id"], name: "index_questions_on_survey_id"
   end
 
@@ -75,6 +85,15 @@ ActiveRecord::Schema.define(version: 2022_05_04_160959) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "crypted_password"
+    t.string "salt"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

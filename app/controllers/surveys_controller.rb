@@ -52,6 +52,7 @@ class SurveysController < ApplicationController
         :id,
         :question_type,
         :title,
+        :required,
         { answers_attributes: %i[
           _destroy
           id

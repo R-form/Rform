@@ -15,6 +15,11 @@
     </small>
   </div>
 
+  <div>
+    <%= form.label :required, "是否必填" %>
+    <%= form.check_box :required %>
+  </div>
+
   <div data-controller="nested-form" 
        data-nested-form-index-value ="ANSWER_RECORD" data-dynamic-select-target='choice'>
     <template data-nested-form-target='template'>
