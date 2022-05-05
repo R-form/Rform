@@ -5,18 +5,25 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    
+  
   </head>
 
   <body>
-    <div id="nav">
+    <h1 class="m-8 text-6xl text-pink-600 border-blue-300">Tailwind</h1>
+    <button class="border-2 bg-indigo-700">
+      Button
+    </button>
+        
+    <div id="nav" class=" bg-red-600 ">
     <% if current_user %>
-      <%= link_to "Edit Profile", edit_user_path(current_user.id) %>
-      <%= link_to "Logout", :logout, method: :post %>
+      <div  >
+        <%= link_to "Edit Profile", edit_user_path(current_user.id) %>
+        <%= link_to "Logout", :logout, method: :post %>
+      </div>
     <% else %>
       <%= link_to "Register", new_user_path %> |
       <%= link_to "Login", :login %> |
