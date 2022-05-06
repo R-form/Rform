@@ -1,0 +1,17 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= @survey.title %></h1>
+
+<% @survey.questions.each do |question| %>
+  <h2><%= question.title %></h2>
+  <% case question.question_type %>
+  <% when 'single_choice' %>
+    <p><%= question.answers.find { |a| a.id.to_s == @response.answers[question.id.to_s] }.title %></p>
+  <% when 'multiple_choice' %>
+    <% question.answers.select { |a| @response.multiple_choice_answers(question.id).include?(a.id) }.each do |answer| %>
+      <p><%= answer.title %></p>
+    <% end %>
+  <% when 'long_answer' %>
+    <p><%= @response.answers[question.id.to_s] %></p>
+  <% end %>
+<% end %>

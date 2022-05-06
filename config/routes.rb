@@ -11,5 +11,6 @@ Rails.application.routes.draw do
     member do
       patch :sort
     end
+    resources :responses
   end
 end
