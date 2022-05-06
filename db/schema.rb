@@ -10,19 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_05_071219) do
+ActiveRecord::Schema.define(version: 2022_05_06_130238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "users", force: :cascade do |t|
-    t.string "email", null: false
-    t.string "crypted_password"
-    t.string "salt"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -60,15 +51,6 @@ ActiveRecord::Schema.define(version: 2022_05_05_071219) do
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
-  create_table "authentications", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.string "provider", null: false
-    t.string "uid", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["provider", "uid"], name: "index_authentications_on_provider_and_uid"
-  end
-
   create_table "questions", force: :cascade do |t|
     t.string "title"
     t.integer "question_type"
@@ -77,6 +59,14 @@ ActiveRecord::Schema.define(version: 2022_05_05_071219) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "required"
     t.index ["survey_id"], name: "index_questions_on_survey_id"
+  end
+
+  create_table "responses", force: :cascade do |t|
+    t.bigint "survey_id", null: false
+    t.json "answers"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["survey_id"], name: "index_responses_on_survey_id"
   end
 
   create_table "surveys", force: :cascade do |t|
@@ -100,4 +90,5 @@ ActiveRecord::Schema.define(version: 2022_05_05_071219) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "answers", "questions"
   add_foreign_key "questions", "surveys"
+  add_foreign_key "responses", "surveys"
 end

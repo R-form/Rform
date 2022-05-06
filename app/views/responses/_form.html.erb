@@ -1,0 +1,38 @@
+<h1><%= @survey.title %></h1>
+
+<%= form_with model: [@survey, response] do |form| %>
+  <%= form.fields_for :answers do |response| %>
+    <% @survey.questions.each do |question| %>
+      <h2>
+        <%= question.title %>
+        <%= content_tag :abbr, '*', title: 'Required' if question.required %>
+      <h2>
+
+      <% case question.question_type %>
+      <% when 'single_choice' %>
+        <% question.answers.each do |answer| %>
+          <p>
+            <%= response.radio_button question.id, answer.id, required: question.required %>
+            <%= answer.title %>
+          </p>
+        <% end %>
+      <% when 'multiple_choice' %>
+        <% question.answers.each do |answer| %>
+          <p>
+            <%= response.check_box question.id, { multiple: true }, answer.id %>
+            <%= answer.title %>
+          </p>
+        <% end %>
+      <% when 'long_answer' %>
+        <%= response.text_area question.id, required: question.required %>
+      <% end %>
+      
+
+
+    <% end %>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

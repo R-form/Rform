@@ -44,16 +44,10 @@
   <% when 'time' %>
     <%= time_field_tag question.id %>
   <% when 'drop_down_menu' %>
-    <% question.answers.each do |answer| %>
-    <%= select_tag question.id, options_for_select(
-      [[answer.title, answer.id]]) %>
+ 
+    <%= select_tag question.id, options_for_select(question.answers.collect{ |o| [o.title, o.id] }
+      ) %>
     
-      <%# select_tag question.id %>
-      <%# question.answers.each do |answer| %>
-          
-          <%# answer.title %>
-        
-      <% end %>
   <% when 'range' %>
     <%= range_field_tag question.id %>  
   <% when 'file' %>
