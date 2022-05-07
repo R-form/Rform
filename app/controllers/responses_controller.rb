@@ -12,13 +12,14 @@ class ResponsesController < ApplicationController
   end
 
   def create
-    @response = @survey.responses.new(response_params)
+    render html: response_params
+    # @response = @survey.responses.new(response_params)
 
-    if @response.save
-      redirect_to [@survey, @response], notice: "Response was successfully created."
-    else
-      render :new, status: :unprocessable_entity
-    end
+    # if @response.save
+    #   redirect_to [@survey, @response], notice: "Response was successfully created."
+    # else
+    #   render :new, status: :unprocessable_entity
+    # end
   end
 
   private
