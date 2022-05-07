@@ -1,25 +1,28 @@
-<section class="text-center">
+<section class="max-w-lg mx-auto border-4 rounded">
 <div class='nested-fields box' data-controller='dynamic-select'>
   <div class='form-group'>
     <%= form.select :question_type,
         options_for_select(Question.question_type_select, selected: form.object.question_type),
-        {},
+        {},class: "bg-gray-200 text-gray-800",
         'data-dynamic-select-target': 'select',
-        'data-action': 'dynamic-select#selected' %>
+        'data-action': 'dynamic-select#selected'%>
   </div>
 
   <div class='form-group'>
     <%= form.hidden_field :_destroy %>
-    <%= form.text_field :title, placeholder: 'Question', class: 'form-control' %>
-    <small>
-      <%= link_to "刪除問題", "#", data: { action: "click->nested-form#remove_association" } %>
+    <%= form.text_field :title, placeholder: 'Question', class: 'form-control appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white' %>
+    <small class="inline-block">
+      <%= link_to "刪除問題", data: { action: "click->nested-form#remove_association" }, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do %>
+        <i class="fa-solid fa-trash-can"></i>
+      <% end %>
     </small>
+    <div class="inline-block">
+      <%= form.check_box :required %>
+      <%= form.label :required, "必填" %>
+    </div>
+    
   </div>
 
-  <div>
-    <%= form.label :required, "是否必填" %>
-    <%= form.check_box :required %>
-  </div>
 
   <div data-controller="nested-form" 
        data-nested-form-index-value ="ANSWER_RECORD" data-dynamic-select-target='choice'>
@@ -34,8 +37,8 @@
       <%= render 'answer_fields', form: answer %>
     <% end %>
 
-    <div data-nested-form-target="add_item">
-      <%= link_to "新增選項", "#", data: { action: "nested-form#add_association" } %>
+    <div data-nested-form-target="add_item" class="my-4">
+      <%= link_to "新增選項", "#", data: { action: "nested-form#add_association" } , class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full" %>
     </div>
   </div>
   

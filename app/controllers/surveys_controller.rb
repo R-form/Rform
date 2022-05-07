@@ -41,7 +41,13 @@ class SurveysController < ApplicationController
     
     survey = current_user.surveys.find(params[:id])
     survey.insert_at(params[:newIndex].to_i)
-    render html: params[:newIndex]
+    render html: params
+  end
+
+  def question_sort
+    question = Question.new
+    question.insert_at(params[:newIndex].to_i)
+    render html: params
   end
 
   private
@@ -61,6 +67,7 @@ class SurveysController < ApplicationController
         :question_type,
         :title,
         :required,
+        :position,
         { answers_attributes: %i[
           _destroy
           id

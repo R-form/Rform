@@ -1,15 +1,15 @@
 <%= form_with(model: survey) do |form| %>
   <section class="max-w-lg mx-auto">
   <div class="field">
-    <%= form.label :title, "問卷名稱" %>
-    <%= form.text_field :title, placeholder: "請輸入問卷名稱", class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"%>
+    <%= form.label :title, "問卷名稱", class: "text-xl" %>
+    <%= form.text_field :title, placeholder: "請輸入問卷名稱", class: "appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"%>
   </div>
   <div class="field">
-    <%= form.label :description, "問卷敘述" %>
-    <%= form.text_area :description, placeholder: "問卷敘述" %>
+    <%= form.label :description, "問卷敘述", class: "text-xl" %>
+    <%= form.text_area :description, placeholder: "問卷敘述", class: "appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" %>
   </div>
   
-  <div data-controller="nested-form" data-nested-form-index-value ="QUESTION_RECORD">
+  <div data-controller="nested-form sortable-question" data-nested-form-index-value ="QUESTION_RECORD">
     <template data-nested-form-target='template'>
       <%= form.fields_for :questions, Question.new, child_index: 'QUESTION_RECORD' do |question| %>
         <%# QUESTION - QUESTION_RECORD %>
@@ -22,13 +22,13 @@
       <%= render 'question_fields', form: question %>
     <% end %>
     
-    <div data-nested-form-target="add_item">
-      <%= link_to "新增問題", "#", data: { action: "nested-form#add_association" } %>
+    <div data-nested-form-target="add_item" class="my-4">
+      <%= link_to "新增問題", "#", data: { action: "nested-form#add_association" }, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full" %>
     </div>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="actions my-6">
+    <%= form.submit class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full" %>
   </div>
   
 <% end %>

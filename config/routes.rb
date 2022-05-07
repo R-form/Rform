@@ -12,8 +12,13 @@ Rails.application.routes.draw do
       patch :sort
     end
     resources :responses
+    collection do
+      patch :question_sort
+    end
+
     member do
       patch :sort
+      
     end
   end
 end

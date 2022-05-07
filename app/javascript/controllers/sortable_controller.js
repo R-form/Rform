@@ -7,6 +7,7 @@ export default class extends Controller {
     Sortable.create(this.element, {
       onEnd: function ({ newIndex, item }) {
         const id = item.dataset.id;
+
         const data = new FormData();
         data.append("newIndex", newIndex + 1);
         console.log(id, newIndex + 1);
