@@ -1,13 +1,14 @@
 <%= form_with(model: survey) do |form| %>
+  <section class="max-w-lg mx-auto">
   <div class="field">
     <%= form.label :title, "問卷名稱" %>
-    <%= form.text_field :title, placeholder: "請輸入問卷名稱" %>
+    <%= form.text_field :title, placeholder: "請輸入問卷名稱", class: "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"%>
   </div>
   <div class="field">
     <%= form.label :description, "問卷敘述" %>
     <%= form.text_area :description, placeholder: "問卷敘述" %>
   </div>
-
+  
   <div data-controller="nested-form" data-nested-form-index-value ="QUESTION_RECORD">
     <template data-nested-form-target='template'>
       <%= form.fields_for :questions, Question.new, child_index: 'QUESTION_RECORD' do |question| %>
@@ -31,4 +32,4 @@
   </div>
   
 <% end %>
-
+</section>

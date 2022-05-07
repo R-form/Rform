@@ -7,5 +7,9 @@ Rails.application.routes.draw do
   post 'login' => "user_sessions#create"
   post 'logout' => 'user_sessions#destroy', :as => :logout
 
-  resources :surveys
+  resources :surveys do
+    member do
+      patch :sort
+    end
+  end
 end

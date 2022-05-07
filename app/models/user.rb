@@ -5,4 +5,9 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
 
   validates :email, uniqueness: true
+
+  has_many :surveys, -> { order(position: :asc) }
+end
+Survey.order(:updated_at).each.with_index(1) do |survey, index|
+  survey.update_column :position, index
 end
