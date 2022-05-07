@@ -8,3 +8,6 @@ class User < ApplicationRecord
 
   has_many :surveys, -> { order(position: :asc) }
 end
+Survey.order(:updated_at).each.with_index(1) do |survey, index|
+  survey.update_column :position, index
+end
