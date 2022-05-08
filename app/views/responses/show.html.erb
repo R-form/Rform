@@ -1,7 +1,9 @@
 <h1><%= @survey.title %></h1>
 
 <% @survey.questions.each do |question| %>
-    <h2><%= question.title %></h2>
+    <div class="question_field">
+    <h2 class="question_title"><%= question.title %></h2>
+    <div class="question_content">
     <% case question.question_type %>
     <% when 'single_choice' %>
     <p><%= question.answers.find { |a| a.id.to_s == @response.answers[question.id.to_s] }.title %></p>
@@ -46,5 +48,6 @@
             <%= image_tag answer.answerimg.variant(resize_to_limit: [200, 300]) %>  
         <% end %>
     <% end %> 
-
+    </div>
+    </div>
 <% end %>
