@@ -24,4 +24,6 @@ Rails.application.routes.draw do
   get "oauth/:provider" => "oauths#oauth", :as => :auth_at_provider
   get "survey_style", to:"survey#style"
 
+  resources :password_resets, only: [:new, :create, :edit, :update]
+
 end
