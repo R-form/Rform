@@ -10,13 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 2022_05_04_145624) do
-||||||| parent of abf8f35 (Add facebook login function)
-ActiveRecord::Schema.define(version: 2022_05_03_111909) do
-=======
 ActiveRecord::Schema.define(version: 2022_05_04_191456) do
->>>>>>> abf8f35 (Add facebook login function)
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
