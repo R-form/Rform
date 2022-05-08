@@ -2,7 +2,7 @@ class SurveysController < ApplicationController
   before_action :find_survey, only: %i[show edit update destroy]
 
   def index
-    @surveys = Survey.all
+    @surveys = current_user.surveys
   end
 
   def show; end
