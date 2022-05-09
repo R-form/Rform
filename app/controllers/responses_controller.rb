@@ -12,9 +12,7 @@ class ResponsesController < ApplicationController
   end
 
   def create
-    # render html: response_params
     @response = @survey.responses.new(response_params)
-
     if @response.save
       redirect_to [@survey, @response], notice: "Response was successfully created."
     else

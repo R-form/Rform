@@ -6,7 +6,6 @@ export default class extends Controller {
   connect() {
     this.selected();
   }
-
   selected() {
     this.hideFields();
     switch (this.selectTarget.value) {
@@ -22,16 +21,7 @@ export default class extends Controller {
       case "drop_down_menu":
         this.choiceTarget.classList.remove("hidden");
         break;
-      case "satisfaction":
-        this.choiceTarget.classList.remove("hidden");
-        break;
-      case "drop_down_menu":
-        this.choiceTarget.classList.remove("hidden");
-        break;
-      case "image":
-        this.choiceTarget.classList.remove("hidden");
-        break;
-    }
+    };
   }
 
   hideFields() {
