@@ -8,17 +8,17 @@ Rails.application.routes.draw do
   post 'logout' => 'user_sessions#destroy', :as => :logout
 
   resources :surveys do
+    resources :responses
+
     member do
       patch :sort
     end
-    resources :responses
+    
     collection do
       patch :question_sort
     end
 
-    member do
-      patch :sort
-      
-    end
   end
+
+  
 end

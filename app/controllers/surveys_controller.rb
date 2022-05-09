@@ -17,7 +17,9 @@ class SurveysController < ApplicationController
     @survey = current_user.surveys.new(survey_params)
     
     if @survey.save
-      redirect_to surveys_path, notice: "新增問卷成功"
+      
+      render :edit
+      # redirect_to edit_survey_path(@survey), notice: "新增問卷成功"
     else
       render :new
     end
@@ -25,8 +27,8 @@ class SurveysController < ApplicationController
 
   def update
     if @survey.update(survey_params)
-      redirect_to survey_path(@survey), notice: "修改成功"
-    else
+    #   redirect_to survey_path(@survey), notice: "修改成功"
+    # else
       render :edit
     end
   end
