@@ -2,20 +2,25 @@
 
 <section>
   <div class="container mt-4 mx-auto">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" data-controller="sortable">
       <% @surveys.each do |survey| %>
-        <div class="card m-2 cursor-pointer border border-gray-400 rounded-lg hover:shadow-md hover:border-opacity-0 transform hover:-translate-y-1 transition-all duration-200">
-          <a href="/surveys/2">
+        <div class="card m-2 cursor-pointer border border-gray-400 rounded-lg hover:shadow-md hover:border-opacity-0 transform hover:-translate-y-1 transition-all duration-200" data-id="<%= survey.id %>">
+          <%= link_to survey_path(survey) do %>
             <div class="m-3">
               <span class="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">Tag</span>
               <h2 class="text-lg mb-2"><%= survey.title %></h2>
               <p class="font-light font-mono text-sm text-gray-700 hover:text-gray-900 transition-all duration-200"><%= survey.description %></p> 
               <div class="mt-5 text-right">
-                <%= link_to '修改', edit_survey_path(survey), class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded-full" %>
-                <%= link_to '刪除', survey, method: :delete, data: { confirm: '確定要刪除問卷嗎?' }, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 rounded-full" %>
+                
+                <%= link_to edit_survey_path(survey), class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do %>
+                  <i class="fa-solid fa-pen"></i>
+                <% end %>
+                <%= link_to survey, method: :delete, data: { confirm: '確定要刪除問卷嗎?' }, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do%>
+                  <i class="fa-solid fa-trash-can"></i>
+                <% end %>
               </div>
             </div>
-          </a>
+          <% end %>
         </div>
       <% end %>
     </div>
