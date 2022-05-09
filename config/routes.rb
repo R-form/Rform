@@ -16,12 +16,6 @@ Rails.application.routes.draw do
   post "oauth/callback" => "oauths#callback"
   get "oauth/callback" => "oauths#callback" # for use with Github, Facebook
   get "oauth/:provider" => "oauths#oauth", :as => :auth_at_provider
-
-  resources :password_resets, only: [:new, :create, :edit, :update]
-
-  post "oauth/callback" => "oauths#callback"
-  get "oauth/callback" => "oauths#callback" # for use with Github, Facebook
-  get "oauth/:provider" => "oauths#oauth", :as => :auth_at_provider
   get "survey_style", to:"survey#style"
 
   resources :password_resets, only: [:new, :create, :edit, :update]
