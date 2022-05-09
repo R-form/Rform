@@ -1,5 +1,5 @@
 <section class="max-w-lg mx-auto">
-<%= form_with(model: survey,  data: { controller: "auto-save", action: "change->auto-save#saveToLocalStorage submit->auto-save#clearLocalStorage", auto_save_target: "form"}) do |form| %>
+<%= form_with(model: survey,  data: { controller: "auto-save", action: "change->auto-save#saveToLocalStorage change->auto-save#clearLocalStorage", auto_save_target: "form"}) do |form| %>
   <div class="field survey_id" data-id="<%= survey.id %>">
     <%= form.label :title, "問卷名稱", class: "text-xl" %>
     <%= form.text_field :title, placeholder: "請輸入問卷名稱", class: "appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"%>
@@ -27,9 +27,15 @@
     </div>
   </div>
 
-  <div class="actions my-6">
-    <%= form.submit class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full" %>
-  </div>
-  
+  <% if survey.id == nil %>
+    <div class="actions my-6">
+      <%= form.submit "新增問卷", class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full" %>
+    </div>
+  <% else %>
+    <div class="actions my-6">
+      <%= link_to '更新問卷', surveys_path, class: "bg-red-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full" %>
+    </div>
+  <% end%>
+
 <% end %>
 </section>

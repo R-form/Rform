@@ -2,18 +2,20 @@ import { Controller } from "stimulus";
 import Rails from "@rails/ujs";
 
 export default class extends Controller {
-  static targets = ["form"];
+  static targets = ["form", "button"];
 
   connect() {
     this.localStorageKey = window.location;
-    this.setFormData();
+    // TODO del
+    console.log(this.localStorageKey);
+    // this.setFormData();
   }
 
-  clearLocalStorage() {
-    if (localStorage.getItem(this.localStorageKey) != null) {
-      localStorage.removeItem(this.localStorageKey);
-    }
-  }
+  // clearLocalStorage() {
+  //   if (localStorage.getItem(this.localStorageKey) != null) {
+  //     localStorage.removeItem(this.localStorageKey);
+  //   }
+  // }
 
   getFormData() {
     const form = new FormData(this.formTarget);
@@ -30,42 +32,48 @@ export default class extends Controller {
     return Object.fromEntries(data);
   }
 
+  // removeQuestion() {
+  //   // TODO del
+  //   console.log(this.buttonTarget);
+  // }
+
   saveToLocalStorage(e) {
     const data = this.getFormData();
-    localStorage.setItem(this.localStorageKey, JSON.stringify(data));
+    // localStorage.setItem(this.localStorageKey, JSON.stringify(data));
     // TODO del
     console.log(data);
+
     const id = this.element.children[2].dataset.id;
     if (id == null) {
       this.formTarget.submit();
     } else {
-      // this.formTarget.submit();
-      Rails.ajax({
-        type: "patch",
-        url: `/surveys/${id}`,
-        data: data,
-        dataType: "JSON",
-        success: (resp) => {
-          console.log(resp);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
+      this.formTarget.submit();
+      // Rails.ajax({
+      //   type: "patch",
+      //   url: `/surveys/${id}`,
+      //   data: data,
+      //   dataType: "JSON",
+      //   success: (resp) => {
+      //     console.log(resp);
+      //   },
+      //   error: (err) => {
+      //     console.log(err);
+      //   },
+      // });
     }
   }
 
-  setFormData() {
-    if (localStorage.getItem(this.localStorageKey) != null) {
-      const data = JSON.parse(localStorage.getItem(this.localStorageKey));
+  // setFormData() {
+  //   if (localStorage.getItem(this.localStorageKey) != null) {
+  //     const data = JSON.parse(localStorage.getItem(this.localStorageKey));
 
-      const form = this.formTarget;
-      Object.entries(data).forEach((word) => {
-        let name = word[0];
-        let value = word[1];
-        let input = form.querySelector(`[name='${name}']`);
-        input && (input.value = value);
-      });
-    }
-  }
+  //     const form = this.formTarget;
+  //     Object.entries(data).forEach((word) => {
+  //       let name = word[0];
+  //       let value = word[1];
+  //       let input = form.querySelector(`[name='${name}']`);
+  //       input && (input.value = value);
+  //     });
+  //   }
+  // }
 }

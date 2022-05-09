@@ -29,7 +29,7 @@ class SurveysController < ApplicationController
     if @survey.update(survey_params)
     #   redirect_to survey_path(@survey), notice: "修改成功"
     # else
-      render :edit
+      # render :edit
     end
   end
 
