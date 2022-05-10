@@ -29,6 +29,9 @@ group :development do
   gem 'foreman', '~> 0.87.2'
   gem 'listen', '~> 3.3'
   gem 'web-console', '>= 4.1.0'
+  gem 'omniauth'
+  gem 'omniauth-google-oauth2'
+  gem 'figaro'
 end
 
 group :test do
@@ -39,4 +42,4 @@ end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'sorcery'
-
+gem "letter_opener", group: :development
