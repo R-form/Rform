@@ -13,29 +13,32 @@
   </head>
 
   <body>
-    <header class="py-4 px-1 bg-blue-900 ">
-      <div id="nav" class="flex w-full justify-between">
+    <header class="px-1 bg-yellow-200	">
+      <div id="nav" class="flex w-full justify-between items-center">
       <% if current_user %>
-        <div class="text-white">
-          logo
+       <div class="w-20 mx-12 my-4 text-3xl">
+          Rform
         </div>
         <div>
-         <button class="my-1 mx-3 rounded-2xl border-b-1 border-b-gray-300 bg-white py-3 px-4 font-bold text-blue-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
+          <div class="mx-12">
+          <button class="my-1 mx-3 rounded-2xl border-b-1 border-b-gray-300 bg-white py-2 px-4 font-bold text-gray-500	ring-1 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
            <%= link_to "Edit Profile", edit_user_path(current_user.id) %>
-        </button>
-        <button class="my-1 mx-3 rounded-2xl border-b-1 border-b-gray-300 bg-white py-3 px-4 font-bold text-blue-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
-           <%= link_to "Logout", :logout, method: :post %>
-        </button>
+          </button>
+          <button class="my-1 mx-3 rounded-2xl border-b-1 border-b-gray-300 bg-white py-2 px-4 font-bold text-gray-500 ring-1 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
+            <%= link_to "Logout", :logout, method: :post %>
+          </button>
         </div>
       <% else %>
       <div>
-          <div class="text-white">log</div>
+          <div class="w-20 mx-12 my-4 text-3xl">
+           Rform
+          </div>
       </div>
-        <div>
-          <button class="my-1 mx-3 rounded-2xl border-b-1 border-b-gray-300 bg-white py-3 px-4 font-bold text-blue-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
+        <div class="mx-12">
+          <button class="my-1 mx-3 rounded-2xl border-b-1 border-b-gray-300 bg-white py-2 px-4 font-bold text-gray-500	ring-1 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
             <%= link_to "Register", new_user_path %>
           </button>
-          <button class="my-1 mx-3 rounded-2xl border-b-1 border-b-gray-300 bg-white py-3 px-4 font-bold text-blue-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
+          <button class="my-1 mx-3 rounded-2xl border-b-1 border-b-gray-300 bg-white py-2 px-4 font-bold text-gray-500 ring-1 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
             <%= link_to "Login", :login %>
           </button>
         </div>
