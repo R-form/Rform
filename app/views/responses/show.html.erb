@@ -1,5 +1,4 @@
 <h1><%= @survey.title %></h1>
-
 <% @survey.questions.each do |question| %>
     <div class="question_field">
     <h2 class="question_title"><%= question.title %></h2>
@@ -18,7 +17,6 @@
         <tr>
         <% question.answers.each do |answer| %>
         <td>
-            <%# radio_button_tag question.id, answer.id %>
             <%= answer.title %>
         </td>
         <% end %>
@@ -27,7 +25,6 @@
         <% question.answers.each do |answer| %>
         <td>
             <%= radio_button_tag question.id, answer.id %>
-            <%# answer.title %>
         </td>
         <% end %>
         </tr>

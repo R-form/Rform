@@ -7,24 +7,16 @@ export default class extends Controller {
     this.selected();
   }
   selected() {
-    this.hideFields();
     switch (this.selectTarget.value) {
       case "single_choice":
-        this.choiceTarget.classList.remove("hidden");
-        break;
       case "multiple_choice":
-        this.choiceTarget.classList.remove("hidden");
-        break;
       case "satisfaction":
-        this.choiceTarget.classList.remove("hidden");
-        break;
       case "drop_down_menu":
         this.choiceTarget.classList.remove("hidden");
         break;
+      default:
+        this.choiceTarget.classList.add("hidden");
+      break;
     };
-  }
-
-  hideFields() {
-    this.choiceTarget.classList.add("hidden");
   }
 }
