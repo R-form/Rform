@@ -4,6 +4,12 @@ export default class extends Controller {
   static targets = ["add_item", "template"];
   static values = { index: String };
 
+  duplicate_question(event) {
+    event.preventDefault();
+    let content = this.innerHTML
+    console.log(content);
+  }
+
   add_association(event) {
     event.preventDefault();
     let content = this.templateTarget.innerHTML.replace(
