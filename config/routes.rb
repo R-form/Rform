@@ -1,10 +1,11 @@
-Rails.application.routes.draw do
+# frozen_string_literal: true
 
-  root :to => 'users#index'
+Rails.application.routes.draw do
+  root to: 'users#index'
   resources :users
 
   get 'login' => 'user_sessions#new', :as => :login
-  post 'login' => "user_sessions#create"
+  post 'login' => 'user_sessions#create'
   post 'logout' => 'user_sessions#destroy', :as => :logout
 
   resources :surveys do
@@ -12,13 +13,7 @@ Rails.application.routes.draw do
 
     member do
       patch :sort
-    end
-    
-    collection do
       patch :question_sort
     end
-
   end
-
-  
 end

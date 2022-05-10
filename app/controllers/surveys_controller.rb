@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SurveysController < ApplicationController
   before_action :find_survey, only: %i[show edit update destroy]
 
@@ -11,26 +13,22 @@ class SurveysController < ApplicationController
     @survey = Survey.new
   end
 
-  def edit; end
+  def edit
+    question = @survey.questions.order(:position)
+  end
 
   def create
     @survey = current_user.surveys.new(survey_params)
-    
+
     if @survey.save
-      
       render :edit
-      # redirect_to edit_survey_path(@survey), notice: "新增問卷成功"
     else
       render :new
     end
   end
 
   def update
-    if @survey.update(survey_params)
-    #   redirect_to survey_path(@survey), notice: "修改成功"
-    # else
-      # render :edit
-    end
+    @survey.update(survey_params)
   end
 
   def destroy
@@ -40,16 +38,15 @@ class SurveysController < ApplicationController
   end
 
   def sort
-    
     survey = current_user.surveys.find(params[:id])
     survey.insert_at(params[:newIndex].to_i)
     render html: params
   end
 
   def question_sort
-    question = Question.new
+    survey = current_user.surveys.find(params[:id])
+    question = survey.questions.find(params[:question_id])
     question.insert_at(params[:newIndex].to_i)
-    render html: params
   end
 
   private

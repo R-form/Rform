@@ -33,7 +33,7 @@
     </div>
   <% else %>
     <div class="actions my-6">
-      <%= link_to '更新問卷', surveys_path, class: "bg-red-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full" %>
+      <%= link_to '更新問卷', surveys_path, class: "bg-red-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full", data: { action: "auto-save#submitForm"}%>
     </div>
   <% end%>
 

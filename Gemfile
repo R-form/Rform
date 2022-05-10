@@ -5,16 +5,16 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.5'
 
+gem 'acts_as_list', '~> 1.0'
 gem 'jbuilder', '~> 2.7'
+gem 'paranoia', '~> 2.1', '>= 2.1.5'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1.5', '>= 6.1.5.1'
 gem 'sass-rails', '>= 6'
+gem 'sorcery'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'
-gem 'sorcery'
-gem "acts_as_list", "~> 1.0"
-gem 'paranoia', '~> 2.1', '>= 2.1.5'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

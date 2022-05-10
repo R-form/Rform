@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class ResponsesController < ApplicationController
   before_action :set_survey, except: :show
-  before_action :set_response, only: %i[ edit update destroy ]
+  before_action :set_response, only: %i[edit update destroy]
 
   def show
     @survey = Survey.includes(questions: :answers).find(params[:survey_id])
@@ -15,7 +17,7 @@ class ResponsesController < ApplicationController
     @response = @survey.responses.new(response_params)
 
     if @response.save
-      redirect_to [@survey, @response], notice: "Response was successfully created."
+      redirect_to [@survey, @response], notice: 'Response was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end

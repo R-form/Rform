@@ -1,4 +1,5 @@
-<section class="max-w-lg mx-auto border-4 rounded">
+<section class="max-w-lg mx-auto border-4 rounded" data-id="<%= @survey.id %>">
+<%= form.hidden_field :id %>
 <div class='nested-fields box' data-controller='dynamic-select'>
   <div class='form-group'>
     <%= form.select :question_type,
