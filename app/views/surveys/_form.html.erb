@@ -1,0 +1,34 @@
+<%= form_with(model: survey) do |form| %>
+  <div class="field">
+    <%= form.label :title, "問卷名稱" %>
+    <%= form.text_field :title, placeholder: "請輸入問卷名稱" %>
+  </div>
+  <div class="field">
+    <%= form.label :description, "問卷敘述" %>
+    <%= form.text_area :description, placeholder: "問卷敘述" %>
+  </div>
+
+  <div data-controller="nested-form" data-nested-form-index-value ="QUESTION_RECORD">
+    <template data-nested-form-target='template'>
+      <%= form.fields_for :questions, Question.new, child_index: 'QUESTION_RECORD' do |question| %>
+        <%# QUESTION - QUESTION_RECORD %>
+        <%= render 'question_fields', form: question %>
+      <% end %>
+    </template>
+
+    
+    <%= form.fields_for :questions do |question| %>
+      <%= render 'question_fields', form: question %>
+    <% end %>
+    
+    <div data-nested-form-target="add_item">
+      <%= link_to "新增問題", "#", data: { action: "nested-form#add_association" } %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+  
+<% end %>
+

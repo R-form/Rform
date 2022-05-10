@@ -1,0 +1,75 @@
+<h1><%= @survey.title %></h1>
+<h2><%= @survey.description%></h2>
+<%= form_with model: [@survey, response] do |form| %>
+    <%= form.fields_for :answers do |response| %>
+    <% @survey.questions.each do |question| %>
+    <div class="question_field">
+        <h1 class="question_title">
+            <%= question.title %>
+            <%= content_tag :abbr, '*', title: 'Required' if question.required %>
+        </h1>
+
+    <div class="question_content">
+    <% case question.question_type %>
+    <% when 'single_choice' %>
+        <% question.answers.each do |answer| %>
+            <p>
+                <%= response.radio_button question.id, answer.id, required: question.required %>
+                <%= answer.title %>
+            </p>
+        <% end %>
+    <% when 'multiple_choice' %>
+        <% question.answers.each do |answer| %>
+        <p>
+                <%= response.check_box question.id, { multiple: true }, answer.id %>
+                <%= answer.title %>
+        </p>
+        <% end %>
+    <% when 'long_answer' %>
+        <%= response.text_area question.id, required: question.required %>
+    <% when 'satisfaction' %>
+        <table>
+            <tr>
+                <% question.answers.each do |answer| %>
+                    <td>
+                        <%= answer.title %>
+                    </td>
+                <% end %>
+            </tr>
+            <tr>
+                <% question.answers.each do |answer| %>
+                    <td>
+                        <%= response.radio_button question.id, answer.id %>
+                    </td>
+                <% end %>
+            </tr>
+        </table> 
+    <% when 'date' %>
+        <%= response.date_field question.id %>
+    <% when 'time' %>
+        <%= response.time_field question.id %>
+    <% when 'drop_down_menu' %>
+        <%= response.select question.id, options_for_select(question.answers.collect{ |o| [o.title, o.id] }) %>
+    
+    <% when 'range' %>
+        <%= response.range_field question.id %>  
+    <% when 'file' %>
+        <%= response.file_field question.id, accept: "application/pdf, application/zip", multiple: true %>  
+    <% when 'image' %>
+    <%= file_field_tag question.id %>  
+        <% question.answers.each do |answer| %>
+            <%= response.image answer.answerimg.variant(resize_to_limit: [200, 300]) %>  
+        <% end %>
+    <% end %>
+    </div>
+    </div>
+
+
+
+    <% end %>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
