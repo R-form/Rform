@@ -1,4 +1,5 @@
 <h1><%= @survey.title %></h1>
+<h2><%= @survey.description%></h2>
 <% @survey.questions.each do |question| %>
     <div class="question_field">
     <h2 class="question_title"><%= question.title %></h2>
@@ -24,20 +25,19 @@
         <tr>
         <% question.answers.each do |answer| %>
         <td>
-            <%= radio_button_tag question.id, answer.id %>
+            <%= radio_button_tag question.id, answer.id , answer.id == @response.answers["#{question.id}"].to_i ? true : false %>
         </td>
         <% end %>
         </tr>
     </table> 
     <% when 'date' %>
-        <%= date_field_tag question.id %>
+        <%= date_field_tag question.id, @response.answers["#{question.id}"]%>
     <% when 'time' %>
-        <%= time_field_tag question.id %>
+        <%= time_field_tag question.id, @response.answers["#{question.id}"] %>
     <% when 'drop_down_menu' %>
-        <%= select_tag question.id, options_for_select(question.answers.collect{ |o| [o.title, o.id] }) %>
-    
+        <%= select_tag question.id, options_for_select(question.answers.collect{ |o| [o.title, o.id] }, @response.answers["#{question.id}"] ) %>
     <% when 'range' %>
-        <%= range_field_tag question.id %>  
+        <%= range_field_tag question.id , @response.answers["#{question.id}"]  %>  
     <% when 'file' %>
         <%= file_field_tag question.id, accept: "application/pdf, application/zip", multiple: true %>  
     <% when 'image' %>

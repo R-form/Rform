@@ -6,7 +6,7 @@ export default class extends Controller {
 
   add_association(event) {
     event.preventDefault();
-    var content = this.templateTarget.innerHTML.replace(
+    let content = this.templateTarget.innerHTML.replace(
       new RegExp(this.indexValue, "g"),
       new Date().getTime()
     );
