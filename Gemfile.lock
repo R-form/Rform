@@ -82,6 +82,8 @@ GEM
     childprocess (4.1.0)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
+    deep_cloneable (3.2.0)
+      activerecord (>= 3.1.0, < 8)
     dotenv (2.7.6)
     erubi (1.10.0)
     faraday (2.2.0)
@@ -295,6 +297,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
+  deep_cloneable (~> 3.2.0)
   dotenv (~> 2.7, >= 2.7.6)
   figaro
   foreman (~> 0.87.2)

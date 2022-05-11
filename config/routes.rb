@@ -10,8 +10,10 @@ Rails.application.routes.draw do
   post 'login' => "user_sessions#create"
   post 'logout' => 'user_sessions#destroy', :as => :logout
 
+  # get '/survey/:id/duplicate' => 'surveys#duplicate_survey'
   resources :surveys do
     resources :responses
+    get 'duplicate', on: :member , to: "surveys#duplicate_survey"
   end
 
 
