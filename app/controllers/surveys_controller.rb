@@ -1,8 +1,8 @@
 class SurveysController < ApplicationController
-  before_action :find_survey, only: %i[show edit update destroy]
+  before_action :find_survey, only: %i[show edit update destroy duplicate_survey] 
 
   def index
-    @surveys = Survey.all
+    @surveys = @current_user.surveys
   end
 
   def show; end
@@ -15,7 +15,6 @@ class SurveysController < ApplicationController
 
   def create
     @survey = Survey.new(survey_params)
-
     if @survey.save
       redirect_to survey_path(@survey), notice: "新增問卷成功"
     else
@@ -33,8 +32,15 @@ class SurveysController < ApplicationController
 
   def destroy
     @survey.destroy
-
     redirect_to surveys_path, notice: '問卷已刪除'
+  end
+
+  def duplicate_survey
+    dup = @survey.deep_clone
+    dup.title.insert(-1, " - 副本")
+    if dup.save
+      redirect_to surveys_path, notice: '問卷已複製成功'
+    end
   end
 
   private
