@@ -7,7 +7,6 @@ export default class extends Controller {
   duplicate_question(event) {
     event.preventDefault();
     let content = event.target.closest("#question_fields")
-    // let contentid = event.target.closest("#question_fields").nextElementSibling
     let change = content.querySelectorAll(".form-group")
     console.log(change);
     // console.log(contentid);
