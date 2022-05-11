@@ -14,7 +14,7 @@ class SurveysController < ApplicationController
   def edit; end
 
   def create
-    @survey = Survey.new(survey_params)
+    @survey = current_user.surveys.new(survey_params)
     if @survey.save
       redirect_to survey_path(@survey), notice: "新增問卷成功"
     else
@@ -36,7 +36,7 @@ class SurveysController < ApplicationController
   end
 
   def duplicate_survey
-    dup = @survey.deep_clone
+    dup = @survey.deep_clone include: {questions: :answers }
     dup.title.insert(-1, " - 副本")
     if dup.save
       redirect_to surveys_path, notice: '問卷已複製成功'
