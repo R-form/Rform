@@ -1,5 +1,5 @@
 class Survey < ApplicationRecord
-  has_many :questions, dependent: :destroy
+  has_many :questions, dependent: :destroy, autosave: true
   has_many :responses, dependent: :destroy
   accepts_nested_attributes_for :questions, allow_destroy: true
   
