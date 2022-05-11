@@ -15,7 +15,7 @@
   <!-- component -->
   <div class="p-6" x-data="app">
     <section
-      class="absolute top-1/3 left-1/2 mx-auto max-w-sm -translate-x-1/2 -translate-y-1/2 transform space-y-4 text-center"
+      class="absolute top-80 left-1/2 mx-auto max-w-sm -translate-x-1/2 -translate-y-1/2 transform space-y-4 text-center"
     >
       <!-- register content -->
       <div x-show="isLoginPage" class="space-y-4">
@@ -37,7 +37,7 @@
           </div>
                   
         <button
-          class="actions w-full rounded-2xl border-b-4 border-b-blue-600 bg-yellow-400 py-3 font-bold text-white hover:bg-yellow-300 active:translate-y-[0.125rem] active:border-b-blue-400"
+          class="actions w-full rounded-2xl border-b-4 border-b-blue-600 bg-ironGray py-3 font-bold text-white hover:bg-ironGrayHover active:translate-y-[0.125rem] active:border-b-blue-400"
         >
           <%="Creat Your Account "%>
         </button>
@@ -68,14 +68,4 @@
     </section>
   </div>
 </main>
-
-<script>
-  document.addEventListener("alpine:init", () => {
-    Alpine.data("app", () => ({
-      isLoginPage: true,
-    }));
-  });
-</script>
-
-
 <% end %>
