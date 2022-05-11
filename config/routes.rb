@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :surveys do
     resources :responses
     get 'duplicate', on: :member , to: "surveys#duplicate_survey"
+    patch :tag
   end
 
   post "oauth/callback" => "oauths#callback"
