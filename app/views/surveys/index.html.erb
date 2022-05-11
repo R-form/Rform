@@ -22,6 +22,13 @@
                   <i class="fa-solid fa-trash-can"></i>
                 <% end %>
               </div>
+              <div>
+                <%= form_with(model: survey, url: survey_tag_path(survey), method: "patch") do |form| %>
+                  <%= form.label :tag %>
+                  <%= form.text_field :tag, data: {controller: "tag"} %>
+                  <%= form.submit "更新分類標籤" %>
+                <% end %>
+              </div>
             </div>
           <% end %>
         </div>
