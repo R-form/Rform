@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
+    redirect_to(surveys_path, notice: 'Login successful')
   end
 
   # GET /users/new
