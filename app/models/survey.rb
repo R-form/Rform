@@ -1,21 +1,14 @@
 class Survey < ApplicationRecord
-<<<<<<< Updated upstream
-  has_many :questions, dependent: :destroy, autosave: true
-  has_many :responses, dependent: :destroy
-  accepts_nested_attributes_for :questions, allow_destroy: true
-  
-  belongs_to :user
-
-
-=======
   extend FriendlyId
   before_create :generate_slug
-  has_many :questions, dependent: :destroy
+
+  has_many :questions, dependent: :destroy, autosave: true
   has_many :responses, dependent: :destroy
+  belongs_to :user
   accepts_nested_attributes_for :questions, allow_destroy: true
   
   friendly_id :slug, use: :slugged
->>>>>>> Stashed changes
+
   default_scope {where(deleted_at: nil)}
 
   def destroy
