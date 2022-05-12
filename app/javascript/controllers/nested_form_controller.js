@@ -1,12 +1,12 @@
 import { Controller } from "stimulus";
 
 export default class extends Controller {
-  static targets = ["add_item", "template"];
+  static targets = ["add_item", "template", "copy_item","question"];
   static values = { index: String };
 
   add_association(event) {
     event.preventDefault();
-    var content = this.templateTarget.innerHTML.replace(
+    let content = this.templateTarget.innerHTML.replace(
       new RegExp(this.indexValue, "g"),
       new Date().getTime()
     );

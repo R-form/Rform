@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Question < ApplicationRecord
-  belongs_to :survey
-  has_many :answers, dependent: :destroy
+  belongs_to :survey, autosave: true
+  has_many :answers, dependent: :destroy , autosave: true
   accepts_nested_attributes_for :answers, allow_destroy: true
 
   acts_as_list scope: :survey

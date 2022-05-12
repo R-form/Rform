@@ -1,6 +1,6 @@
 <section class="max-w-lg mx-auto question" data-id="<%= @survey.id %>">
 <%= form.hidden_field :id, class: "question_id" %>
-<div class='nested-fields box border-4 rounded' data-controller='dynamic-select' >
+<div class='nested-fields box border-4 rounded' data-controller='dynamic-select' id="question_fields" >
   <div class='form-group'>
     
     <%= form.select :question_type,
@@ -11,7 +11,7 @@
         'data-action': 'dynamic-select#selected auto-save#selected'%>
   </div>
 
-  <div class='form-group'>
+  <div class='form-group'  >
     <%= form.hidden_field :_destroy %>
     <%= form.text_field :title, placeholder: 'Question', class: 'form-control appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white', data: {action: "change->auto-save#add_question "} %>
     <small class="inline-block">
@@ -26,6 +26,9 @@
   </div>
 
 
+  <div data-nested-form-target="copy_item" >
+    <%= link_to "複製！！", "#", data: { action: "click->nested-form#duplicate_question" } %>
+  </div>
   <div data-controller="nested-form" 
        data-nested-form-index-value ="ANSWER_RECORD" data-dynamic-select-target='choice'>
     <template data-nested-form-target='template'>
@@ -36,7 +39,7 @@
     </template>
 
     <%= form.fields_for :answers do |answer| %>
-      <%= render 'answer_fields', form: answer %>
+      <%= render 'answer_fields', form: answer , id: "answer" %>
     <% end %>
 
     <div data-nested-form-target="add_item" class="my-4">

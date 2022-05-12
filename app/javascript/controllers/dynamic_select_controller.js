@@ -6,7 +6,6 @@ export default class extends Controller {
   connect() {
     this.selected();
   }
-
   selected() {
     switch (this.selectTarget.value) {
       case "single_choice":

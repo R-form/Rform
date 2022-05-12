@@ -33,8 +33,22 @@ class SurveysController < ApplicationController
 
   def destroy
     @survey.destroy
-
     redirect_to surveys_path, notice: '問卷已刪除'
+  end
+
+  def duplicate_survey
+    dup = @survey.deep_clone include: {questions: :answers }
+    dup.title.insert(-1, " - 副本")
+    if dup.save
+      redirect_to surveys_path, notice: '問卷已複製成功'
+    end
+  end
+
+  def tag
+    survey = Survey.find(params[:survey_id])
+    tag = params[:survey][:tag]
+    survey.update(tag: tag)
+    redirect_to surveys_path(survey)
   end
 
   def sort

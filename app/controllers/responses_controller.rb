@@ -1,8 +1,6 @@
-# frozen_string_literal: true
-
 class ResponsesController < ApplicationController
   before_action :set_survey, except: :show
-  before_action :set_response, only: %i[edit update destroy]
+  before_action :set_response, only: %i[ edit update destroy ]
 
   def show
     @survey = Survey.includes(questions: :answers).find(params[:survey_id])

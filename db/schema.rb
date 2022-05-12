@@ -88,7 +88,8 @@ ActiveRecord::Schema.define(version: 2022_05_12_042222) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
     t.integer "position"
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
+    t.string "tag"
     t.index ["user_id"], name: "index_surveys_on_user_id"
   end
 

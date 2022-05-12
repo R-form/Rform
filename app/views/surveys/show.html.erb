@@ -1,6 +1,5 @@
 <h1><%= @survey.title %></h1>
-<p><%= @survey.description %></p>
-
+<h2><%= @survey.description %></h2>
 <% @survey.questions.each do |question| %>
   <h2><%= question.title %></h2>
 
@@ -62,7 +61,6 @@
 <% end %>
 
 <div>
-<%# link_to 'New Response', new_survey_response_path(@survey) %>
 <%= link_to 'Edit', edit_survey_path(@survey) %>
 <%= link_to 'Back', surveys_path %>
 </div>

@@ -6,7 +6,8 @@
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging,
 # :magic_login, :external
-Rails.application.config.sorcery.submodules = []
+Rails.application.config.sorcery.submodules = [:reset_password, :external]
+
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
@@ -82,7 +83,7 @@ Rails.application.config.sorcery.configure do |config|
   # i.e. [:twitter, :facebook, :github, :linkedin, :xing, :google, :liveid, :salesforce, :slack, :line].
   # Default: `[]`
   #
-  # config.external_providers =
+  config.external_providers = [:facebook, :google]
 
   # You can change it by your local ca_file. i.e. '/etc/pki/tls/certs/ca-bundle.crt'
   # Path to ca_file. By default use a internal ca-bundle.crt.
@@ -122,15 +123,15 @@ Rails.application.config.sorcery.configure do |config|
   # config.twitter.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=twitter"
   # config.twitter.user_info_mapping = {:email => "screen_name"}
   #
-  # config.facebook.key = ""
-  # config.facebook.secret = ""
-  # config.facebook.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=facebook"
-  # config.facebook.user_info_path = "me?fields=email"
-  # config.facebook.user_info_mapping = {:email => "email"}
-  # config.facebook.access_permissions = ["email"]
-  # config.facebook.display = "page"
-  # config.facebook.api_version = "v2.3"
-  # config.facebook.parse = :json
+  config.facebook.key = ENV["FACEBOOK_KEY"]
+  config.facebook.secret = ENV["FACEBOOK_SECRET"]
+  config.facebook.callback_url = "https://rform.herokuapp.com/oauth/callback?provider=facebook"
+  config.facebook.user_info_path = "me?fields=email"
+  config.facebook.user_info_mapping = {:email => "email"}
+  config.facebook.access_permissions = ["email"]
+  config.facebook.display = "page"
+  config.facebook.api_version = "v2.3"
+  config.facebook.parse = :json
   #
   # config.instagram.key = ""
   # config.instagram.secret = ""
@@ -159,11 +160,11 @@ Rails.application.config.sorcery.configure do |config|
   # config.auth0.secret = ""
   # config.auth0.callback_url = "https://0.0.0.0:3000/oauth/callback?provider=auth0"
   # config.auth0.site = "https://example.auth0.com"
-  #
-  # config.google.key = ""
-  # config.google.secret = ""
-  # config.google.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=google"
-  # config.google.user_info_mapping = {:email => "email", :username => "name"}
+  
+  config.google.key = ENV['google_client_id']
+  config.google.secret = ENV['google_client_secret']
+  config.google.callback_url = "https://#{ENV['host_name']}/oauth/callback?provider=google"
+  config.google.user_info_mapping = {:email => "email"}
   # config.google.scope = "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile"
   #
   # For Microsoft Graph, the key will be your App ID, and the secret will be your app password/public key.
@@ -403,12 +404,12 @@ Rails.application.config.sorcery.configure do |config|
     # Password reset mailer class.
     # Default: `nil`
     #
-    # user.reset_password_mailer =
+    user.reset_password_mailer = UserMailer
 
     # Reset password email method on your mailer class.
     # Default: `:reset_password_email`
     #
-    # user.reset_password_email_method_name =
+    user.reset_password_email_method_name = :reset_password_email
 
     # When true, sorcery will not automatically
     # send the password reset details email, and allow you to
@@ -544,7 +545,7 @@ Rails.application.config.sorcery.configure do |config|
     # Class which holds the various external provider data for this user.
     # Default: `nil`
     #
-    # user.authentications_class =
+    user.authentications_class = Authentication
 
     # User's identifier in the `authentications` class.
     # Default: `:user_id`

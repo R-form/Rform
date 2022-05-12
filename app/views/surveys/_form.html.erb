@@ -13,7 +13,6 @@
   <div data-controller="nested-form sortable-question" data-nested-form-index-value ="QUESTION_RECORD" >
     <template data-nested-form-target='template'>
       <%= form.fields_for :questions, Question.new, child_index: 'QUESTION_RECORD' do |question| %>
-        <%# QUESTION - QUESTION_RECORD %>
         <%= render 'question_fields', form: question %>
       <% end %>
     </template>

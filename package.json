@@ -11,6 +11,7 @@
     "@rails/webpacker": "5.4.3",
     "@tailwindcss/forms": "^0.5.1",
     "Font-Awesome": "FortAwesome/Font-Awesome",
+    "choices.js": "^10.1.0",
     "sortablejs": "^1.15.0",
     "stimulus": "^3.0.1",
     "stimulus-rails-autosave": "^4.0.0",
@@ -24,5 +25,9 @@
     "postcss": "7",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
     "webpack-dev-server": "^3"
-  }
+  },
+  "main": "index.js",
+  "repository": "git@github.com:R-form/Rform.git",
+  "author": "JonHuang <s72503013@gmail.com>",
+  "license": "MIT"
 }

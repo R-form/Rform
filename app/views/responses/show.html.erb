@@ -1,17 +1,50 @@
-<p id="notice"><%= notice %></p>
-
 <h1><%= @survey.title %></h1>
-
+<h2><%= @survey.description%></h2>
 <% @survey.questions.each do |question| %>
-  <h2><%= question.title %></h2>
-  <% case question.question_type %>
-  <% when 'single_choice' %>
+    <div class="question_field">
+    <h2 class="question_title"><%= question.title %></h2>
+    <div class="question_content">
+    <% case question.question_type %>
+    <% when 'single_choice' %>
     <p><%= question.answers.find { |a| a.id.to_s == @response.answers[question.id.to_s] }.title %></p>
-  <% when 'multiple_choice' %>
+    <% when 'multiple_choice' %>
     <% question.answers.select { |a| @response.multiple_choice_answers(question.id).include?(a.id) }.each do |answer| %>
-      <p><%= answer.title %></p>
+        <p><%= answer.title %></p>
     <% end %>
-  <% when 'long_answer' %>
+    <% when 'long_answer' %>
     <p><%= @response.answers[question.id.to_s] %></p>
-  <% end %>
+    <% when 'satisfaction' %>
+    <table>
+        <tr>
+        <% question.answers.each do |answer| %>
+        <td>
+            <%= answer.title %>
+        </td>
+        <% end %>
+        </tr>
+        <tr>
+        <% question.answers.each do |answer| %>
+        <td>
+            <%= radio_button_tag question.id, answer.id , answer.id == @response.answers["#{question.id}"].to_i ? true : false %>
+        </td>
+        <% end %>
+        </tr>
+    </table> 
+    <% when 'date' %>
+        <%= date_field_tag question.id, @response.answers["#{question.id}"]%>
+    <% when 'time' %>
+        <%= time_field_tag question.id, @response.answers["#{question.id}"] %>
+    <% when 'drop_down_menu' %>
+        <%= select_tag question.id, options_for_select(question.answers.collect{ |o| [o.title, o.id] }, @response.answers["#{question.id}"] ) %>
+    <% when 'range' %>
+        <%= range_field_tag question.id , @response.answers["#{question.id}"]  %>  
+    <% when 'file' %>
+        <%= file_field_tag question.id, accept: "application/pdf, application/zip", multiple: true %>  
+    <% when 'image' %>
+        <% question.answers.each do |answer| %>
+            <%= image_tag answer.answerimg.variant(resize_to_limit: [200, 300]) %>  
+        <% end %>
+    <% end %> 
+    </div>
+    </div>
 <% end %>
