@@ -14,6 +14,13 @@ Rails.application.routes.draw do
     member do
       patch :sort
       patch :question_sort
+      post :add_question_item
+      post :add_answer_item
+      patch :update_select
+      post :add_question
+      post :add_answer
+      delete :remove_question
+      delete :remove_answer
     end
   end
 end

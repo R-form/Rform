@@ -1,27 +1,28 @@
-<section class="max-w-lg mx-auto border-4 rounded" data-id="<%= @survey.id %>">
-<%= form.hidden_field :id %>
-<div class='nested-fields box' data-controller='dynamic-select'>
+<section class="max-w-lg mx-auto question" data-id="<%= @survey.id %>">
+<%= form.hidden_field :id, class: "question_id" %>
+<div class='nested-fields box border-4 rounded' data-controller='dynamic-select' >
   <div class='form-group'>
+    
     <%= form.select :question_type,
         options_for_select(Question.question_type_select, selected: form.object.question_type),
         {},class: "bg-gray-200 text-gray-800",
         'data-dynamic-select-target': 'select',
-        'data-action': 'dynamic-select#selected'%>
+        'data-auto-save-target': 'select',
+        'data-action': 'dynamic-select#selected auto-save#selected'%>
   </div>
 
   <div class='form-group'>
     <%= form.hidden_field :_destroy %>
-    <%= form.text_field :title, placeholder: 'Question', class: 'form-control appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white', data: {auto_save_target: "question_value"}%>
+    <%= form.text_field :title, placeholder: 'Question', class: 'form-control appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white', data: {auto_save_target: "inputValue", action: "change->auto-save#add_question "} %>
     <small class="inline-block">
-      <%= link_to "刪除問題", data: { action: "click->nested-form#remove_association click->auto-save#removeQuestion", auto_save_target: "button" }, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do %>
+      <%= link_to "刪除問題", data: { action: "click->nested-form#remove_association click->auto-save#remove_question", auto_save_target: "button" }, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do %>
         <i class="fa-solid fa-trash-can"></i>
       <% end %>
     </small>
     <div class="inline-block">
-      <%= form.check_box :required %>
+      <%= form.check_box :required, data: {action: "click->auto-save#checkbox"}%>
       <%= form.label :required, "必填" %>
     </div>
-    
   </div>
 
 
@@ -39,7 +40,7 @@
     <% end %>
 
     <div data-nested-form-target="add_item" class="my-4">
-      <%= link_to "新增選項", "#", data: { action: "nested-form#add_association" } , class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full" %>
+      <%= link_to "新增選項", "#", data: { action: "nested-form#add_association auto-save#add_answer_item" } , class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full" %>
     </div>
   </div>
   
