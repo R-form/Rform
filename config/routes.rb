@@ -2,10 +2,6 @@ Rails.application.routes.draw do
 
   root 'homepage#index'
 
-  get 'password_resets/create'
-  get 'password_resets/edit'
-  get 'password_resets/update'
-
   resources :users
 
   get 'login' => 'user_sessions#new', :as => :login
