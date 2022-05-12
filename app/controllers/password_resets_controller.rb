@@ -1,8 +1,4 @@
 class PasswordResetsController < ApplicationController
-  # In Rails 5 and above, this will raise an error if
-  # before_action :require_login
-  # is not declared in your ApplicationController.
-  skip_before_action :require_login
     
   # request password reset.
   # you get here when the user entered their email in the reset password form and submitted it.
