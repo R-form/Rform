@@ -43,6 +43,13 @@ class SurveysController < ApplicationController
     end
   end
 
+  def tag
+    survey = Survey.find(params[:survey_id])
+    tag = params[:survey][:tag]
+    survey.update(tag: tag)
+    redirect_to surveys_path(survey)
+  end
+
   private
 
   def find_survey
