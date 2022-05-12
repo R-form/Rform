@@ -11,6 +11,38 @@ export default class extends Controller {
     }
   }
 
+  add_survey_title(e) {
+    const id = this.element.children[2].dataset.id;
+    const survey_title = e.target.value;
+
+    const data = new FormData();
+    data.append("survey_title", survey_title);
+
+    Rails.ajax({
+      type: "post",
+      url: `/surveys/${id}/survey_title`,
+      data: data,
+      success: (resp) => {},
+      error: (err) => {},
+    });
+  }
+
+  add_survey_description(e) {
+    const id = this.element.children[2].dataset.id;
+    const survey_description = e.target.value;
+
+    const data = new FormData();
+    data.append("survey_description", survey_description);
+
+    Rails.ajax({
+      type: "post",
+      url: `/surveys/${id}/survey_description`,
+      data: data,
+      success: (resp) => {},
+      error: (err) => {},
+    });
+  }
+
   selected(e) {
     const id = this.element.children[2].dataset.id;
     const question_id = e.target.closest("section").firstElementChild.value;

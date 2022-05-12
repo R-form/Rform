@@ -60,6 +60,14 @@ class SurveysController < ApplicationController
     @question.insert_at(params[:newIndex].to_i)
   end
 
+  def survey_title
+    @survey.update(title: params[:survey_title])
+  end
+
+  def survey_description
+    @survey.update(description: params[:survey_description])
+  end
+
   def add_question
     if params[:timestamp]
       if @survey.questions.find_by(timestamp: params[:timestamp])

@@ -3,11 +3,11 @@
 <%= form_with(model: survey,  data: { controller: "auto-save", action: "change->auto-save#create_survey", auto_save_target: "form"}) do |form| %>
   <div class="field survey_id" data-id="<%= survey.id %>">
     <%= form.label :title, "問卷名稱", class: "text-xl" %>
-    <%= form.text_field :title, placeholder: "請輸入問卷名稱", class: "appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"%>
+    <%= form.text_field :title, placeholder: "請輸入問卷名稱", class: "appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white", data: {action: "change->auto-save#add_survey_title "}%>
   </div>
   <div class="field">
     <%= form.label :description, "問卷敘述", class: "text-xl" %>
-    <%= form.text_area :description, placeholder: "問卷敘述", class: "appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" %>
+    <%= form.text_area :description, placeholder: "問卷敘述", class: "appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white", data: {action: "change->auto-save#add_survey_description "} %>
   </div>
   
   <div data-controller="nested-form sortable-question" data-nested-form-index-value ="QUESTION_RECORD" >
