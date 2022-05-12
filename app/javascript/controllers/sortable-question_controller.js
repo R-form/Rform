@@ -16,12 +16,8 @@ export default class extends Controller {
           type: "patch",
           url: `/surveys/${id}/question_sort`,
           data: data,
-          success: (resp) => {
-            console.log(resp);
-          },
-          error: (err) => {
-            console.log(err);
-          },
+          success: (resp) => {},
+          error: (err) => {},
         });
       },
     });

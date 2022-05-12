@@ -13,9 +13,9 @@
 
   <div class='form-group'>
     <%= form.hidden_field :_destroy %>
-    <%= form.text_field :title, placeholder: 'Question', class: 'form-control appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white', data: {auto_save_target: "inputValue", action: "change->auto-save#add_question "} %>
+    <%= form.text_field :title, placeholder: 'Question', class: 'form-control appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white', data: {action: "change->auto-save#add_question "} %>
     <small class="inline-block">
-      <%= link_to "刪除問題", data: { action: "click->nested-form#remove_association click->auto-save#remove_question", auto_save_target: "button" }, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do %>
+      <%= link_to "刪除問題", data: { action: "click->nested-form#remove_association click->auto-save#remove_question"}, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do %>
         <i class="fa-solid fa-trash-can"></i>
       <% end %>
     </small>

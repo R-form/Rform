@@ -2,57 +2,13 @@ import { Controller } from "stimulus";
 import Rails from "@rails/ujs";
 
 export default class extends Controller {
-  static targets = ["form", "button", "inputValue"];
-
-  connect() {}
+  static targets = ["form"];
 
   create_survey() {
     const id = this.element.children[2].dataset.id;
     if (id == null) {
       this.formTarget.submit();
     }
-  }
-  // TODO del
-  add_question_item() {
-    // const id = this.element.children[2].dataset.id;
-    // Rails.ajax({
-    //   type: "post",
-    //   url: `/surveys/${id}/add_question_item`,
-    //   success: (resp) => {
-    //     // TODO del
-    //     console.log(resp);
-    //   },
-    //   error: (err) => {
-    //     // TODO del
-    //     console.log(err);
-    //   },
-    // });
-  }
-  // TODO del
-  add_answer_item(e) {
-    // const id = this.element.children[2].dataset.id;
-    // const question_id = e.target.closest("section").firstElementChild.value;
-    // const time = e.target.closest("section").firstElementChild.name;
-    // const timestamp = time.match(/\d/g).join("");
-    // const data = new FormData();
-    // if (question_id != "") {
-    //   data.append("question_id", question_id);
-    // } else {
-    //   data.append("timestamp", timestamp);
-    // }
-    // Rails.ajax({
-    //   type: "post",
-    //   url: `/surveys/${id}/add_answer_item`,
-    //   data: data,
-    //   success: (resp) => {
-    //     // TODO del
-    //     console.log(resp);
-    //   },
-    //   error: (err) => {
-    //     // TODO del
-    //     console.log(err);
-    //   },
-    // });
   }
 
   selected(e) {
@@ -133,8 +89,6 @@ export default class extends Controller {
   //   };
   // }
 
-  checkbox(e) {}
-
   remove_question(e) {
     e.preventDefault();
     let item = e.target.closest(".nested-fields");
@@ -193,19 +147,15 @@ export default class extends Controller {
       type: "post",
       url: `/surveys/${id}/add_answer`,
       data: data,
-      success: (resp) => {
-        console.log(resp);
-      },
-      error: (err) => {
-        console.log(err);
-      },
+      success: (resp) => {},
+      error: (err) => {},
     });
   }
 
   remove_answer(e) {
     e.preventDefault();
     let item = e.target.closest(".nested-fields");
-    // item.style.display = "none";
+    item.style.display = "none";
 
     const id = this.element.children[2].dataset.id;
     const question_id = e.target.closest(".question").firstElementChild.value;
@@ -236,12 +186,8 @@ export default class extends Controller {
       type: "delete",
       url: `/surveys/${id}/remove_answer`,
       data: data,
-      success: (resp) => {
-        console.log(resp);
-      },
-      error: (err) => {
-        console.log(err);
-      },
+      success: (resp) => {},
+      error: (err) => {},
     });
   }
 
