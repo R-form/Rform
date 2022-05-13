@@ -1,24 +1,30 @@
-<div class='nested-fields box' data-controller='dynamic-select' id="question_fields" >
+<section class="max-w-lg mx-auto question" data-id="<%= @survey.id %>">
+<%= form.hidden_field :id, class: "question_id" %>
+<div class='nested-fields box border-4 rounded' data-controller='dynamic-select' id="question_fields" >
   <div class='form-group'>
+    
     <%= form.select :question_type,
         options_for_select(Question.question_type_select, selected: form.object.question_type),
-        {},
+        {},class: "bg-gray-200 text-gray-800",
         'data-dynamic-select-target': 'select',
-        'data-action': 'dynamic-select#selected' %>
+        'data-auto-save-target': 'select',
+        'data-action': 'dynamic-select#selected auto-save#selected'%>
   </div>
 
   <div class='form-group'  >
     <%= form.hidden_field :_destroy %>
-    <%= form.text_field :title, placeholder: 'Question', class: 'form-control' %>
-    <small>
-      <%= link_to "刪除問題", "#", data: { action: "click->nested-form#remove_association" } %>
+    <%= form.text_field :title, placeholder: 'Question', class: 'form-control appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white', data: {action: "change->auto-save#add_question "} %>
+    <small class="inline-block">
+      <%= link_to "刪除問題", data: { action: "click->nested-form#remove_association click->auto-save#remove_question"}, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do %>
+        <i class="fas fa-trash-alt"></i>
+      <% end %>
     </small>
+    <div class="inline-block">
+      <%= form.check_box :required, data: {action: "change->auto-save#checked ", "auto-save-checkbox-value": "false" }%>
+      <%= form.label :required, "必填", data: {action: "change->auto-save#checked "} %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :required, "是否必填" %>
-    <%= form.check_box :required %>
-  </div>
 
   <div data-nested-form-target="copy_item" >
     <%= link_to "複製！！", "#", data: { action: "click->nested-form#duplicate_question" } %>
@@ -36,9 +42,10 @@
       <%= render 'answer_fields', form: answer , id: "answer" %>
     <% end %>
 
-    <div data-nested-form-target="add_item">
-      <%= link_to "新增選項", "#", data: { action: "nested-form#add_association" } %>
+    <div data-nested-form-target="add_item" class="my-4">
+      <%= link_to "新增選項", "#", data: { action: "nested-form#add_association auto-save#add_answer_item" } , class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full" %>
     </div>
   </div>
   
 </div>
+</section>

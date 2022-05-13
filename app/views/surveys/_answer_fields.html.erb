@@ -1,9 +1,13 @@
+<section class="max-w-lg mx-auto">
 <div class='nested-fields'>
   <div class='form-group'>
     <%= form.hidden_field :_destroy %>
-    <%= form.text_field :title, placeholder: 'Answer', class: 'form-control' %>
+    <%= form.text_field :title, placeholder: 'Answer', class: 'form-control form-control appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white', data: {action: "change->auto-save#add_answer"}  %>
     <small>
-      <%= link_to "刪除選項", "#", data: { action: "click->nested-form#remove_association" } %>
+      <%= link_to "刪除選項", data: { action: "click->nested-form#remove_association click->auto-save#remove_answer" }, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do %>
+        <i class="fas fa-trash-alt"></i>
+      <% end %>
     </small>
   </div>
 </div>
+</section>
