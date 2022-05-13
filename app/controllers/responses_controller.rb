@@ -13,6 +13,7 @@ class ResponsesController < ApplicationController
 
   def create
     @response = @survey.responses.new(response_params)
+
     if @response.save
       flash.now[:notice] = "Response was successfully created." 
       render :show

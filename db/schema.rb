@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_11_172007) do
+ActiveRecord::Schema.define(version: 2022_05_12_042222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2022_05_11_172007) do
     t.bigint "question_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "timestamp"
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
@@ -74,11 +75,13 @@ ActiveRecord::Schema.define(version: 2022_05_11_172007) do
 
   create_table "questions", force: :cascade do |t|
     t.string "title"
-    t.integer "question_type"
+    t.integer "question_type", default: 0
     t.bigint "survey_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "required"
+    t.integer "position"
+    t.string "timestamp"
     t.index ["survey_id"], name: "index_questions_on_survey_id"
   end
 
@@ -96,6 +99,7 @@ ActiveRecord::Schema.define(version: 2022_05_11_172007) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
+    t.integer "position"
     t.bigint "user_id", null: false
 <<<<<<< HEAD
 <<<<<<< Updated upstream

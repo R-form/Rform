@@ -16,7 +16,7 @@ export default class extends Controller {
         break;
       default:
         this.choiceTarget.classList.add("hidden");
-      break;
-    };
+        break;
+    }
   }
 }
