@@ -50,7 +50,7 @@ class SurveysController < ApplicationController
       question.save
       new_question = @survey.questions.last
     else
-      question = @survey.questions.find_by(timestamp: params[:timestamp]).deep_clone include: :answers
+      question = @survey.questions.find_by(timestamp: params[:question_timestamp]).deep_clone include: :answers
       question.save
       new_question = @survey.questions.last
     end
