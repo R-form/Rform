@@ -3,9 +3,6 @@ import Rails from "@rails/ujs";
 
 export default class extends Controller {
   static targets = ["form"];
-  static value = {
-    checkbox: Boolean,
-  };
 
   connect() {
     this.checkbox = false;
@@ -74,24 +71,6 @@ export default class extends Controller {
     });
   }
 
-  // TODO del
-  // find_by_id(id, question_id, question_value) {
-  //   const data = new FormData();
-  //   data.append("question_id", question_id);
-  //   data.append("question_value", question_value);
-  //   this.debounce(Rails.ajax)({
-  //     type: "post",
-  //     url: `/surveys/${id}/add_question`,
-  //     data: data,
-  //     success: (resp) => {
-  //       console.log(resp);
-  //     },
-  //     error: (err) => {
-  //       console.log(err);
-  //     },
-  //   });
-  // }
-
   add_question(e) {
     const id = this.element.children[2].dataset.id;
     const question_id = e.target.closest("section").firstElementChild.value;
@@ -118,7 +97,6 @@ export default class extends Controller {
   }
 
   checked(e) {
-    // this.checkboxValue = !this.checkboxValue;
     const id = this.element.children[2].dataset.id;
     const question_id = e.target.closest("section").firstElementChild.value;
     const time = e.target.closest("section").firstElementChild.name;
@@ -134,14 +112,8 @@ export default class extends Controller {
       type: "post",
       url: `/surveys/${id}/save_checkbox`,
       data: data,
-      success: (resp) => {
-        // TODO del
-        console.log(resp);
-      },
-      error: (err) => {
-        // TODO del
-        console.log(err);
-      },
+      success: (resp) => {},
+      error: (err) => {},
     });
   }
 

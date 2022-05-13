@@ -96,7 +96,6 @@ class SurveysController < ApplicationController
       @question = @survey.questions.find(params[:question_id])
       @question.update(required: !@question.required)
     end
-    render json: params
   end
 
   def add_answer
