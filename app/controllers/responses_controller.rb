@@ -15,7 +15,8 @@ class ResponsesController < ApplicationController
     @response = @survey.responses.new(response_params)
 
     if @response.save
-      redirect_to [@survey, @response], notice: 'Response was successfully created.'
+      flash.now[:notice] = "Response was successfully created." 
+      render :show
     else
       render :new, status: :unprocessable_entity
     end
