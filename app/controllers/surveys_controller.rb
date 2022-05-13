@@ -83,6 +83,22 @@ class SurveysController < ApplicationController
     end
   end
 
+  def save_checkbox
+    if params[:timestamp]
+      if @survey.questions.find_by(timestamp: params[:timestamp])
+        @question = @survey.questions.find_by(timestamp: params[:timestamp])
+        @question.update(required: !@question.required)
+      else
+        @question = @survey.questions.create
+        @question.update(timestamp: params[:timestamp],required: !@question.required)
+      end
+    else 
+      @question = @survey.questions.find(params[:question_id])
+      @question.update(required: !@question.required)
+    end
+    render json: params
+  end
+
   def add_answer
 
     if params[:timestamp]

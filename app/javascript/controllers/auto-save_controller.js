@@ -3,6 +3,13 @@ import Rails from "@rails/ujs";
 
 export default class extends Controller {
   static targets = ["form"];
+  static value = {
+    checkbox: Boolean,
+  };
+
+  connect() {
+    this.checkbox = false;
+  }
 
   create_survey() {
     const id = this.element.children[2].dataset.id;
@@ -110,16 +117,33 @@ export default class extends Controller {
     });
   }
 
-  // TODO del
-  // debounce(find_by_id, delay = 3000) {
-  //   let timeoutID;
-  //   return (...arg) => {
-  //     clearTimeout(timeoutID);
-  //     timeoutID = setTimeout(() => {
-  //       find_by_id(...arg);
-  //     }, delay);
-  //   };
-  // }
+  checked(e) {
+    // this.checkboxValue = !this.checkboxValue;
+    const id = this.element.children[2].dataset.id;
+    const question_id = e.target.closest("section").firstElementChild.value;
+    const time = e.target.closest("section").firstElementChild.name;
+    const timestamp = time.match(/\d/g).join("");
+    const data = new FormData();
+
+    if (question_id != "") {
+      data.append("question_id", question_id);
+    } else {
+      data.append("timestamp", timestamp);
+    }
+    Rails.ajax({
+      type: "post",
+      url: `/surveys/${id}/save_checkbox`,
+      data: data,
+      success: (resp) => {
+        // TODO del
+        console.log(resp);
+      },
+      error: (err) => {
+        // TODO del
+        console.log(err);
+      },
+    });
+  }
 
   remove_question(e) {
     e.preventDefault();

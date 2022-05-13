@@ -20,8 +20,8 @@
       <% end %>
     </small>
     <div class="inline-block">
-      <%= form.check_box :required, data: {action: "click->auto-save#checkbox"}%>
-      <%= form.label :required, "必填" %>
+      <%= form.check_box :required, data: {action: "change->auto-save#checked ", "auto-save-checkbox-value": "false" }%>
+      <%= form.label :required, "必填", data: {action: "change->auto-save#checked "} %>
     </div>
   </div>
 

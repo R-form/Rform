@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       post :survey_description
       post :add_question_item
       post :add_answer_item
+      post :save_checkbox
       patch :update_select
       post :add_question
       post :add_answer
