@@ -1,6 +1,6 @@
 <h1><%= @survey.title %></h1>
 <h2><%= @survey.description%></h2>
-<%= form_with model: [@survey, response] do |form| %>
+<%= form_with(model: [@survey, response], url: responses_done_path) do |form| %>
     <%= form.fields_for :answers do |response| %>
     <% @survey.questions.each do |question| %>
     <div class="question_field">

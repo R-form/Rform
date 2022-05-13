@@ -11,6 +11,7 @@
     "@rails/webpacker": "5.4.3",
     "@tailwindcss/forms": "^0.5.1",
     "Font-Awesome": "FortAwesome/Font-Awesome",
+    "choices.js": "^10.1.0",
     "sortablejs": "^1.15.0",
     "stimulus": "^3.0.1",
     "stimulus-rails-autosave": "^4.0.0",
