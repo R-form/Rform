@@ -101,15 +101,9 @@ ActiveRecord::Schema.define(version: 2022_05_12_042222) do
     t.datetime "deleted_at"
     t.integer "position"
     t.bigint "user_id", null: false
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
     t.string "slug"
     t.index ["slug"], name: "index_surveys_on_slug", unique: true
->>>>>>> Stashed changes
-=======
     t.string "tag"
->>>>>>> origin/dev
     t.index ["user_id"], name: "index_surveys_on_user_id"
   end
 
