@@ -17,11 +17,8 @@ class Survey < ApplicationRecord
     update(deleted_at: Time.current)
   end
 
-  # def to_param
-  #   self.permalink
-  # end
   private 
-  # Generates an 8 character alphanumeric id
+  # Generates an 6 character alphanumeric id
   def generate_slug
     self.slug = SecureRandom.hex(3)
   end 
