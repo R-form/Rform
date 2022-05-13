@@ -44,6 +44,21 @@ class SurveysController < ApplicationController
     end
   end
 
+  def duplicate_question
+    if params[:question_id] != ''
+      question = @survey.questions.find(params[:question_id]).deep_clone include: :answers
+      question.save
+      new_question = @survey.questions.last
+    else
+      question = @survey.questions.find_by(timestamp: params[:timestamp]).deep_clone include: :answers
+      question.save
+      new_question = @survey.questions.last
+    end
+    result = [ new_question, new_question.answers]
+    render json:  result
+  end
+  
+
   def tag
     survey = Survey.find(params[:survey_id])
     tag = params[:survey][:tag]

@@ -1,27 +1,18 @@
 # frozen_string_literal: true
-
-<<<<<<< HEAD
-  
-  get 'password_resets/create'
-  get 'password_resets/edit'
-  get 'password_resets/update'
-  root :to => 'users#index'
-=======
-
-  root 'homepage#index'
-
->>>>>>> origin/dev
-=======
 Rails.application.routes.draw do
   
   root 'homepage#index'
->>>>>>> issues/35
+
   resources :users
-  
+  get 'password_resets/create'
+  get 'password_resets/edit'
+  get 'password_resets/update'
   get 'login' => 'user_sessions#new', :as => :login
   post 'login' => 'user_sessions#create'
   post 'logout' => 'user_sessions#destroy', :as => :logout
   
+
+
   resources :surveys do
     resources :responses
 
@@ -32,11 +23,13 @@ Rails.application.routes.draw do
       post :survey_description
       post :add_question_item
       post :add_answer_item
+      post :duplicate_question
       patch :update_select
       post :add_question
       post :add_answer
       delete :remove_question
       delete :remove_answer
+
     end
 
     get 'duplicate', on: :member , to: "surveys#duplicate_survey"

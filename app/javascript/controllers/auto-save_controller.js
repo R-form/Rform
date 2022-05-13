@@ -92,7 +92,7 @@ export default class extends Controller {
     const timestamp = time.match(/\d/g).join("");
     const question_value = e.target.value;
     // this.find_by_id(id, question_id, question_value);
-
+    console.log(this.element);
     const data = new FormData();
     if (question_id != "") {
       data.append("question_id", question_id);
