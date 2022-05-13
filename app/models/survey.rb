@@ -7,7 +7,9 @@ class Survey < ApplicationRecord
   belongs_to :user
   accepts_nested_attributes_for :questions, allow_destroy: true
   
+
   friendly_id :slug, use: :slugged
+  belongs_to :user
 
   default_scope {where(deleted_at: nil)}
 

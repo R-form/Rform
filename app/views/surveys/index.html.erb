@@ -21,8 +21,16 @@
                 <%= link_to responses_new_path(survey), class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do %>
                   <i>ＳＨＡＲＥ</i>
                 <% end %>
+
                 <%= link_to survey, method: :delete, data: { confirm: '確定要刪除問卷嗎?' }, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do%>
                   <i class="fa-solid fa-trash-can"></i>
+                <% end %>
+              </div>
+              <div>
+                <%= form_with(model: survey, url: survey_tag_path(survey), method: "patch") do |form| %>
+                  <%= form.label :tag %>
+                  <%= form.text_field :tag, data: {controller: "tag"} %>
+                  <%= form.submit "更新分類標籤" %>
                 <% end %>
               </div>
             </div>

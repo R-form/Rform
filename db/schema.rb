@@ -10,11 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< Updated upstream
-ActiveRecord::Schema.define(version: 2022_05_11_100134) do
-=======
-ActiveRecord::Schema.define(version: 2022_05_11_121300) do
->>>>>>> Stashed changes
+ActiveRecord::Schema.define(version: 2022_05_11_172007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,11 +97,15 @@ ActiveRecord::Schema.define(version: 2022_05_11_121300) do
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
     t.bigint "user_id", null: false
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
     t.string "slug"
     t.index ["slug"], name: "index_surveys_on_slug", unique: true
 >>>>>>> Stashed changes
+=======
+    t.string "tag"
+>>>>>>> origin/dev
     t.index ["user_id"], name: "index_surveys_on_user_id"
   end
 
