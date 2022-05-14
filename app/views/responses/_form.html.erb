@@ -50,9 +50,9 @@
             </tr>
           </table> 
         <% when 'date' %>
-          <%= response.date_field question.id , class: "default w-full my-6"%>
+          <%= response.date_field question.id , class: "default w-full my-6", data: {controller: "date"}%>
         <% when 'time' %>
-          <%= response.time_field question.id, class: "default w-full my-6" %>
+          <%= response.time_field question.id, class: "default w-full my-6", data: {controller: "time"} %>
         <% when 'drop_down_menu' %>
           <%= response.select question.id, options_for_select(question.answers.collect{ |o| [o.title, o.id, class: "option"] }), {class: "default w-full my-6"}  %>
         <% when 'range' %>
