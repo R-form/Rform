@@ -155,6 +155,10 @@ class SurveysController < ApplicationController
       end
     end
   end
+
+  def font_style
+    @survey.update(font_style: params[:font_style])
+  end
   
   private
   def find_survey
@@ -166,6 +170,8 @@ class SurveysController < ApplicationController
       :title,
       :description,
       :position,
+      :font_style,
+      :theme,
       questions_attributes: [
         :_destroy,
         :id,
