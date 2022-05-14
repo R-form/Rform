@@ -1,17 +1,11 @@
 # frozen_string_literal: true
 Rails.application.routes.draw do
-  
   root 'homepage#index'
-
+    
   resources :users
-  get 'password_resets/create'
-  get 'password_resets/edit'
-  get 'password_resets/update'
   get 'login' => 'user_sessions#new', :as => :login
   post 'login' => 'user_sessions#create'
   post 'logout' => 'user_sessions#destroy', :as => :logout
-  
-
 
   resources :surveys do
     resources :responses
