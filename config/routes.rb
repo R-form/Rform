@@ -1,7 +1,9 @@
 # frozen_string_literal: true
+
 Rails.application.routes.draw do
+  
   root 'homepage#index'
-    
+
   resources :users
   get 'login' => 'user_sessions#new', :as => :login
   post 'login' => 'user_sessions#create'
@@ -18,12 +20,12 @@ Rails.application.routes.draw do
       post :add_question_item
       post :add_answer_item
       post :duplicate_question
+      post :save_checkbox
       patch :update_select
       post :add_question
       post :add_answer
       delete :remove_question
       delete :remove_answer
-
     end
 
     get 'duplicate', on: :member , to: "surveys#duplicate_survey"

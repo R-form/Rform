@@ -2,18 +2,16 @@
 
 class Survey < ApplicationRecord
   extend FriendlyId
-  acts_as_paranoid
   before_create :generate_slug
-  acts_as_list scope: :user
+  belongs_to :user
+  friendly_id :slug, use: :slugged
 
   has_many :questions, -> { order(position: :asc) }, dependent: :destroy, autosave: true
   has_many :responses, dependent: :destroy
-  belongs_to :user
-  accepts_nested_attributes_for :questions, allow_destroy: true
   
-
-  friendly_id :slug, use: :slugged
-  belongs_to :user
+  accepts_nested_attributes_for :questions, allow_destroy: true
+  acts_as_paranoid
+  acts_as_list scope: :user
 
   private 
   # Generates an 6 character alphanumeric id
