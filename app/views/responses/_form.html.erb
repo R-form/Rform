@@ -31,7 +31,7 @@
             </p>
           <% end %>
         <% when 'long_answer' %>
-          <%= response.text_area question.id, required: question.required, class: 'text_area w-full my-6 border-2 rounded-md border-ironGaryHover focus:outline-none focus:border-ironGary text-md' %>
+          <%= response.text_area question.id, required: question.required, class: 'text_area w-full my-6 border-2 rounded-md border-ironGaryHover focus:outline-none focus:ring-ironGray focus:border-ironGray text-md' %>
         <% when 'satisfaction' %>
           <table class="default w-full my-6">
             <tr class="tr flex justify-around flex-wrap">
