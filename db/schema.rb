@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_12_042222) do
+ActiveRecord::Schema.define(version: 2022_05_14_071958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,13 +75,13 @@ ActiveRecord::Schema.define(version: 2022_05_12_042222) do
 
   create_table "questions", force: :cascade do |t|
     t.string "title"
-    t.integer "question_type", default: 0
+    t.integer "question_type"
     t.bigint "survey_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "required"
-    t.integer "position"
     t.string "timestamp"
+    t.integer "position"
     t.index ["survey_id"], name: "index_questions_on_survey_id"
   end
 
@@ -99,11 +99,13 @@ ActiveRecord::Schema.define(version: 2022_05_12_042222) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
-    t.integer "position"
     t.bigint "user_id", null: false
-    t.string "slug"
-    t.index ["slug"], name: "index_surveys_on_slug", unique: true
     t.string "tag"
+    t.string "slug"
+    t.integer "position"
+    t.string "font_style"
+    t.string "theme"
+    t.index ["slug"], name: "index_surveys_on_slug", unique: true
     t.index ["user_id"], name: "index_surveys_on_user_id"
   end
 
