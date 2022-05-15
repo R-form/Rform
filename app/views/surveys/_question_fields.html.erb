@@ -19,16 +19,21 @@
         <i class="fas fa-trash-alt"></i>
       <% end %>
     </small>
+
     <div class="inline-block">
       <%= form.check_box :required, data: {action: "change->auto-save#checked ", "auto-save-checkbox-value": "false" }%>
       <%= form.label :required, "必填", data: {action: "change->auto-save#checked "} %>
     </div>
-  </div>
 
+    <div class="inline-block" data-nested-form-target="copy_item" >
+      <%= link_to "複製！！", "#", data: { action: "click->nested-form#duplicate_question" } %>
+    </div>
 
-  <div data-nested-form-target="copy_item" >
-    <%= link_to "複製！！", "#", data: { action: "click->nested-form#duplicate_question" } %>
+    <div class="hidden" data-dynamic-select-target='image'>
+      <%= form.file_field :images %>
+    </div>
   </div>
+  
   <div data-controller="nested-form" 
        data-nested-form-index-value ="ANSWER_RECORD" data-dynamic-select-target='choice'>
     <template data-nested-form-target='template'>

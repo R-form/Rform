@@ -47,6 +47,11 @@ export default class extends Controller {
     });
   }
 
+  add_image(e) {
+    // TODO del
+    console.log(666);
+  }
+
   selected(e) {
     const id = this.element.children[2].dataset.id;
     const question_id = e.target.closest("section").firstElementChild.value;

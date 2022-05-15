@@ -177,6 +177,7 @@ class SurveysController < ApplicationController
         :title,
         :required,
         :position,
+        [ images: [] ],
         { answers_attributes: %i[
           _destroy
           id

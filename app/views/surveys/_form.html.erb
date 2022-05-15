@@ -11,7 +11,7 @@
   </div>
   <div class="fields">
     <%= form.label :image, "背景圖片" %>
-    <%= form.file_field :image %>
+    <%= form.file_field :image, data: {action: "change->auto-save#add_image"} %>
   </div>
   
   <div data-controller="nested-form sortable-question" data-nested-form-index-value ="QUESTION_RECORD" >
