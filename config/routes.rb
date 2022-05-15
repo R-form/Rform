@@ -10,6 +10,12 @@ Rails.application.routes.draw do
   post 'logout' => 'user_sessions#destroy', :as => :logout
   
   resources :surveys do
+
+    member do
+      patch :font_style
+      patch :theme
+    end
+
     resources :responses
 
     member do
@@ -25,7 +31,7 @@ Rails.application.routes.draw do
       post :add_answer
       delete :remove_question
       delete :remove_answer
-    end
+    end 
 
     get 'duplicate', on: :member , to: "surveys#duplicate_survey"
     patch :tag
@@ -40,4 +46,5 @@ Rails.application.routes.draw do
   
   get 'to/:survey_id' , as: 'responses_new' , to: 'responses#new'
   post 'to/:survey_id/done' , as: 'responses_done', to: 'responses#create'
+
 end
