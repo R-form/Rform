@@ -15,7 +15,7 @@ class ResponsesController < ApplicationController
     @response = @survey.responses.new(response_params)
 
     if @response.save
-      redirect_to submitted_survey_responses_path(@survey), notice: "Response was successfully created."
+      redirect_to submitted_survey_responses_path(@survey)
     else
       render :new, status: :unprocessable_entity
     end
