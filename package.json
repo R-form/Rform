@@ -15,6 +15,7 @@
     "sortablejs": "^1.15.0",
     "stimulus": "^3.0.1",
     "stimulus-rails-autosave": "^4.0.0",
+    "tailwindcss-stimulus-components": "^3.0.4",
     "turbolinks": "^5.2.0",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"
