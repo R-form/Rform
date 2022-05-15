@@ -28,10 +28,13 @@ class SurveysController < ApplicationController
   end
 
   def update
+    @survey.image.purge
     @survey.update(survey_params)
+
   end
 
   def destroy
+    @survey.image.purge
     @survey.destroy
     redirect_to surveys_path, notice: '問卷已刪除'
   end
@@ -166,6 +169,7 @@ class SurveysController < ApplicationController
       :title,
       :description,
       :position,
+      :image,
       questions_attributes: [
         :_destroy,
         :id,

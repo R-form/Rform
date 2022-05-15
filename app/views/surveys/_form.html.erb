@@ -9,6 +9,10 @@
     <%= form.label :description, "問卷敘述", class: "text-xl" %>
     <%= form.text_area :description, placeholder: "問卷敘述", class: "appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white", data: {action: "change->auto-save#add_survey_description "} %>
   </div>
+  <div class="fields">
+    <%= form.label :image, "背景圖片" %>
+    <%= form.file_field :image %>
+  </div>
   
   <div data-controller="nested-form sortable-question" data-nested-form-index-value ="QUESTION_RECORD" >
     <template data-nested-form-target='template'>

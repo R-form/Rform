@@ -1,8 +1,9 @@
 <h1><%= @survey.title %></h1>
 <h2><%= @survey.description %></h2>
+<%= image_tag @survey.image if @survey.image.attached?%>
 <% @survey.questions.each do |question| %>
   <h2><%= question.title %></h2>
-
+  
   <% case question.question_type %>
   <% when 'single_choice' %>
     <% question.answers.each do |answer| %>
