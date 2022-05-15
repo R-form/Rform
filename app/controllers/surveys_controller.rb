@@ -47,15 +47,12 @@ class SurveysController < ApplicationController
   def duplicate_question
     if params[:question_id] != ''
       question = @survey.questions.find(params[:question_id]).deep_clone include: :answers
-      question.update(title: question.title.insert(-1," - 副本"))
-      question.save
-      new_question = @survey.questions.max
     else
       question = @survey.questions.find_by(timestamp: params[:question_timestamp]).deep_clone include: :answers
-      question.update(title: question.title.insert(-1," - 副本"))
-      question.save
-      new_question = @survey.questions.max
     end
+    question.update(title: question.title.insert(-1," - 副本"))
+    question.save
+    new_question = @survey.questions.max
     result = [ new_question, new_question.answers]
     render json:  result
   end
