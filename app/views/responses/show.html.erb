@@ -8,8 +8,12 @@
     <% when 'single_choice' %>
     <p><%= (question.answers.find { |a| a.id.to_s == @response.answers[question.id.to_s] }) ?  question.answers.find { |a| a.id.to_s == @response.answers[question.id.to_s] }.title : "未填答"  %></p>
     <% when 'multiple_choice' %>
+    <% if @response.multiple_choice_answers(question.id).uniq.length == 1 %>
+        <p>未填答</p>
+        <% else %>
     <% question.answers.select { |a| @response.multiple_choice_answers(question.id).include?(a.id) }.each do |answer| %>
         <p><%= answer.title %></p>
+        <% end %>  
     <% end %>
     <% when 'long_answer' %>
     <p><%= @response.answers[question.id.to_s] %></p>
