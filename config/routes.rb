@@ -10,8 +10,11 @@ Rails.application.routes.draw do
   post 'logout' => 'user_sessions#destroy', :as => :logout
 
   resources :surveys do
-
-    resources :responses
+    resources :responses do
+      collection do 
+        get :submitted
+      end
+    end
 
     member do
       patch :sort
