@@ -22,6 +22,10 @@ class ResponsesController < ApplicationController
     end
   end
 
+  def submitted
+    
+  end
+
   private
 
   def set_survey
