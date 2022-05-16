@@ -43,7 +43,6 @@ export default class extends Controller {
           }
         },
         error: (err) => {
-          console.log(err);
         },
       });
 
