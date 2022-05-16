@@ -10,6 +10,7 @@ import "channels";
 import "controllers";
 import "stylesheets/application";
 import "stylesheets/new_responses";
+import "stylesheets/submitted_responses";
 import { Application } from "@hotwired/stimulus";
 import {
   Alert,
