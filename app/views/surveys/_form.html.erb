@@ -28,16 +28,6 @@
     </div>
   </div>
 
-  <% if survey.id == nil %>
-    <div class="actions my-6">
-      <%= form.submit "新增問卷", class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full" %>
-  </div>
-  <% else %>
-    <div class="actions my-6">
-      <%= link_to '更新問卷', surveys_path, class: "bg-red-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full", data: { action: "auto-save#submitForm"}%>
-    </div>
-  <% end%>
-
    <div data-controller="survey-style" > 
     <%= form.select :font_style,
         options_for_select([['請選擇字體', 'DD' ],['font-sans(default)', 'font-sans'], ['font-mono', 'font-mono'],['font-serif','font-serif']],

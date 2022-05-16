@@ -16,10 +16,10 @@
     <%= form.text_field :title, placeholder: 'Question', class: 'form-control appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white', id: "question_title", data: {action: "change->auto-save#add_question "} %>
     <small class="inline-block">
       <%= link_to "刪除問題", data: { action: "click->nested-form#remove_association click->auto-save#remove_question"}, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do %>
-        <i class="fa-solid fa-trash-can"></i>
+        <i class="fas fa-trash-alt"></i>
       <% end %>
-      <%= link_to  "#", data: { action: "click->nested-form#duplicate_question" } ,class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do%>
-          <i class="fa-solid fa-copy"></i>
+      <%= link_to "複製問題", data: { action: "click->nested-form#duplicate_question" } ,class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do%>
+          <i class="fas fa-copy"></i>
       <% end %>
     </small>
     <div class="inline-block">
