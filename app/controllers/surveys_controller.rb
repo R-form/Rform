@@ -50,9 +50,9 @@ class SurveysController < ApplicationController
     else
       question = @survey.questions.find_by(timestamp: params[:question_timestamp]).deep_clone include: :answers
     end
-    question.update(title: question.title.insert(-1," - 副本"))
+    question.update(title: question.title.insert(-1," - 副本"),position: (question.position)+1)
     question.save
-    new_question = @survey.questions.max
+    new_question = @survey.questions.last
     result = [ new_question, new_question.answers]
     render json:  result
   end
