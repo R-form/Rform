@@ -30,7 +30,8 @@ class SurveysController < ApplicationController
 
   def update
     @survey.image.purge
-    @survey.update(survey_params)
+    # @survey.update(survey_params)
+    @survey.image.attach(params[:survey][:image])
     redirect_to surveys_path, notice: "`更換圖片成功#{params}`"
   end
 
