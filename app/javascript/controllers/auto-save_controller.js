@@ -7,7 +7,6 @@ export default class extends Controller {
   connect() {
     this.checkbox = false;
   }
-
   create_survey() {
     const id = this.element.children[2].dataset.id;
     if (id == null) {
@@ -70,6 +69,7 @@ export default class extends Controller {
       error: (err) => {},
     });
   }
+
 
   add_question(e) {
     const id = this.element.children[2].dataset.id;

@@ -44,6 +44,20 @@ class SurveysController < ApplicationController
     end
   end
 
+  def duplicate_question
+    if params[:question_id] != ''
+      question = @survey.questions.find(params[:question_id]).deep_clone include: :answers
+    else
+      question = @survey.questions.find_by(timestamp: params[:question_timestamp]).deep_clone include: :answers
+    end
+    question.update(title: question.title.insert(-1," - 副本"))
+    question.save
+    new_question = @survey.questions.max
+    result = [ new_question, new_question.answers]
+    render json:  result
+  end
+  
+
   def tag
     survey = Survey.find(params[:survey_id])
     tag = params[:survey][:tag]
@@ -99,7 +113,6 @@ class SurveysController < ApplicationController
   end
 
   def add_answer
-
     if params[:timestamp]
       if @survey.questions.find_by(timestamp: params[:timestamp])
         @question = @survey.questions.find_by(timestamp: params[:timestamp])
