@@ -2,20 +2,20 @@ import { Controller } from "stimulus"
 
 
 export default class extends Controller {
-  static targets = [ ];
+  static targets = ['closeAside'];
 
-connect(){
-  console.log(123);
-  const style = document.querySelector(".fa-palette")
-  console.log(style);
-}
+  connect(){
 
- show(){
-  const style = document.querySelector(".fa-palette")
-  style.addEventListener("click", function () {
-    console.log("點了");
-  });
+  }
 
- }
+  close(){
+    console.log(this.closeAsideTarget);
+    const close = this.closeAsideTarget.classList.add("hidden")
+   
+  }
+
+
+
+
   
 } 

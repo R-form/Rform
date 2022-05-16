@@ -1,63 +1,8 @@
-<section class="max-w-lg mx-auto sticky">
-
-<%= form_with(model: survey,  data: { controller: "auto-save survey-style", action: "change->auto-save#create_survey", auto_save_target: "form"}, 
-class: "overflow-scroll survey.font_style") do |form| %>
-  <div class="field survey_id" data-id="<%= survey.id %>">
-    <%= form.label :title, "問卷名稱", class: "text-xl" %>
-    <%= form.text_field :title, placeholder: "請輸入問卷名稱", class: "appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white", 
-    data: {action: "change->auto-save#add_survey_title "}%>
-  </div>
-  <div class="field">
-    <%= form.label :description, "問卷敘述", class: "text-xl" %>
-    <%= form.text_area :description, placeholder: "問卷敘述", class: "appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white",
-     data: {action: "change->auto-save#add_survey_description "} %>
-  </div>
-  
-  <div data-controller="nested-form sortable-question" data-nested-form-index-value ="QUESTION_RECORD" >
-    <div data-nested-form-target='template'>
-      <%= form.fields_for :questions, Question.new, child_index: 'QUESTION_RECORD' do |question| %>
-        <%= render 'question_fields', form: question %>
-      <% end %>
-    </template>
-
-    <%= form.fields_for :questions do |question| %>
-      <%= render 'question_fields', form: question %>
-    <% end %>
-
-    <div data-nested-form-target="add_item" class="my-4">
-      <%= link_to "新增問題", "#", data: { action: "nested-form#add_association auto-save#add_question_item" }, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full" %>
-    </div>
-  </div>
-
-   <div data-controller="survey-style" > 
-    <%= form.select :font_style,
-        options_for_select([['請選擇字體', 'DD' ],['font-sans(default)', 'font-sans'], ['font-mono', 'font-mono'],['font-serif','font-serif']],
-         selected: form.object.font_style ),
-        {},
-        data: { action: "change -> survey-style#option"}    
-    %>
-  </div> 
-
-  <% if survey.id == nil %>
-    <div class="actions my-6 hidden">
-      <%= form.submit "新增問卷", class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full" %>
-    </div>
-  <% else %>
-    <div class="actions my-6 hidden">
-      <%= link_to '更新問卷', surveys_path, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full", data: { action: "auto-save#submitForm"}%>
-    </div>
-  <% end%>
-<% end %>
-</section>
-
-
-<div class="flex" data-controller="slideover">
-      <aside class="sm:w-1/5 absolute right-0 bg-gentleYellow h-full" style="top:186px">
+<div class="flex justify-center">
+      <aside data-controller="slideover" data-slideover-target="closeAside" class="hidden slideover sm:w-1/5 absolute right-0 bg-gentleYellow h-full" style="top:186px">
         <div class="top-0 pt-12 px-2 w-full">
-          <div  data-action="click->sidebar#toggle" data-sidebar-target="icon" class="absolute right-2 top-2 cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
-            </svg>
+          <div data-action="click->slideover#close" class="absolute right-2 top-2 cursor-pointer">
+            X
           </div>
           <nav>
             <ul class="flex flex-col overflow-hidden space-y-2">
@@ -67,43 +12,67 @@ class: "overflow-scroll survey.font_style") do |form| %>
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                   </svg>
                   <span>
-                    Home
+                    選擇字體
                   </span>
+                  
                 </a>
-              </li>
-              <li class=" h-8">
-                <a href="#" class="flex items-center h-8">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-                  </svg>
-                  <span>
-                    Learn
-                  </span>
-                </a>
-              </li>
-              <li class=" h-8">
-                <a href="#" class="flex items-center h-8">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                  <span>
-                    About
-                  </span>
-                </a>
-              </li>
-              <li class="flex items-center  h-8">
-                <a href="#" class="flex items-center h-8">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
-                  </svg>
-                  <span>
-                    Contact
-                  </span>
-                </a>
-              </li>
+              </li> 
             </ul>
           </nav>
         </div>
       </aside>
-    </div>
-</template>
+
+    <main class="sm:w-4/5 p-4">
+      <section class="max-w-lg mx-auto">
+        <%= form_with(model: survey,  data: { controller: "auto-save survey-style", action: "change->auto-save#create_survey", auto_save_target: "form"}, 
+        class: survey.font_style ) do |form| %>
+          <div class="field survey_id" data-id="<%= survey.id %>">
+            <%= form.label :title, "問卷名稱", class: "text-xl" %>
+            <%= form.text_field :title, placeholder: "請輸入問卷名稱", class: "appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white", 
+            data: {action: "change->auto-save#add_survey_title "}%>
+          </div>
+          <div class="field">
+            <%= form.label :description, "問卷敘述", class: "text-xl" %>
+            <%= form.text_area :description, placeholder: "問卷敘述", class: "appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white",
+            data: {action: "change->auto-save#add_survey_description "} %>
+          </div>
+          
+          <div data-controller="nested-form sortable-question" data-nested-form-index-value ="QUESTION_RECORD" >
+            <template data-nested-form-target='template'>
+              <%= form.fields_for :questions, Question.new, child_index: 'QUESTION_RECORD' do |question| %>
+                <%= render 'question_fields', form: question %>
+              <% end %> 
+            </template>
+
+            <%= form.fields_for :questions do |question| %>
+              <%= render 'question_fields', form: question %>
+            <% end %>
+
+            <div data-nested-form-target="add_item" class="my-4">
+              <%= link_to "新增問題", "#", data: { action: "nested-form#add_association auto-save#add_question_item" }, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full" %>
+            </div>
+          </div>
+
+          <% if survey.id == nil %>
+            <div class="actions my-6">
+              <%= form.submit "新增問卷", class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full" %>
+          </div>
+          <% else %>
+            <div class="actions my-6">
+              <%= link_to '更新問卷', surveys_path, class: "bg-red-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full", data: { action: "auto-save#submitForm"}%>
+            </div>
+          <% end%>
+
+          <div data-controller="survey-style" > 
+            <%= form.select :font_style,
+                options_for_select([['請選擇字體', 'DD' ],['font-sans(default)', 'font-sans'], ['font-mono', 'font-mono'],['font-serif','font-serif']],
+                selected: form.object.font_style ),
+                {},
+                data: { action: "change -> survey-style#option"}    %>
+          </div> 
+          <% end %>
+        </section>
+    </main>
+  </div>
+</div>
+
