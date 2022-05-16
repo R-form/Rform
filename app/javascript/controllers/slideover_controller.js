@@ -9,9 +9,7 @@ export default class extends Controller {
   }
 
   close(){
-    console.log(this.closeAsideTarget);
-    const close = this.closeAsideTarget.classList.add("hidden")
-   
+      this.closeAsideTarget.classList.add("hidden")
   }
 
 
