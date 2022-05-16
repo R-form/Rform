@@ -39,6 +39,7 @@ group :development do
   gem 'omniauth'
   gem 'omniauth-google-oauth2'
   gem 'figaro'
+  # gem "aws-sdk-s3", require: false
 end
 
 group :test do
