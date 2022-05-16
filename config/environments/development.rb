@@ -36,7 +36,7 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :amazon
+  config.active_storage.service = :local
   # Don't care if the mailer can't send.
   config.action_mailer.default_url_options = { :host => "127.0.0.1:3000" }
   config.action_mailer.delivery_method = :letter_opener

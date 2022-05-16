@@ -12,7 +12,7 @@ amazon:
   access_key_id: <%= ENV["AWS_ID"] %>
   secret_access_key: <%= ENV["AWS_PASSWORD"] %>
   region: ap-northeast-1
-  bucket: rform
+  bucket: <%= ENV["S3_BUCKET"] %>
 # Remember not to checkin your GCS keyfile to a repository
 # google:
 #   service: GCS
