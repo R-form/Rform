@@ -1,7 +1,7 @@
 <section class="max-w-lg mx-auto">
 
 <%= form_with(model: survey,  data: { controller: "auto-save survey-style", action: "change->auto-save#create_survey", auto_save_target: "form"}, class: survey.font_style) do |form| %>
-  <div class="field survey_id" data-id="<%= survey.id %>">
+  <div class="field survey_id" data-id="<%= survey.id %>" data-auto-save-target="survey_id">
     <%= form.label :title, "問卷名稱", class: "text-xl" %>
     <%= form.text_field :title, placeholder: "請輸入問卷名稱", class: "appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white", 
     data: {action: "change->auto-save#add_survey_title "}%>

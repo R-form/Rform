@@ -10,19 +10,22 @@ export default class extends Controller {
 
     setTimeout(() => {
       const content = e.target.closest("section").cloneNode(true);
-      const q_last = e.target.closest("section");
+      const question = e.target.closest("section");
 
-      const id = document.querySelector(".survey_id").dataset.id;
+      const id = e.target.closest("section").dataset.id;
       const question_id = e.target.closest(".question").firstElementChild.value;
       const time = e.target.closest("section .question").firstElementChild.name;
+
       const question_timestamp = time.match(/\d/g).join("");
       const text = content.querySelector("#question_title").value;
 
-      q_last.insertAdjacentHTML("afterend", content.outerHTML);
+      question.insertAdjacentHTML("afterend", content.outerHTML);
 
       const new_last = e.target.closest("section").nextElementSibling;
-      const answers = q_last.querySelectorAll("section .answer");
-      const new_answers_item = new_last.querySelectorAll("section .answer");
+      const answers = question.querySelectorAll("section .answer");
+      const new_answers_item = new_last.querySelectorAll(
+        "section .answer input[placeholder='Answer']"
+      );
 
       new_last.querySelector("#question_title").value = `${text} - 副本`;
       new_last.setAttribute("data-nested-form-target", "question_copy");
@@ -42,9 +45,7 @@ export default class extends Controller {
           this.question_copyTarget.firstElementChild.value = `${new_question_id}`;
           for (let i = 0; i < new_answers_length; i++) {
             answers[i].nextElementSibling.value = `${new_answers[i].id}`;
-            const copy_answer_value =
-              new_answers_item[i].children[0].children[0].children[1];
-            copy_answer_value.value = `${new_answers[i].title}`;
+            new_answers_item[i].value = `${new_answers[i].title}`;
           }
         },
         error: (err) => {},

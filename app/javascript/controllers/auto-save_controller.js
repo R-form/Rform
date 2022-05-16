@@ -2,20 +2,17 @@ import { Controller } from "stimulus";
 import Rails from "@rails/ujs";
 
 export default class extends Controller {
-  static targets = ["form"];
+  static targets = ["form", "survey_id"];
 
-  connect() {
-    this.checkbox = false;
-  }
   create_survey() {
-    const id = this.element.children[2].dataset.id;
+    const id = this.survey_idTarget.dataset.id;
     if (id == null) {
       this.formTarget.submit();
     }
   }
 
   add_survey_title(e) {
-    const id = this.element.children[2].dataset.id;
+    const id = this.survey_idTarget.dataset.id;
     const survey_title = e.target.value;
 
     const data = new FormData();
@@ -31,7 +28,7 @@ export default class extends Controller {
   }
 
   add_survey_description(e) {
-    const id = this.element.children[2].dataset.id;
+    const id = this.survey_idTarget.dataset.id;
     const survey_description = e.target.value;
 
     const data = new FormData();
@@ -47,8 +44,9 @@ export default class extends Controller {
   }
 
   selected(e) {
-    const id = this.element.children[2].dataset.id;
+    const id = this.survey_idTarget.dataset.id;
     const question_id = e.target.closest("section").firstElementChild.value;
+
     const time = e.target.closest("section").firstElementChild.name;
     const timestamp = time.match(/\d/g).join("");
     const select = e.target.value;
@@ -70,14 +68,12 @@ export default class extends Controller {
     });
   }
 
-
   add_question(e) {
-    const id = this.element.children[2].dataset.id;
+    const id = this.survey_idTarget.dataset.id;
     const question_id = e.target.closest("section").firstElementChild.value;
     const time = e.target.closest("section").firstElementChild.name;
     const timestamp = time.match(/\d/g).join("");
     const question_value = e.target.value;
-    // this.find_by_id(id, question_id, question_value);
 
     const data = new FormData();
     if (question_id != "") {
@@ -97,7 +93,7 @@ export default class extends Controller {
   }
 
   checked(e) {
-    const id = this.element.children[2].dataset.id;
+    const id = this.survey_idTarget.dataset.id;
     const question_id = e.target.closest("section").firstElementChild.value;
     const time = e.target.closest("section").firstElementChild.name;
     const timestamp = time.match(/\d/g).join("");
@@ -122,7 +118,7 @@ export default class extends Controller {
     let item = e.target.closest(".nested-fields");
     item.style.display = "none";
 
-    const id = this.element.children[2].dataset.id;
+    const id = this.survey_idTarget.dataset.id;
     const question_id = e.target.closest("section").firstElementChild.value;
     const time = e.target.closest("section").firstElementChild.name;
     const timestamp = time.match(/\d/g).join("");
@@ -144,7 +140,7 @@ export default class extends Controller {
   }
 
   add_answer(e) {
-    const id = this.element.children[2].dataset.id;
+    const id = this.survey_idTarget.dataset.id;
     const question_id = e.target.closest(".question").firstElementChild.value;
     const time = e.target.closest("section .question").firstElementChild.name;
     const timestamp = time.match(/\d/g).join("");
@@ -161,7 +157,8 @@ export default class extends Controller {
       } else {
         data.append("answer_timestamp", answer_timestamp);
       }
-    } else {
+    }
+    if (question_id) {
       data.append("timestamp", timestamp);
       if (answer_id != undefined || "") {
         data.append("answer_id", answer_id);
@@ -185,7 +182,7 @@ export default class extends Controller {
     let item = e.target.closest(".nested-fields");
     item.style.display = "none";
 
-    const id = this.element.children[2].dataset.id;
+    const id = this.survey_idTarget.dataset.id;
     const question_id = e.target.closest(".question").firstElementChild.value;
     const time = e.target.closest("section .question").firstElementChild.name;
     const timestamp = time.match(/\d/g).join("");
