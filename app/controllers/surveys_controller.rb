@@ -31,6 +31,7 @@ class SurveysController < ApplicationController
   def update
     @survey.image.purge
     @survey.update(survey_params)
+    redirect_to surveys_path, notice: "`更換圖片成功#{params}`"
   end
 
   def destroy
