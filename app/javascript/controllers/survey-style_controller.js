@@ -32,8 +32,6 @@ export default class extends Controller {
 
     const data = new FormData();
     data.append("font_style", font_style);
-    console.log(id);
-    console.log(font_style);
 
     Rails.ajax({
       type: "patch",
