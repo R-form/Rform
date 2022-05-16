@@ -177,12 +177,12 @@ class SurveysController < ApplicationController
         :title,
         :required,
         :position,
-        [ images: [] ],
+        {images: []},
         { answers_attributes: %i[
           _destroy
           id
           title
-        ] }
+        ] },
       ]
     )
   end
