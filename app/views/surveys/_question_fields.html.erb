@@ -11,7 +11,7 @@
         'data-action': 'dynamic-select#selected auto-save#selected'%>
   </div>
 
-  <div class='form-group'  >
+  <div class='form-group'>
     <%= form.hidden_field :_destroy %>
     <%= form.text_field :title, placeholder: 'Question', class: 'form-control appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white', id: "question_title", data: {action: "change->auto-save#add_question "} %>
     <small class="inline-block">
