@@ -2,7 +2,6 @@
 
 class SurveysController < ApplicationController
   before_action :find_survey, except: %i[index new create]
-  before_action :set_s3_direct_post, only: [:new, :edit, :create, :update]
 
   def index
     @surveys = current_user.surveys
@@ -164,10 +163,6 @@ class SurveysController < ApplicationController
   private
   def find_survey
     @survey = current_user.surveys.find(params[:id])
-  end
-
-  def set_s3_direct_post
-    @s3_direct_post = S3_BUCKET.presigned_post(key: "uploads/surveys/#{SecureRandom.uuid}/${filename}", success_action_status: '201', acl: 'public-read')
   end
 
   def survey_params
