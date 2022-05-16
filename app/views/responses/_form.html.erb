@@ -1,77 +1,78 @@
-<section class="<%= @survey.font_style %>">
-    <h1><%= @survey.title %></h1>
-    <h2><%= @survey.description%></h2>
-    <%= form_with(model: [@survey, response], url: responses_done_path) do |form| %>
-        <%= form.fields_for :answers do |response| %>
-        <% @survey.questions.each do |question| %>
-        <div class="question_field">
-            <h1 class="question_title">
-                <%= question.title %>
-                <%= content_tag :abbr, '*', title: 'Required' if question.required %>
-            </h1>
-    
-        <div class="question_content">
+<section class="sections max-w-lg mx-auto <%= @survey.font_style %>">
+  <h1 class="title text-5xl text-ironGray my-5"><%= @survey.title %></h1>
+  
+    <p class="description text-md text-ironGray break-words"><%= @survey.description%></p>
+
+  <%= form_with model: [@survey, response] do |form| %>
+    <%= form.fields_for :answers do |response| %>
+    <% @survey.questions.each do |question| %>
+    <div class="question_field my-10 ">
+      
+      <h1 class="question_title inline-block p-2 text-3xl text-gray-600 ">
+        <i class="fas fa-question icon inline-block text-gray-600"></i>
+        <%= question.title %>
+        <%= content_tag :abbr, '*', title: 'Required' if question.required %>
+      </h1>
+      <hr class="border-solid border-2 border-ironGray bg-ironGray">
+      <div class="question_content">
         <% case question.question_type %>
         <% when 'single_choice' %>
-            <% question.answers.each do |answer| %>
-                <p>
-                    <%= response.radio_button question.id, answer.id, required: question.required %>
-                    <%= answer.title %>
-                </p>
-            <% end %>
-        <% when 'multiple_choice' %>
-            <% question.answers.each do |answer| %>
-            <p>
-                    <%= response.check_box question.id, { multiple: true }, answer.id %>
-                    <%= answer.title %>
+          <% question.answers.each do |answer| %>
+            <p class="choice_type bg-ironGray rounded-md p-2 my-6 flex items-center min-h-full hover:bg-ironGrayHover">
+              <%= response.radio_button question.id, answer.id, required: question.required, class: 'radio_button h-6 w-6 ml-1 mr-3' %>
+              <span class="answer_title text-xl text-white"><%= answer.title %></span>
             </p>
-            <% end %>
+          <% end %>
+        <% when 'multiple_choice' %>
+          <% question.answers.each do |answer| %>
+            <p class="choice_type bg-ironGray rounded-md p-2 my-6 flex items-center min-h-full hover:bg-ironGrayHover">
+              <%= response.check_box question.id, { multiple: true,class: 'radio_button h-6 w-6 ml-1 mr-3 accent-ironGaryHover' }, answer.id %>
+              <span class="answer_title text-xl text-white"><%= answer.title %></span>
+            </p>
+          <% end %>
         <% when 'long_answer' %>
-            <%= response.text_area question.id, required: question.required %>
+          <%= response.text_area question.id, required: question.required, class: 'text_area w-full my-6 border-2 rounded-md border-ironGaryHover focus:outline-none focus:border-ironGary text-md' %>
         <% when 'satisfaction' %>
-            <table>
-                <tr>
-                    <% question.answers.each do |answer| %>
-                        <td>
-                            <%= answer.title %>
-                        </td>
-                    <% end %>
-                </tr>
-                <tr>
-                    <% question.answers.each do |answer| %>
-                        <td>
-                            <%= response.radio_button question.id, answer.id %>
-                        </td>
-                    <% end %>
-                </tr>
-            </table>
+          <table class="default w-full my-6">
+            <tr class="tr flex justify-around flex-wrap">
+              <% question.answers.each do |answer| %>
+                <td>
+                  <%= answer.title %>
+                </td>
+              <% end %>
+            </tr>
+            <tr class="tr flex justify-around flex-wrap ">
+              <% question.answers.each do |answer| %>
+                <td>
+                  <%= response.radio_button question.id, answer.id, class: 'radio_button h-6 w-6' %>
+                </td>
+              <% end %>
+            </tr>
+          </table> 
         <% when 'date' %>
-            <%= response.date_field question.id %>
+          <%= response.date_field question.id , class: "default w-full my-6"%>
         <% when 'time' %>
-            <%= response.time_field question.id %>
+          <%= response.time_field question.id, class: "default w-full my-6" %>
         <% when 'drop_down_menu' %>
-            <%= response.select question.id, options_for_select(question.answers.collect{ |o| [o.title, o.id] }) %>
-    
+          <%= response.select question.id, options_for_select(question.answers.collect{ |o| [o.title, o.id, class: "option"] }), {class: "default w-full my-6"}  %>
         <% when 'range' %>
-            <%= response.range_field question.id %>
+          <%= response.range_field question.id %>  
         <% when 'file' %>
-            <%= response.file_field question.id, accept: "application/pdf, application/zip", multiple: true %>
+          <%= response.file_field question.id, accept: "application/pdf, application/zip", multiple: true %>  
         <% when 'image' %>
-        <%= file_field_tag question.id %>
-            <% question.answers.each do |answer| %>
-                <%= response.image answer.answerimg.variant(resize_to_limit: [200, 300]) %>
-            <% end %>
+          <%= file_field_tag question.id %>  
+          <% question.answers.each do |answer| %>
+            <%= response.image answer.answerimg.variant(resize_to_limit: [200, 300]) %>  
+          <% end %>
         <% end %>
-        </div>
-        </div>
-    
-    
-    
-        <% end %>
-      <% end %>
-    
-      <div class="actions">
-        <%= form.submit %>
       </div>
+    </div>
     <% end %>
+    <% end %>
+
+    <div class="actions">
+      <%= form.submit "送出問卷",class:"px-4 py-3 bg-ironGray text-white text-lg font-semibold rounded hover:bg-ironGrayHover"%>
+    </div>
+
+  <% end %>
 </section>

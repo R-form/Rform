@@ -1,0 +1,28 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.sections {
+  .title {
+  }
+
+  .description {
+  }
+
+  .question_field {
+    .question_title {
+      .icon {
+        text-indent: -1.875rem;
+      }
+    }
+
+    .question_content {
+      .choice_type {
+        .radio_button {
+        }
+        .answer_title {
+        }
+      }
+    }
+  }
+}

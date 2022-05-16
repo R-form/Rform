@@ -8,8 +8,8 @@
           <%= link_to survey_path(survey) do %>
             <div class="m-3">
               <span class="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">Tag</span>
-              <h2 class="text-lg mb-2"><%= survey.title %></h2>
-              <p class="font-light font-mono text-sm text-gray-700 hover:text-gray-900 transition-all duration-200"><%= survey.description %></p> 
+              <h2 class="text-lg mb-2 truncate"><%= survey.title %></h2>
+              <p class="font-light font-mono text-sm text-gray-700 hover:text-gray-900 transition-all duration-200  truncate "><%= survey.description %></p> 
               <div class="mt-5 text-right">
                 
                 <%= link_to edit_survey_path(survey), class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do %>
