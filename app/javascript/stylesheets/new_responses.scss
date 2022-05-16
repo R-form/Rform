@@ -2,27 +2,6 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-.sections {
-  .title {
-  }
-
-  .description {
-  }
-
-  .question_field {
-    .question_title {
-      text-indent: -0.9rem;
-      .icon {
-      }
-    }
-
-    .question_content {
-      .choice_type {
-        .radio_button {
-        }
-        .answer_title {
-        }
-      }
-    }
-  }
+.question_title {
+  text-indent: -0.9rem;
 }
