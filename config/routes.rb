@@ -11,11 +11,6 @@ Rails.application.routes.draw do
   
   resources :surveys do
 
-    member do
-      patch :font_style
-      patch :theme
-    end
-
     resources :responses
 
     member do
@@ -31,6 +26,8 @@ Rails.application.routes.draw do
       post :add_answer
       delete :remove_question
       delete :remove_answer
+      patch :font_style
+      patch :theme
     end 
 
     get 'duplicate', on: :member , to: "surveys#duplicate_survey"
