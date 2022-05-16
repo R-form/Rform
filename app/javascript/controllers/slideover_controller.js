@@ -1,50 +1,21 @@
-import Dropdown from '../../../node_modules/tailwindcss-stimulus-components/src/dropdown.js'
+import { Controller } from "stimulus"
 
 
-export default class extends Dropdown {
-  static targets = ['menu', 'overlay']
+export default class extends Controller {
+  static targets = [ ];
 
-  connect(){
-    console.log(123);
-    console.log(this.overlayTarget);
-  }
-
-  
-
-  _show() {
-    this.overlayTarget.classList.remove(this.toggleClass)
-
-    super._show(
-      (() => {
-        this._activeClassList[1].forEach(klass => this.overlayTarget.classList.add(klass))
-        this._invisibleClassList[1].forEach(klass => this.overlayTarget.classList.remove(klass))
-        this._visibleClassList[1].forEach(klass => this.overlayTarget.classList.add(klass))
-        setTimeout(
-          (() => {
-            this._enteringClassList[1].forEach(klass => this.overlayTarget.classList.remove(klass))
-          }).bind(this),
-          this.enterTimeout[1],
-        )
-      }).bind(this),
-    )
-  }
-
-  _hide() {
-    this._leavingClassList[1].forEach(klass => this.overlayTarget.classList.add(klass))
-
-    super._hide(
-      (() => {
-        setTimeout(
-          (() => {
-            this._visibleClassList[1].forEach(klass => this.overlayTarget.classList.remove(klass))
-            this._invisibleClassList[1].forEach(klass => this.overlayTarget.classList.add(klass))
-            this._activeClassList[1].forEach(klass => this.overlayTarget.classList.remove(klass))
-            this._leavingClassList[1].forEach(klass => this.overlayTarget.classList.remove(klass))
-            this.overlayTarget.classList.add(this.toggleClass)
-          }).bind(this),
-          this.leaveTimeout[1],
-        )
-      }).bind(this),
-    )
-  }
+connect(){
+  console.log(123);
+  const style = document.querySelector(".fa-palette")
+  console.log(style);
 }
+
+ show(){
+  const style = document.querySelector(".fa-palette")
+  style.addEventListener("click", function () {
+    console.log("點了");
+  });
+
+ }
+  
+} 
