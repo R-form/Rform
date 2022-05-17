@@ -1,5 +1,5 @@
 <div class="flex justify-center bg-green-200">
-      <aside data-controller="slideover" data-slideover-target="closeAside" class="hidden slideover sm:w-1/5 absolute right-0 bg-gentleYellow h-full" style="top:186px">
+  <aside data-controller="slideover" data-slideover-target="closeAside" class="hidden slideover sm:w-1/5 absolute right-0 bg-gentleYellow h-full" style="top:186px">
         <div class="top-0 pt-12 px-2 w-full">
           <div data-action="click->slideover#close" class="absolute right-2 top-2 cursor-pointer">      
             <i class="fas fa-times-circle"></i>
@@ -27,29 +27,31 @@
             </ul>
           </nav>
         </div>
-      </aside>
-      <section class="formsection <%= survey.font_style %>">
-        <%= form_with(model: survey,  data: { controller: "auto-save survey-style", action: "change->auto-save#create_survey", auto_save_target: "form", }, id: "survey-style" , class: "formbody" ) do |form| %>
-          <div class="formfield">
-            <%= form.text_field :title, placeholder: "問卷標題", class: "titleinput", 
-            data: {action: "change->auto-save#add_survey_title "}%>
-            <%= form.text_area :description, placeholder: "問卷敘述", class: "forminput",
-            data: {action: "change->auto-save#add_survey_description "} %>
-          </div>
-          <div data-controller="nested-form sortable-question" data-nested-form-index-value ="QUESTION_RECORD" >
-            <template data-nested-form-target='template'>
-              <%= form.fields_for :questions, Question.new, child_index: 'QUESTION_RECORD' do |question| %>
-                <%= render 'question_fields', form: question %>
-              <% end %> 
-            </template>
-            <%= form.fields_for :questions do |question| %>
-              <%= render 'question_fields', form: question %>
-            <% end %>
-            <div data-nested-form-target="add_item" class="formfield">
-              <%= link_to "新增問題", "#", data: { action: "nested-form#add_association auto-save#add_question_item" }, class: "btn" %>
-            </div>
-          </div>
+  </aside>
+  <section class="formsection <%= survey.font_style %>">
+    <%= form_with(model: survey,  data: { controller: "auto-save survey-style", action: "change->auto-save#create_survey", auto_save_target: "form", }, id: "survey-style" , class: "formbody" ) do |form| %>
+      <div class="formfield">
+        <%= form.text_field :title, placeholder: "問卷標題", class: "titleinput", 
+          data: {action: "change->auto-save#add_survey_title "}%>
+        <%= form.text_area :description, placeholder: "問卷敘述", class: "forminput",
+          data: {action: "change->auto-save#add_survey_description "} %>
+      </div>
+      <div data-controller="nested-form sortable-question" data-nested-form-index-value ="QUESTION_RECORD" >
+        <template data-nested-form-target='template'>
+          <%= form.fields_for :questions, Question.new, child_index: 'QUESTION_RECORD' do |question| %>
+            <%= render 'question_fields', form: question %>
+          <% end %> 
+        </template>
+          <%= form.fields_for :questions do |question| %>
+            <%= render 'question_fields', form: question %>
           <% end %>
-      </section>
+          <div data-nested-form-target="add_item" class="formfield">
+            <%= link_to "新增問題", "#", data: { action: "nested-form#add_association auto-save#add_question_item" }, class: "btn" %>
+          </div>
+        </div>
+    <% end %>
+  </section>
 </div>
 
+<% end %>
+</section>
