@@ -157,8 +157,7 @@ export default class extends Controller {
       } else {
         data.append("answer_timestamp", answer_timestamp);
       }
-    }
-    if (question_id) {
+    } else {
       data.append("timestamp", timestamp);
       if (answer_id != undefined || "") {
         data.append("answer_id", answer_id);
