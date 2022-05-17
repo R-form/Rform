@@ -4,11 +4,11 @@ import Rails from "@rails/ujs";
 export default class extends Controller {
 
   option(e) {
-    const id = document.querySelector("#survey-style").children[2].dataset.id
-    const form = document.querySelector("#survey-style")
-    const font_style =  e.target.value
-    
-    switch(font_style){
+    const id = document.querySelector("form").children[2].dataset.id;
+    const form = document.querySelector("form");
+    const font_style = e.target.value;
+
+    switch (font_style) {
       case "font-sans":
         form.classList.remove("font-mono", "font-serif");
         form.classList.add("font-sans");
