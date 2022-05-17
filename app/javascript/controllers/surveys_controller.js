@@ -1,4 +1,5 @@
 import { Controller } from "stimulus";
+import QRCode from "qrcode";
 
 export default class extends Controller {
   static targets = ["short_url"];
@@ -9,6 +10,10 @@ export default class extends Controller {
       e.target.closest("a").dataset.url
     }`;
     this.short_urlTarget.value = url;
+    let qrcode = document.getElementById("qrcode");
+    if (!!qrcode) {
+      qrcode.parentNode.removeChild(qrcode);
+    }
   }
   copy(e) {
     e.preventDefault();
@@ -18,8 +23,23 @@ export default class extends Controller {
       .then((resp) => {})
       .catch((err) => {});
   }
+
   qrcode(e) {
     e.preventDefault();
-    new QRCode(document.getElementById("qrcode"), this.short_urlTarget.value);
+    QRCode.toDataURL(this.short_urlTarget.value)
+      .then((url) => {
+        let img = document.createElement("img");
+        img.src = url;
+        img.id = "qrcode";
+        let qrcode = document.getElementById("qrcode");
+        if (!!qrcode) {
+          qrcode.parentNode.removeChild(qrcode);
+        } else {
+          e.target.appendChild(img);
+        }
+      })
+      .catch((url) => {
+        console.error(url);
+      });
   }
 }
