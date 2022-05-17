@@ -18,4 +18,12 @@ export default class extends Controller {
       .then((resp) => {})
       .catch((err) => {});
   }
+  qrcode(e) {
+    e.preventDefault();
+    const url = `${location.protocol}${location.host}${
+      e.target.closest("a").dataset.url
+    }`;
+    console.log(url);
+    new QRCode(this.short_urlTarget.value, url);
+  }
 }
