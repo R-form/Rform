@@ -6,7 +6,7 @@ export default class extends Controller {
 
   create_survey() {
     const id = this.survey_idTarget.dataset.id;
-    if (id == null) {
+    if (id == "") {
       this.formTarget.submit();
     }
   }
