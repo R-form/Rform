@@ -20,10 +20,6 @@ export default class extends Controller {
   }
   qrcode(e) {
     e.preventDefault();
-    const url = `${location.protocol}${location.host}${
-      e.target.closest("a").dataset.url
-    }`;
-    console.log(url);
-    new QRCode(this.short_urlTarget.value, url);
+    new QRCode(document.getElementById("qrcode"), this.short_urlTarget.value);
   }
 }
