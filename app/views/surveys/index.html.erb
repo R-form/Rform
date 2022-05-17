@@ -10,8 +10,21 @@
               <span class="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">Tag</span>
               <h2 class="text-lg mb-2 truncate"><%= survey.title %></h2>
               <p class="font-light font-mono text-sm text-gray-700 hover:text-gray-900 transition-all duration-200  truncate "><%= survey.description %></p> 
+              <div>
+                <%= form_with(model: survey, url: survey_tag_path(survey), method: "patch") do |form| %>
+                  <div id="tagEditor" class="hidden">
+                    <%= form.text_field :tag, data: {controller: "tag"} %>
+                  </div>
+                  <div id="tagLabel">
+                    <%= survey.tag %>
+                  </div>
+                <% end %>
+              </div>
+    
               <div class="mt-5 text-right">
-                
+              <button id="tagButton" class="px-2 py-1 mx-2 font-bold text-white bg-gray-500 rounded-full hover:bg-gray-700">
+                <i class="fas fa-tags" id="tagIcon"></i>
+              </button>
                 <%= link_to edit_survey_path(survey), class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do %>
                   <i class="fas fa-pen"></i>
                 <% end %>
@@ -25,13 +38,6 @@
               
                 <%= link_to survey, method: :delete, data: { confirm: '確定要刪除問卷嗎?' }, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do%>
                   <i class="fas fa-trash-alt"></i>
-                <% end %>
-              </div>
-              <div>
-                <%= form_with(model: survey, url: survey_tag_path(survey), method: "patch") do |form| %>
-                  <%= form.label :tag %>
-                  <%= form.text_field :tag, data: {controller: "tag"} %>
-                  <%= form.submit "更新分類標籤" %>
                 <% end %>
               </div>
             </div>
