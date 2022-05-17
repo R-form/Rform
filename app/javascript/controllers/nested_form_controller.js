@@ -64,7 +64,7 @@ export default class extends Controller {
 
   remove_association(event) {
     event.preventDefault();
-    let item = event.target.closest(".nested-fields");
+    let item = event.target.closest(".fields");
     item.querySelector("input[name*='_destroy']").value = true;
     item.style.display = "none";
   }

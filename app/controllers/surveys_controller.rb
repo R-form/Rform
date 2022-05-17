@@ -10,7 +10,9 @@ class SurveysController < ApplicationController
   def show; end
 
   def new
-    @survey = Survey.new
+    @survey = current_user.surveys.create
+    @survey.update(title: "未命名的問卷")
+    redirect_to  edit_survey_path(@survey.id)
   end
 
   def edit
