@@ -75,13 +75,13 @@ ActiveRecord::Schema.define(version: 2022_05_14_071958) do
 
   create_table "questions", force: :cascade do |t|
     t.string "title"
-    t.integer "question_type"
+    t.integer "question_type", default: 0
     t.bigint "survey_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "required"
-    t.string "timestamp"
     t.integer "position"
+    t.string "timestamp"
     t.index ["survey_id"], name: "index_questions_on_survey_id"
   end
 
@@ -99,10 +99,10 @@ ActiveRecord::Schema.define(version: 2022_05_14_071958) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
-    t.bigint "user_id", null: false
-    t.string "tag"
-    t.string "slug"
     t.integer "position"
+    t.bigint "user_id", null: false
+    t.string "slug"
+    t.string "tag"
     t.string "font_style"
     t.string "theme"
     t.index ["slug"], name: "index_surveys_on_slug", unique: true
