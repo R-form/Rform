@@ -1,13 +1,15 @@
 <section class="max-w-lg mx-auto">
 
-<%= form_with(model: survey,  data: { controller: "auto-save", action: "change->auto-save#create_survey", auto_save_target: "form"}) do |form| %>
+<%= form_with(model: survey,  data: { controller: "auto-save survey-style", action: "change->auto-save#create_survey", auto_save_target: "form"}, class: survey.font_style) do |form| %>
   <div class="field survey_id" data-id="<%= survey.id %>">
     <%= form.label :title, "問卷名稱", class: "text-xl" %>
-    <%= form.text_field :title, placeholder: "請輸入問卷名稱", class: "appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white", data: {action: "change->auto-save#add_survey_title "}%>
+    <%= form.text_field :title, placeholder: "請輸入問卷名稱", class: "appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white", 
+    data: {action: "change->auto-save#add_survey_title "}%>
   </div>
   <div class="field">
     <%= form.label :description, "問卷敘述", class: "text-xl" %>
-    <%= form.text_area :description, placeholder: "問卷敘述", class: "appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white", data: {action: "change->auto-save#add_survey_description "} %>
+    <%= form.text_area :description, placeholder: "問卷敘述", class: "appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white",
+     data: {action: "change->auto-save#add_survey_description "} %>
   </div>
   
   <div data-controller="nested-form sortable-question" data-nested-form-index-value ="QUESTION_RECORD" >
@@ -29,12 +31,22 @@
   <% if survey.id == nil %>
     <div class="actions my-6">
       <%= form.submit "新增問卷", class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full" %>
-    </div>
+  </div>
   <% else %>
     <div class="actions my-6">
       <%= link_to '更新問卷', surveys_path, class: "bg-red-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full", data: { action: "auto-save#submitForm"}%>
     </div>
   <% end%>
+
+   <div data-controller="survey-style" > 
+    <%= form.select :font_style,
+        options_for_select([['請選擇字體', 'DD' ],['font-sans(default)', 'font-sans'], ['font-mono', 'font-mono'],['font-serif','font-serif']],
+         selected: form.object.font_style ),
+        {},
+        data: { action: "change -> survey-style#option"}    
+    %>
+  </div> 
+
 
 <% end %>
 </section>

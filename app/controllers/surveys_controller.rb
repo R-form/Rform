@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SurveysController < ApplicationController
-  before_action :find_survey, except: %i[index new create]
+  before_action :find_survey, except: %i[index new create ]
 
   def index
     @surveys = current_user.surveys
@@ -43,6 +43,20 @@ class SurveysController < ApplicationController
       redirect_to surveys_path, notice: '問卷已複製成功'
     end
   end
+
+  def duplicate_question
+    if params[:question_id] != ''
+      question = @survey.questions.find(params[:question_id]).deep_clone include: :answers
+    else
+      question = @survey.questions.find_by(timestamp: params[:question_timestamp]).deep_clone include: :answers
+    end
+    question.update(title: question.title.insert(-1," - 副本"))
+    question.save
+    new_question = @survey.questions.max
+    result = [ new_question, new_question.answers]
+    render json:  result
+  end
+  
 
   def tag
     survey = Survey.find(params[:survey_id])
@@ -99,7 +113,6 @@ class SurveysController < ApplicationController
   end
 
   def add_answer
-
     if params[:timestamp]
       if @survey.questions.find_by(timestamp: params[:timestamp])
         @question = @survey.questions.find_by(timestamp: params[:timestamp])
@@ -155,6 +168,10 @@ class SurveysController < ApplicationController
       end
     end
   end
+
+  def font_style
+    @survey.update(font_style: params[:font_style])
+  end
   
   private
   def find_survey
@@ -166,6 +183,8 @@ class SurveysController < ApplicationController
       :title,
       :description,
       :position,
+      :font_style,
+      :theme,
       questions_attributes: [
         :_destroy,
         :id,
