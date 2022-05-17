@@ -14,6 +14,7 @@
     "Font-Awesome": "FortAwesome/Font-Awesome",
     "choices.js": "^10.1.0",
     "flatpickr": "^4.6.13",
+    "qrcode": "^1.5.0",
     "sortablejs": "^1.15.0",
     "stimulus": "^3.0.1",
     "stimulus-rails-autosave": "^4.0.0",
