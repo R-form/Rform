@@ -3,7 +3,7 @@
 class Question < ApplicationRecord
   belongs_to :survey, autosave: true
   has_many :answers, dependent: :destroy , autosave: true
-  has_many_attached :images
+  has_one_attached :image
   
   accepts_nested_attributes_for :answers, allow_destroy: true
 

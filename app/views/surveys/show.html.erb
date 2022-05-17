@@ -1,6 +1,6 @@
 <h1><%= @survey.title %></h1>
 <h2><%= @survey.description %></h2>
-<%= image_tag @survey.image if @survey.image.attached?%>
+<%= image_tag  @survey.image.attached? ?  @survey.image : "沒圖"  %>
 <% @survey.questions.each do |question| %>
   <h2><%= question.title %></h2>
   
@@ -57,7 +57,8 @@
     <div>
       <%# file_field_tag question.id %>  
         <%# image_tag answer.answerimg.variant(resize_to_limit: [200, 300]) %>  
-      <%= image_tag question.images, question.id if question.images.attached? %>
+
+      <%= image_tag question.image.attached? ? question.image : "沒圖" %>
     </div>
   <% end %>
 <% end %>
