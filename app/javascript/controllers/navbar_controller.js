@@ -3,11 +3,8 @@ import e from "turbolinks";
 
 
 export default class extends Controller {
-  static targets = ['palette'];
+  static targets = [];
 
-connect(){
-
-}
 
  show(e){
   e.preventDefault();
