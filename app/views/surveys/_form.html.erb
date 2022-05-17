@@ -37,6 +37,14 @@
     %>
   </div> 
 
-
+  <% if survey.id == nil %>
+    <div class="actions my-6 hidden">
+      <%= form.submit "新增問卷", class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full" %>
+    </div>
+  <% else %>
+    <div class="actions my-6 hidden">
+      <%= link_to '更新問卷', surveys_path, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full", data: { action: "auto-save#submitForm"}%>
+    </div>
+  <% end%>
 <% end %>
 </section>
