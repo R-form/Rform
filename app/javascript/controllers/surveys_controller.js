@@ -11,8 +11,8 @@ export default class extends Controller {
     }`;
     this.short_urlTarget.value = url;
     let qrcode = document.getElementById("qrcode");
-    if (!!qrcode) {
-      qrcode.parentNode.removeChild(qrcode);
+    if (qrcode) {
+      qrcode.remove();
     }
   }
   copy(e) {
@@ -32,8 +32,8 @@ export default class extends Controller {
         img.src = url;
         img.id = "qrcode";
         let qrcode = document.getElementById("qrcode");
-        if (!!qrcode) {
-          qrcode.parentNode.removeChild(qrcode);
+        if (qrcode) {
+          qrcode.remove();
         } else {
           e.target.appendChild(img);
         }
