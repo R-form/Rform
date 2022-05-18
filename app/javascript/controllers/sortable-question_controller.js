@@ -15,9 +15,7 @@ export default class extends Controller {
         Rails.ajax({
           type: "patch",
           url: `/surveys/${id}/question_sort`,
-          data: data,
-          success: (resp) => {},
-          error: (err) => {},
+          data,
         });
       },
     });
