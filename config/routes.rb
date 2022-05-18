@@ -19,17 +19,17 @@ Rails.application.routes.draw do
     member do
       patch :sort
       patch :question_sort
-      post :survey_title
-      post :survey_description
       post :add_question_item
       post :add_answer_item
-      post :duplicate_question
-      post :save_checkbox
+      patch :add_survey_title
+      patch :add_survey_description
+      patch :save_checkbox
       patch :update_select
-      post :add_question
-      post :add_answer
+      patch :add_question
+      patch :add_answer
       delete :remove_question
       delete :remove_answer
+      post :duplicate_question
       patch :font_style
       patch :theme
     end 

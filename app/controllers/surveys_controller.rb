@@ -11,7 +11,6 @@ class SurveysController < ApplicationController
 
   def new
     @survey = current_user.surveys.create
-    @survey.update(title: "未命名的問卷")
     redirect_to  edit_survey_path(@survey.id)
   end
 
@@ -76,99 +75,107 @@ class SurveysController < ApplicationController
     @question.insert_at(params[:newIndex].to_i)
   end
 
-  def survey_title
+  def add_survey_title
     @survey.update(title: params[:survey_title])
+    render json: {
+      message: "更新成功",
+      params: params
+    }
   end
 
-  def survey_description
+  def add_survey_description
     @survey.update(description: params[:survey_description])
+    render json: {
+      message: "更新成功",
+      params: params
+    }
+  end
+
+  def add_question_item
+    @survey.questions.create
+    new_question = Question.last
+
+    render json: {
+      message: "更新成功",
+      new_question_id: new_question.id,
+      params: params
+    }
+  end
+
+  def add_answer_item
+    question = @survey.questions.find(params[:question_id])
+    question.answers.create
+    new_answer = Answer.last
+
+    render json: new_answer.id
   end
 
   def add_question
-    if params[:timestamp]
-      if @survey.questions.find_by(timestamp: params[:timestamp])
-        @question = @survey.questions.find_by(timestamp: params[:timestamp])
-        @question.update(title: params[:question_value])
-      else
-        @question = @survey.questions.create
-        @question.update(timestamp: params[:timestamp],title: params[:question_value])
-      end
-    else 
-      @question = @survey.questions.find(params[:question_id])
-      @question.update(title: params[:question_value])
-    end
+    question = @survey.questions.find(params[:question_id])
+    question.update(title: params[:question_value])
+    render json: {
+      message: "更新成功",
+      params: params
+    }
   end
 
   def save_checkbox
-    if params[:timestamp]
-      if @survey.questions.find_by(timestamp: params[:timestamp])
-        @question = @survey.questions.find_by(timestamp: params[:timestamp])
-        @question.update(required: !@question.required)
-      else
-        @question = @survey.questions.create
-        @question.update(timestamp: params[:timestamp],required: !@question.required)
-      end
-    else 
-      @question = @survey.questions.find(params[:question_id])
-      @question.update(required: !@question.required)
-    end
+    question = @survey.questions.find(params[:question_id])
+    question.update(required: !question.required)
+    render json: {
+      message: "更新成功",
+      params: params
+    }
   end
 
   def add_answer
-    if params[:timestamp]
-      if @survey.questions.find_by(timestamp: params[:timestamp])
-        @question = @survey.questions.find_by(timestamp: params[:timestamp])
-        answer = @question.answers.create(title: params[:answer_value]) 
-      else
-        @question = @survey.questions.create
-        @question.update(timestamp: params[:timestamp])
-        answer = @question.answers.create(title: params[:answer_value]) 
-      end
-    elsif params[:question_id]
-      @question = @survey.questions.find(params[:question_id])
-      if params[:answer_timestamp]
-        answer = @question.answers.create
-        answer.update(timestamp: params[:answer_timestamp],title: params[:answer_value])
-      elsif params[:answer_id]
-        answer = @question.answers.find(params[:answer_id])
-        answer.update(title: params[:answer_value])
-      end
-    end
+    # if params[:timestamp]
+    #   if @survey.questions.find_by(timestamp: params[:timestamp])
+    #     @question = @survey.questions.find_by(timestamp: params[:timestamp])
+    #     answer = @question.answers.create(title: params[:answer_value]) 
+    #   else
+    #     @question = @survey.questions.create
+    #     @question.update(timestamp: params[:timestamp])
+    #     answer = @question.answers.create(title: params[:answer_value]) 
+    #   end
+    # elsif params[:question_id]
+    #   @question = @survey.questions.find(params[:question_id])
+    #   if params[:answer_timestamp]
+    #     answer = @question.answers.create
+    #     answer.update(timestamp: params[:answer_timestamp],title: params[:answer_value])
+    #   elsif params[:answer_id]
+    #     answer = @question.answers.find(params[:answer_id])
+    #     answer.update(title: params[:answer_value])
+    #   end
+    # end
   end
 
   def update_select
-    if params[:timestamp]
-      if @survey.questions.find_by(timestamp: params[:timestamp])
-        @question = @survey.questions.find_by(timestamp: params[:timestamp])
-        @question.update(question_type: params[:select])
-      else
-        @question = @survey.questions.create
-        @question.update(timestamp: params[:timestamp],question_type: params[:select])
-      end
-    else 
-      @question = @survey.questions.find(params[:question_id])
-      @question.update(question_type: params[:select])
-    end
+    question = @survey.questions.find(params[:question_id])
+    question.update(question_type: params[:select])
+    render json: {
+      message: "更新成功",
+      params: params
+    }
   end
 
   def remove_question
-    if params[:timestamp]
-      @question = @survey.questions.find_by(timestamp: params[:timestamp])
-      @question.destroy
-    else 
-      @question = @survey.questions.find(params[:question_id])
-      @question.destroy
-    end
+    question = @survey.questions.find(params[:question_id])
+    question.destroy
+    render json: {
+      message: "刪除問題成功",
+      params: params
+    }
   end
 
   def remove_answer
-    if params[:question_id]
-      @question = @survey.questions.find(params[:question_id])
-      if params[:answer_id]
-        answer = @question.answers.find(params[:answer_id])
-        answer.destroy
-      end
-    end
+    # if params[:question_id]
+    #   @question = @survey.questions.find(params[:question_id])
+    #   if params[:answer_id]
+    #     answer = @question.answers.find(params[:answer_id])
+    #     answer.destroy
+    #   end
+    # end
   end
 
   def font_style
