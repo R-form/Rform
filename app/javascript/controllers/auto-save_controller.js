@@ -2,7 +2,7 @@ import { Controller } from "stimulus";
 import Rails from "@rails/ujs";
 
 export default class extends Controller {
-  static targets = ["form", "survey_id", "question"];
+  static targets = ["form", "survey_id", "question", "answer"];
 
   add_survey_title(e) {
     const id = this.survey_idTarget.dataset.id;
@@ -136,12 +136,10 @@ export default class extends Controller {
       type: "post",
       url: `/surveys/${id}/add_answer_item`,
       data,
-      success: (answer_id) => {
-        // const question_count = this.questionTargets.length - 1;
-        // const new_question_item = this.questionTargets[question_count];
-        // new_question_item.value = question_id;
-        // TODO del
-        console.log(answer_id);
+      success: ({ new_answer_id }) => {
+        const answer_count = this.answerTargets.length - 1;
+        const new_answer_item = this.answerTargets[answer_count];
+        new_answer_item.value = new_answer_id;
       },
       error: (err) => {},
     });
@@ -150,80 +148,42 @@ export default class extends Controller {
   add_answer(e) {
     const id = this.survey_idTarget.dataset.id;
     const question_id = e.target.closest(".question").firstElementChild.value;
-    const time = e.target.closest("section .question").firstElementChild.name;
-    const timestamp = time.match(/\d/g).join("");
-    const answer_id = e.target.closest("section").nextElementSibling.value;
-    const answer_time = e.target.closest(".form-group").firstElementChild.name;
-    const answer_timestamp = answer_time.match(/\d/g).join("").slice(1);
+    const answer_id = e.target.closest(".answer").firstElementChild.value;
     const answer_value = e.target.value;
 
     const data = new FormData();
-    if (question_id != "") {
-      data.append("question_id", question_id);
-      if (answer_id != undefined || "") {
-        data.append("answer_id", answer_id);
-      } else {
-        data.append("answer_timestamp", answer_timestamp);
-      }
-    } else {
-      data.append("timestamp", timestamp);
-      if (answer_id != undefined || "") {
-        data.append("answer_id", answer_id);
-      } else {
-        data.append("answer_timestamp", answer_timestamp);
-      }
-    }
+    data.append("question_id", question_id);
+    data.append("answer_id", answer_id);
     data.append("answer_value", answer_value);
 
     Rails.ajax({
-      type: "post",
+      type: "patch",
       url: `/surveys/${id}/add_answer`,
       data: data,
-      success: (resp) => {},
+      success: ({ message }) => {},
       error: (err) => {},
     });
   }
 
   remove_answer(e) {
     e.preventDefault();
-    let item = e.target.closest(".nested-fields");
+    let item = e.target.closest(".answer");
     item.style.display = "none";
 
     const id = this.survey_idTarget.dataset.id;
     const question_id = e.target.closest(".question").firstElementChild.value;
-    const time = e.target.closest("section .question").firstElementChild.name;
-    const timestamp = time.match(/\d/g).join("");
-    const answer_id = e.target.closest("section").nextElementSibling.value;
-    const answer_time = e.target.closest(".form-group").firstElementChild.name;
-    const answer_timestamp = answer_time.match(/\d/g).join("").slice(1);
+    const answer_id = e.target.closest(".answer").firstElementChild.value;
 
     const data = new FormData();
-    if (question_id != "") {
-      data.append("question_id", question_id);
-      if (answer_id != undefined || "") {
-        data.append("answer_id", answer_id);
-      } else {
-        data.append("answer_timestamp", answer_timestamp);
-      }
-    } else {
-      data.append("timestamp", timestamp);
-      if (answer_id != undefined || "") {
-        data.append("answer_id", answer_id);
-      } else {
-        data.append("answer_timestamp", answer_timestamp);
-      }
-    }
+    data.append("question_id", question_id);
+    data.append("answer_id", answer_id);
 
     Rails.ajax({
       type: "delete",
       url: `/surveys/${id}/remove_answer`,
       data: data,
-      success: (resp) => {},
+      success: ({ message }) => {},
       error: (err) => {},
     });
-  }
-
-  submitForm() {
-    this.formTarget.submit();
   }
 }
