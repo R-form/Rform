@@ -3,7 +3,7 @@ import { Controller } from "stimulus";
 export default class extends Controller {
   static targets = ["select", "choice"];
 
-  connect() {
+  selected() {
     switch (this.selectTarget.value) {
       case "single_choice":
       case "multiple_choice":
