@@ -16,10 +16,11 @@ export default class extends Controller {
       question.insertAdjacentHTML("afterend", content.outerHTML);
 
       const new_last = e.target.closest(".question").nextElementSibling;
-      const answers = question.querySelectorAll(".answer");
+      // const answers = question.querySelectorAll(".answer");
       const new_answers_item = new_last.querySelectorAll(
         ".answer input[placeholder='Answer']"
       );
+      const new_question_description = new_last.querySelector(".forminput");
 
       new_last.querySelector(".question_input").value = `${text} - 副本`;
       new_last.setAttribute("data-nested-form-target", "question_copy");
@@ -31,11 +32,12 @@ export default class extends Controller {
         type: "post",
         url: `/surveys/${id}/duplicate_question`,
         data,
-        success: ({ answers }) => {
+        success: ({ question_description, answers }) => {
           let new_answers_length = answers.length;
           for (let i = 0; i < new_answers_length; i++) {
             new_answers_item[i].value = answers[i].title;
           }
+          new_question_description.value = question_description;
         },
         error: (err) => {},
       });
