@@ -11,5 +11,4 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
   has_many :surveys, -> { order(position: :asc) } , :dependent => :destroy
   has_many :authentications, :dependent => :destroy
-  accepts_nested_attributes_for :authentications
 end

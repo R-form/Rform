@@ -8,7 +8,7 @@
         {},class: "select",
         'data-dynamic-select-target': 'select',
         'data-auto-save-target': 'select',
-        'data-action': 'dynamic-select#selected auto-save#selected'%>
+        'data-action': 'auto-save#selected'%>
   </div>
   <%= form.text_area :description, placeholder: "題目敘述", class: "forminput", data: {action: "change->auto-save#add_question_description "} %>
   <div class="question_fuction">
