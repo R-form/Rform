@@ -1,5 +1,5 @@
 <div class="question fields" data-id="<%= @survey.id %>" data-controller='dynamic-select' >
-  <%= form.hidden_field :id %>
+  <%= form.hidden_field :id, class: "question_id",data:{"auto-save-target": "question"}  %>
   <%= form.hidden_field :_destroy %>
   <div class='title_type'>
       <%= form.text_field :title, placeholder: 'Question', class: 'question_input', data: {action: "change->auto-save#add_question "} %>
@@ -18,7 +18,7 @@
     <%= link_to "複製問題", data: { action: "click->nested-form#duplicate_question" } ,class: "btn" do %>
       <i class="fas fa-copy"></i>
     <% end %>
-    <%= form.check_box :required, data: {action: "click->auto-save#checkbox"}%>
+    <%= form.check_box :required, data: {action: "click->auto-save#checked"}%>
     <%= form.label :required, "必填" %>
   </div>
   <div class="choices_field"  data-controller="nested-form" data-nested-form-index-value ="ANSWER_RECORD" data-dynamic-select-target='choice'>

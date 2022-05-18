@@ -13,7 +13,7 @@
                   </span>                 
               </li> 
               <li>
-                 <%= form_with(model: survey,  data: { controller: "auto-save survey-style", action: "change->auto-save#create_survey", auto_save_target: "form"}, 
+                 <%= form_with(model: survey,  data: { controller: "auto-save survey-style", auto_save_target: "form"}, 
                       class: survey.font_style ) do |form| %>
                     <div data-controller="survey-style" class="mx-4" > 
                         <%= form.select :font_style,
@@ -29,8 +29,8 @@
         </div>
   </aside>
   <section class="formsection <%= survey.font_style %>">
-    <%= form_with(model: survey,  data: { controller: "auto-save survey-style", action: "change->auto-save#create_survey", auto_save_target: "form", }, id: "survey-style" , class: "formbody" ) do |form| %>
-      <div class="formfield">
+    <%= form_with(model: survey,  data: { controller: "auto-save survey-style", auto_save_target: "form" }, id: "survey-style" , class: "formbody" ) do |form| %>
+      <div class="formfield" data-id="<%= survey.id %>" data-auto-save-target="survey_id">
         <%= form.text_field :title, placeholder: "問卷標題", class: "titleinput", 
           data: {action: "change->auto-save#add_survey_title "}%>
         <%= form.text_area :description, placeholder: "問卷敘述", class: "forminput",
