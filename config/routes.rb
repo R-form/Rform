@@ -32,6 +32,7 @@ Rails.application.routes.draw do
       delete :remove_answer
       patch :font_style
       patch :theme
+      get :stats
     end 
 
     get 'duplicate', on: :member , to: "surveys#duplicate_survey"
