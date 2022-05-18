@@ -89,6 +89,24 @@ export default class extends Controller {
     });
   }
 
+  add_question_description(e) {
+    const id = this.survey_idTarget.dataset.id;
+    const question_id = e.target.closest(".question").firstElementChild.value;
+    const question_description = e.target.value;
+
+    const data = new FormData();
+    data.append("question_id", question_id);
+    data.append("question_description", question_description);
+
+    Rails.ajax({
+      type: "patch",
+      url: `/surveys/${id}/add_question_description`,
+      data,
+      success: ({ message }) => {},
+      error: (err) => {},
+    });
+  }
+
   checked(e) {
     const id = this.survey_idTarget.dataset.id;
     const question_id = e.target.closest(".question").firstElementChild.value;
