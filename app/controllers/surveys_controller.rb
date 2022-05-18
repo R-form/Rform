@@ -105,9 +105,13 @@ class SurveysController < ApplicationController
   def add_answer_item
     question = @survey.questions.find(params[:question_id])
     question.answers.create
-    new_answer = Answer.last
+    new_answer_id = Answer.last
 
-    render json: new_answer.id
+    render json: {
+      message: "更新成功",
+      new_answer_id: new_answer_id.id,
+      params: params
+    }
   end
 
   def add_question
@@ -129,25 +133,13 @@ class SurveysController < ApplicationController
   end
 
   def add_answer
-    # if params[:timestamp]
-    #   if @survey.questions.find_by(timestamp: params[:timestamp])
-    #     @question = @survey.questions.find_by(timestamp: params[:timestamp])
-    #     answer = @question.answers.create(title: params[:answer_value]) 
-    #   else
-    #     @question = @survey.questions.create
-    #     @question.update(timestamp: params[:timestamp])
-    #     answer = @question.answers.create(title: params[:answer_value]) 
-    #   end
-    # elsif params[:question_id]
-    #   @question = @survey.questions.find(params[:question_id])
-    #   if params[:answer_timestamp]
-    #     answer = @question.answers.create
-    #     answer.update(timestamp: params[:answer_timestamp],title: params[:answer_value])
-    #   elsif params[:answer_id]
-    #     answer = @question.answers.find(params[:answer_id])
-    #     answer.update(title: params[:answer_value])
-    #   end
-    # end
+    question = @survey.questions.find(params[:question_id])
+    answer = question.answers.find(params[:answer_id])
+    answer.update(title: params[:answer_value])
+    render json: {
+      message: "更新成功",
+      params: params
+    }
   end
 
   def update_select
@@ -169,13 +161,13 @@ class SurveysController < ApplicationController
   end
 
   def remove_answer
-    # if params[:question_id]
-    #   @question = @survey.questions.find(params[:question_id])
-    #   if params[:answer_id]
-    #     answer = @question.answers.find(params[:answer_id])
-    #     answer.destroy
-    #   end
-    # end
+    question = @survey.questions.find(params[:question_id])
+    answer = question.answers.find(params[:answer_id])
+    answer.destroy
+    render json: {
+      message: "刪除答案成功",
+      params: params
+    }
   end
 
   def font_style
