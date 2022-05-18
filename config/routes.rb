@@ -26,6 +26,7 @@ Rails.application.routes.draw do
       patch :save_checkbox
       patch :update_select
       patch :add_question
+      patch :add_question_description
       patch :add_answer
       delete :remove_question
       delete :remove_answer
