@@ -52,6 +52,7 @@ class SurveysController < ApplicationController
     
     render json: {
       copy_question: question, 
+      question_description: question.description,
       answers: question.answers
     }
   end
