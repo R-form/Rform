@@ -1,5 +1,4 @@
-<div class="question fields" data-id="<%= @survey.id %>" data-controller='dynamic-select' >
-  <%= form.hidden_field :id, class: "question_id",data:{"auto-save-target": "question"}  %>
+<div class="question fields" data-id="<%= @survey.id %>" data-question_id="<%= form.object.id %>" data-controller='dynamic-select' data-auto-save-target="question" >
   <%= form.hidden_field :_destroy %>
   <div class='title_type'>
       <%= form.text_field :title, placeholder: 'Question', class: 'question_input', data: {action: "change->auto-save#add_question "} %>
