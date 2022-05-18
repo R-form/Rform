@@ -7,45 +7,34 @@ export default class extends Controller {
 
   duplicate_question(e) {
     e.preventDefault();
-
     setTimeout(() => {
-      const content = e.target.closest("section").cloneNode(true);
-      const question = e.target.closest("section");
-
-      const id = e.target.closest("section").dataset.id;
+      const content = e.target.closest(".question").cloneNode(true);
+      const question = e.target.closest(".question");
+      const id = e.target.closest(".question").dataset.id;
       const question_id = e.target.closest(".question").firstElementChild.value;
-      const time = e.target.closest("section .question").firstElementChild.name;
-
-      const question_timestamp = time.match(/\d/g).join("");
-      const text = content.querySelector("#question_title").value;
-
+      const text = content.querySelector(".question_input").value;
       question.insertAdjacentHTML("afterend", content.outerHTML);
 
-      const new_last = e.target.closest("section").nextElementSibling;
-      const answers = question.querySelectorAll("section .answer");
+      const new_last = e.target.closest(".question").nextElementSibling;
+      const answers = question.querySelectorAll(".answer");
       const new_answers_item = new_last.querySelectorAll(
-        "section .answer input[placeholder='Answer']"
+        ".answer input[placeholder='Answer']"
       );
 
-      new_last.querySelector("#question_title").value = `${text} - 副本`;
+      new_last.querySelector(".question_input").value = `${text} - 副本`;
       new_last.setAttribute("data-nested-form-target", "question_copy");
 
       const data = new FormData();
       data.append("question_id", question_id);
-      data.append("question_timestamp", question_timestamp);
 
       Rails.ajax({
         type: "post",
         url: `/surveys/${id}/duplicate_question`,
-        data: data,
-        success: (resp) => {
-          let new_question_id = resp[0].id;
-          let new_answers = resp[1];
-          let new_answers_length = resp[1].length;
-          this.question_copyTarget.firstElementChild.value = `${new_question_id}`;
+        data,
+        success: ({ answers }) => {
+          let new_answers_length = answers.length;
           for (let i = 0; i < new_answers_length; i++) {
-            answers[i].nextElementSibling.value = `${new_answers[i].id}`;
-            new_answers_item[i].value = `${new_answers[i].title}`;
+            new_answers_item[i].value = answers[i].title;
           }
         },
         error: (err) => {},

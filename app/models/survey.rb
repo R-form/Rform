@@ -6,7 +6,7 @@ class Survey < ApplicationRecord
   belongs_to :user
   friendly_id :slug, use: :slugged
 
-  has_many :questions, -> { order(position: :asc) }, dependent: :destroy, autosave: true
+  has_many :questions, -> { order(position: :asc) }, dependent: :destroy
   has_many :responses, dependent: :destroy
   
   accepts_nested_attributes_for :questions, allow_destroy: true
