@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_14_071958) do
+ActiveRecord::Schema.define(version: 2022_05_17_181626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 2022_05_14_071958) do
     t.boolean "required"
     t.integer "position"
     t.string "timestamp"
+    t.string "description"
     t.index ["survey_id"], name: "index_questions_on_survey_id"
   end
 

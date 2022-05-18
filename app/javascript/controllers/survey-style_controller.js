@@ -2,6 +2,7 @@ import { Controller } from "stimulus";
 import Rails from "@rails/ujs";
 
 export default class extends Controller {
+
   option(e) {
     const id = document.querySelector("form").children[2].dataset.id;
     const form = document.querySelector("form");
