@@ -47,7 +47,8 @@ export default class extends Controller {
         const question_count = this.questionTargets.length - 1;
 
         const new_question_item = this.questionTargets[question_count];
-        new_question_item.value = new_question_id;
+        console.log(new_question_item);
+        new_question_item.dataset.question_id = new_question_id;
       },
       error: (err) => {},
     });
@@ -55,7 +56,7 @@ export default class extends Controller {
 
   selected(e) {
     const id = this.survey_idTarget.dataset.id;
-    const question_id = e.target.closest(".question").firstElementChild.value;
+    const question_id = e.target.closest(".question").dataset.question_id;
     const select = e.target.value;
 
     const data = new FormData();
@@ -73,8 +74,9 @@ export default class extends Controller {
 
   add_question(e) {
     const id = this.survey_idTarget.dataset.id;
-    const question_id = e.target.closest(".question").firstElementChild.value;
+    const question_id = e.target.closest(".question").dataset.question_id;
     const question_value = e.target.value;
+    e.target.setAttribute("value", question_value);
 
     const data = new FormData();
     data.append("question_id", question_id);
@@ -91,8 +93,9 @@ export default class extends Controller {
 
   add_question_description(e) {
     const id = this.survey_idTarget.dataset.id;
-    const question_id = e.target.closest(".question").firstElementChild.value;
+    const question_id = e.target.closest(".question").dataset.question_id;
     const question_description = e.target.value;
+    e.target.innerHTML = question_description ;
 
     const data = new FormData();
     data.append("question_id", question_id);
@@ -109,7 +112,7 @@ export default class extends Controller {
 
   checked(e) {
     const id = this.survey_idTarget.dataset.id;
-    const question_id = e.target.closest(".question").firstElementChild.value;
+    const question_id = e.target.closest(".question").dataset.question_id;
 
     const data = new FormData();
     data.append("question_id", question_id);
@@ -129,7 +132,7 @@ export default class extends Controller {
     item.style.display = "none";
 
     const id = this.survey_idTarget.dataset.id;
-    const question_id = e.target.closest(".question").firstElementChild.value;
+    const question_id = e.target.closest(".question").dataset.question_id;
 
     const data = new FormData();
     data.append("question_id", question_id);
@@ -145,7 +148,7 @@ export default class extends Controller {
 
   add_answer_item(e) {
     const id = this.survey_idTarget.dataset.id;
-    const question_id = e.target.closest(".question").firstElementChild.value;
+    const question_id = e.target.closest(".question").dataset.question_id;
 
     const data = new FormData();
     data.append("question_id", question_id);
@@ -165,9 +168,11 @@ export default class extends Controller {
 
   add_answer(e) {
     const id = this.survey_idTarget.dataset.id;
-    const question_id = e.target.closest(".question").firstElementChild.value;
+    const question_id = e.target.closest(".question").dataset.question_id;
     const answer_id = e.target.closest(".answer").firstElementChild.value;
     const answer_value = e.target.value;
+    e.target.setAttribute("value", answer_value);
+    
 
     const data = new FormData();
     data.append("question_id", question_id);
@@ -189,7 +194,7 @@ export default class extends Controller {
     item.style.display = "none";
 
     const id = this.survey_idTarget.dataset.id;
-    const question_id = e.target.closest(".question").firstElementChild.value;
+    const question_id = e.target.closest(".question").dataset.question_id;
     const answer_id = e.target.closest(".answer").firstElementChild.value;
 
     const data = new FormData();
