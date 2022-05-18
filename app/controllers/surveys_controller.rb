@@ -123,6 +123,16 @@ class SurveysController < ApplicationController
     }
   end
 
+  def add_question_description
+    question = @survey.questions.find(params[:question_id])
+    question.update(description: params[:question_description])
+
+    render json: {
+      message: "更新成功",
+      params: params
+    }
+  end
+
   def save_checkbox
     question = @survey.questions.find(params[:question_id])
     question.update(required: !question.required)
@@ -193,6 +203,7 @@ class SurveysController < ApplicationController
         :title,
         :required,
         :position,
+        :description,
         { answers_attributes: %i[
           _destroy
           id
