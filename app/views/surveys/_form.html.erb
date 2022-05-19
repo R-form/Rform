@@ -30,11 +30,16 @@
   </aside>
   <section class="formsection <%= survey.font_style %>">
     <%= form_with(model: survey,  data: { controller: "auto-save survey-style", auto_save_target: "form" }, id: "survey-style" , class: "formbody" ) do |form| %>
+<<<<<<< HEAD
       <div class="formfield" data-id="<%= survey.id %>" data-auto-save-target="survey_id">
         <%= form.text_field :title, placeholder: "問卷標題", class: "titleinput", 
+=======
+      <div class="form fields" data-id="<%= survey.id %>" data-auto-save-target="survey_id">
+        <%= form.text_field :title, placeholder: "問卷標題", class: "title", 
+>>>>>>> autosave_restructure2
           data: {action: "change->auto-save#add_survey_title "}%>
-        <%= form.text_area :description, placeholder: "問卷敘述", class: "forminput",
-          data: {action: "change->auto-save#add_survey_description "} %>
+        <%= form.text_area :description, placeholder: "問卷敘述", class: "input",
+          data: {controller: "textarea-autogrow", action: "change->auto-save#add_survey_description "} %>
       </div>
       <div data-controller="nested-form sortable-question" data-nested-form-index-value ="QUESTION_RECORD" >
         <template data-nested-form-target='template'>
@@ -45,7 +50,7 @@
           <%= form.fields_for :questions do |question| %>
             <%= render 'question_fields', form: question %>
           <% end %>
-          <div data-nested-form-target="add_item" class="formfield">
+          <div data-nested-form-target="add_item" class="fields">
             <%= link_to "新增問題", "#", data: { action: "nested-form#add_association auto-save#add_question_item" }, class: "btn" %>
           </div>
       </div>

@@ -1,7 +1,12 @@
+<<<<<<< HEAD
 <div class='answer fields'>
+=======
+<div class='group' id="answer">
+>>>>>>> autosave_restructure2
   <%= form.hidden_field :id, class: "answer_id",data:{"auto-save-target": "answer"}  %>
   <%= form.hidden_field :_destroy %>
-  <%= form.text_field :title, placeholder: 'Answer', class: 'answer_input', data: {action: "change->auto-save#add_answer"}  %>
+  <input type="checkbox" name="" id="deco_checkbox" disabled>
+  <%= form.text_field :title, placeholder: 'Answer', class: 'answer_input input', data: {action: "change->auto-save#add_answer"}  %>
   <%= link_to "刪除選項", data: { action: "click->nested-form#remove_association click->auto-save#remove_answer" }, class: "btn" do %>
     <i class="fas fa-trash-alt"></i>
   <% end %>

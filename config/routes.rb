@@ -3,7 +3,6 @@
 Rails.application.routes.draw do
   
   root 'homepage#index'
-
   resources :users
   get 'login' => 'user_sessions#new', :as => :login
   post 'login' => 'user_sessions#create'

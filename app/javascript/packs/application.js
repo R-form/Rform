@@ -16,7 +16,7 @@ Rails.start();
 Turbolinks.start();
 ActiveStorage.start();
 const application = Application.start();
-
+application.register('textarea-autogrow', TextareaAutogrow)
 application.register("modal", Modal);
 
 // tailwindcss components demo https://excid3.github.io/tailwindcss-stimulus-components/#

@@ -178,7 +178,6 @@ export default class extends Controller {
     const answer_id = e.target.closest(".answer").firstElementChild.value;
     const answer_value = e.target.value;
     e.target.setAttribute("value", answer_value);
-
     const data = new FormData();
     data.append("question_id", question_id);
     data.append("answer_id", answer_id);
