@@ -2,7 +2,7 @@ import { Controller } from "stimulus";
 import Rails from "@rails/ujs";
 
 export default class extends Controller {
-  static targets = ["add_item", "template", "question", "question_copy"];
+  static targets = ["add_item", "template", "question", "question_copy","add_answer"];
   static values = { index: String };
 
   duplicate_question(e) {
@@ -50,9 +50,16 @@ export default class extends Controller {
     this.add_itemTarget.insertAdjacentHTML("beforebegin", content);
   }
 
+  add_answer(event) {
+    event.preventDefault();
+    let content = this.templateTarget.innerHTML
+    this.add_itemTarget.insertAdjacentHTML("beforeend", content);
+  }
+
+
   remove_association(event) {
     event.preventDefault();
-    let item = event.target.closest(".fields");
+    let item = event.target.closest(".group");
     item.querySelector("input[name*='_destroy']").value = true;
     item.style.display = "none";
   }

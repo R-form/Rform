@@ -1,8 +1,10 @@
 import { Controller } from "stimulus";
 
 export default class extends Controller {
-  static targets = ["select", "choice"];
-
+  static targets = ["select", "choice", "addbtn"];
+  connect() {
+    this.selected()
+  }
   selected() {
     switch (this.selectTarget.value) {
       case "single_choice":
@@ -10,9 +12,11 @@ export default class extends Controller {
       case "satisfaction":
       case "drop_down_menu":
         this.choiceTarget.classList.remove("hidden");
+        this.addbtnTarget.classList.remove("hidden")
         break;
       default:
         this.choiceTarget.classList.add("hidden");
+        this.addbtnTarget.classList.add("hidden")
         break;
     }
   }

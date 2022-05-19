@@ -3,4 +3,9 @@
 @import "tailwindcss/utilities";
 @import "./form.scss";
 @import "./new_responses.scss";
-@import "./submitted_responses.scss"
+@import "./submitted_responses.scss";
+
+input, textarea, select {
+    @apply outline-none ;
+    resize: none;
+}

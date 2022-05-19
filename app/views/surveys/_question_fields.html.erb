@@ -1,7 +1,7 @@
-<div class="question fields" data-id="<%= @survey.id %>" data-question_id="<%= form.object.id %>" data-controller='dynamic-select' data-auto-save-target="question" >
+<div class="question fields group" data-id="<%= @survey.id %>" data-question_id="<%= form.object.id %>" data-controller='nested-form dynamic-select'  data-auto-save-target="question" >
   <%= form.hidden_field :_destroy %>
   <div class='title_type'>
-      <%= form.text_field :title, placeholder: 'Question', class: 'question_input', data: {action: "change->auto-save#add_question "} %>
+      <%= form.text_field :title, placeholder: 'Question', class: 'input q_title', data: {action: "change->auto-save#add_question "} %>
       <%= form.select :question_type,
         options_for_select(Question.question_type_select, selected: form.object.question_type),
         {},class: "select",
@@ -9,18 +9,8 @@
         'data-auto-save-target': 'select',
         'data-action': 'dynamic-select#selected auto-save#selected'%>
   </div>
-  <%= form.text_area :description, placeholder: "題目敘述", class: "forminput", data: {action: "change->auto-save#add_question_description "} %>
-  <div class="question_fuction">
-    <%= link_to "刪除問題", data: { action: "click->nested-form#remove_association click->auto-save#remove_question"}, class: "btn" do %>
-        <i class="fas fa-trash-alt"></i>
-    <% end %>
-    <%= link_to "複製問題", data: { action: "click->nested-form#duplicate_question" } ,class: "btn" do %>
-      <i class="fas fa-copy"></i>
-    <% end %>
-    <%= form.check_box :required, data: {action: "click->auto-save#checked"}%>
-    <%= form.label :required, "必填" %>
-  </div>
-  <div class="choices_field"  data-controller="nested-form" data-nested-form-index-value ="ANSWER_RECORD" data-dynamic-select-target='choice'>
+  <%= form.text_area :description, placeholder: "題目敘述", class: "input", data: {action: "change->auto-save#add_question_description" , controller: "textarea-autogrow"} %>
+  <div class="choices_field"  data-nested-form-index-value ="ANSWER_RECORD" data-dynamic-select-target='choice' data-nested-form-target="add_item">
     <template data-nested-form-target='template'>
       <%= form.fields_for :answers, Answer.new, child_index: 'ANSWER_RECORD' do |answer| %>
         <%= render 'answer_fields', form: answer %>
@@ -29,6 +19,20 @@
     <%= form.fields_for :answers do |answer| %>
       <%= render 'answer_fields', form: answer , id: "answer" %>
     <% end %>
-    <%= link_to "新增選項", "#", data: { action: "nested-form#add_association auto-save#add_answer_item", nested_form_target: "add_item" } , class: "btn" %>
+  </div>
+  <div class="question_function">
+    <div>
+    <%= link_to "新增選項", "#", data: { action: "nested-form#add_answer auto-save#add_answer_item" , dynamic_select_target:'addbtn' } , class: "add_btn" %>
+    </div>
+    <div>
+    <%= form.check_box :required, data: {action: "click->auto-save#checked"}, id: "deco_checkbox"%>
+    <%= form.label :required, "*必填" %>
+    <%= link_to "刪除問題", data: { action: "click->nested-form#remove_association click->auto-save#remove_question" }, class: "btn mx-1" do %>
+        <i class="fas fa-trash-alt"></i>
+    <% end %>
+    <%= link_to "複製問題", data: { action: "click->nested-form#duplicate_question" } ,class: "btn mx-1" do %>
+      <i class="fas fa-copy"></i>
+    <% end %>
+    </div>
   </div>
 </div>
