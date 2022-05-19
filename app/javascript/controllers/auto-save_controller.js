@@ -47,7 +47,6 @@ export default class extends Controller {
         const question_count = this.questionTargets.length - 1;
 
         const new_question_item = this.questionTargets[question_count];
-        console.log(new_question_item);
         new_question_item.dataset.question_id = new_question_id;
       },
       error: (err) => {},
@@ -58,6 +57,8 @@ export default class extends Controller {
     const id = this.survey_idTarget.dataset.id;
     const question_id = e.target.closest(".question").dataset.question_id;
     const select = e.target.value;
+    const select_value = e.target.querySelector("option[selected='selected']");
+    select_value.removeAttribute("selected");
 
     const data = new FormData();
     data.append("select", select);
@@ -67,7 +68,12 @@ export default class extends Controller {
       type: "patch",
       url: `/surveys/${id}/update_select`,
       data,
-      success: ({ message }) => {},
+      success: ({ message, params }) => {
+        const new_select_value = e.target.querySelector(
+          `option[value=${params.select}]`
+        );
+        new_select_value.setAttribute("selected", "selected");
+      },
       error: (err) => {},
     });
   }
@@ -95,7 +101,7 @@ export default class extends Controller {
     const id = this.survey_idTarget.dataset.id;
     const question_id = e.target.closest(".question").dataset.question_id;
     const question_description = e.target.value;
-    e.target.innerHTML = question_description ;
+    e.target.innerHTML = question_description;
 
     const data = new FormData();
     data.append("question_id", question_id);
@@ -172,7 +178,6 @@ export default class extends Controller {
     const answer_id = e.target.closest(".answer").firstElementChild.value;
     const answer_value = e.target.value;
     e.target.setAttribute("value", answer_value);
-    
 
     const data = new FormData();
     data.append("question_id", question_id);
