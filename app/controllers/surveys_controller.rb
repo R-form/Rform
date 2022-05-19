@@ -181,6 +181,9 @@ class SurveysController < ApplicationController
 
   def font_style
     @survey.update(font_style: params[:font_style])
+    render json: {
+      message: "字體更新成功"
+    }
   end
   
   private
