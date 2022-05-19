@@ -7,38 +7,38 @@ export default class extends Controller {
 
   duplicate_question(e) {
     e.preventDefault();
-    const question = e.target.closest(".question")
+    const question = e.target.closest(".question");
     question.setAttribute("data-nested-form-target", "question_copy");
 
-    if(this.question_copyTarget) {
+    if (this.question_copyTarget) {
       const id = question.dataset.id;
-      const question_id = question.dataset.question_id
-      question.insertAdjacentHTML("afterend" , question.outerHTML )
-      const new_question = question.nextElementSibling
+      const question_id = question.dataset.question_id;
+      question.insertAdjacentHTML("afterend", question.outerHTML);
+      const new_question = question.nextElementSibling;
       const new_question_answers = new_question.querySelectorAll(
-            ".answer input[placeholder='Answer']"
-          );
-      console.log(new_question_answers);
-      const new_question_title = new_question.querySelector(".question_input")
-      new_question_title.value = `${new_question_title.value} - 副本`
-      
+        ".answer input[placeholder='Answer']"
+      );
+
+      const new_question_title = new_question.querySelector(".question_input");
+      new_question_title.value = `${new_question_title.value} - 副本`;
+
       const data = new FormData();
       data.append("question_id", question_id);
       Rails.ajax({
-            type: "post",
-            url: `/surveys/${id}/duplicate_question`,
-            data,
-            success: ({ copy_question, question_description, answers }) => {
-              new_question.dataset.question_id = copy_question.id
-              for (let i = 0; i < new_question_answers.length; i++) {
-                new_question_answers[i].value = answers[i].title;
-              }
-              new_question.querySelector(".forminput").value = question_description;
-            },
-            error: (err) => {},
-          });      
+        type: "post",
+        url: `/surveys/${id}/duplicate_question`,
+        data,
+        success: ({ copy_question, question_description, answers }) => {
+          new_question.dataset.question_id = copy_question.id;
+          for (let i = 0; i < new_question_answers.length; i++) {
+            new_question_answers[i].value = answers[i].title;
+          }
+          new_question.querySelector(".forminput").value = question_description;
+        },
+        error: (err) => {},
+      });
     }
-    question.removeAttribute("data-nested-form-target", "question_copy")
+    question.removeAttribute("data-nested-form-target", "question_copy");
   }
 
   add_association(event) {
