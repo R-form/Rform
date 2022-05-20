@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SurveysController < ApplicationController
-  before_action :find_survey, except: %i[index new create test]
+  before_action :find_survey, except: %i[index new create]
 
   def index
     @surveys = current_user.surveys
