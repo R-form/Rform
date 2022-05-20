@@ -80,6 +80,6 @@ textarea {
 }
 
 .down{
-    @apply fixed left-10;
+    @apply fixed left-10 w-28 block;
     top: 160px;
 }
