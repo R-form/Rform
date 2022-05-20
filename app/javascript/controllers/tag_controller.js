@@ -16,7 +16,7 @@ export default class extends Controller {
 
     const container = document.querySelector(".container")
 
-    function searchForTargetLevelInContainer(inputItem, targetClassName){
+    function LevelInContainer(inputItem, targetClassName){
       let tempTargetItem = inputItem.parentElement
       do {
         if (tempTargetItem.className===targetClassName){
@@ -27,7 +27,7 @@ export default class extends Controller {
       } while (tempTargetItem.className != "container")
     }
 
-    function searchForTargetItemFromChildren(inputItem, targetName){
+    function ItemFromChildren(inputItem, targetName){
       let tempTargetItems = inputItem.children
       let tempReturnValue = null
       
@@ -36,7 +36,7 @@ export default class extends Controller {
           if ((tempTargetItems[index].id === targetName) || (tempTargetItems[index].className === targetName)){
             return tempTargetItems[index]
           } else {
-            tempReturnValue = searchForTargetItemFromChildren(tempTargetItems[index], targetName)
+            tempReturnValue = ItemFromChildren(tempTargetItems[index], targetName)
             if (tempReturnValue != null){
               return tempReturnValue
             }
@@ -60,15 +60,25 @@ export default class extends Controller {
       return isHiddenFlag
     }
 
+    // function railsajax(){
+    //   const data = new FormData();
+    //     data.append("newIndex", newIndex + 1);
+    //     Rails.ajax({
+    //       type: "patch",
+    //       url: `/surveys/${id}/tag`,
+    //       data
+    // }
+    
+
     container.addEventListener("click", (e)=>{
       if (e.target.matches("i")){
         if (e.target.id === "tagIcon"){
           e.preventDefault()
           e.stopImmediatePropagation()
 
-          let surveyCard = searchForTargetLevelInContainer (e.target, "m-3")
-          let tagEditor = searchForTargetItemFromChildren (surveyCard, "tagEditor")
-          let tagLabel = searchForTargetItemFromChildren (surveyCard, "tagLabel")
+          let surveyCard = LevelInContainer (e.target, "m-3")
+          let tagEditor = ItemFromChildren (surveyCard, "tagEditor")
+          let tagLabel = ItemFromChildren (surveyCard, "tagLabel")
 
           if ((tagEditor != null)&&(tagLabel != null)){
             if (!(hideAndShowTargetItem (tagEditor))) {
