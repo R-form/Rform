@@ -173,9 +173,10 @@ export default class extends Controller {
   }
 
   add_answer(e) {
+    console.log("QQ");
     const id = this.survey_idTarget.dataset.id;
     const question_id = e.target.closest(".question").dataset.question_id;
-    const answer_id = e.target.closest(".answer").firstElementChild.value;
+    const answer_id = e.target.closest("#answer").firstElementChild.value;
     const answer_value = e.target.value;
     e.target.setAttribute("value", answer_value);
     const data = new FormData();
