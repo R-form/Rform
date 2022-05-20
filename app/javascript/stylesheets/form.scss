@@ -14,14 +14,13 @@
 }
 
 .input {
-    @apply appearance-none border-b-2 border-opacity-0 border-blue-500 focus:border-opacity-100 text-gray-700  leading-tight outline-none group-focus:border-l-2;
+    @apply appearance-none border-b-2 border-opacity-0 border-blue-500 focus:border-opacity-100 text-gray-700  leading-tight outline-none group-focus:border-l-2 p-2 my-2 w-full font-medium ;
 }
 
 .q_title {
     @apply focus:bg-gray-200 focus:p-4 rounded
 }
 input {
-    @apply p-2 my-2 w-full font-medium
 }
 textarea {
     @apply p-2 my-2 w-full text-sm
