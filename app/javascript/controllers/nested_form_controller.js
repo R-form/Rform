@@ -48,6 +48,7 @@ export default class extends Controller {
       new Date().getTime()
     );
     this.add_itemTarget.insertAdjacentHTML("beforebegin", content);
+    this.add_itemTarget.previousElementSibling.querySelector('.q_title').focus()
   }
 
   add_answer(event) {
