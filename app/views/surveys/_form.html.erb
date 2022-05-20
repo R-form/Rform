@@ -45,7 +45,7 @@
           <%= form.fields_for :questions do |question| %>
             <%= render 'question_fields', form: question %>
           <% end %>
-          <div data-nested-form-target="add_item" class="fields">
+          <div data-nested-form-target="add_item" class="fields down">
             <%= link_to "新增問題", "#", data: { action: "nested-form#add_association auto-save#add_question_item" }, class: "btn" %>
           </div>
       </div>

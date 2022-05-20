@@ -11,6 +11,8 @@ class SurveysController < ApplicationController
 
   def new
     @survey = current_user.surveys.create
+    question = @survey.questions.create
+    2.times { question.answers.create }
     redirect_to  edit_survey_path(@survey.id)
   end
 
@@ -20,7 +22,6 @@ class SurveysController < ApplicationController
 
   def create
     @survey = current_user.surveys.new(survey_params)
-
     if @survey.save
       render :edit
     else
@@ -47,9 +48,7 @@ class SurveysController < ApplicationController
 
   def duplicate_question
     question = @survey.questions.find(params[:question_id]).deep_clone include: :answers
-  
     question.update(title: (question.title+" - 副本"),position: (question.position)+1)
-    
     render json: {
       copy_question: question, 
       question_description: question.description,

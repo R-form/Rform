@@ -78,3 +78,8 @@ textarea {
 .delete_answer {
     @apply bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full
 }
+
+.down{
+    @apply fixed left-10;
+    top: 160px;
+}

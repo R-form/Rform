@@ -1,7 +1,7 @@
 <div class="question fields group" data-id="<%= @survey.id %>" data-question_id="<%= form.object.id %>" data-controller='nested-form dynamic-select'  data-auto-save-target="question" >
   <%= form.hidden_field :_destroy %>
   <div class='title_type'>
-      <%= form.text_field :title, placeholder: 'Question', class: 'input q_title', data: {action: "change->auto-save#add_question "} %>
+      <%= form.text_field :title, placeholder: '問題題目', class: 'input q_title', data: {action: "change->auto-save#add_question "} %>
       <%= form.select :question_type,
         options_for_select(Question.question_type_select, selected: form.object.question_type),
         {},class: "select",
