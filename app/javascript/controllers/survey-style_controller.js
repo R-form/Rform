@@ -9,22 +9,7 @@ export default class extends Controller {
     const form = this.formTarget;
     const font_style = e.target.value;
 
-    let font_string =["font-mono", "font-serif", "font-sans"].toString()
-  
-    switch (font_style) {
-      case "font-sans":
-        form.classList.remove(font_string);
-        form.classList.add("font-sans");
-        break;
-      case "font-mono":
-        form.classList.remove(font_string);
-        form.classList.add("font-mono");
-        break;
-      case "font-serif":
-        form.classList.remove(font_string);
-        form.classList.add("font-serif");
-        break;
-    }
+    const new_font_style = form.setAttribute("class",font_style)
 
     const data = new FormData();
     data.append("font_style", font_style);
