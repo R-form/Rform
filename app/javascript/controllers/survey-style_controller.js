@@ -6,21 +6,22 @@ export default class extends Controller {
 
   select_font(e) {
     const id = this.survey_idTarget.dataset.id;
-    const form = this.formTarget
-    console.log(this.formTarget);;
+    const form = this.formTarget;
     const font_style = e.target.value;
 
+    let font_string =["font-mono", "font-serif", "font-sans"].toString()
+  
     switch (font_style) {
       case "font-sans":
-        form.classList.remove("font-mono", "font-serif");
+        form.classList.remove(font_string);
         form.classList.add("font-sans");
         break;
       case "font-mono":
-        form.classList.remove("font-serif", "font-sans");
+        form.classList.remove(font_string);
         form.classList.add("font-mono");
         break;
       case "font-serif":
-        form.classList.remove("font-mono", "font-sans");
+        form.classList.remove(font_string);
         form.classList.add("font-serif");
         break;
     }
