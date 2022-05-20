@@ -17,7 +17,7 @@ class SurveysController < ApplicationController
   end
 
   def edit
-    question = @survey.questions.order(:position)
+    @survey.questions.order(:position)
   end
 
   def create
@@ -30,10 +30,17 @@ class SurveysController < ApplicationController
   end
 
   def update
+    @survey.image.purge
     @survey.update(survey_params)
+    @survey.image.attach(params[:survey][:image])
+    if @survey.questions.first.image.attach(params[:survey][:questions_attributes]["0"][:image])
+      redirect_to surveys_path, notice: "`更換圖片成功#{params[:survey][:questions_attributes]["0"][:image]}`"
+    end
+    # render html: params
   end
 
   def destroy
+    @survey.image.purge
     @survey.destroy
     redirect_to surveys_path, notice: '問卷已刪除'
   end
@@ -197,6 +204,7 @@ class SurveysController < ApplicationController
       :position,
       :font_style,
       :theme,
+      :image,
       questions_attributes: [
         :_destroy,
         :id,
@@ -205,11 +213,12 @@ class SurveysController < ApplicationController
         :required,
         :position,
         :description,
+        {images: []},
         { answers_attributes: %i[
           _destroy
           id
           title
-        ] }
+        ] },
       ]
     )
   end

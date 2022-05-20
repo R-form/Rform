@@ -214,4 +214,10 @@ export default class extends Controller {
       error: (err) => {},
     });
   }
+
+  submitForm(e) {
+    // e.preventDefault()
+    this.formTarget.submit();
+    console.log("我submit");
+  }
 }

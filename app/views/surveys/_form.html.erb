@@ -46,6 +46,10 @@
           <% end %>
           <div data-nested-form-target="add_item" class="fields down">
             <%= link_to "新增問題", "#", data: { action: "nested-form#add_association auto-save#add_question_item" }, class: "btn" %>
+            <%= form_with(model: survey) do |form| %>
+              <%= form.file_field :image %>
+              <%= form.submit "更換圖片" %>
+            <% end %>
           </div>
       </div>
     <% end %>

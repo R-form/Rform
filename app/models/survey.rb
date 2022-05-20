@@ -5,9 +5,10 @@ class Survey < ApplicationRecord
   before_create :generate_slug
   belongs_to :user
   friendly_id :slug, use: :slugged
-
+  
   has_many :questions, -> { order(position: :asc) }, dependent: :destroy
   has_many :responses, dependent: :destroy
+  has_one_attached :image
   
   accepts_nested_attributes_for :questions, allow_destroy: true
   acts_as_paranoid

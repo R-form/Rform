@@ -1,7 +1,7 @@
 import { Controller } from "stimulus";
 
 export default class extends Controller {
-  static targets = ["select", "choice", "addbtn"];
+  static targets = ["select", "choice", "addbtn","image"];
   connect() {
     this.selected()
   }
