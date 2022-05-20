@@ -1,4 +1,14 @@
-<div data-controller = "survey-style" class="flex justify-center bg-green-200">
+<style>
+.form_bg {
+    <% if survey.image.attached? %>
+      background-image: url("<%= url_for(survey.image) %>");
+    <% end %>
+}   
+</style>
+
+
+
+<div data-controller = "survey-style" class="flex justify-center form_bg">
   <aside data-controller="slideover" data-slideover-target="closeAside" class="hidden slideover sm:w-1/5 absolute right-0 bg-gentleYellow h-full" style="top:186px">
         <div class="top-0 pt-12 px-2 w-full">
           <div data-action="click->slideover#close" class="absolute right-2 top-2 cursor-pointer">      
@@ -44,14 +54,15 @@
           <%= form.fields_for :questions do |question| %>
             <%= render 'question_fields', form: question %>
           <% end %>
-          <div data-nested-form-target="add_item" class="fields down">
-            <%= link_to "新增問題", "#", data: { action: "nested-form#add_association auto-save#add_question_item" }, class: "btn" %>
-            <%= form_with(model: survey) do |form| %>
-              <%= form.file_field :image %>
-              <%= form.submit "更換圖片" %>
+    <% end %>
+          <div data-nested-form-target="add_item" class="fields down text-center">
+            <%= link_to "新增問題", "#", data: { action: "nested-form#add_association auto-save#add_question_item"  }, class: "btn w-max " %>
+            <%= form_with(model: survey, data: {nested_form_target: "change_bg"}) do |form| %>
+              <%= form.label :image , "更換圖片", class: "btn w-max " %>
+              <%= form.file_field :image , class:"hidden" , data: {action: "input->nested-form#change_background"} %>
+              <%= form.submit "上傳" , class: "hidden btn w-max mx-auto"%>
             <% end %>
           </div>
       </div>
-    <% end %>
   </section>
 </div>

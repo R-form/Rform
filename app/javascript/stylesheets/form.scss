@@ -1,3 +1,7 @@
+.form_bg {
+    @apply bg-fixed bg-no-repeat bg-cover;
+}
+
 .formsection {
     @apply min-w-max mx-auto sm:w-4/6  ;
 }
@@ -54,7 +58,7 @@ textarea {
     @apply flex justify-between my-2;
 }
 .btn {
-    @apply bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 my-auto rounded-full
+    @apply bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 my-auto rounded-full leading-10
 }
 .add_btn {
     @apply bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2  rounded-full
