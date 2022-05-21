@@ -108,7 +108,9 @@ class SurveysController < ApplicationController
     response_answer_ids = []
 
     @survey.responses.all.each do |response|
-      response_answer_datas.push(response_index+1)
+      response_answer_datas.push('===========================')
+      response_index_string = '第' + (response_index+1).to_s + '份'
+      response_answer_datas.push(response_index_string)
       response_answer_datas.push('===========================')
 
       response_json = response.as_json(only: [:id, :answers])
@@ -133,7 +135,7 @@ class SurveysController < ApplicationController
               answer_index += 1
             end
           end
-        when 'single_choice'
+        when 'single_choice', 'satisfaction', 'drop_down_menu'
           answer_index = 0
           while answer_index < max_answers_count
             if current_response_answers == answer_ids[answer_index].to_s
@@ -142,7 +144,7 @@ class SurveysController < ApplicationController
             end
             answer_index += 1
           end
-        when 'long_answer'
+        when 'long_answer', 'date', 'time', 'range'
           response_answer_datas.push(current_response_answers)
         end
 
