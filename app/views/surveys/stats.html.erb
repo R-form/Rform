@@ -3,7 +3,7 @@
 <h2>TAG:   <%= @survey.tag %></h2>
 <hr>
 
-<h2>填答份數: <%= @responsesCount %></h2>
+<h2>填答份數: <%= @survey.responses.count %></h2>
 
 <% @responseAnswerDatas.each do |responseAnswerData| %>
   <h2><%= responseAnswerData %></h2>
