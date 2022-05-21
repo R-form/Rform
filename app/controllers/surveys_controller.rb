@@ -58,50 +58,45 @@ class SurveysController < ApplicationController
   end
   
   def stats
-    questions_count = @survey.questions.all.count
+    questions_count = @survey.questions.count
     question_index = 0
-    question_json = []
-    question_id = []
-    question_title = []
-    question_type = []
+    question_ids = []
+    question_titles = []
+    question_types = []
     answer_index = 0
     max_answers_count = 0
-    answer_json = []
-    answer_id = []
-    answer_title = []
-    answer_question_id = []
+    answer_ids = []
+    answer_titles = []
+    answer_question_ids = []
     question_answer_data = []
     response_answer_data = []
+    response_answer_ids = []
+    answers_counts = [0]
 
+  
     # combine question and answers
-    @survey.questions.all.each do |question|
-      question_json[question_index] = question.as_json(only: [:id, :title, :question_type])
-      question_id[question_index] = question_json[question_index]['id']
-      question_title[question_index] = question_json[question_index]['title']
-      question_type[question_index] = question_json[question_index]['question_type']
-      question_answer_data.push(question_title[question_index])
-      question_answer_data.push(question_type[question_index])
+    @survey.questions.each do |question|
+      question_ids[question_index] = question.id
+      question_titles[question_index] = question.title
+      question_types[question_index] = question.question_type
+
+      answers_count = 0
       question.answers.each do |answer|
-        answer_json[answer_index] = answer.as_json(only: [:id, :title, :question_id])
-        answer_id[answer_index] = answer_json[answer_index]['id']
-        answer_title[answer_index] = answer_json[answer_index]['title']
-        answer_question_id[answer_index] = answer_json[answer_index]['question_id']
-        if answer_question_id[answer_index] == question_id[question_index]
-          question_answer_data.push(answer_title[answer_index])
+        answer_ids[answer_index] = answer.id
+        answer_titles[answer_index] = answer.title
+        answer_question_ids[answer_index] = answer.question_id
+        if answer_question_ids[answer_index] == question_ids[question_index]
+          answers_count += 1
         end
         answer_index += 1
       end
-      if max_answers_count < answer_index
-        max_answers_count = answer_index
-      end
-      question_answer_data.push('===========================')
       question_index += 1
+      answers_counts.push(answers_count)
     end
-    @questionAnswerDatas = question_answer_data
-
+    max_answers_count = answer_index
+  
     # deal with responses  
-    responses_count = @survey.responses.all.count
-    responses = @survey.responses.all
+    responses_count = @survey.responses.count
     response_index = 0
     response_json = []
     response_id = []
@@ -114,32 +109,33 @@ class SurveysController < ApplicationController
 
       question_index = 0
       while question_index < questions_count
-        question_id_string = question_id[question_index].to_s
+        question_id_string = question_ids[question_index].to_s
         current_response_answers = response_answers[response_index][question_id_string]
 
         # 改switch case
-        if question_type[question_index] == 'multiple_choice'
+        if question_types[question_index] == 'multiple_choice'
           current_response_answers.delete('0')
           current_response_answers.each do |current_response_answer|
             answer_index = 0
             while answer_index < max_answers_count
-              if current_response_answer == answer_id[answer_index].to_s
-                response_answer_data.push(answer_title[answer_index])
+              if current_response_answer == answer_ids[answer_index].to_s
+                response_answer_data.push(answer_titles[answer_index])
+                response_answer_ids.push(answer_ids[answer_index])
               end
               answer_index += 1
             end
           end
         end
-        if question_type[question_index] == 'single_choice'
+        if question_types[question_index] == 'single_choice'
           answer_index = 0
           while answer_index < max_answers_count
-            if current_response_answers == answer_id[answer_index].to_s
-              response_answer_data.push(answer_title[answer_index])
+            if current_response_answers == answer_ids[answer_index].to_s
+              response_answer_data.push(answer_titles[answer_index])
             end
             answer_index += 1
           end
         end
-        if question_type[question_index] == 'long_answer'
+        if question_types[question_index] == 'long_answer'
           response_answer_data.push(current_response_answers)
         end
 
@@ -149,9 +145,47 @@ class SurveysController < ApplicationController
       response_answer_data.push('===========================')
     end
 
+    sum_of_response_answer_ids = []
+
+    answer_ids.each do |answer_id|
+      sum_of_response_answer_ids.push(response_answer_ids.count(answer_id))
+    end
+
     @responsesCount = responses_count
     @responseAnswerDatas = response_answer_data
 
+    # create charts
+    chart_index = 0
+    slice_from = 0
+    chart_types = []
+    chart_datas = []
+    chart_options = []
+    @survey.questions.each do |question|
+      slice_from += answers_counts[chart_index]
+      slice_length = answers_counts[chart_index+1]  
+
+      chart_types[chart_index] = 'bar'
+      chart_datas[chart_index] = {
+        labels: answer_titles.slice(slice_from, slice_length),
+        datasets: [{
+          label: question.title,
+          backgroundColor: '#3B82F6',
+          borderColor: '#3B82F6',
+          data: sum_of_response_answer_ids.slice(slice_from, slice_length)
+        }]
+      }
+
+      chart_options[chart_index] = {
+        layout: {
+          padding: 200
+        }
+      }   
+      
+      chart_index += 1
+    end
+    @chart_types = chart_types
+    @chart_datas = chart_datas
+    @chart_options = chart_options
   end
 
   def tag
