@@ -138,6 +138,7 @@ class SurveysController < ApplicationController
           while answer_index < max_answers_count
             if current_response_answers == answer_ids[answer_index].to_s
               response_answer_datas.push(answer_titles[answer_index])
+              response_answer_ids.push(answer_ids[answer_index])
             end
             answer_index += 1
           end
