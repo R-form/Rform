@@ -214,7 +214,7 @@ export default class extends Controller {
     });
   }
 
-  status(e) {
+  update_status(e) {
     const id = this.survey_idTarget.dataset.id;
     const status_value = e.target.value;
 
@@ -225,8 +225,48 @@ export default class extends Controller {
       type: "patch",
       url: `/surveys/${id}/update_status`,
       data,
+      success: ({ message }) => {
+        // TODO del
+        console.log(message);
+      },
+      error: (err) => {},
+    });
+  }
+
+  update_opentime(e) {
+    const id = this.survey_idTarget.dataset.id;
+    const opentime = e.target.value;
+
+    const data = new FormData();
+    data.append("opentime", opentime);
+    Rails.ajax({
+      type: "patch",
+      url: `/surveys/${id}/update_opentime`,
+      data,
       success: ({ message }) => {},
       error: (err) => {},
+    });
+  }
+
+  update_closetime(e) {
+    const id = this.survey_idTarget.dataset.id;
+    const closetime = e.target.value;
+
+    const data = new FormData();
+    data.append("closetime", closetime);
+
+    Rails.ajax({
+      type: "patch",
+      url: `/surveys/${id}/update_closetime`,
+      data,
+      success: (resp) => {
+        // TODO del
+        console.log(resp);
+      },
+      error: (err) => {
+        // TODO del
+        console.log(err);
+      },
     });
   }
 }

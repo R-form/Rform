@@ -30,6 +30,8 @@ Rails.application.routes.draw do
       delete :remove_question
       delete :remove_answer
       patch :update_status
+      patch :update_opentime
+      patch :update_closetime
       post :duplicate_question
       patch :font_style
       patch :theme

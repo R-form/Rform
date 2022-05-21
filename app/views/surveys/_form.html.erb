@@ -83,7 +83,15 @@
       <div class="status">
         <%= form.label :status, "狀態" %>
           <div class="col-span-4">
-            <%= form.select :status, Survey.all_status, {}, data: { action: "change -> auto-save#status"}%>
+            <%= form.select :status, Survey.all_status, {}, data: { action: "change -> auto-save#update_status"} %>
+          </div>
+        <%= form.label :opentime, "開啟時間"%>
+          <div>
+            <%= form.datetime_field :opentime, min: Date.today, data: { action: "change -> auto-save#update_opentime"} %>
+          </div>
+        <%= form.label :closetime, "關閉時間" %>
+          <div>
+            <%= form.datetime_field :closetime, min: Date.today, data: { action: "change -> auto-save#update_closetime"} %>
           </div>
       </div>
     <% end %>

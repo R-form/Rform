@@ -18,6 +18,21 @@ class Survey < ApplicationRecord
   end
 
   before_create :generate_slug
+  after_find do |survey|
+    if survey.draft? && Time.now >= survey.opentime
+      survey.publish
+    elsif survey.published? && Time.now >= survey.closetime
+      survey.close
+    end
+
+
+    # if Time.now >= survey.opentime
+    #   survey.publish
+    # elsif Time.now >= survey.closetime
+    #   survey.close
+    # end
+  end
+
   belongs_to :user
   friendly_id :slug, use: :slugged
   
