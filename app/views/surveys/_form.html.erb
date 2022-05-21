@@ -80,6 +80,12 @@
             <% end %>
           </div>
       </div>
+      <div class="status">
+        <%= form.label :status, "狀態" %>
+          <div class="col-span-4">
+            <%= form.select :status, Survey.all_status, {}, data: { action: "change -> auto-save#status"}%>
+          </div>
+      </div>
     <% end %>
   </section>
 </div>

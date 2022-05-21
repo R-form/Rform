@@ -213,4 +213,20 @@ export default class extends Controller {
       error: (err) => {},
     });
   }
+
+  status(e) {
+    const id = this.survey_idTarget.dataset.id;
+    const status_value = e.target.value;
+
+    const data = new FormData();
+    data.append("status_value", status_value);
+
+    Rails.ajax({
+      type: "patch",
+      url: `/surveys/${id}/update_status`,
+      data,
+      success: ({ message }) => {},
+      error: (err) => {},
+    });
+  }
 }

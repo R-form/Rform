@@ -2,6 +2,21 @@
 
 class Survey < ApplicationRecord
   extend FriendlyId
+  include AASM
+
+  aasm column: "status" do
+    state :published, initial: true
+    state :draft, :closed
+
+    event :publish do
+      transitions from: [:draft], to: :published
+    end
+
+    event :close do
+      transitions from: [:published], to: :closed
+    end
+  end
+
   before_create :generate_slug
   belongs_to :user
   friendly_id :slug, use: :slugged
@@ -17,7 +32,15 @@ class Survey < ApplicationRecord
   private 
   # Generates an 6 character alphanumeric id
   def generate_slug
-    self.slug = SecureRandom.hex(3)
+    self.slug = SecureRandom.alphanumeric(6)
   end 
+
+  def self.all_status
+    [
+      %w[發佈 published],
+      %w[草稿 draft],
+      %w[關閉 closed]
+    ]
+  end
 
 end

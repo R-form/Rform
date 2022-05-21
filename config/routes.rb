@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       patch :add_answer
       delete :remove_question
       delete :remove_answer
+      patch :update_status
       post :duplicate_question
       patch :font_style
       patch :theme

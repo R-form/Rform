@@ -342,6 +342,14 @@ class SurveysController < ApplicationController
     }
   end
 
+  def update_status
+    @survey.update(status: params[:status_value])
+    render json: {
+      message: "問卷狀態更新",
+      params: params
+    }
+  end
+
   def font_style
     @survey.update(font_style: params[:font_style])
     render json: {
@@ -376,6 +384,7 @@ class SurveysController < ApplicationController
       :font_style,
       :theme,
       :image,
+      :status,
       questions_attributes: [
         :_destroy,
         :id,
