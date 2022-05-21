@@ -1,18 +1,25 @@
-<h1>raw data</h1>
 <h1>TITLE: <%= @survey.title %></h1>
 <h1>DESC:  <%= @survey.description %></h1>
 <h2>TAG:   <%= @survey.tag %></h2>
 <hr>
 
-<% @questionAnswerDatas.each do |question_answer_data| %>
-  <h2><%= question_answer_data %></h2>
-<% end %>
-
 <h2>填答份數: <%= @responsesCount %></h2>
-
 
 <% @responseAnswerDatas.each do |responseAnswerData| %>
   <h2><%= responseAnswerData %></h2>
 <% end %>
-  
-<%= link_to 'back', surveys_path %> 
+
+<hr>
+<div width="200">
+  <% 0.upto(@survey.questions.count) do |i| %>
+    <canvas
+    data-controller="chart"
+    data-chart-type-value="<%= @chart_types[i] %>"
+    data-chart-data-value="<%= @chart_datas[i].to_json %>"
+    data-chart-options-value="<%= @chart_options[i].to_json %>"
+    ></canvas>
+  <% end %>
+</div>
+
+<br>
+<%= link_to 'back', surveys_path %>
