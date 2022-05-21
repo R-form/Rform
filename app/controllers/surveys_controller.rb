@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SurveysController < ApplicationController
-  before_action :find_survey, except: %i[index new create tag]
+  before_action :find_survey, except: %i[index new create ]
 
   def index
     @surveys = current_user.surveys
@@ -205,8 +205,9 @@ class SurveysController < ApplicationController
   end
 
   def tag
-    @survey = current_user.surveys.find(params[:survey_id])
-    @survey.update(tag: params[:survey][:tag])
+    survey = Survey.find(params[:survey_id])
+    tag = params[:survey][:tag]
+    survey.update(tag: tag)
     redirect_to surveys_path(survey)
   end
 
