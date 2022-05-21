@@ -79,20 +79,25 @@ class SurveysController < ApplicationController
       question_answer_data.push(question_titles[question_index])
       question_answer_data.push(question_types[question_index])
 
-      answers_count = 0
-      question.answers.each do |answer|
-        answer_ids[answer_index] = answer.id
-        answer_titles[answer_index] = answer.title
-        answer_question_ids[answer_index] = answer.question_id
-        if answer_question_ids[answer_index] == question_ids[question_index]
-          question_answer_data.push(answer_titles[answer_index])
-          answers_count += 1
+      case question.question_type
+      when 'multiple_choice', 'single_choice', 'satisfaction', 'drop_down_menu'
+        answers_count = 0
+        question.answers.each do |answer|
+          answer_ids[answer_index] = answer.id
+          answer_titles[answer_index] = answer.title
+          answer_question_ids[answer_index] = answer.question_id
+          if answer_question_ids[answer_index] == question_ids[question_index]
+            question_answer_data.push(answer_titles[answer_index])
+            answers_count += 1
+          end
+          answer_index += 1
         end
-        answer_index += 1
+        answers_counts.push(answers_count)
       end
+
       question_answer_data.push(answer_index)
       question_index += 1
-      answers_counts.push(answers_count)
+      
     end
     max_answers_count = answer_index
     question_answer_data.push(max_answers_count)
@@ -168,27 +173,31 @@ class SurveysController < ApplicationController
     chart_datas = []
     chart_options = []
     @survey.questions.each do |question|
-      slice_from += answers_counts[chart_index]
-      slice_length = answers_counts[chart_index+1]  
+      case question.question_type
+      when 'multiple_choice' , 'single_choice', 'satisfaction', 'drop_down_menu'
+          
+        slice_from += answers_counts[chart_index]
+        slice_length = answers_counts[chart_index+1]  
 
-      chart_types[chart_index] = 'bar'
-      chart_datas[chart_index] = {
-        labels: answer_titles.slice(slice_from, slice_length),
-        datasets: [{
-          label: question.title,
-          backgroundColor: '#3B82F6',
-          borderColor: '#3B82F6',
-          data: sum_of_response_answer_ids.slice(slice_from, slice_length)
-        }]
-      }
-
-      chart_options[chart_index] = {
-        layout: {
-          padding: 200
+        chart_types[chart_index] = 'bar'
+        chart_datas[chart_index] = {
+          labels: answer_titles.slice(slice_from, slice_length),
+          datasets: [{
+            label: question.title,
+            backgroundColor: '#3B82F6',
+            borderColor: '#3B82F6',
+            data: sum_of_response_answer_ids.slice(slice_from, slice_length)
+          }]
         }
-      }   
-      
-      chart_index += 1
+
+        chart_options[chart_index] = {
+          layout: {
+            padding: 200
+          }
+        }   
+        
+        chart_index += 1
+      end
     end
     @chart_types = chart_types
     @chart_datas = chart_datas
