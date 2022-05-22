@@ -6,6 +6,41 @@
   <%= link_to "刪除選項", data: { action: "click->nested-form#remove_association click->auto-save#remove_answer" }, class: "linkbtn" do %>
     <i class="fas fa-trash-alt"></i>
   <% end %>
+  <%= link_to "跳題", data: { action: "click->skip-logic#select_question click->modal#open" }, class: "btn" do %>
+   跳題
+  <% end %>
+
+   <!-- Modal Container -->
+    <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard" class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999;">
+      <div class="min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"  id="modal-id">
+        <div class="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
+          <!--content-->
+          <div class="">
+            <!--body-->
+            <div class="text-center p-5 flex-auto justify-center">
+              <h2 class="text-xl font-bold py-4 ">將跳題前往至下面所選題目</h3>
+              <div class="flex items-center border-b border-teal-500 py-2">
+                <%= form_with(model: Question.new ,url: all_question_title_survey_url ) do | question | %>
+                    <div class="mx-4"> 
+                        <%= question.select :title,
+                            options_from_collection_for_select( Question.where(survey_id: @survey.id).all, :id, :title,
+                            selected: question.object.title),
+                            {},
+                            data: { action: "change -> skip-logic#select_question", "skip-logic-target": "skip_to_question"}     
+                            %>
+                      </div> 
+                  <% end %> 
+          
+              </div>
+            </div>
+            <!--footer-->
+            <div class="p-3  mt-2 text-center space-x-4 md:block">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-action="click->modal#close">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
 
 
