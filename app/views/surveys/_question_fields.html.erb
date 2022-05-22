@@ -1,4 +1,4 @@
-<div class="question fields group" data-id="<%= @survey.id %>" data-question_id="<%= form.object.id %>" data-controller='nested-form dynamic-select' data-nested-form-target="question" data-auto-save-target="question" >
+<div class="question fields group" data-id="<%= @survey.id %>" data-question_id="<%= form.object.id %>" data-controller='nested-form dynamic-select' data-auto-save-target="question" >
   <%= form.hidden_field :_destroy %>
   <div class='title_type'>
       <%= form.text_field :title, placeholder: '問題題目', class: 'input q_title', data: {action: "change->auto-save#add_question "} %>
@@ -10,6 +10,9 @@
         'data-action': 'dynamic-select#selected auto-save#selected'%>
   </div>
   <%= form.text_area :description, placeholder: "題目敘述", class: "input", data: {action: "change->auto-save#add_question_description" , controller: "textarea-autogrow"} %>
+  <% if form.object.image.attached? %>
+    <%= image_tag form.object.image.variant(resize_to_limit: [200, 200]) %>
+  <% end %>
   <div class="choices_field"  data-nested-form-index-value ="ANSWER_RECORD" data-dynamic-select-target='choice' data-nested-form-target="add_item">
     <template data-nested-form-target='template'>
       <%= form.fields_for :answers, Answer.new, child_index: 'ANSWER_RECORD' do |answer| %>
@@ -23,6 +26,9 @@
   <div class="question_function">
     <div>
     <%= link_to "新增選項", "#", data: { action: "nested-form#add_answer auto-save#add_answer_item" , dynamic_select_target:'addbtn' } , class: "add_btn" %>
+    <%= form.label :image , (form.object.image.attached? ? "更換圖片" : "新增圖片" ), class: "btn w-max" %>
+    <%= form.file_field :image , class:"hidden" , data: {action: "input->auto-save#change_question_image"} %>
+    <%= form.submit "上傳" , class: "hidden btn w-max mx-auto"%>
     </div>
     <div>
     <%= form.check_box :required, data: {action: "click->auto-save#checked"}, id: "deco_checkbox"%>

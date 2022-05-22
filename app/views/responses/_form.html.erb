@@ -13,6 +13,7 @@
         <%= question.title %>
         <%= content_tag :abbr, '*', title: 'Required' if question.required %>
       </h1>
+      <%= image_tag @survey.questions[0].image %>
       <hr class="border-solid border-2 border-ironGray bg-ironGray">
       <div class="question_content">
         <% case question.question_type %>

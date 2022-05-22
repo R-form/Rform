@@ -173,7 +173,6 @@ export default class extends Controller {
   }
 
   add_answer(e) {
-    console.log("QQ");
     const id = this.survey_idTarget.dataset.id;
     const question_id = e.target.closest(".question").dataset.question_id;
     const answer_id = e.target.closest("#answer").firstElementChild.value;
@@ -214,6 +213,13 @@ export default class extends Controller {
       error: (err) => {},
     });
   }
+  change_question_image(event) {;
+    console.log(this.formTarget);
+    this.formTarget.submit();
+    event.value = "";
+  }
+
+
 
   submitForm(e) {
     // e.preventDefault()

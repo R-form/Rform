@@ -30,9 +30,7 @@ class SurveysController < ApplicationController
   end
 
   def update
-    @survey.image.purge
     @survey.update(survey_params)
-    @survey.image.attach(params[:survey][:image])
     redirect_to edit_survey_path(@survey), notice: "更換圖片成功"
   end
 
@@ -210,7 +208,7 @@ class SurveysController < ApplicationController
         :required,
         :position,
         :description,
-        {images: []},
+        :image,
         { answers_attributes: %i[
           _destroy
           id

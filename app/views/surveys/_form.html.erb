@@ -1,14 +1,26 @@
 <style>
-.form_bg {
     <% if survey.image.attached? %>
+.form_bg {
       background-image: url("<%= url_for(survey.image) %>");
-    <% end %>
+      position: relative;
+      z-index: 0;
 }   
+.form_bg:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+    <% end %>
 </style>
 
 
 
-<div data-controller = "survey-style" class="flex justify-center form_bg">
+<div data-controller = "survey-style" class="flex justify-center <%= "form_bg" if survey.image.attached? %>">
   <aside data-controller="slideover" data-slideover-target="closeAside" class="hidden slideover sm:w-1/5 absolute right-0 bg-gentleYellow h-full" style="top:186px">
         <div class="top-0 pt-12 px-2 w-full">
           <div data-action="click->slideover#close" class="absolute right-2 top-2 cursor-pointer">      
@@ -44,6 +56,7 @@
           data: {action: "change->auto-save#add_survey_title "}%>
         <%= form.text_area :description, placeholder: "問卷敘述", class: "input",
           data: {controller: "textarea-autogrow", action: "change->auto-save#add_survey_description "} %>
+        
       </div>
       <div data-controller="nested-form sortable-question" data-nested-form-index-value ="QUESTION_RECORD" >
         <template data-nested-form-target='template'>
