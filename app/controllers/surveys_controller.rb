@@ -58,49 +58,39 @@ class SurveysController < ApplicationController
   end
   
   def stats
-    question_index = 0
     question_ids = []
     question_titles = []
     question_types = []
-    answer_index = 0
-    max_answers_count = 0
     answer_ids = []
     answer_titles = []
     answer_question_ids = []
     question_answer_data = []
     answers_counts = [0]
-
   
     # combine question and answers
     @survey.questions.each do |question|
-      question_ids[question_index] = question.id
-      question_titles[question_index] = question.title
-      question_types[question_index] = question.question_type
-      question_answer_data.push(question_titles[question_index])
-      question_answer_data.push(question_types[question_index])
+      question_ids.push(question.id)
+      question_titles.push(question.title)
+      question_types.push(question.question_type)
+      question_answer_data.push(question.title)
+      question_answer_data.push(question.question_type)
 
       case question.question_type
       when 'multiple_choice', 'single_choice', 'satisfaction', 'drop_down_menu'
         answers_count = 0
         question.answers.each do |answer|
-          answer_ids[answer_index] = answer.id
-          answer_titles[answer_index] = answer.title
-          answer_question_ids[answer_index] = answer.question_id
-          if answer_question_ids[answer_index] == question_ids[question_index]
-            question_answer_data.push(answer_titles[answer_index])
+          answer_ids.push(answer.id)
+          answer_titles.push(answer.title)
+          answer_question_ids.push(answer.question_id)
+          if answer.question_id == question.id
+            question_answer_data.push(answer.title)
             answers_count += 1
           end
-          answer_index += 1
         end
         answers_counts.push(answers_count)
       end
-
-      question_answer_data.push(answer_index)
-      question_index += 1
       
     end
-    max_answers_count = answer_index
-    question_answer_data.push(max_answers_count)
    
     @questionAnswerDatas = question_answer_data
   
@@ -112,7 +102,7 @@ class SurveysController < ApplicationController
     response_answer_datas = []
     response_answer_ids = []
 
-    @survey.responses.all.each do |response|
+    @survey.responses.each do |response|
       response_answer_datas.push('===========================')
       response_index_string = '第' + (response_index+1).to_s + '份'
       response_answer_datas.push(response_index_string)
@@ -132,7 +122,7 @@ class SurveysController < ApplicationController
           current_response_answers.delete('0')
           current_response_answers.each do |current_response_answer|
             answer_index = 0
-            while answer_index < max_answers_count
+            while answer_index < answers_counts.sum
               if current_response_answer == answer_ids[answer_index].to_s
                 response_answer_datas.push(answer_titles[answer_index])
                 response_answer_ids.push(answer_ids[answer_index])
@@ -142,7 +132,7 @@ class SurveysController < ApplicationController
           end
         when 'single_choice', 'satisfaction', 'drop_down_menu'
           answer_index = 0
-          while answer_index < max_answers_count
+          while answer_index < answers_counts.sum
             if current_response_answers == answer_ids[answer_index].to_s
               response_answer_datas.push(answer_titles[answer_index])
               response_answer_ids.push(answer_ids[answer_index])
