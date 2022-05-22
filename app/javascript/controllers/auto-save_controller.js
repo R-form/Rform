@@ -225,10 +225,7 @@ export default class extends Controller {
       type: "patch",
       url: `/surveys/${id}/update_status`,
       data,
-      success: ({ message }) => {
-        // TODO del
-        console.log(message);
-      },
+      success: ({ message }) => {},
       error: (err) => {},
     });
   }
@@ -259,14 +256,8 @@ export default class extends Controller {
       type: "patch",
       url: `/surveys/${id}/update_closetime`,
       data,
-      success: (resp) => {
-        // TODO del
-        console.log(resp);
-      },
-      error: (err) => {
-        // TODO del
-        console.log(err);
-      },
+      success: ({ message }) => {},
+      error: (err) => {},
     });
   }
 }
