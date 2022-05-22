@@ -38,7 +38,10 @@ Rails.application.routes.draw do
       patch :background_color
       get :duplicate
       patch :tag
-    end
+      patch :skip_to_question_id
+      get :all_question_title
+    end 
+
   end
   
   resources :oauths, only: [] do

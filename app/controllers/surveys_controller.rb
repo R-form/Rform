@@ -411,6 +411,17 @@ class SurveysController < ApplicationController
     }  
   end
   
+  def all_question_title
+    @questions = @survey.questions.where(survey_id: params[:survey_id]).all
+  end
+
+  def skip_to_question_id
+    question = @survey.questions.find(params[:question_id])
+    answer = question.answers.find(params[:answer_id])
+    answer.update(skip_to_question_id: params[:skip_to_question_id])
+  end
+
+  
   private
   def find_survey
     @survey = current_user.surveys.find(params[:id])
@@ -436,11 +447,12 @@ class SurveysController < ApplicationController
         :position,
         :description,
         :image,
+        :skip_to_question_id,
         { answers_attributes: %i[
           _destroy
           id
           title
-        ] },
+        ] }
       ]
     )
   end
