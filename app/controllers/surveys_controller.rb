@@ -174,8 +174,8 @@ class SurveysController < ApplicationController
           labels: answer_titles.slice(slice_from, slice_length),
           datasets: [{
             label: question.title,
-            backgroundColor: '#3B82F6',
-            borderColor: '#3B82F6',
+            backgroundColor: '#ffb3b3',
+            borderColor: '#ffb3b3',
             data: sum_of_response_answer_ids.slice(slice_from, slice_length)
           }]
         }
