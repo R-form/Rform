@@ -112,12 +112,12 @@ class SurveysController < ApplicationController
       response_id = response_json['id']
       response_answers = response_json['answers']
 
-      question_index = 0
-      while question_index < @survey.questions.count
-        question_id_string = @survey.questions[question_index].id.to_s
+      @survey.questions.each do |question|
+        response_answer_datas.push(question.title)
+        question_id_string = question.id.to_s
         current_response_answers = response_answers[question_id_string]
 
-        case @survey.questions[question_index].question_type
+        case question.question_type
         when 'multiple_choice'
           current_response_answers.delete('0')
           current_response_answers.each do |current_response_answer|
@@ -143,7 +143,6 @@ class SurveysController < ApplicationController
           response_answer_datas.push(current_response_answers)
         end
 
-        question_index += 1
       end
       response_index += 1
     end
