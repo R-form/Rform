@@ -21,16 +21,9 @@ class Survey < ApplicationRecord
   after_find do |survey|
     if survey.draft? && Time.now >= survey.opentime
       survey.publish
-    elsif survey.published? && Time.now >= survey.closetime
+    elsif survey.published? && survey.closetime && Time.now >= survey.closetime
       survey.close
     end
-
-
-    # if Time.now >= survey.opentime
-    #   survey.publish
-    # elsif Time.now >= survey.closetime
-    #   survey.close
-    # end
   end
 
   belongs_to :user
