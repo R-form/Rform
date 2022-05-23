@@ -19,9 +19,7 @@ class Survey < ApplicationRecord
 
   before_create :generate_slug
   after_find do |survey|
-    if survey.draft? && Time.now >= survey.opentime && Time.now < survey.closetime
-      survey.publish
-    elsif survey.published? && survey.closetime? && Time.now >= survey.closetime
+    if survey.published? && survey.closetime? && Time.now >= survey.closetime
       survey.close
     end
   end
