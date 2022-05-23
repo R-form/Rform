@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       patch :font_style
       patch :theme
       get :stats
+      patch :background_color
     end 
 
     get 'duplicate', on: :member , to: "surveys#duplicate_survey"
