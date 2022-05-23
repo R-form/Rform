@@ -117,6 +117,7 @@ class SurveysController < ApplicationController
 
         case question.question_type
         when 'multiple_choice'
+          if !current_response_answers.nil?
           current_response_answers.delete('0')
           current_response_answers.each do |current_response_answer|
             answer_index = 0
@@ -128,6 +129,7 @@ class SurveysController < ApplicationController
               answer_index += 1
             end
           end
+        end
         when 'single_choice', 'satisfaction', 'drop_down_menu'
           answer_index = 0
           while answer_index < answers_counts.sum
