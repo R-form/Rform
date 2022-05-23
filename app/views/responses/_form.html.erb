@@ -1,5 +1,5 @@
 <div class="h-full min-h-screen" style="background-color:<%=@survey.background_color %>">
-      <section class="sections response-fields max-w-lg mx-auto <%= @survey.font_style %>" >
+  <section class="sections response-fields max-w-lg mx-auto <%= @survey.font_style %>" >
   
           <h1 class="title text-5xl text-ironGray my-5"><%= @survey.title %></h1>
           <p class="description text-md text-ironGray break-words"><%= @survey.description%></p>
@@ -7,9 +7,8 @@
               <%= form_with model: [@survey, response] do |form| %>
           <%= form.fields_for :answers do |response| %>
           <% @survey.questions.each do |question| %>
-          <div class="question_field my-10 ">
+          <div class="question_field hidden my-10" data-responses-target="question">
             <h1 class="question_title inline-block py-2 text-3xl text-gray-600 ">
-              <i class="fas fa-question icon inline-block text-gray-600"></i>
               <%= question.title %>
               <%= content_tag :abbr, '*', title: 'Required' if question.required %>
             </h1>
@@ -68,12 +67,17 @@
             </div>
           </div>
           <% end %>
-          <% end %>
-          <div class="actions">
-            <%= form.submit "送出問卷",class:"px-4 py-3 bg-ironGray text-white text-lg font-semibold rounded hover:bg-ironGrayHover", style:"background-color:#{@survey.theme}" %>
-          </div>
-          <% end %>
-  
-    </section>
-</div>
+        <% end %>
+      </div>
+      <%= form.button "下一題", data: { action: "click->responses#next"}%>
+    </div>
+    <% end %>
+    <% end %>
 
+    <div class="actions hidden" data-responses-target="submit">
+      <%= form.submit "送出問卷",class:"px-4 py-3 bg-ironGray text-white text-lg font-semibold rounded hover:bg-ironGrayHover", style:"background-color:#{@survey.theme}" %>
+    </div>
+
+  <% end %>
+  </section>
+</div>
