@@ -218,12 +218,4 @@ export default class extends Controller {
     this.formTarget.submit();
     event.value = "";
   }
-
-
-
-  submitForm(e) {
-    // e.preventDefault()
-    this.formTarget.submit();
-    console.log("我submit");
-  }
 }
