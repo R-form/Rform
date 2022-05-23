@@ -173,7 +173,6 @@ export default class extends Controller {
   }
 
   add_answer(e) {
-    console.log("QQ");
     const id = this.survey_idTarget.dataset.id;
     const question_id = e.target.closest(".question").dataset.question_id;
     const answer_id = e.target.closest("#answer").firstElementChild.value;
@@ -195,12 +194,12 @@ export default class extends Controller {
 
   remove_answer(e) {
     e.preventDefault();
-    let item = e.target.closest(".answer");
+    let item = e.target.closest("#answer");
     item.style.display = "none";
 
     const id = this.survey_idTarget.dataset.id;
     const question_id = e.target.closest(".question").dataset.question_id;
-    const answer_id = e.target.closest(".answer").firstElementChild.value;
+    const answer_id = e.target.closest("#answer").firstElementChild.value;
 
     const data = new FormData();
     data.append("question_id", question_id);
@@ -213,11 +212,5 @@ export default class extends Controller {
       success: ({ message }) => {},
       error: (err) => {},
     });
-  }
-
-  submitForm(e) {
-    // e.preventDefault()
-    this.formTarget.submit();
-    console.log("我submit");
   }
 }
