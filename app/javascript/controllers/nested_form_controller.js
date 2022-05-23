@@ -2,7 +2,7 @@ import { Controller } from "stimulus";
 import Rails from "@rails/ujs";
 
 export default class extends Controller {
-  static targets = ["add_item", "template", "question", "question_copy"];
+  static targets = ["add_item", "template", "question", "question_copy","add_answer"];
   static values = { index: String };
 
   duplicate_question(e) {
@@ -16,10 +16,10 @@ export default class extends Controller {
       question.insertAdjacentHTML("afterend", question.outerHTML);
       const new_question = question.nextElementSibling;
       const new_question_answers = new_question.querySelectorAll(
-        ".answer input[placeholder='Answer']"
+        "#answer"
       );
 
-      const new_question_title = new_question.querySelector(".question_input");
+      const new_question_title = new_question.querySelector(".q_title");
       new_question_title.value = `${new_question_title.value} - 副本`;
 
       const data = new FormData();
@@ -28,12 +28,11 @@ export default class extends Controller {
         type: "post",
         url: `/surveys/${id}/duplicate_question`,
         data,
-        success: ({ copy_question, question_description, answers }) => {
+        success: ({ copy_question, answers }) => {
           new_question.dataset.question_id = copy_question.id;
           for (let i = 0; i < new_question_answers.length; i++) {
-            new_question_answers[i].value = answers[i].title;
+            new_question_answers[i].firstElementChild.value = answers[i].id;
           }
-          new_question.querySelector(".forminput").value = question_description;
         },
         error: (err) => {},
       });
@@ -48,11 +47,19 @@ export default class extends Controller {
       new Date().getTime()
     );
     this.add_itemTarget.insertAdjacentHTML("beforebegin", content);
+    this.add_itemTarget.previousElementSibling.querySelector('.q_title').focus()
   }
+
+  add_answer(event) {
+    event.preventDefault();
+    let content = this.templateTarget.innerHTML
+    this.add_itemTarget.insertAdjacentHTML("beforeend", content);
+  }
+
 
   remove_association(event) {
     event.preventDefault();
-    let item = event.target.closest(".fields");
+    let item = event.target.closest(".group");
     item.querySelector("input[name*='_destroy']").value = true;
     item.style.display = "none";
   }

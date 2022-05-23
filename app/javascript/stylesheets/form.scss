@@ -1,25 +1,29 @@
 .formsection {
-    @apply max-w-lg mx-auto sm:w-4/5 p-4 ;
+    @apply min-w-max mx-auto sm:w-4/6  ;
+}
+.fields {
+    @apply  rounded overflow-hidden shadow-lg bg-white my-6 p-3 focus-within:outline-ironGray
 }
 
-.formbody {
-
+.form {
+    @apply border-t-8 border-green-400 ; 
 }
 
-.titleinput {
-    @apply appearance-none block w-auto bg-gray-50 text-gray-700 border border-gray-300 rounded  leading-tight focus:outline-none focus:bg-white text-2xl;
+.title {
+    @apply font-bold text-2xl
 }
 
-
-.forminput {
-    @apply appearance-none block w-auto bg-gray-50 text-gray-700 border border-gray-300 rounded  leading-tight focus:outline-none focus:bg-white;
+.input {
+    @apply appearance-none border-b-2 border-opacity-0 border-blue-500 focus:border-opacity-100 text-gray-700  leading-tight outline-none group-focus:border-l-2 p-2 my-2 w-full font-medium ;
 }
 
+.q_title {
+    @apply focus:bg-gray-200 focus:p-4 rounded
+}
 input {
-    @apply m-6
 }
 textarea {
-    @apply m-6
+    @apply p-2 my-2 w-full text-sm
 }
 
 .formtitle {
@@ -29,44 +33,42 @@ textarea {
 .inputfield {
 
 }
-
-.formfield {
-    @apply  rounded overflow-hidden shadow-lg bg-white p-6 my-6; 
-}
 .question {
     @apply  rounded overflow-hidden shadow-lg bg-white p-6 my-6; 
 }
-
+#deco_checkbox {
+    @apply w-7 self-center
+}
 
 .title_type {
     @apply flex
 }
-.question_input {
-    @apply appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white;
-}
+
 .select {
-    @apply bg-gray-200 text-gray-800
+
 }
 
 
 .question_function {
-    @apply inline-block;
+    @apply flex justify-between my-2;
 }
 .btn {
-    @apply bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full
+    @apply bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 my-auto rounded-full
 }
-
+.add_btn {
+    @apply bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2  rounded-full
+}
 
 .choices_field {
     
 }
 
-.answer {
-    @apply w-auto flex;
+#answer {
+    @apply flex shadow-none outline-none;
 }
 
 .answer_input {
-    @apply appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white
+    @apply  focus:bg-gray-100 rounded   
 }
 
 .add_answer {
@@ -74,4 +76,9 @@ textarea {
 }
 .delete_answer {
     @apply bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full
+}
+
+.down{
+    @apply fixed left-10 w-28 block;
+    top: 160px;
 }

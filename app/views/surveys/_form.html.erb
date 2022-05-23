@@ -28,12 +28,12 @@
         </div>
   </aside>
   <section class="formsection <%= survey.font_style %>">
-    <%= form_with(model: survey,  data: { controller: "auto-save", auto_save_target: "form", survey_style_target: "form"  } ) do |form| %>
-      <div class="formfield" data-id="<%= survey.id %>" data-auto-save-target="survey_id" data-survey-style-target="survey_id">
-        <%= form.text_field :title, placeholder: "問卷標題", class: "titleinput", 
+    <%= form_with(model: survey,  data: { controller: "auto-save", auto_save_target: "form", survey_style_target: "form", class: "formbody" } ) do |form| %>
+      <div class="form fields" data-id="<%= survey.id %>" data-auto-save-target="survey_id" data-survey-style-target="survey_id">
+        <%= form.text_field :title, placeholder: "問卷標題", class: "title input", 
           data: {action: "change->auto-save#add_survey_title "}%>
-        <%= form.text_area :description, placeholder: "問卷敘述", class: "forminput",
-          data: {action: "change->auto-save#add_survey_description "} %>
+        <%= form.text_area :description, placeholder: "問卷敘述", class: "input",
+          data: {controller: "textarea-autogrow", action: "change->auto-save#add_survey_description "} %>
       </div>
       <div data-controller="nested-form sortable-question" data-nested-form-index-value ="QUESTION_RECORD" >
         <template data-nested-form-target='template'>
@@ -44,8 +44,12 @@
           <%= form.fields_for :questions do |question| %>
             <%= render 'question_fields', form: question %>
           <% end %>
-          <div data-nested-form-target="add_item" class="formfield">
+          <div data-nested-form-target="add_item" class="fields down">
             <%= link_to "新增問題", "#", data: { action: "nested-form#add_association auto-save#add_question_item" }, class: "btn" %>
+            <%= form_with(model: survey) do |form| %>
+              <%= form.file_field :image %>
+              <%= form.submit "更換圖片" %>
+            <% end %>
           </div>
       </div>
     <% end %>

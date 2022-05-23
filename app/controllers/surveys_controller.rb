@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SurveysController < ApplicationController
-  before_action :find_survey, except: %i[index new create ]
+  before_action :find_survey, except: %i[index new create]
 
   def index
     @surveys = current_user.surveys
@@ -11,16 +11,17 @@ class SurveysController < ApplicationController
 
   def new
     @survey = current_user.surveys.create
+    question = @survey.questions.create
+    2.times { question.answers.create }
     redirect_to  edit_survey_path(@survey.id)
   end
 
   def edit
-    question = @survey.questions.order(:position)
+    @survey.questions.order(:position)
   end
 
   def create
     @survey = current_user.surveys.new(survey_params)
-
     if @survey.save
       render :edit
     else
@@ -29,10 +30,17 @@ class SurveysController < ApplicationController
   end
 
   def update
+    @survey.image.purge
     @survey.update(survey_params)
+    @survey.image.attach(params[:survey][:image])
+    if @survey.questions.first.image.attach(params[:survey][:questions_attributes]["0"][:image])
+      redirect_to surveys_path, notice: "`更換圖片成功#{params[:survey][:questions_attributes]["0"][:image]}`"
+    end
+    # render html: params
   end
 
   def destroy
+    @survey.image.purge
     @survey.destroy
     redirect_to surveys_path, notice: '問卷已刪除'
   end
@@ -47,9 +55,7 @@ class SurveysController < ApplicationController
 
   def duplicate_question
     question = @survey.questions.find(params[:question_id]).deep_clone include: :answers
-  
     question.update(title: (question.title+" - 副本"),position: (question.position)+1)
-    
     render json: {
       copy_question: question, 
       question_description: question.description,
@@ -198,6 +204,7 @@ class SurveysController < ApplicationController
       :position,
       :font_style,
       :theme,
+      :image,
       questions_attributes: [
         :_destroy,
         :id,
@@ -206,11 +213,12 @@ class SurveysController < ApplicationController
         :required,
         :position,
         :description,
+        {images: []},
         { answers_attributes: %i[
           _destroy
           id
           title
-        ] }
+        ] },
       ]
     )
   end
