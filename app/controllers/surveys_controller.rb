@@ -69,25 +69,25 @@ class SurveysController < ApplicationController
   
     # combine question and answers
     @survey.questions.each do |question|
-      question_ids.push(question.id)
-      question_titles.push(question.title)
-      question_types.push(question.question_type)
-      question_answer_data.push(question.title)
-      question_answer_data.push(question.question_type)
+      question_ids << question.id
+      question_titles << question.title
+      question_types << question.question_type
+      question_answer_data << question.title
+      question_answer_data << question.question_type
 
       case question.question_type
       when 'multiple_choice', 'single_choice', 'satisfaction', 'drop_down_menu'
         answers_count = 0
         question.answers.each do |answer|
-          answer_ids.push(answer.id)
-          answer_titles.push(answer.title)
-          answer_question_ids.push(answer.question_id)
+          answer_ids << answer.id
+          answer_titles << answer.title
+          answer_question_ids << answer.question_id
           if answer.question_id == question.id
-            question_answer_data.push(answer.title)
+            question_answer_data << answer.title
             answers_count += 1
           end
         end
-        answers_counts.push(answers_count)
+        answers_counts << answers_count
       end
       
     end
@@ -101,19 +101,18 @@ class SurveysController < ApplicationController
     response_answers = []
     response_answer_datas = []
     response_answer_ids = []
-
+  
     @survey.responses.each do |response|
-      response_answer_datas.push('===========================')
-      response_index_string = '第' + (response_index+1).to_s + '份'
-      response_answer_datas.push(response_index_string)
-      response_answer_datas.push('===========================')
+      response_answer_datas << '==========================='
+      response_answer_datas << '第' + (response_index+1).to_s + '份'
+      response_answer_datas << '==========================='
 
       response_json = response.as_json(only: [:id, :answers])
       response_id = response_json['id']
       response_answers = response_json['answers']
 
       @survey.questions.each do |question|
-        response_answer_datas.push(question.title)
+        response_answer_datas << question.title
         question_id_string = question.id.to_s
         current_response_answers = response_answers[question_id_string]
 
@@ -124,8 +123,8 @@ class SurveysController < ApplicationController
             answer_index = 0
             while answer_index < answers_counts.sum
               if current_response_answer == answer_ids[answer_index].to_s
-                response_answer_datas.push(answer_titles[answer_index])
-                response_answer_ids.push(answer_ids[answer_index])
+                response_answer_datas << answer_titles[answer_index]
+                response_answer_ids << answer_ids[answer_index]
               end
               answer_index += 1
             end
@@ -134,13 +133,13 @@ class SurveysController < ApplicationController
           answer_index = 0
           while answer_index < answers_counts.sum
             if current_response_answers == answer_ids[answer_index].to_s
-              response_answer_datas.push(answer_titles[answer_index])
-              response_answer_ids.push(answer_ids[answer_index])
+              response_answer_datas << answer_titles[answer_index]
+              response_answer_ids << answer_ids[answer_index]
             end
             answer_index += 1
           end
         when 'long_answer', 'date', 'time', 'range'
-          response_answer_datas.push(current_response_answers)
+          response_answer_datas << current_response_answers
         end
 
       end
@@ -150,7 +149,7 @@ class SurveysController < ApplicationController
     sum_of_response_answer_ids = []
 
     answer_ids.each do |answer_id|
-      sum_of_response_answer_ids.push(response_answer_ids.count(answer_id))
+      sum_of_response_answer_ids << response_answer_ids.count(answer_id)
     end
 
     @responseAnswerDatas = response_answer_datas
