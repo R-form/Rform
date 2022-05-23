@@ -1,7 +1,7 @@
 import { Controller } from "stimulus";
 import Rails from "@rails/ujs";
-import huebee from "huebee"
-import "huebee/dist/huebee.min"
+import huebee from "huebee";
+import "huebee/dist/huebee.min";
 
 export default class extends Controller {
   static targets = ['survey_id', 'form', 'color'];
@@ -15,28 +15,24 @@ export default class extends Controller {
 
   pick_color(e){
     const id = this.survey_idTarget.dataset.id
-    const theme_color = e.target.value
-    console.log(theme_color);
+    const theme = this.colorTarget.value
+    console.log(theme);
 
-    // const color_field = this.themeTarget
-
-    // color_field.style['background-color'] = theme_color
-
-    // console.log(color_field);
-
-    // console.log(theme_color);
-
-    // const data = new FormData();
-    // data.append("theme", theme_color);
+    const data = new FormData();
+    data.append("theme", theme);
 
 
-    // Rails.ajax({
-    //   type: "patch",
-    //   url: `/surveys/${id}/theme`,
-    //   data: data,
-    //   success: ({ message }) => {},
-    //   error: (err) => {},
-    // });
+    Rails.ajax({
+      type: "patch",
+      url: `/surveys/${id}/theme`,
+      data: data,
+      success: () => {
+        console.log("成功");
+      },
+      error: () => {
+        console.log("失敗");
+      },
+    });
   }
 
   select_font(e) {
