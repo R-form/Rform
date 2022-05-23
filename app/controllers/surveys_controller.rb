@@ -347,6 +347,10 @@ class SurveysController < ApplicationController
       message: "字體更新成功"
     }
   end
+
+  def theme
+    
+  end
   
   private
   def find_survey

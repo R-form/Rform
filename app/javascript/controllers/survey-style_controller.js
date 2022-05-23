@@ -1,5 +1,7 @@
 import { Controller } from "stimulus";
 import Rails from "@rails/ujs";
+import Huebee from "huebee"
+import "huebee/dist/huebee.min"
 
 export default class extends Controller {
   static targets = ['survey_id', 'form'];
@@ -22,4 +24,28 @@ export default class extends Controller {
       error: (err) => {},
     });
   }
+
+  pick_color(){
+    const id = document.querySelector("form").children[2].dataset.id;
+    const theme_color = this.colorTarget.value
+    const color_field = this.themeTarget
+    color_field.style['background-color'] = theme_color
+
+    // console.log(color_field);
+
+    console.log(theme_color);
+
+    const data = new FormData();
+    data.append("theme", theme_color);
+
+
+    Rails.ajax({
+      type: "patch",
+      url: `/surveys/${id}/theme`,
+      data: data,
+      success: ({ message }) => {},
+      error: (err) => {},
+    });
+  }
+
 }
