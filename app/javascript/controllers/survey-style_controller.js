@@ -1,6 +1,6 @@
 import { Controller } from "stimulus";
 import Rails from "@rails/ujs";
-import Huebee from "huebee"
+import huebee from "huebee"
 import "huebee/dist/huebee.min"
 
 export default class extends Controller {
@@ -8,7 +8,7 @@ export default class extends Controller {
 
   connect() {
     console.log(this.colorTarget);
-    new Huebee(this.colorTarget,{
+    new huebee(this.colorTarget,{
       staticOpen: true
     })
   }
