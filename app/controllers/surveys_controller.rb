@@ -113,8 +113,7 @@ class SurveysController < ApplicationController
 
       @survey.questions.each do |question|
         response_answer_datas << question.title
-        question_id_string = question.id.to_s
-        current_response_answers = response_answers[question_id_string]
+        current_response_answers = response_answers[question.id.to_s]
 
         case question.question_type
         when 'multiple_choice'
