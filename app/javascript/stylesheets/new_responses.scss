@@ -1,3 +1,8 @@
 .question_title {
   text-indent: -0.9rem;
 }
+
+.respomse-fields{
+  @apply rounded overflow-hidden shadow-lg bg-white p-12 focus-within:outline-ironGray
+
+}
