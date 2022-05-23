@@ -213,4 +213,8 @@ export default class extends Controller {
       error: (err) => {},
     });
   }
+  change_question_image(event) {
+    this.formTarget.submit()
+    event.value = "";
+  }
 }
