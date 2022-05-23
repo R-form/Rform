@@ -193,7 +193,17 @@ class SurveysController < ApplicationController
   end
 
   def theme
-    
+    @survey.update(theme: params[:theme])
+    render json: {
+      message: "主題顏色更新成功"
+    }  
+  end
+
+  def background_color
+    @survey.update(background_color: params[:background_color])
+    render json: {
+      message: "背景顏色更新成功"
+    }  
   end
   
   private

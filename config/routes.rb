@@ -32,6 +32,7 @@ Rails.application.routes.draw do
       post :duplicate_question
       patch :font_style
       patch :theme
+      patch :background_color
     end 
 
     get 'duplicate', on: :member , to: "surveys#duplicate_survey"
