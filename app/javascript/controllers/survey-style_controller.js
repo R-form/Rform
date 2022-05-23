@@ -10,7 +10,7 @@ export default class extends Controller {
     console.log(this.colorTarget);
     new huebee(this.colorTarget,{
       staticOpen: true,
-      customColors: [ '#C25', '#E62', '#EA0', 'transparent', '#6C6', '#19F', '#258', '#7A7573' ],
+      customColors: [ '#8E354A', '#E62', '#EA0', 'transparent', '#6C6', '#19F', '#2B5F75', '#7A7573' ],
       shades: 0,
       hues: 4,
       
@@ -18,7 +18,7 @@ export default class extends Controller {
 
     new huebee(this.background_colorTarget,{
       staticOpen: true,
-      customColors: [ '#C25', '#E62', '#EA0', 'transparent', '#6C6', '#19F', '#258', '#7A7573' ],
+      customColors: [ '#DC9FB4', '#eca38f', '#ffc97b', 'transparent', '#bfe8c5', '#bfe2e8', '#6699A1', '#a4b5c4' ],
       shades: 0,
       hues: 4,
       

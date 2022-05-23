@@ -1,4 +1,4 @@
-<div style="background-color:<%=@survey.background_color %>">
+<div class="h-full" style="background-color:<%=@survey.background_color %>">
       <section class="sections respomse-fields max-w-lg mx-auto <%= @survey.font_style %>">
   
           <h1 class="title text-5xl text-ironGray my-5"><%= @survey.title %></h1>
@@ -18,14 +18,14 @@
               <% case question.question_type %>
               <% when 'single_choice' %>
                 <% question.answers.each do |answer| %>
-                  <p class="choice_type bg-ironGray rounded-md p-2 my-6 flex items-center min-h-full hover:bg-ironGrayHover" style="background-color:<%= @survey.theme%>" >
+                  <p class="choice_type choice" style="background-color:<%= @survey.theme%>" >
                     <%= response.radio_button question.id, answer.id, required: question.required, class: 'radio_button h-6 w-6 ml-1 mr-3' %>
                     <span class="answer_title text-xl text-white"><%= answer.title %></span>
                   </p>
                 <% end %>
               <% when 'multiple_choice' %>
                 <% question.answers.each do |answer| %>
-                  <p class="choice_type bg-ironGray rounded-md p-2 my-6 flex items-center min-h-full hover:bg-ironGrayHover">
+                  <p class="choice_type choice" style="background-color:<%= @survey.theme%>">
                     <%= response.check_box question.id, { multiple: true,class: 'radio_button h-6 w-6 ml-1 mr-3 accent-ironGaryHover' }, answer.id %>
                     <span class="answer_title text-xl text-white"><%= answer.title %></span>
                   </p>
@@ -70,7 +70,7 @@
           <% end %>
           <% end %>
           <div class="actions">
-            <%= form.submit "送出問卷",class:"px-4 py-3 bg-ironGray text-white text-lg font-semibold rounded hover:bg-ironGrayHover"%>
+            <%= form.submit "送出問卷",class:"px-4 py-3 bg-ironGray text-white text-lg font-semibold rounded hover:bg-ironGrayHover", style:"background-color:#{@survey.theme}" %>
           </div>
           <% end %>
   

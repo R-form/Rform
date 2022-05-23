@@ -13,6 +13,7 @@ module.exports = {
         ironGray: "#7A7573",
         ironGrayHover: "#A5A2A0",
         footerBlack: "#1A1919",
+        bgGray: "#a4b5c4",
       },
       outline: {
         ironGray: "3px solid #66BB6A",
