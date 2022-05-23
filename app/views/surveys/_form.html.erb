@@ -1,32 +1,51 @@
 <div data-controller = "survey-style" class="flex justify-center bg-green-200">
-  <aside data-controller="slideover" data-slideover-target="closeAside" class="hidden slideover sm:w-1/5 absolute right-0 bg-gentleYellow h-full" style="top:186px">
-        <div class="top-0 pt-12 px-2 w-full">
-          <div data-action="click->slideover#close" class="absolute right-2 top-2 cursor-pointer">      
+ <aside data-controller="slideover" data-slideover-target="closeAside" class="slideover sm:w-1/5 absolute right-0 bg-gentleYellow h-full" style="top:186px">
+        <div class="top-0 pt-4 p-4 w-full">
+        
+          <div data-action="click->slideover#close" class="right-2 top-2 cursor-pointer flex justify-between">      
+            <div>
+              <i class="fas fa-brush"></i>
+              <span class="mx-4 font-bold text-xl	">自訂主題</span>
+            </div>
             <i class="fas fa-times-circle"></i>
           </div>
-          <nav>
+
+          <nav data-controller="survey-style">
             <ul class="flex flex-col overflow-hidden space-y-2">
-              <li class=" h-8 mx-4">             
+              <li class="h-8 mx-4 mt-4">             
                   <i class="fas fa-font"></i>
                   <span>
-                    選擇字體
+                    字體樣式
                   </span>                 
               </li> 
               <li>
-                 <%= form_with(model: survey, class: survey.font_style ) do |form| %>
+                 <%= form_with(model: survey,  data: { controller: "auto-save", action: "change->auto-save#create_survey", auto_save_target: "form"}, 
+                      class: survey.font_style ) do |form| %>
                     <div class="mx-4" > 
                         <%= form.select :font_style,
                             options_for_select([['請選擇字體', 'nill' ],['font-sans(default)', 'font-sans'], ['font-mono', 'font-mono'],['font-serif','font-serif']],
                             selected: form.object.font_style ),
                             {},
-                            data: { action: "change -> survey-style#select_font"}    %>
+                            data: { action: "change -> survey-style#option"}    %>
                       </div> 
                   <% end %> 
+              </li>
+             
+              <li class="h-8 mx-4 mt-4">             
+                  <i class="fas fa-paint-roller"></i>
+                  <span>
+                    主題顏色
+                  </span>                 
+              </li> 
+              <li>
+                  <button class="mx-4" data-action="click-> survey-style#pick_color" >
+                      <input class="text-input hidden" data-survey-style-target="color" data-huebee='{ "staticOpen": true, "shades": 1 }' />
+                  </button>
               </li>
             </ul>
           </nav>
         </div>
-  </aside>
+      </aside>
   <section class="formsection <%= survey.font_style %>">
     <%= form_with(model: survey,  data: { controller: "auto-save", auto_save_target: "form", survey_style_target: "form", class: "formbody" } ) do |form| %>
       <div class="form fields" data-id="<%= survey.id %>" data-auto-save-target="survey_id" data-survey-style-target="survey_id">
