@@ -16,10 +16,10 @@ export default class extends Controller {
       question.insertAdjacentHTML("afterend", question.outerHTML);
       const new_question = question.nextElementSibling;
       const new_question_answers = new_question.querySelectorAll(
-        ".answer input[placeholder='Answer']"
+        "#answer"
       );
 
-      const new_question_title = new_question.querySelector(".question_input");
+      const new_question_title = new_question.querySelector(".q_title");
       new_question_title.value = `${new_question_title.value} - 副本`;
 
       const data = new FormData();
@@ -28,12 +28,11 @@ export default class extends Controller {
         type: "post",
         url: `/surveys/${id}/duplicate_question`,
         data,
-        success: ({ copy_question, question_description, answers }) => {
+        success: ({ copy_question, answers }) => {
           new_question.dataset.question_id = copy_question.id;
           for (let i = 0; i < new_question_answers.length; i++) {
-            new_question_answers[i].value = answers[i].title;
+            new_question_answers[i].firstElementChild.value = answers[i].id;
           }
-          new_question.querySelector(".forminput").value = question_description;
         },
         error: (err) => {},
       });
