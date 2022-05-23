@@ -111,8 +111,7 @@ export default class extends Controller {
   update_opentime(e) {
     const id = this.survey_idTarget.dataset.id;
     const opentime = e.target.value;
-    // TODO del
-    console.log(opentime);
+
     const data = new FormData();
     data.append("opentime", opentime);
     Rails.ajax({
