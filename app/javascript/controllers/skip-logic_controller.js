@@ -9,11 +9,11 @@ export default class extends Controller {
 
     // 抓 id: survey/answer/question   
     const id = this.survey_idTarget.dataset.id
-    // console.log(id);
+    console.log(id);
     const question_id = e.target.closest(".question").dataset.question_id;
     console.log(question_id);
     const answer_id = e.target.closest(".answer").firstElementChild.value;
-    // console.log(answer_id);
+    console.log(answer_id);
     const skip_to_question_id = e.target.value
     console.log(skip_to_question_id);
 

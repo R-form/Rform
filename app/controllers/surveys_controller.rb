@@ -412,7 +412,7 @@ class SurveysController < ApplicationController
   end
   
   def all_question_title
-    @questions = @survey.questions.where(survey_id: params[:survey_id]).all
+    @questions = @survey.questions
   end
 
   def skip_to_question_id
