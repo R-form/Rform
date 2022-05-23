@@ -66,7 +66,6 @@ export default class extends Controller {
   }
 
   change_background(event) {
-    console.log(this.change_bgTarget);
     this.change_bgTarget.submit();
     event.value = "";
   }
