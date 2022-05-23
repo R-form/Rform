@@ -96,9 +96,6 @@ class SurveysController < ApplicationController
   
     # deal with responses  
     response_index = 0
-    response_json = []
-    response_id = []
-    response_answers = []
     response_answer_datas = []
     response_answer_ids = []
   
@@ -107,29 +104,25 @@ class SurveysController < ApplicationController
       response_answer_datas << '第' + (response_index+1).to_s + '份'
       response_answer_datas << '==========================='
 
-      response_json = response.as_json(only: [:id, :answers])
-      response_id = response_json['id']
-      response_answers = response_json['answers']
-
       @survey.questions.each do |question|
         response_answer_datas << question.title
-        current_response_answers = response_answers[question.id.to_s]
+        current_response_answers = response.answers[question.id.to_s]
 
         case question.question_type
         when 'multiple_choice'
-          if !current_response_answers.nil?
-          current_response_answers.delete('0')
-          current_response_answers.each do |current_response_answer|
-            answer_index = 0
-            while answer_index < answers_counts.sum
-              if current_response_answer == answer_ids[answer_index].to_s
-                response_answer_datas << answer_titles[answer_index]
-                response_answer_ids << answer_ids[answer_index]
+          if current_response_answers.present?
+            current_response_answers.delete('0')
+            current_response_answers.each do |current_response_answer|
+              answer_index = 0
+              while answer_index < answers_counts.sum
+                if current_response_answer == answer_ids[answer_index].to_s
+                  response_answer_datas << answer_titles[answer_index]
+                  response_answer_ids << answer_ids[answer_index]
+                end
+                answer_index += 1
               end
-              answer_index += 1
             end
           end
-        end
         when 'single_choice', 'satisfaction', 'drop_down_menu'
           answer_index = 0
           while answer_index < answers_counts.sum
