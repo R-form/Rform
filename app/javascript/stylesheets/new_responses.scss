@@ -5,3 +5,8 @@
 .choice {
   @apply bg-ironGray rounded-md p-2 my-6 flex items-center min-h-full hover:bg-ironGrayHover;
 }
+
+.respomse-fields{
+  @apply rounded overflow-hidden shadow-lg bg-white p-12 focus-within:outline-ironGray
+
+}
