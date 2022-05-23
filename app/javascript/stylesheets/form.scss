@@ -1,3 +1,19 @@
+.huebee__cursor {
+    width: 30px;
+    height: 30px;
+  }
+.style-survey-div{
+    @apply flex justify-center bg-bgGray
+}
+
+.slide{
+    @apply  sm:w-1/5 absolute right-0 bg-gentleYellow h-full shadow-md
+}
+
+.slide_content{
+    @apply right-2 top-2 cursor-pointer flex justify-between
+}
+
 .formsection {
     @apply min-w-max mx-auto sm:w-4/6  ;
 }
