@@ -54,11 +54,11 @@
             </ul>
           </nav>
         </div>
-      </aside>
+  </aside>
   <section class="formsection h-full min-h-screen <%= survey.font_style %>">
-    <%= form_with(model: survey,  data: { controller: "auto-save", auto_save_target: "form", survey_style_target: "form" } ) do |form| %>
-      <div class="fields form border-ironGray" style="border-color:<%= survey.theme %>" data-id="<%= survey.id %>" data-auto-save-target="survey_id" data-survey-style-target="survey_id">
-        <%= form.text_field :title, placeholder: "問卷標題", class: "title input", 
+    <%= form_with(model: survey,  data: { controller: "auto-save", auto_save_target: "form", survey_style_target: "form") do |form| %>
+      <div class="form fields border-ironGray" style="border-color:<%= survey.theme %>" data-id="<%= survey.id %>" data-auto-save-target="survey_id" data-survey-style-target="survey_id">
+        <%= form.text_field :title, placeholder: "問卷標題", autocomplete: "off", class: "title input", 
           data: {action: "change->auto-save#add_survey_title "}%>
         <%= form.text_area :description, placeholder: "問卷敘述", class: "input",
           data: {controller: "textarea-autogrow", action: "change->auto-save#add_survey_description "} %>
