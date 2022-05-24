@@ -7,29 +7,24 @@ export default class extends Controller {
   static targets = ['survey_id', 'form', 'color', 'background_color', 'responses'];
 
   connect() {
-    console.log(this.colorTarget);
     new huebee(this.colorTarget,{
       staticOpen: true,
       customColors: [ '#8E354A', '#E62', '#EA0', 'transparent', '#6C6', '#19F', '#2B5F75', '#7A7573' ],
       shades: 0,
       hues: 4,
-      
     })
 
     new huebee(this.background_colorTarget,{
       staticOpen: true,
       customColors: [ '#DC9FB4', '#eca38f', '#ffc97b', 'transparent', '#bfe8c5', '#bfe2e8', '#6699A1', '#a4b5c4' ],
       shades: 0,
-      hues: 4,
-      
+      hues: 4,   
     })
   }
 
   pick_color(e){
     const id = this.survey_idTarget.dataset.id
     const theme = this.colorTarget.value
-    console.log(theme);
-
     this.survey_idTarget.style.borderColor = theme
    
     const data = new FormData();
@@ -41,17 +36,13 @@ export default class extends Controller {
       url: `/surveys/${id}/theme`,
       data: data,
       success: ({ message }) => {},
-      error: () => {
-        console.log("失敗");
-      },
+      error: (err) => {},
     });
   }
 
   pick_background_color(){
     const id = this.survey_idTarget.dataset.id
     const background_color = this.background_colorTarget.value
-    console.log(background_color);
-
     this.element.style.backgroundColor = background_color
 
     const data = new FormData();
@@ -63,9 +54,7 @@ export default class extends Controller {
       url: `/surveys/${id}/background_color`,
       data: data,
       success: ({ message }) => {},
-      error: () => {
-        console.log("失敗");
-      },
+      error: (err) => {},
     });
   }
 
@@ -73,7 +62,6 @@ export default class extends Controller {
     const id = this.survey_idTarget.dataset.id;
     const form = this.formTarget;
     const font_style = e.target.value;
-
     const new_font_style = form.setAttribute("class",font_style)
 
     const data = new FormData();
