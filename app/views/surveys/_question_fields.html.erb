@@ -26,9 +26,7 @@
   <div class="question_function">
     <div>
     <%= link_to "新增選項", "#", data: { action: "nested-form#add_answer auto-save#add_answer_item" , dynamic_select_target:'addbtn' } , class: "add_btn" %>
-    <%= form.label :image , (form.object.image.attached? ? "更換圖片" : "新增圖片" ), class: "btn w-max" %>
-    <%= form.file_field :image , class:"hidden" , data: {action: "input->auto-save#change_question_image"} %>
-    <%= form.submit "上傳" , class: "hidden btn w-max mx-auto"%>
+    <%= form.label :image , (form.object.image.attached? ? "更換圖片" : "新增圖片" ), class: "btn w-max" , data: { action: "click->auto-save#change_question_image" ,id: form.object.id } %>
     </div>
     <div>
     <%= form.check_box :required, data: {action: "click->auto-save#checked"}, id: "deco_checkbox"%>

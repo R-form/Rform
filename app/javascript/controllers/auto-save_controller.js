@@ -4,6 +4,16 @@ import Rails from "@rails/ujs";
 export default class extends Controller {
   static targets = ["form", "survey_id", "question", "answer"];
 
+  creatEvent(id){
+   this.imageEvent = new CustomEvent("image", {
+      detail: {
+        id
+      }
+    })
+  }
+
+
+
   add_survey_title(e) {
     const id = this.survey_idTarget.dataset.id;
     const survey_title = e.target.value;
@@ -214,7 +224,7 @@ export default class extends Controller {
     });
   }
   change_question_image(event) {
-    this.formTarget.submit()
-    event.value = "";
+    this.creatEvent(event.target.dataset.id);
+    document.dispatchEvent(this.imageEvent);
   }
 }

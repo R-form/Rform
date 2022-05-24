@@ -133,6 +133,13 @@ class SurveysController < ApplicationController
     }
   end
 
+  def question_image
+    question = Question.find(params[:question_id])
+    question.image.attach(params[:image])
+    redirect_to edit_survey_path(params[:survey_id])
+  end
+  
+
   def save_checkbox
     question = @survey.questions.find(params[:question_id])
     question.update(required: !question.required)
@@ -160,6 +167,12 @@ class SurveysController < ApplicationController
       params: params
     }
   end
+
+  def quesiton_image
+    question = Question.find(params[:id])
+    question.image.attach(params[:image])
+  end
+  
 
   def remove_question
     question = @survey.questions.find(params[:question_id])

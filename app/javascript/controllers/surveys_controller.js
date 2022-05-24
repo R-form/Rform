@@ -6,7 +6,7 @@ export default class extends Controller {
 
   share(e) {
     e.preventDefault();
-    const url = `${location.protocol}${location.host}${
+    const url = `${location.protocol}//${location.host}${
       e.target.closest("a").dataset.url
     }`;
     this.short_urlTarget.value = url;
