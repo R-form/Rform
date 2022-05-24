@@ -1,20 +1,18 @@
-import { Controller } from "stimulus"
+import { Controller } from "stimulus";
 import e from "turbolinks";
 
-
 export default class extends Controller {
-  static values ={ index: Boolean }
+  static values = { index: Boolean };
 
- show(e){
-  e.preventDefault();
-  this.indexValue = !this.indexValue
-  const slideover = document.querySelector(".slideover")
+  show(e) {
+    e.preventDefault();
+    this.indexValue = !this.indexValue;
+    const slideover = document.querySelector(".slideover");
 
-  if(this.indexValue){
-    slideover.classList.remove("invisible")
-  }else{
-    slideover.classList.add("invisible")
+    if (this.indexValue) {
+      slideover.classList.remove("invisible");
+    } else {
+      slideover.classList.add("invisible");
+    }
   }
- }   
-  
-} 
+}
