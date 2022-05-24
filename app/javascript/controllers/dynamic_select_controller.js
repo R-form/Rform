@@ -8,10 +8,10 @@ export default class extends Controller {
 
   selected() {
     switch (this.selectTarget.value) {
-      case "single_choice":
-      case "multiple_choice":
-      case "satisfaction":
-      case "drop_down_menu":
+      case "單選題":
+      case "多選題":
+      case "線性問題":
+      case "下拉選單":
         this.choiceTarget.classList.remove("hidden");
         this.addbtnTarget.classList.remove("hidden")
         break;

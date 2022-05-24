@@ -1,11 +1,11 @@
 <div class="h-full min-h-screen" style="background-color:<%=@survey.background_color %>">
   <section class="sections response-fields max-w-lg mx-auto <%= @survey.font_style %>" >
   
-          <h1 class="title text-5xl text-ironGray my-5"><%= @survey.title %></h1>
-          <p class="description text-md text-ironGray break-words"><%= @survey.description%></p>
+    <h1 class="title text-5xl text-ironGray my-5"><%= @survey.title %></h1>
+    <p class="description text-md text-ironGray break-words"><%= @survey.description%></p>
   
-              <%= form_with model: [@survey, response] do |form| %>
-          <%= form.fields_for :answers do |response| %>
+    <%= form_with model: [@survey, response] do |form| %>
+      <%= form.fields_for :answers do |response| %>
           <% @survey.questions.each do |question| %>
           <div class="question_field hidden my-10" data-responses-target="question">
             <h1 class="question_title inline-block py-2 text-3xl text-gray-600 ">
@@ -15,23 +15,23 @@
             <hr class="border-solid border-2 border-ironGray" style="border-color:<%= @survey.theme %>">
             <div class="question_content">
               <% case question.question_type %>
-              <% when 'single_choice' %>
+              <% when '單選題' %>
                 <% question.answers.each do |answer| %>
                   <p class="choice_type choice" style="background-color:<%= @survey.theme%>" >
                     <%= response.radio_button question.id, answer.id, required: question.required, class: 'radio_button h-6 w-6 ml-1 mr-3' %>
                     <span class="answer_title text-xl text-white"><%= answer.title %></span>
                   </p>
                 <% end %>
-              <% when 'multiple_choice' %>
+              <% when '多選題' %>
                 <% question.answers.each do |answer| %>
                   <p class="choice_type choice" style="background-color:<%= @survey.theme%>">
                     <%= response.check_box question.id, { multiple: true,class: 'radio_button h-6 w-6 ml-1 mr-3 accent-ironGaryHover' }, answer.id %>
                     <span class="answer_title text-xl text-white"><%= answer.title %></span>
                   </p>
                 <% end %>
-              <% when 'long_answer' %>
+              <% when '問答題' %>
                 <%= response.text_area question.id, required: question.required, class: 'text_area w-full my-6 border-2 rounded-md border-ironGaryHover focus:outline-none focus:ring-ironGray focus:border-ironGray text-md' %>
-              <% when 'satisfaction' %>
+              <% when '線性問題' %>
                 <table class="default w-full my-6">
                   <tr class="tr flex justify-around flex-wrap">
                     <% question.answers.each do |answer| %>
@@ -48,21 +48,16 @@
                     <% end %>
                   </tr>
                 </table>
-              <% when 'date' %>
+              <% when '日期' %>
                 <%= response.date_field question.id , class: "default w-full my-6", data: {controller: "date"}%>
-              <% when 'time' %>
+              <% when '時間' %>
                 <%= response.time_field question.id, class: "default w-full my-6", data: {controller: "time"} %>
-              <% when 'drop_down_menu' %>
+              <% when '下拉選單' %>
                 <%= response.select question.id, options_for_select(question.answers.collect{ |o| [o.title, o.id, class: "option"] }), {class: "default w-full my-6"}  %>
-              <% when 'range' %>
+              <% when '範圍' %>
                 <%= response.range_field question.id %>
-              <% when 'file' %>
+              <% when '上傳檔案' %>
                 <%= response.file_field question.id, accept: "application/pdf, application/zip", multiple: true %>
-              <% when 'image' %>
-                <%= file_field_tag question.id %>
-                <% question.answers.each do |answer| %>
-                  <%= response.image answer.answerimg.variant(resize_to_limit: [200, 300]) %>
-                <% end %>
               <% end %>
             </div>
           </div>
