@@ -2,12 +2,13 @@
     width: 30px;
     height: 30px;
   }
+
 .style-survey-div{
-    @apply flex justify-center bg-bgGray
+    @apply flex justify-center bg-bgGray h-full overflow-y-scroll
 }
 
 .slide{
-    @apply  sm:w-1/5 absolute right-0 bg-gentleYellow h-full shadow-md
+    @apply  sm:w-1/5 fixed right-0 w-28 block right-0 top-0 bg-gentleYellow h-full shadow-md
 }
 .invisible{
     @apply invisible
@@ -101,3 +102,18 @@ textarea {
     @apply fixed left-10 w-28 block;
     top: 160px;
 }
+
+.side-border{
+    position: relative;
+}
+
+.side-border::before{
+    content:"";
+    height: 2px;
+    width: 250px;
+    position: absolute;
+    top:40px;
+
+    @apply bg-ironGrayHover
+}
+

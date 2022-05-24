@@ -3,7 +3,7 @@
   <%= form.hidden_field :_destroy %>
   <input type="checkbox" name="" id="deco_checkbox" disabled>
   <%= form.text_field :title, placeholder: '選項', class: 'answer_input input', data: {action: "change->auto-save#add_answer"}  %>
-  <%= link_to "刪除選項", data: { action: "click->nested-form#remove_association click->auto-save#remove_answer" }, class: "btn" do %>
+  <%= link_to "刪除選項", data: { action: "click->nested-form#remove_association click->auto-save#remove_answer" }, class: "linkbtn" do %>
     <i class="fas fa-trash-alt"></i>
   <% end %>
 </div>
