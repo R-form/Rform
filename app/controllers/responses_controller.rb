@@ -31,7 +31,7 @@ class ResponsesController < ApplicationController
 
   private
   def set_survey
-    @survey = current_user.surveys.find(params[:survey_id])
+    @survey = Survey.find(params[:survey_id])
   end
 
   def set_response
