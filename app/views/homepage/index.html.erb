@@ -1,4 +1,4 @@
-<section class="bg-white">
+<section class="bg-white padding-for-fixed">
     <div class="max-w-5xl px-6 py-16 mx-auto">
         <div class="items-center md:flex md:space-x-6">
             <div class="md:w-1/2">
@@ -7,8 +7,8 @@
                     cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
                     culpa qui officia deserunt molli''t anim id est laborum.</p>
                 <div class="my-5">
-                  <%=link_to '免費申請體驗', new_user_path, class:"px-4 py-3 bg-ironGray text-white text-sm font-semibold rounded hover:bg-ironGrayHover" if current_user.nil?%>
-                  <%=link_to '免費申請體驗', surveys_path, class:"px-4 py-3 bg-ironGray text-white text-sm font-semibold rounded hover:bg-ironGrayHover" if logged_in?%>
+                  <%=link_to '免費申請體驗', new_user_path, class:"sendbtn" if current_user.nil?%>
+                  <%=link_to '免費申請體驗', surveys_path, class:"sendbtn" if logged_in?%>
                 </div>
             </div>
 
