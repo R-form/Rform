@@ -7,7 +7,7 @@ export default class extends Controller {
    console.log(this.closeAsideTarget);
   e.preventDefault();
   const slideover = document.querySelector(".slideover")
-  slideover.classList.remove("hidden")
+  slideover.classList.remove("invisible")
  }  
   
 } 

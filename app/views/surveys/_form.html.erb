@@ -1,5 +1,5 @@
-<div data-controller = "survey-style" class="style-survey-div h-full" style="background-color:<%= @survey.background_color %>">
-    <aside data-controller="slideover" data-slideover-target="closeAside" class="slideover slide">
+<div data-controller = "survey-style" class="style-survey-div h-full overflow-y-scroll" style="background-color:<%= @survey.background_color %>; padding-top:174px" >
+    <aside data-controller="slideover" data-slideover-target="closeAside" class="slideover slide invisible">
       <div class="top-0 pt-4 p-4 w-full">
       
         <div data-action="click->slideover#close" class="slide_content">      
