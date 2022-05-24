@@ -1,9 +1,9 @@
-<div data-controller = "survey-style" class="style-survey-div h-full overflow-y-scroll" style="background-color:<%= @survey.background_color %>; padding-top:174px" >
+<div data-controller = "survey-style" class="style-survey-div padding-for-fixed-body min-hight" style="background-color:<%= @survey.background_color %>" >
     <aside data-controller="slideover" data-slideover-target="closeAside" class="slideover slide invisible">
-      <div class="top-0 pt-4 p-4 w-full">
+      <div class="pt-4 p-4 padding-for-fixed-body">
       
-        <div data-action="click->slideover#close" class="slide_content">      
-          <div>
+        <div data-action="click->slideover#close" class="slide_content">        
+          <div class="side-border"> 
             <i class="fas fa-brush"></i>
             <span class="mx-4 font-bold text-xl	">自訂主題</span>
           </div>
@@ -12,7 +12,7 @@
 
           <nav>
             <ul class="flex flex-col overflow-hidden space-y-2">
-              <li class="h-8 mx-4 mt-4 ">             
+              <li class="mx-4 mt-4 inline-block py-4">             
                   <i class="fas fa-font"></i>
                   <span>
                     字體樣式
@@ -30,7 +30,7 @@
                   <% end %> 
               </li>
              
-              <li class="h-8 mx-4">             
+              <li class="mx-4 mt-4 inline-block py-4">             
                   <i class="fas fa-paint-roller"></i>
                   <span>
                     主題顏色
@@ -41,7 +41,7 @@
                       <input class="text-input hidden" data-survey-style-target="color"  />
                   </button>
               </li>
-              <li class="h-8 mx-4">             
+              <li class="mx-4 mt-4 inline-block py-4">             
                   <i class="fas fa-paint-roller"></i>
                   <span>
                     背景顏色
