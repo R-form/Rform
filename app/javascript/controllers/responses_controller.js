@@ -9,11 +9,22 @@ export default class extends Controller {
 
   next(e) {
     e.preventDefault();
-    // e_question = e.target.closest(".question_field");
     e.target.closest(".question_field").classList.add("hidden");
-
     e.target
       .closest(".question_field")
       .nextElementSibling.classList.remove("hidden");
+  }
+
+  last(e) {
+    e.preventDefault();
+    if (
+      e.target.closest(".question_field").previousElementSibling.nodeName ==
+      "DIV"
+    ) {
+      e.target.closest(".question_field").classList.add("hidden");
+      e.target
+        .closest(".question_field")
+        .previousElementSibling.classList.remove("hidden");
+    }
   }
 }

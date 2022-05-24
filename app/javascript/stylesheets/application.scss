@@ -6,30 +6,30 @@
 @import "./submitted_responses.scss";
 @import "./homepage.scss";
 
-
-input, textarea, select {
-    @apply outline-none ;
-    resize: none;
+input,
+textarea,
+select {
+  @apply outline-none resize-none;
 }
 
-.padding-for-fixed{
-    padding-top: 68px;
+.padding-for-fixed {
+  padding-top: 68px;
 }
 
-.padding-for-fixed-body{
-    padding-top:174px;
+.padding-for-fixed-body {
+  padding-top: 174px;
 }
 
-.margin-for-fixed{
-    margin-top: 68px;
+.margin-for-fixed {
+  margin-top: 68px;
 }
 
-.min-hight{
-    min-height: 1080px;
+.min-hight {
+  min-height: 1080px;
 }
 
-.linkbtn{
-    @apply bg-gray-500 hover:bg-gray-700 text-white font-bold p-2 mx-2 rounded-full flex justify-center items-center ;
-    width: 40px;
-    height: 40px;
+.linkbtn {
+  @apply bg-gray-500 hover:bg-gray-700 text-white font-bold p-2 mx-2 rounded-full flex justify-center items-center;
+  width: 40px;
+  height: 40px;
 }
