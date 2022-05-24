@@ -45,8 +45,6 @@ export default class extends Controller {
     const theme = this.colorTarget.value;
     this.survey_idTarget.style.borderColor = theme;
 
-    this.survey_idTarget.style.borderColor = theme;
-
     const data = new FormData();
     data.append("theme", theme);
 
