@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(version: 2022_05_25_070506) do
     t.bigint "question_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "skip_to_question_id"
     t.datetime "deleted_at"
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
