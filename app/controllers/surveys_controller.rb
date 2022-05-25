@@ -107,7 +107,7 @@ class SurveysController < ApplicationController
       @survey.questions.each do |question|
         response_answer_datas << question.title
         current_response_answers = response.answers[question.id.to_s]
-
+#byebug
         case question.question_type
         when 'multiple_choice'
           if current_response_answers.present?
@@ -185,10 +185,14 @@ class SurveysController < ApplicationController
     @chart_datas = chart_datas
     @chart_options = chart_options
     #excel
+    @questionTitles = question_titles.insert(0,'時間')
+    @responseAnswers = 
+    @responseAnswerDatas = response_answer_datas
+    @testArray = [['a', ['p','q','r'], 'c'],
+                  ['k', ['i','j','q'], 'w']]
     respond_to do |format|
-      format.html
       format.xlsx
-      
+      format.html
     end
   end
 

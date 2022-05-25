@@ -1,9 +1,7 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "answers") do |sheet|
-  @questionAnswerDatas.each do |questionAnswerData|
-    sheet.add_row [questionAnswerData]
-  end
-  @responseAnswerDatas.each do |responseAnswerData|
-    sheet.add_row [responseAnswerData]
+  sheet.add_row @questionTitles
+  @testArray.each do |t|
+    sheet.add_row t, escape_formulas: true
   end
 end
