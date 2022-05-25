@@ -40,7 +40,7 @@ export default class extends Controller {
         break
     }
       
-    if (currentCanvasTarget.attributes.getNamedItem("data-chart-type-value").nodeValue===selectedChartType) {
+    if (currentCanvasTarget.getAttribute("data-chart-type-value")===selectedChartType) {
       currentCanvasTarget.closest(".canvas_area").classList.remove("hidden") // only show the type we selected
     }
   }
