@@ -18,6 +18,7 @@ class SurveysController < ApplicationController
 
   def edit
     @survey.questions.order(:position)
+    @survey_url = "#{ENV['host_name']}/to/#{params[:id]}"
   end
 
   def create
