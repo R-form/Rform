@@ -98,10 +98,10 @@ ActiveRecord::Schema.define(version: 2022_05_18_055911) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
-    t.integer "position"
     t.bigint "user_id", null: false
-    t.string "slug"
     t.string "tag"
+    t.integer "position"
+    t.string "slug"
     t.string "font_style"
     t.string "theme"
     t.index ["slug"], name: "index_surveys_on_slug", unique: true
