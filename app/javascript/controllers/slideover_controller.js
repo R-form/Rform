@@ -1,8 +1,8 @@
-import { Controller } from "stimulus";
+// import { Controller } from "stimulus";
 
-export default class extends Controller {
-  static targets = ["closeAside"];
-  close() {
-    this.closeAsideTarget.classList.add("invisible");
-  }
-}
+// export default class extends Controller {
+//   static targets = ["closeAside"];
+//   close() {
+//     this.closeAsideTarget.classList.add("invisible");
+//   }
+// }

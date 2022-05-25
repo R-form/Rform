@@ -2,12 +2,11 @@
     <aside data-controller="slideover" data-slideover-target="closeAside" class="slideover slide invisible">
       <div class="pt-4 p-4 padding-for-fixed-body">
       
-        <div data-action="click->slideover#close" class="slide_content">        
+        <div class="slide_content">        
           <div class="side-border"> 
             <i class="fas fa-brush"></i>
             <span class="mx-4 font-bold text-xl	">自訂主題</span>
           </div>
-          <i class="fas fa-times-circle"></i>
         </div>
 
           <nav>
@@ -56,7 +55,7 @@
           </nav>
         </div>
       </aside>
-  <section class="formsection h-full <%= survey.font_style %>">
+  <section class="formsection h-full min-h-screen <%= survey.font_style %>">
     <%= form_with(model: survey,  data: { controller: "auto-save", auto_save_target: "form", survey_style_target: "form" } ) do |form| %>
       <div class="fields form border-ironGray" style="border-color:<%= survey.theme %>" data-id="<%= survey.id %>" data-auto-save-target="survey_id" data-survey-style-target="survey_id">
         <%= form.text_field :title, placeholder: "問卷標題", class: "title input", 
