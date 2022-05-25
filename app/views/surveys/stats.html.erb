@@ -19,7 +19,7 @@
       <div id="<%= chart_index.to_s %>" class="canvas_container">
         <%= select_tag(:chart_type, options_for_select([['長條圖', 'bar'], ['圓餅圖', 'pie'], ['折線圖', 'line']]), data: { action: "change->stats#chartTypeSelect"}) %>
         <% 0.upto(@chart_types.count-1) do |chart_type_index| %>
-          <div id="canvas_area" class="hidden">
+          <div class="hidden canvas_area">
             <canvas
             data-controller="chart"
             data-chart-type-value="<%= @chart_types[chart_type_index] %>"
