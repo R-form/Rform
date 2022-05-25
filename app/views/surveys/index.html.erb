@@ -12,6 +12,9 @@
               <p class="font-light font-mono text-sm text-gray-700 hover:text-gray-900 transition-all duration-200  truncate "><%= survey.description %></p> 
               <div class="mt-5 text-right">
                 
+                <%= link_to survey_data_path(survey), class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do %>
+                <i class="fas fa-database"></i>
+                <% end %>
                 <%= link_to edit_survey_path(survey), class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do %>
                   <i class="fas fa-pen"></i>
                 <% end %>

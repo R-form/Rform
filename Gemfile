@@ -17,6 +17,7 @@ gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'
 gem 'deep_cloneable', '~> 3.2.0'
 gem 'friendly_id', '~> 5.0.0'
+gem 'csv'
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

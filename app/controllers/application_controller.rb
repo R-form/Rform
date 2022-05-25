@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-
+  require 'csv'
   private
 
   def not_authenticated

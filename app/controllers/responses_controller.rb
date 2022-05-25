@@ -25,6 +25,39 @@ class ResponsesController < ApplicationController
     
   end
 
+  def data
+    responses = @survey.responses
+    answers = Array.new
+    header = Array.new
+    answers = responses.map {|r| r.answers}
+    trans_answers = answers.each { |a|
+      a.transform_keys!{ |k|
+        Question.find(k).title
+      }
+      a.transform_values!{ |v| 
+        (Answer.find_by(id: v) && Question.find_by(id: Answer.find_by(id: v).question_id).question_type.to_i < 3) ? Answer.find(v).title : v 
+      }
+    }
+    qq = trans_answers.flat_map(&:keys).uniq
+
+    result  = CSV.generate do |csv|
+      headers = ["id"] + qq
+      csv << headers
+      answers.each.with_index do |a,i|
+        row =   a.values_at(*headers)
+        row[0] = i
+        csv <<  row
+      end 
+    end
+
+  
+    render html: answers
+    # respond_to do |format|
+    #   format.html { send_data answers }
+    #   format.csv {send_data result}
+    # end
+  end
+
   private
 
   def set_survey
