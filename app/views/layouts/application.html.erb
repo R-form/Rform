@@ -11,7 +11,7 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body data-controller="modal" style="position:relative">
     <header class="px-1 bg-gentleYellow	fixed z-10 w-full ">
       <div id="nav" class="flex w-full justify-between items-center">
       <% if current_user %>

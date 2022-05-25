@@ -34,7 +34,7 @@ export default class extends Controller {
     Rails.ajax({
       type: "patch",
       url: `/surveys/${id}/theme`,
-      data: data,
+      data,
       success: ({ message }) => {},
       error: (err) => {},
     });
@@ -52,7 +52,7 @@ export default class extends Controller {
     Rails.ajax({
       type: "patch",
       url: `/surveys/${id}/background_color`,
-      data: data,
+      data,
       success: ({ message }) => {},
       error: (err) => {},
     });
