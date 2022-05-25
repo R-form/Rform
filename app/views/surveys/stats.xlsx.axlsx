@@ -1,6 +1,9 @@
 wb = xlsx_package.workbook
 wb.add_worksheet(name: "answers") do |sheet|
-  @buttons.each do |button|
-    sheet.add_row [button.name, button.category, button.price]
+  @questionAnswerDatas.each do |questionAnswerData|
+    sheet.add_row [questionAnswerData]
+  end
+  @responseAnswerDatas.each do |responseAnswerData|
+    sheet.add_row [responseAnswerData]
   end
 end

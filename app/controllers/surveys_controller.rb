@@ -184,10 +184,11 @@ class SurveysController < ApplicationController
     @chart_types = chart_types
     @chart_datas = chart_datas
     @chart_options = chart_options
-
+    #excel
     respond_to do |format|
-      format.xlsx
       format.html
+      format.xlsx
+      
     end
   end
 
