@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_23_111107) do
+ActiveRecord::Schema.define(version: 2022_05_25_070506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,7 +48,6 @@ ActiveRecord::Schema.define(version: 2022_05_23_111107) do
     t.bigint "question_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "skip_to_question_id"
     t.datetime "deleted_at"
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
@@ -106,8 +105,8 @@ ActiveRecord::Schema.define(version: 2022_05_23_111107) do
     t.integer "position"
     t.string "slug"
     t.string "font_style"
-    t.string "theme"
-    t.string "background_color"
+    t.string "theme", default: "#8E354A"
+    t.string "background_color", default: "#DC9FB4"
     t.index ["slug"], name: "index_surveys_on_slug", unique: true
     t.index ["user_id"], name: "index_surveys_on_user_id"
   end
