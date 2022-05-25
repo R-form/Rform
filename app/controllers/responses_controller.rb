@@ -40,7 +40,7 @@ class ResponsesController < ApplicationController
     }
     qq = trans_answers.flat_map(&:keys).uniq
 
-    result  = CSV.generate do |csv|
+    @result  = CSV.generate do |csv|
       headers = ["id"] + qq
       csv << headers
       answers.each.with_index do |a,i|
@@ -50,12 +50,10 @@ class ResponsesController < ApplicationController
       end 
     end
 
-  
-    render html: answers
-    # respond_to do |format|
-    #   format.html { send_data answers }
-    #   format.csv {send_data result}
-    # end
+    respond_to do |format|
+      format.html 
+      format.csv {send_data @result}
+    end
   end
 
   private
