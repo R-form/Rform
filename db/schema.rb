@@ -110,6 +110,9 @@ ActiveRecord::Schema.define(version: 2022_05_25_070506) do
     t.datetime "opentime", default: -> { "now()" }
     t.datetime "closetime"
     t.string "background_color", default: "#DC9FB4"
+    t.string "status", default: "published"
+    t.datetime "opentime", default: -> { "now()" }
+    t.datetime "closetime"
     t.index ["slug"], name: "index_surveys_on_slug", unique: true
     t.index ["user_id"], name: "index_surveys_on_user_id"
   end
