@@ -4,10 +4,10 @@
 
 
 <!-- Modal Container -->
-    <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard" data-controller="surveys"
+    <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard" 
          class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999 ;">
       <div class="min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"  id="modal-id">
-        <div class="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg  bg-white ">
+        <div class="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg bg-white ">
           <!--content-->
           <div class="">
             <!--body-->
@@ -20,7 +20,7 @@
                 <button class="urlbtn" type="button" data-action="click->surveys#copy_in_edit">
                   複製
                 </button>
-                <button class="urlbtn" type="button" data-action="click->surveys#qrcode">
+                <button class="urlbtn" type="button" data-action="click->surveys#qrcode_in_edit">
                 QRcode
                 </button>
               </div>

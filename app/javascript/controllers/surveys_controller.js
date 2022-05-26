@@ -14,6 +14,7 @@ export default class extends Controller {
       qrcode.remove();
     }
   }
+
   copy(e) {
     e.preventDefault();
     const copyText = `${this.short_urlTarget.value}`;
@@ -42,6 +43,14 @@ export default class extends Controller {
       });
   }
 
+  share_in_edit(e){
+    e.preventDefault();
+    let qrcode = document.getElementById("qrcode_in_edit");
+    if (qrcode) {
+      qrcode.remove();
+    }
+  }
+
   copy_in_edit(e){
     e.preventDefault();
     const copyText = `${this.short_url_in_editTarget.value}`;
@@ -49,5 +58,24 @@ export default class extends Controller {
       .writeText(copyText)
       .then((resp) => {})
       .catch((err) => {});
+  }
+
+  qrcode_in_edit(e){
+    e.preventDefault();
+    QRCode.toDataURL(this.short_url_in_editTarget.value)
+    .then((url) => {
+      let img = document.createElement("img");
+      img.src = url;
+      img.id = "qrcode_in_edit";
+      let qrcode = document.getElementById("qrcode_in_edit");
+      if (qrcode) {
+        qrcode.remove();
+      } else {
+        e.target.appendChild(img);
+      }
+    })
+    .catch((url) => {
+      console.error(url);
+    });
   }
 }
