@@ -14,6 +14,7 @@
   </div>
 
   <hr>
+
   <div width="200">
     <% 0.upto(@survey.questions.count) do |i| %>
       <canvas
@@ -27,5 +28,5 @@
 </div>
 
 <br>
+
 <%= link_to 'Download as .xlsx', stats_survey_path(format: :xlsx) %>
-<%= link_to 'back', surveys_path %>

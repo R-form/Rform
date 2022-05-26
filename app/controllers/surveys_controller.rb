@@ -111,6 +111,7 @@ class SurveysController < ApplicationController
       response_answer_datas << '==========================='
       response_answer_datas << '第' + (response_index+1).to_s + '份'
       response_answer_datas << '==========================='
+
       xls_answer_array = [response.created_at]
       key_index = 0
       while key_index < question_ids.length
@@ -133,6 +134,7 @@ class SurveysController < ApplicationController
                 if current_response_answer == answer_ids[answer_index].to_s
                   response_answer_datas << answer_titles[answer_index]
                   multiple_answers << answer_titles[answer_index]
+
                   response_answer_ids << answer_ids[answer_index]
                 end
                 answer_index += 1
@@ -162,6 +164,7 @@ class SurveysController < ApplicationController
       end
       response_index += 1    
     end
+
     sum_of_response_answer_ids = []
 
     answer_ids.each do |answer_id|
@@ -188,8 +191,9 @@ class SurveysController < ApplicationController
           labels: answer_titles.slice(slice_from, slice_length),
           datasets: [{
             label: question.title,
-            backgroundColor: '#ffb3b3',
-            borderColor: '#ffb3b3',
+            backgroundColor: ['#f65686','#1e8df6','#f9cb40','#27dd9c'],
+            borderColor: ['#f65686','#1e8df6','#f9cb40','#27dd9c'],
+            borderWidth: 1,
             data: sum_of_response_answer_ids.slice(slice_from, slice_length)
           }]
         }
@@ -206,11 +210,10 @@ class SurveysController < ApplicationController
     @chart_types = chart_types
     @chart_datas = chart_datas
     @chart_options = chart_options
+
     #excel
     @questionTitles = question_titles.insert(0,'時間')
     @xlsAnswerArrays = xls_answer_arrays
-    @testArray = [['a', ['p','q','r'], 'c'],
-                  ['k', ['i','j','q'], 'w']]
     respond_to do |format|
       format.xlsx
       format.html
