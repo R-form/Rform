@@ -1,4 +1,4 @@
-<div data-controller = "survey-style" class="style-survey-div padding-for-fixed-body min-hight bg-<%= @survey.background_color %>">
+<div data-controller = "survey-style" class="style-survey-div padding-for-fixed-body min-hight" style="background-color:<%= @survey.background_color %>" >
     <aside data-controller="slideover" data-slideover-target="closeAside" class="slideover slide invisible">
       <div class="pt-4 p-4 padding-for-fixed-body">
       
@@ -57,7 +57,7 @@
       </aside>
   <section class="formsection h-full min-h-screen <%= survey.font_style %>">
     <%= form_with(model: survey,  data: { controller: "auto-save", auto_save_target: "form", survey_style_target: "form" } ) do |form| %>
-      <div class="formsection_title border-<%= survey.theme %>" data-id="<%= survey.id %>" data-auto-save-target="survey_id" data-survey-style-target="survey_id">
+      <div class="formsection_title" style="border-color:<%= survey.theme %>" data-id="<%= survey.id %>" data-auto-save-target="survey_id" data-survey-style-target="survey_id">
         <%= form.text_field :title, placeholder: "問卷標題", class: "title input ", 
           data: {action: "change->auto-save#add_survey_title "}%>
         <%= form.text_area :description, placeholder: "問卷敘述", class: "input",

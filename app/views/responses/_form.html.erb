@@ -1,23 +1,25 @@
 <div class="h-full min-h-screen" style="background-color:<%=@survey.background_color %>">
-      <section class="sections response-fields max-w-lg mx-auto <%= @survey.font_style %>" >
-  
-    <h1 class="title text-5xl text-ironGray my-5"><%= @survey.title %></h1>
-    <p class="description text-md text-ironGray break-words relative"><%= @survey.description %></p>
-  
-      <%= form_with model: [@survey, response],data: {controller: "responses"} do |form| %>
+    <section class="sections response-fields <%= @survey.font_style %>" data-controller="responses">
+    <div class="hidden" data-responses-target="survey_title">
+      <h1 class="title text-5xl text-ironGray my-5"><%= @survey.title %></h1>
+      <p class="description text-md text-ironGray break-words relative"><%= @survey.description %></p>
+    </div>
+      <%= form_with model: [@survey, response] do |form| %>
         <%= form.fields_for :answers do |response| %>
           <% @survey.questions.each do |question| %>
           <div class="question_field hidden my-10" data-responses-target="question">
             <h1 class="question_title inline-block py-2 text-3xl text-gray-600">
               <%= question.title %>
-              <%= content_tag :abbr, '*', title: 'Required' if question.required %>
+              <% if question.required %>
+                <span class="text-sm">(必填)</span>
+              <% end %>
             </h1>
             
             <div class="question_content">
               <% case question.question_type %>
               <% when 'single_choice' %>
                 <% question.answers.each do |answer| %>
-                  <label class= "response_choice bg-<%= @survey.theme%> hover:bg-<%= @survey.background_color %>">
+                  <label class= "response_choice" style="background-color:<%= @survey.theme %>">
                     <%= response.radio_button question.id, answer.id, required: question.required, class: 'radio_button h-6 w-6 ml-1 mr-3' %>
                     <%= answer.title %>
                   </label>
@@ -60,13 +62,14 @@
                 <%= response.file_field question.id, accept: "application/pdf, application/zip", multiple: true %>
               <% end %>
             </div>
-          <%= form.button "上一題", data: { action: "click->responses#last" }, class: "p-3 bg-#{@survey.theme} text-lg font-bold rounded my-auto shadow-lg hover:bg-#{@survey.background_color}"%>
-          <%= form.button "下一題", data: { action: "click->responses#next" }, class: "p-3 bg-#{@survey.theme} text-lg font-bold rounded my-auto shadow-lg hover:bg-#{@survey.background_color}"%>
+
+            <%= form.button "上一題", data: { action: "click->responses#last" }, class: "response_button"%>
+            <%= form.button "下一題", data: { action: "click->responses#next" }, class: "response_button"%>
           </div>
           <% end %>
         <% end %>
-        <div class="actions hidden" data-responses-target="submit">
-          <%= form.submit "送出問卷",class:"p-3 bg-#{@survey.theme} text-white text-lg font-bold rounded my-auto shadow-lg hover:bg-#{@survey.background_color}" %>
+        <div class="response_submit hidden" data-responses-target="submit">
+          <%= form.submit "送出問卷",class:"response_button" %>
         </div>
       <% end %>
   </section>

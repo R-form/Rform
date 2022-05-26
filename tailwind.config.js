@@ -1,7 +1,7 @@
 module.exports = {
   mode: "jit",
   purge: [
-    "./app/**/*.html.erb",
+    "./app/views/**/*.{erb,html}",
     "./app/helpers/**/*.rb",
     "./app/javascript/**/*.js",
   ],
@@ -30,7 +30,7 @@ module.exports = {
         softGray: "#a4b5c4",
       },
       outline: {
-        ironGray: "3px solid #E62",
+        ironGrayHover: "3px solid #A5A2A0",
         brightRed: "3px solid #8E354A",
         brightOrange: "3px solid #E62",
         brightYellow: "3px solid #EA0",

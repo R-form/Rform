@@ -1,15 +1,16 @@
 import { Controller } from "stimulus";
 
 export default class extends Controller {
-  static targets = ["question", "submit"];
+  static targets = ["question", "submit", "survey_title"];
   connect() {
     this.questionTarget.classList.remove("hidden");
+    this.survey_titleTarget.classList.remove("hidden");
   }
 
   next(e) {
     e.preventDefault();
-    // TODO del
-    console.log(e.target);
+
+    this.survey_titleTarget.classList.add("hidden");
     e.target.closest(".question_field").classList.add("hidden");
     e.target
       .closest(".question_field")
@@ -26,6 +27,8 @@ export default class extends Controller {
       e.target
         .closest(".question_field")
         .previousElementSibling.classList.remove("hidden");
+    } else {
+      this.survey_titleTarget.classList.remove("hidden");
     }
   }
 }

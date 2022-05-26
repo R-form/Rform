@@ -1,13 +1,13 @@
-.respomse-fields {
-  @apply rounded overflow-hidden shadow-lg bg-white p-12 pt-20 max-w-lg mx-auto;
-}
-
 .response-fields {
-  @apply rounded overflow-hidden shadow-lg bg-white p-12 focus-within:outline-ironGray;
+  @apply rounded overflow-hidden shadow-lg bg-white pt-28 pb-7 px-12 focus-within:outline-ironGrayHover max-w-lg mx-auto;
 }
 
 .response_choice {
   @apply text-xl text-white rounded-md p-2 my-6 flex items-center min-h-full;
+}
+
+.response_button {
+  @apply p-3 bg-ironGray text-lg text-white font-bold rounded my-auto mr-4 shadow-lg hover:bg-ironGrayHover;
 }
 
 .description::after {
