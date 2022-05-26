@@ -69,31 +69,32 @@
             <%= render 'question_fields', form: question %>
           <% end %> 
         </template>
+        
           <%= form.fields_for :questions do |question| %>
             <%= render 'question_fields', form: question %>
           <% end %>
+
+          <div class="status">
+            <%= form.label :status, "狀態" %>
+            <%= form.select :status, Survey.all_status, {}, data: { action: "change -> auto-save#update_status"} %>
+            <hr>
+            <%= form.label :opentime, "開啟時間"%>
+            <%= form.datetime_field :opentime, min: Date.today, data: { action: "change -> auto-save#update_opentime"} %>
+            <hr>
+            <%= form.label :closetime, "關閉時間" %>
+            <%= form.datetime_field :closetime, min: Date.today, data: { action: "change -> auto-save#update_closetime"} %>
+          </div>
+
           <div data-nested-form-target="add_item" class="fields down">
             <%= link_to "新增問題", "#", data: { action: "nested-form#add_association auto-save#add_question_item" }, class: "btn" %>
+            
             <%= form_with(model: survey) do |form| %>
               <%= form.file_field :image, class:"hidden" %>
               <%= form.submit "更換圖片", class:"hidden" %>
             <% end %>
           </div>
       </div>
-      <div class="status">
-        <%= form.label :status, "狀態" %>
-          <div class="col-span-4">
-            <%= form.select :status, Survey.all_status, {}, data: { action: "change -> auto-save#update_status"} %>
-          </div>
-        <%= form.label :opentime, "開啟時間"%>
-          <div>
-            <%= form.datetime_field :opentime, min: Date.today, data: { action: "change -> auto-save#update_opentime"} %>
-          </div>
-        <%= form.label :closetime, "關閉時間" %>
-          <div>
-            <%= form.datetime_field :closetime, min: Date.today, data: { action: "change -> auto-save#update_closetime"} %>
-          </div>
-      </div>
+      
     <% end %>
   </section>
 </div>
