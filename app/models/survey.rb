@@ -22,6 +22,8 @@ class Survey < ApplicationRecord
     if survey.published? && survey.closetime? && Time.now >= survey.closetime
       survey.close
     end
+
+    
   end
 
   belongs_to :user

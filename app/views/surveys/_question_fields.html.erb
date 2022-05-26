@@ -7,7 +7,7 @@
         {},class: "select",
         'data-dynamic-select-target': 'select',
         'data-auto-save-target': 'select',
-        'data-action': 'dynamic-select#selected auto-save#selected'%>
+        'data-action': 'dynamic-select#selected auto-save#selected' %>
   </div>
   <%= form.text_area :description, placeholder: "題目敘述", class: "input", data: {action: "change->auto-save#add_question_description" , controller: "textarea-autogrow"} %>
   <div class="choices_field"  data-nested-form-index-value ="ANSWER_RECORD" data-dynamic-select-target='choice' data-nested-form-target="add_item">

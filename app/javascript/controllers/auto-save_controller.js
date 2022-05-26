@@ -4,6 +4,25 @@ import Rails from "@rails/ujs";
 export default class extends Controller {
   static targets = ["form", "survey_id", "question", "answer"];
 
+  connect() {
+    const status = this.survey_idTarget.dataset.status;
+    const disabled_input = this.element.querySelectorAll("input");
+    const disabled_button = this.element.querySelectorAll("a");
+    const disabled_textarea = this.element.querySelectorAll("textarea");
+
+    if (status == "closed") {
+      for (let index = 0; index < disabled_input.length; index++) {
+        disabled_input[index].setAttribute("disabled", "");
+      }
+      for (let index = 0; index < disabled_button.length; index++) {
+        disabled_button[index].classList.add("hidden");
+      }
+      for (let index = 0; index < disabled_textarea.length; index++) {
+        disabled_textarea[index].setAttribute("disabled", "");
+      }
+    }
+  }
+
   add_survey_title(e) {
     const id = this.survey_idTarget.dataset.id;
     const survey_title = e.target.value;
