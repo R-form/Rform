@@ -4,7 +4,7 @@ import huebee from "huebee";
 import "huebee/dist/huebee.min";
 
 export default class extends Controller {
-  static targets = ['survey_id', 'form', 'color', 'background_color', 'responses'];
+  static targets = ['survey_id', 'form', 'color', 'background_color'];
 
   connect() {
     new huebee(this.colorTarget,{
