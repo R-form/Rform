@@ -12,18 +12,18 @@ export default class extends Controller {
     const disabled_textareas = this.element.querySelectorAll("textarea");
 
     if (status == "closed") {
-      for (let index = 0; index < disabled_inputs.length; index++) {
-        disabled_inputs[index].setAttribute("disabled", "");
-      }
-      for (let index = 0; index < disabled_buttons.length; index++) {
-        disabled_buttons[index].classList.add("hidden");
-      }
-      for (let index = 0; index < disabled_textareas.length; index++) {
-        disabled_textareas[index].setAttribute("disabled", "");
-      }
-      for (let index = 0; index < disabled_selects.length; index++) {
-        disabled_selects[index].setAttribute("disabled", "");
-      }
+      disabled_inputs.forEach((input) => {
+        input.setAttribute("disabled", "");
+      });
+      disabled_buttons.forEach((button) => {
+        button.classList.add("hidden");
+      });
+      disabled_textareas.forEach((textarea) => {
+        textarea.setAttribute("disabled", "");
+      });
+      disabled_selects.forEach((select) => {
+        select.setAttribute("disabled", "");
+      });
     }
   }
 
