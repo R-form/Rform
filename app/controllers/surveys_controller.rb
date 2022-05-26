@@ -58,6 +58,135 @@ class SurveysController < ApplicationController
     }
   end
   
+  def stats
+    question_ids = []
+    question_titles = []
+    question_types = []
+    answer_ids = []
+    answer_titles = []
+    answer_question_ids = []
+    question_answer_data = []
+    answers_counts = [0]
+  
+    # combine question and answers
+    @survey.questions.each do |question|
+      question_ids << question.id
+      question_titles << question.title
+      question_types << question.question_type
+      question_answer_data << question.title
+      question_answer_data << question.question_type
+
+      case question.question_type
+      when 'multiple_choice', 'single_choice', 'satisfaction', 'drop_down_menu'
+        answers_count = 0
+        question.answers.each do |answer|
+          answer_ids << answer.id
+          answer_titles << answer.title
+          answer_question_ids << answer.question_id
+          if answer.question_id == question.id
+            question_answer_data << answer.title
+            answers_count += 1
+          end
+        end
+        answers_counts << answers_count
+      end
+      
+    end
+   
+    @questionAnswerDatas = question_answer_data
+  
+    # deal with responses  
+    response_index = 0
+    response_answer_datas = []
+    response_answer_ids = []
+  
+    @survey.responses.each do |response|
+      response_answer_datas << '==========================='
+      response_answer_datas << '第' + (response_index+1).to_s + '份'
+      response_answer_datas << '==========================='
+
+      @survey.questions.each do |question|
+        response_answer_datas << question.title
+        current_response_answers = response.answers[question.id.to_s]
+
+        case question.question_type
+        when 'multiple_choice'
+          if current_response_answers.present?
+            current_response_answers.delete('0')
+            current_response_answers.each do |current_response_answer|
+              answer_index = 0
+              while answer_index < answers_counts.sum
+                if current_response_answer == answer_ids[answer_index].to_s
+                  response_answer_datas << answer_titles[answer_index]
+                  response_answer_ids << answer_ids[answer_index]
+                end
+                answer_index += 1
+              end
+            end
+          end
+        when 'single_choice', 'satisfaction', 'drop_down_menu'
+          answer_index = 0
+          while answer_index < answers_counts.sum
+            if current_response_answers == answer_ids[answer_index].to_s
+              response_answer_datas << answer_titles[answer_index]
+              response_answer_ids << answer_ids[answer_index]
+            end
+            answer_index += 1
+          end
+        when 'long_answer', 'date', 'time', 'range'
+          response_answer_datas << current_response_answers
+        end
+
+      end
+      response_index += 1
+    end
+
+    sum_of_response_answer_ids = []
+
+    answer_ids.each do |answer_id|
+      sum_of_response_answer_ids << response_answer_ids.count(answer_id)
+    end
+
+    @responseAnswerDatas = response_answer_datas
+
+    # create charts
+    chart_index = 0
+    slice_from = 0
+    chart_types = []
+    chart_datas = []
+    chart_options = []
+    @survey.questions.each do |question|
+      case question.question_type
+      when 'multiple_choice' , 'single_choice', 'satisfaction', 'drop_down_menu'
+          
+        slice_from += answers_counts[chart_index]
+        slice_length = answers_counts[chart_index+1]  
+
+        chart_types[chart_index] = 'bar'
+        chart_datas[chart_index] = {
+          labels: answer_titles.slice(slice_from, slice_length),
+          datasets: [{
+            label: question.title,
+            backgroundColor: ['#f65686','#1e8df6','#f9cb40','#27dd9c'],
+            borderColor: ['#f65686','#1e8df6','#f9cb40','#27dd9c'],
+            borderWidth: 1,
+            data: sum_of_response_answer_ids.slice(slice_from, slice_length)
+          }]
+        }
+
+        chart_options[chart_index] = {
+          layout: {
+            padding: 200
+          }
+        }   
+        
+        chart_index += 1
+      end
+    end
+    @chart_types = chart_types
+    @chart_datas = chart_datas
+    @chart_options = chart_options
+  end
 
   def tag
     survey = Survey.find(params[:survey_id])

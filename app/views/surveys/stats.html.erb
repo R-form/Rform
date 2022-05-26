@@ -1,0 +1,30 @@
+<h1>TITLE: <%= @survey.title %></h1>
+<h1>DESC:  <%= @survey.description %></h1>
+<h2>TAG:   <%= @survey.tag %></h2>
+<hr>
+
+
+<div data-controller="stats">
+  <button data-action="click->stats#hideAndShow">顯示所有回應</button>
+  <div data-stats-target="show_responses" class="hidden">
+    <h2>填答份數: <%= @survey.responses.count %></h2>
+    <% @responseAnswerDatas.each do |responseAnswerData| %>
+      <h2><%= responseAnswerData %></h2>
+    <% end %>
+  </div>
+
+  <hr>
+  <div>
+    <% 0.upto(@survey.questions.count) do |i| %>
+      <canvas
+      data-controller="chart"
+      data-chart-type-value="<%= @chart_types[i] %>"
+      data-chart-data-value="<%= @chart_datas[i].to_json %>"
+      data-chart-options-value="<%= @chart_options[i].to_json %>"
+      ></canvas>
+    <% end %>
+  </div>
+</div>
+
+<br>
+<%= link_to 'back', surveys_path %>
