@@ -186,7 +186,7 @@ export default class extends Controller {
     Rails.ajax({
       type: "patch",
       url: `/surveys/${id}/add_answer`,
-      data: data,
+      data,
       success: ({ message }) => {},
       error: (err) => {},
     });
@@ -208,7 +208,7 @@ export default class extends Controller {
     Rails.ajax({
       type: "delete",
       url: `/surveys/${id}/remove_answer`,
-      data: data,
+      data,
       success: ({ message }) => {},
       error: (err) => {},
     });
