@@ -1,5 +1,4 @@
 import { Controller } from "stimulus";
-import e from "turbolinks";
 
 export default class extends Controller {
   static values = { index: Boolean };

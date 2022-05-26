@@ -1,12 +1,17 @@
+.respomse-fields {
+  @apply rounded overflow-hidden shadow-lg bg-white p-12 pt-20 max-w-lg mx-auto;
+}
+
 .response-fields {
   @apply rounded overflow-hidden shadow-lg bg-white p-12 focus-within:outline-ironGray;
 }
 
-.choice {
-  @apply bg-ironGray rounded-md p-2 my-6 flex items-center min-h-full hover:bg-ironGrayHover;
+.response_choice {
+  @apply text-xl text-white rounded-md p-2 my-6 flex items-center min-h-full;
 }
 
-.respomse-fields{
-  @apply rounded overflow-hidden shadow-lg bg-white p-12 focus-within:outline-ironGray
+.description::after {
+  content: "";
 
+  @apply bg-ironGray absolute -bottom-6 inset-x-0 h-1;
 }

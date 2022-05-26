@@ -22,12 +22,9 @@
 .formsection {
   @apply min-w-max mx-auto sm:w-4/6;
 }
-.fields {
-  @apply rounded overflow-hidden shadow-lg bg-white my-6 p-3 focus-within:outline-ironGray;
-}
 
-.form {
-  @apply border-t-8;
+.formsection_title {
+  @apply border-t-8 rounded overflow-hidden shadow-lg bg-white my-6 p-3;
 }
 
 .title {
@@ -35,23 +32,19 @@
 }
 
 .input {
-  @apply appearance-none border-b-2 border-opacity-0 border-blue-500 focus:border-opacity-100 text-gray-700  leading-tight outline-none group-focus:border-l-2 p-2 my-2 w-full font-medium;
+  @apply appearance-none border-b-2 border-opacity-0 border-ironGrayHover focus:border-opacity-100 text-gray-700  leading-tight group-focus:border-l-2 p-2 my-2 w-full font-medium;
 }
 
 .q_title {
   @apply focus:bg-gray-200 focus:p-4 rounded;
 }
-input {
-}
+
 textarea {
   @apply p-2 my-2 w-full text-sm;
 }
 
 .formtitle {
   @apply text-2xl;
-}
-
-.inputfield {
 }
 
 .formfield {
@@ -100,8 +93,12 @@ textarea {
 }
 
 .down {
-  @apply fixed left-10 w-28 block;
+  @apply relative  w-28 block;
   top: 160px;
+
+  .new_question_btn {
+    @apply fixed left-6 top-48 bg-gray-500 hover:bg-gray-700 text-white font-bold p-3 my-auto rounded shadow-lg;
+  }
 }
 
 .side-border {
