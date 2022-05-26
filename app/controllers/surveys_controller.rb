@@ -49,7 +49,7 @@ class SurveysController < ApplicationController
   def duplicate_survey
     dup = @survey.deep_clone include: {questions: :answers }
     dup.title.insert(-1, " - 副本")
-    if dup.save
+    if dup.save 
       redirect_to surveys_path, notice: '問卷已複製成功'
     end
   end
