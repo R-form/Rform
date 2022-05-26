@@ -112,10 +112,16 @@ class SurveysController < ApplicationController
       response_answer_datas << '第' + (response_index+1).to_s + '份'
       response_answer_datas << '==========================='
       xls_answer_array = [response.created_at]
+      key_index = 0
+      while key_index < question_ids.length
+        if !response.answers.has_key?(question_ids[key_index].to_s)
+          response.answers[question_ids[key_index].to_s] = ''
+        end
+        key_index += 1
+      end
       @survey.questions.each do |question|
         response_answer_datas << question.title
-        current_response_answers = response.answers[question.id.to_s]
-        
+        current_response_answers = response.answers[question.id.to_s] 
         case question.question_type
         when 'multiple_choice'
           if current_response_answers.present?
@@ -136,13 +142,17 @@ class SurveysController < ApplicationController
           end
         when 'single_choice', 'satisfaction', 'drop_down_menu'
           answer_index = 0
-          while answer_index < answers_counts.sum
-            if current_response_answers == answer_ids[answer_index].to_s
-              response_answer_datas << answer_titles[answer_index]
-              response_answer_ids << answer_ids[answer_index]
-              xls_answer_array << answer_titles[answer_index]
+          if current_response_answers.present?
+            while answer_index < answers_counts.sum
+              if current_response_answers == answer_ids[answer_index].to_s
+                response_answer_datas << answer_titles[answer_index]
+                response_answer_ids << answer_ids[answer_index]
+                xls_answer_array << answer_titles[answer_index]
+              end
+              answer_index += 1
             end
-            answer_index += 1
+          else
+            xls_answer_array << ''
           end
         when 'long_answer', 'date', 'time', 'range'
           response_answer_datas << current_response_answers
@@ -152,7 +162,6 @@ class SurveysController < ApplicationController
       end
       response_index += 1    
     end
-
     sum_of_response_answer_ids = []
 
     answer_ids.each do |answer_id|
