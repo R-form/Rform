@@ -2,23 +2,27 @@ import { Controller } from "stimulus";
 import Rails from "@rails/ujs";
 
 export default class extends Controller {
-  static targets = ["form", "survey_id", "question", "answer"];
+  static targets = ["form", "survey_id", "question", "answer", "select"];
 
   connect() {
     const status = this.survey_idTarget.dataset.status;
-    const disabled_input = this.element.querySelectorAll("input");
-    const disabled_button = this.element.querySelectorAll("a");
-    const disabled_textarea = this.element.querySelectorAll("textarea");
+    const disabled_inputs = this.element.querySelectorAll("input");
+    const disabled_buttons = this.element.querySelectorAll("a");
+    const disabled_selects = this.selectTargets;
+    const disabled_textareas = this.element.querySelectorAll("textarea");
 
     if (status == "closed") {
-      for (let index = 0; index < disabled_input.length; index++) {
-        disabled_input[index].setAttribute("disabled", "");
+      for (let index = 0; index < disabled_inputs.length; index++) {
+        disabled_inputs[index].setAttribute("disabled", "");
       }
-      for (let index = 0; index < disabled_button.length; index++) {
-        disabled_button[index].classList.add("hidden");
+      for (let index = 0; index < disabled_buttons.length; index++) {
+        disabled_buttons[index].classList.add("hidden");
       }
-      for (let index = 0; index < disabled_textarea.length; index++) {
-        disabled_textarea[index].setAttribute("disabled", "");
+      for (let index = 0; index < disabled_textareas.length; index++) {
+        disabled_textareas[index].setAttribute("disabled", "");
+      }
+      for (let index = 0; index < disabled_selects.length; index++) {
+        disabled_selects[index].setAttribute("disabled", "");
       }
     }
   }

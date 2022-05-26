@@ -315,12 +315,14 @@ class SurveysController < ApplicationController
   end
 
   def update_select
-    question = @survey.questions.find(params[:question_id])
-    question.update(question_type: params[:select])
-    render json: {
-      message: "更新成功",
-      params: params
-    }
+    if @survey.published? || @survey.draft?
+      question = @survey.questions.find(params[:question_id])
+      question.update(question_type: params[:select])
+      render json: {
+        message: "更新成功",
+        params: params
+      }
+    end
   end
 
   def remove_question
