@@ -3,9 +3,8 @@
         <div class="items-center md:flex md:space-x-6">
             <div class="md:w-1/2">
                 <h3 class="text-4xl font-semibold text-gray-800">Rform<br>客製化的問卷體驗</h3>
-                <p class="max-w-md mt-4 text-gray-600">Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                    culpa qui officia deserunt molli''t anim id est laborum.</p>
+                <p class="max-w-md mt-4 text-gray-600">
+                    餐廳滿意度調查、研究報告蒐集、民意調查、消費行為調查，生活中處處充滿需要問卷的時候，快來 Rform 免費建立自己的問卷吧！</p>
                 <div class="my-5">
                   <%=link_to '免費申請體驗', new_user_path, class:"px-4 py-3 bg-ironGray text-white text-sm font-semibold rounded hover:bg-ironGrayHover" if current_user.nil?%>
                   <%=link_to '免費申請體驗', surveys_path, class:"px-4 py-3 bg-ironGray text-white text-sm font-semibold rounded hover:bg-ironGrayHover" if logged_in?%>
@@ -26,7 +25,7 @@
 </section>
 
 <section class="max-w-5xl px-6 py-24 mx-auto">
-   <div class="container">
+   <div class="container mx-auto">
       <div class="flex flex-wrap justify-center -mx-4">
          <div class="w-full px-4">
             <div class="text-center mx-auto mb-[60px] lg:mb-20 max-w-[510px]">           
@@ -71,12 +70,11 @@
                         hover:text-primary
                         "
                         >
-                     Meet AutoManage, the best AI management tools
+                     客製化樣式
                      </h3>
                   </h3>
                   <p class="text-base text-body-color">
-                     Lorem Ipsum is simply dummy text of the printing and
-                     typesetting industry.
+                     提供您多重的選擇，如：字體、主題圖片、問卷主題色，打造屬於自己獨一無二的問卷。
                   </p>
                </div>
             </div>
@@ -106,12 +104,11 @@
                         hover:text-primary
                         "
                         >
-                     How to earn more money as a wellness coach
+                     自動儲存
                      </h3>
                   </h3>
                   <p class="text-base text-body-color">
-                     Lorem Ipsum is simply dummy text of the printing and
-                     typesetting industry.
+                     記錄您的每次輸入及選擇，自動寫入資料庫，免去忘記儲存，資料遺失，需要全部重打的惡夢。
                   </p>
                </div>
             </div>
@@ -140,12 +137,11 @@
                         hover:text-primary
                         "
                         >
-                     The no-fuss guide to upselling and cross selling
+                     資料分析
                      </h3>
                   </h3>
                   <p class="text-base text-body-color">
-                     Lorem Ipsum is simply dummy text of the printing and
-                     typesetting industry.
+                     問卷填答回收後，提供圓餅圖、長條圖等多樣圖像化資料，呈現填答回覆，讓使用者易目了然問卷填答狀況分佈。
                   </p>
                </div>
             </div>
@@ -160,65 +156,92 @@
 <footer class="bg-footerBlack pt-10 sm:mt-10">
     <div class="max-w-6xl m-auto text-gray-800 flex flex-wrap justify-left">
         <!-- Col-1 -->
-        <div class="p-5 w-1/2 sm:w-4/12 md:w-3/12">
+        <div class="p-5 w-1/2 sm:w-4/12 md:w-1/5">
             <!-- Col Title -->
             <div class="text-xs uppercase text-gray-400 font-medium mb-6">
-                Getting Started
+                萬昭宏
             </div>
 
             <!-- Links -->
-            <a href="#" class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
-                Installation
-            </a>
-            <a href="#" class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
-                Release Notes
-        </div>
-
-        <!-- Col-2 -->
-        <div class="p-5 w-1/2 sm:w-4/12 md:w-3/12">
-            <!-- Col Title -->
-            <div class="text-xs uppercase text-gray-400 font-medium mb-6">
-                Core Concepts
-            </div>
-
-            <!-- Links -->
-            <a href="#" class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
-                Utility-First
-            </a>
-            <a href="#" class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
-                Responsive Design
-            </a>
-        </div>
-
-        <!-- Col-3 -->
-        <div class="p-5 w-1/2 sm:w-4/12 md:w-3/12">
-            <!-- Col Title -->
-            <div class="text-xs uppercase text-gray-400 font-medium mb-6">
-                Customization
-            </div>
-
-            <!-- Links -->
-            <a href="#" class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
-                Configuration
-            </a>
-            <a href="#" class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
-                Theme Configuration
-            </a>
-        </div>
-
-        <!-- Col-3 -->
-        <div class="p-5 w-1/2 sm:w-4/12 md:w-3/12">
-            <!-- Col Title -->
-            <div class="text-xs uppercase text-gray-400 font-medium mb-6">
-                Community
-            </div>
-
-            <!-- Links -->
-            <a href="#" class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
+            <a href="https://github.com/xchwan" class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
+                <i class="fab fa-github"></i>
                 GitHub
             </a>
             <a href="#" class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
+                <i class="fab fa-discord"></i>
                 Discord
+            </a>
+        </div>
+
+        <!-- Col-2 -->
+        <div class="p-5 w-1/2 sm:w-4/12 md:w-1/5">
+            <!-- Col Title -->
+            <div class="text-xs uppercase text-gray-400 font-medium mb-6">
+                林念瑾
+            </div>
+
+            <!-- Links -->
+            <a href="https://github.com/NikkaLin" class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
+                <i class="fab fa-github"></i>
+                GitHub
+            </a>
+            <a href="#" class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
+                <i class="fab fa-discord"></i>
+                Discord
+            </a>
+        </div>
+
+        <!-- Col-3 -->
+        <div class="p-5 w-1/2 sm:w-4/12 md:w-1/5">
+            <!-- Col Title -->
+            <div class="text-xs uppercase text-gray-400 font-medium mb-6">
+                石郁芳
+            </div>
+
+            <!-- Links -->
+            <a href="https://github.com/moluishere" class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
+                <i class="fab fa-github"></i>
+                GitHub
+            </a>
+            <a href="#" class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
+                <i class="fab fa-discord"></i>
+                Discord
+            </a>
+        </div>
+
+        <!-- Col-4 -->
+        <div class="p-5 w-1/2 sm:w-4/12 md:w-1/5">
+            <!-- Col Title -->
+            <div class="text-xs uppercase text-gray-400 font-medium mb-6">
+                黃仲綸
+            </div>
+
+            <!-- Links -->
+            <a href="https://github.com/zhonglunhuang" class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
+                <i class="fab fa-github"></i>
+                GitHub
+            </a>
+            <a href="#" class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
+                <i class="fab fa-discord"></i>
+                Discord
+            </a>
+        </div>
+
+        <!-- Col-5 -->
+        <div class="p-5 w-1/2 sm:w-4/12 md:w-1/5">
+            <!-- Col Title -->
+            <div class="text-xs uppercase text-gray-400 font-medium mb-6">
+                林姿萱
+            </div>
+
+            <!-- Links -->
+            <a href="https://github.com/Kkrystalll" class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
+                <i class="fab fa-github"></i>
+                GitHub
+            </a>
+            <a href="https://medium.com/@krystal93002232" class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
+                <i class="fab fa-medium"></i>
+                Medium
             </a>
         </div>
     </div>
@@ -229,7 +252,7 @@
             border-t border-gray-500 text-gray-400 text-sm 
             flex-col md:flex-row max-w-6xl">
             <div class="mt-2">
-                © Copyright 2022-year. All Rights Reserved.
+                © 2022-06-11 Rform-team
             </div>
 
             <!-- Required Unicons (if you want) -->
