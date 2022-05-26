@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SurveysController < ApplicationController
-  before_action :find_survey, except: %i[index new create ]
+  before_action :find_survey, except: %i[index new create]
 
   def index
     @surveys = current_user.surveys
@@ -11,16 +11,17 @@ class SurveysController < ApplicationController
 
   def new
     @survey = current_user.surveys.create
+    question = @survey.questions.create
+    2.times { question.answers.create }
     redirect_to  edit_survey_path(@survey.id)
   end
 
   def edit
-    question = @survey.questions.order(:position)
+    @survey.questions.order(:position)
   end
 
   def create
     @survey = current_user.surveys.new(survey_params)
-
     if @survey.save
       render :edit
     else
@@ -29,10 +30,17 @@ class SurveysController < ApplicationController
   end
 
   def update
+    @survey.image.purge
     @survey.update(survey_params)
+    @survey.image.attach(params[:survey][:image])
+    if @survey.questions.first.image.attach(params[:survey][:questions_attributes]["0"][:image])
+      redirect_to surveys_path, notice: "`更換圖片成功#{params[:survey][:questions_attributes]["0"][:image]}`"
+    end
+    # render html: params
   end
 
   def destroy
+    @survey.image.purge
     @survey.destroy
     redirect_to surveys_path, notice: '問卷已刪除'
   end
@@ -47,9 +55,7 @@ class SurveysController < ApplicationController
 
   def duplicate_question
     question = @survey.questions.find(params[:question_id]).deep_clone include: :answers
-  
     question.update(title: (question.title+" - 副本"),position: (question.position)+1)
-    
     render json: {
       copy_question: question, 
       question_description: question.description,
@@ -98,46 +104,64 @@ class SurveysController < ApplicationController
     response_index = 0
     response_answer_datas = []
     response_answer_ids = []
+    xls_answer_arrays = []
 
     @survey.responses.each do |response|
       response_answer_datas << '==========================='
       response_answer_datas << '第' + (response_index+1).to_s + '份'
       response_answer_datas << '==========================='
 
+      xls_answer_array = [response.created_at]
+      key_index = 0
+      while key_index < question_ids.length
+        if !response.answers.has_key?(question_ids[key_index].to_s)
+          response.answers[question_ids[key_index].to_s] = ''
+        end
+        key_index += 1
+      end
       @survey.questions.each do |question|
         response_answer_datas << question.title
-        current_response_answers = response.answers[question.id.to_s]
-
+        current_response_answers = response.answers[question.id.to_s] 
         case question.question_type
         when 'multiple_choice'
           if current_response_answers.present?
             current_response_answers.delete('0')
+            multiple_answers = []
             current_response_answers.each do |current_response_answer|
               answer_index = 0
               while answer_index < answers_counts.sum
                 if current_response_answer == answer_ids[answer_index].to_s
                   response_answer_datas << answer_titles[answer_index]
+                  multiple_answers << answer_titles[answer_index]
+
                   response_answer_ids << answer_ids[answer_index]
                 end
                 answer_index += 1
               end
             end
+            xls_answer_array << multiple_answers.join(', ')
           end
         when 'single_choice', 'satisfaction', 'drop_down_menu'
           answer_index = 0
-          while answer_index < answers_counts.sum
-            if current_response_answers == answer_ids[answer_index].to_s
-              response_answer_datas << answer_titles[answer_index]
-              response_answer_ids << answer_ids[answer_index]
+          if current_response_answers.present?
+            while answer_index < answers_counts.sum
+              if current_response_answers == answer_ids[answer_index].to_s
+                response_answer_datas << answer_titles[answer_index]
+                response_answer_ids << answer_ids[answer_index]
+                xls_answer_array << answer_titles[answer_index]
+              end
+              answer_index += 1
             end
-            answer_index += 1
+          else
+            xls_answer_array << ''
           end
         when 'long_answer', 'date', 'time', 'range'
           response_answer_datas << current_response_answers
+          xls_answer_array << current_response_answers
+        xls_answer_arrays << xls_answer_array
         end
-
       end
-      response_index += 1
+      response_index += 1    
     end
 
     sum_of_response_answer_ids = []
@@ -188,6 +212,13 @@ class SurveysController < ApplicationController
     @chart_options = chart_options
     @chart_count = chart_index
     @canvas_target_name = canvas_target_name
+    #excel
+    @questionTitles = question_titles.insert(0,'時間')
+    @xlsAnswerArrays = xls_answer_arrays
+    respond_to do |format|
+      format.xlsx
+      format.html
+    end
   end
 
   def tag
@@ -330,6 +361,7 @@ class SurveysController < ApplicationController
       :position,
       :font_style,
       :theme,
+      :image,
       questions_attributes: [
         :_destroy,
         :id,
@@ -338,11 +370,12 @@ class SurveysController < ApplicationController
         :required,
         :position,
         :description,
+        {images: []},
         { answers_attributes: %i[
           _destroy
           id
           title
-        ] }
+        ] },
       ]
     )
   end
