@@ -1,34 +1,33 @@
 <div class="h-full min-h-screen" style="background-color:<%=@survey.background_color %>">
       <section class="sections response-fields max-w-lg mx-auto <%= @survey.font_style %>" >
   
-          <h1 class="title text-5xl text-ironGray my-5"><%= @survey.title %></h1>
-          <p class="description text-md text-ironGray break-words"><%= @survey.description%></p>
+    <h1 class="title text-5xl text-ironGray my-5"><%= @survey.title %></h1>
+    <p class="description text-md text-ironGray break-words relative"><%= @survey.description %></p>
   
-              <%= form_with model: [@survey, response] do |form| %>
-          <%= form.fields_for :answers do |response| %>
+      <%= form_with model: [@survey, response],data: {controller: "responses"} do |form| %>
+        <%= form.fields_for :answers do |response| %>
           <% @survey.questions.each do |question| %>
-          <div class="question_field my-10 ">
-            <h1 class="question_title inline-block py-2 text-3xl text-gray-600 ">
-              <i class="fas fa-question icon inline-block text-gray-600"></i>
+          <div class="question_field hidden my-10" data-responses-target="question">
+            <h1 class="question_title inline-block py-2 text-3xl text-gray-600">
               <%= question.title %>
               <%= content_tag :abbr, '*', title: 'Required' if question.required %>
             </h1>
-            <hr class="border-solid border-2 border-ironGray" style="border-color:<%= @survey.theme %>">
+            
             <div class="question_content">
               <% case question.question_type %>
               <% when 'single_choice' %>
                 <% question.answers.each do |answer| %>
-                  <p class="choice_type choice" style="background-color:<%= @survey.theme%>" >
+                  <label class= "response_choice bg-<%= @survey.theme%> hover:bg-<%= @survey.background_color %>">
                     <%= response.radio_button question.id, answer.id, required: question.required, class: 'radio_button h-6 w-6 ml-1 mr-3' %>
-                    <span class="answer_title text-xl text-white"><%= answer.title %></span>
-                  </p>
+                    <%= answer.title %>
+                  </label>
                 <% end %>
               <% when 'multiple_choice' %>
                 <% question.answers.each do |answer| %>
-                  <p class="choice_type choice" style="background-color:<%= @survey.theme%>">
+                  <label class= "response_choice bg-<%= @survey.theme%> hover:bg-<%= @survey.background_color %>">
                     <%= response.check_box question.id, { multiple: true,class: 'radio_button h-6 w-6 ml-1 mr-3 accent-ironGaryHover' }, answer.id %>
-                    <span class="answer_title text-xl text-white"><%= answer.title %></span>
-                  </p>
+                    <%= answer.title %>
+                  </label>
                 <% end %>
               <% when 'long_answer' %>
                 <%= response.text_area question.id, required: question.required, class: 'text_area w-full my-6 border-2 rounded-md border-ironGaryHover focus:outline-none focus:ring-ironGray focus:border-ironGray text-md' %>
@@ -59,21 +58,17 @@
                 <%= response.range_field question.id %>
               <% when 'file' %>
                 <%= response.file_field question.id, accept: "application/pdf, application/zip", multiple: true %>
-              <% when 'image' %>
-                <%= file_field_tag question.id %>
-                <% question.answers.each do |answer| %>
-                  <%= response.image answer.answerimg.variant(resize_to_limit: [200, 300]) %>
-                <% end %>
               <% end %>
             </div>
+          <%= form.button "上一題", data: { action: "click->responses#last" }, class: "p-3 bg-#{@survey.theme} text-lg font-bold rounded my-auto shadow-lg hover:bg-#{@survey.background_color}"%>
+          <%= form.button "下一題", data: { action: "click->responses#next" }, class: "p-3 bg-#{@survey.theme} text-lg font-bold rounded my-auto shadow-lg hover:bg-#{@survey.background_color}"%>
           </div>
           <% end %>
-          <% end %>
-          <div class="actions">
-            <%= form.submit "送出問卷",class:"px-4 py-3 bg-ironGray text-white text-lg font-semibold rounded hover:bg-ironGrayHover", style:"background-color:#{@survey.theme}" %>
-          </div>
-          <% end %>
-  
-    </section>
+        <% end %>
+        <div class="actions hidden" data-responses-target="submit">
+          <%= form.submit "送出問卷",class:"p-3 bg-#{@survey.theme} text-white text-lg font-bold rounded my-auto shadow-lg hover:bg-#{@survey.background_color}" %>
+        </div>
+      <% end %>
+  </section>
 </div>
 
