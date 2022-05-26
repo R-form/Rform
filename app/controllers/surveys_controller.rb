@@ -167,13 +167,7 @@ class SurveysController < ApplicationController
       params: params
     }
   end
-
-  def quesiton_image
-    question = Question.find(params[:id])
-    question.image.attach(params[:image])
-  end
   
-
   def remove_question
     question = @survey.questions.find(params[:question_id])
     question.destroy
