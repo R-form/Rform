@@ -10,7 +10,7 @@ export default class extends Controller {
   this.indexValue = !this.indexValue
   const slideover = document.querySelector(".slideover")
 
-  if(this.indexValue == true){
+  if(this.indexValue){
     slideover.classList.remove("invisible")
   }else{
     slideover.classList.add("invisible")
