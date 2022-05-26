@@ -100,9 +100,9 @@ ActiveRecord::Schema.define(version: 2022_05_23_065243) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
-    t.integer "position"
     t.bigint "user_id", null: false
     t.string "tag"
+    t.integer "position"
     t.string "slug"
     t.string "font_style"
     t.string "theme"
