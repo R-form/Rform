@@ -10,9 +10,9 @@
 .slide{
     @apply  sm:w-1/6 fixed right-0 w-28 block right-0 top-0 bg-gentleYellow h-full shadow-md
 }
-.invisible{
-    @apply invisible
-}
+// .invisible{
+//     @apply invisible
+// }
 
 .slide_content{
     @apply right-2 top-2 cursor-pointer flex justify-between
