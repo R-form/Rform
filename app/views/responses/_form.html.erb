@@ -4,58 +4,74 @@
     <h1 class="title text-5xl text-ironGray my-5"><%= @survey.title %></h1>
     <p class="description text-md text-ironGray break-words"><%= @survey.description%></p>
 
-  <%= form_with model: [@survey, response],data: {controller: "responses"} do |form| %>
-    <%= form.fields_for :answers do |response| %>
-    <% @survey.questions.each do |question| %>
-    <div class="question_field hidden my-10" data-responses-target="question">
+    <%= form_with model: [@survey, response],data: {controller: "responses"} do |form| %>
+      <%= form.fields_for :answers do |response| %>
+      <% @survey.questions.each do |question| %>
+      <div class="question_field hidden my-10" data-responses-target="question">
       
-      <h1 class="question_title inline-block py-2 text-3xl text-gray-600 ">
-        <%= question.title %>
-        <%= content_tag :abbr, '*', title: 'Required' if question.required %>
-      </h1>
-      <hr class="border-solid border-2 border-ironGray bg-ironGray">
-      <div class="question_content">
-        <% case question.question_type %>
-        <% when "單選題" %>
-          <% question.answers.each do |answer| %>
-            <label class= "answer_title text-xl text-white bg-ironGray rounded-md p-2 my-6 flex items-center min-h-full hover:bg-ironGrayHover">
-              <%= response.radio_button question.id, answer.id, required: question.required, class: 'radio_button h-6 w-6 ml-1 mr-3' %>
-              <%= answer.title %>
-            </label>
-          <% end %>
-        <% when "多選題" %>
-          <% question.answers.each do |answer| %>
+        <h1 class="question_title inline-block py-2 text-3xl text-gray-600 ">
+          <%= question.title %>
+          <%= content_tag :abbr, '*', title: 'Required' if question.required %>
+        </h1>
+        <hr class="border-solid border-2 border-ironGray bg-ironGray">
+        <div class="question_content">
+          <% case question.question_type %>
+          <% when "單選題" %>
+            <% question.answers.each do |answer| %>
+              <label class= "answer_title text-xl text-white bg-ironGray rounded-md p-2 my-6 flex items-center min-h-full hover:bg-ironGrayHover">
+                <%= response.radio_button question.id, answer.id, required: question.required, class: 'radio_button h-6 w-6 ml-1 mr-3' %>
+                <%= answer.title %>
+              </label>
+            <% end %>
+          <% when "多選題" %>
+            <% question.answers.each do |answer| %>
 
-            <label class= "answer_title text-xl text-white bg-ironGray rounded-md p-2 my-6 flex items-center min-h-full hover:bg-ironGrayHover">
-              <%= response.check_box question.id, { multiple: true,class: 'radio_button h-6 w-6 ml-1 mr-3 accent-ironGaryHover' }, answer.id %>
-              <%= answer.title %>
-            </label>
+              <label class= "answer_title text-xl text-white bg-ironGray rounded-md p-2 my-6 flex items-center min-h-full hover:bg-ironGrayHover">
+                <%= response.check_box question.id, { multiple: true,class: 'radio_button h-6 w-6 ml-1 mr-3 accent-ironGaryHover' }, answer.id %>
+                <%= answer.title %>
+              </label>
+            <% end %>
+          <% when "問答題" %>
+            <%= response.text_area question.id, required: question.required, class: 'text_area w-full my-6 border-2 rounded-md border-ironGaryHover focus:outline-none focus:ring-ironGray focus:border-ironGray text-md' %>
+          <% when '線性問題' %>
+            <table class="default w-full my-6">
+              <tr class="tr flex justify-around flex-wrap">
+                <% question.answers.each do |answer| %>
+                  <td>
+                    <%= answer.title %>
+                  </td>
+                <% end %>
+              </tr>
+              <tr class="tr flex justify-around flex-wrap ">
+                <% question.answers.each do |answer| %>
+                  <td>
+                    <%= response.radio_button question.id, answer.id, class: 'radio_button h-6 w-6' %>
+                  </td>
+                <% end %>
+              </tr>
+            </table>
+          <% when '日期' %>
+            <%= response.date_field question.id , class: "default w-full my-6", data: {controller: "date"}%>
+          <% when '時間' %>
+            <%= response.time_field question.id, class: "default w-full my-6", data: {controller: "time"} %>
+          <% when '下拉選單' %>
+            <%= response.select question.id, options_for_select(question.answers.collect{ |o| [o.title, o.id, class: "option"] }), {class: "default w-full my-6"}  %>
+          <% when '範圍' %>
+            <%= response.range_field question.id %>
+          <% when '上傳檔案' %>
+            <%= response.file_field question.id, accept: "application/pdf, application/zip", multiple: true %>
           <% end %>
-        <% when "問答題" %>
-          <%= response.text_area question.id, required: question.required, class: 'text_area w-full my-6 border-2 rounded-md border-ironGaryHover focus:outline-none focus:ring-ironGray focus:border-ironGray text-md' %>
-        <% when "線性問題" %>
-          <table class="default w-full my-6">
-            <tr class="tr flex justify-around flex-wrap">
-              <% question.answers.each do |answer| %>
-                <td>
-                  <%= answer.title %>
-                </td>
-              <% end %>
-            </div>
-          </div>
-          <% end %>
-        <% end %>
+        </div>
+        <%= form.button "下一題", data: { action: "click->responses#next" }%>
+        <%= form.button "上一題", data: { action: "click->responses#last" }%>
       </div>
-      <%= form.button "下一題", data: { action: "click->responses#next" }%>
-      <%= form.button "上一題", data: { action: "click->responses#last" }%>
-    </div>
-    <% end %>
-    <% end %>
+      <% end %>
+      <% end %>
 
-    <div class="actions hidden" data-responses-target="submit">
-      <%= form.submit "送出問卷",class:"px-4 py-3 bg-ironGray text-white text-lg font-semibold rounded hover:bg-ironGrayHover", style:"background-color:#{@survey.theme}" %>
-    </div>
+      <div class="actions hidden" data-responses-target="submit">
+        <%= form.submit "送出問卷",class:"px-4 py-3 bg-ironGray text-white text-lg font-semibold rounded hover:bg-ironGrayHover", style:"background-color:#{@survey.theme}" %>
+      </div>
 
-  <% end %>
+    <% end %>
   </section>
 </div>
