@@ -411,8 +411,11 @@ class SurveysController < ApplicationController
     }  
   end
   
-  def all_question_title
+  def questions_list
     @questions = @survey.questions
+    render json:{
+      message:  @questions
+    }
   end
 
   def skip_to_question_id
