@@ -13,6 +13,7 @@ import { Application } from "@hotwired/stimulus";
 import { Modal } from "tailwindcss-stimulus-components";
 import TextareaAutogrow from 'stimulus-textarea-autogrow';
 
+
 Rails.start();
 Turbolinks.start();
 ActiveStorage.start();
@@ -21,3 +22,4 @@ application.register('textarea-autogrow', TextareaAutogrow);
 application.register("modal", Modal);
 
 // tailwindcss components demo https://excid3.github.io/tailwindcss-stimulus-components/#
+
