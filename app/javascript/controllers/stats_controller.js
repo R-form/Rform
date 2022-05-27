@@ -4,9 +4,9 @@ export default class extends Controller {
   static targets = ["show_responses", "canvas_bar", "canvas_pie", "canvas_line"];
 
   connect() {
-    for (let i=0; i<this.canvas_barTargets.length; i++) {
-      this.canvas_barTargets[i].closest(".canvas_area").classList.remove("hidden") //default display with bar chart
-    }
+    this.canvas_barTarget.forEach ((target)=>{
+      target.closest(".canvas_area").classList.remove("hidden")//default display with bar chart
+    }) 
   }
 
   hideAndShow() {
