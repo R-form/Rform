@@ -104,6 +104,7 @@ export default class extends Controller {
       "#a4b5c4": "softGray",
     };
     const background_color = bgColorMap[this.background_colorTarget.value];
+
     this.element.classList.forEach((className, _, classArray) => {
       if (className.includes("bg-")) {
         classArray.remove(className);
