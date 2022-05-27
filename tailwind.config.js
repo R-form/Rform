@@ -18,6 +18,13 @@ module.exports = {
     "brightBlue",
     "brightNavy",
     "brightGray",
+    "softRed",
+    "softOrange",
+    "softYellow",
+    "softGreen",
+    "softBlue",
+    "softNavy",
+    "softGray",
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {

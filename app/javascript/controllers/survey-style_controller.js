@@ -76,7 +76,7 @@ export default class extends Controller {
   pick_background_color() {
     const id = this.survey_idTarget.dataset.id;
 
-    const bgcolorMap = {
+    const bgColorMap = {
       "#DC9FB4": "softRed",
       "#eca38f": "softOrange",
       "#ffc97b": "softYellow",
@@ -86,8 +86,13 @@ export default class extends Controller {
       "#6699A1": "softNavy",
       "#a4b5c4": "softGray",
     };
-    const background_color = this.background_colorTarget.value;
-    this.element.style.backgroundColor = background_color;
+    const background_color = bgColorMap[this.background_colorTarget.value];
+    this.element.classList.forEach((className, _, classArray) => {
+      if (className.includes("bg-")) {
+        classArray.remove(className);
+      }
+    });
+    this.element.classList.add(`bg-${background_color}`);
 
     const data = new FormData();
     data.append("background_color", background_color);
