@@ -2,7 +2,7 @@ import { Controller } from "stimulus";
 import Rails from "@rails/ujs";
 import Swal from "sweetalert2";
 import 'sweetalert2/src/sweetalert2.scss'
-window.Swal = Swal;
+// window.Swal = Swal;
 
 export default class extends Controller {
   static targets = ['survey_id','question_title'];
@@ -24,18 +24,19 @@ export default class extends Controller {
         for (let i= 0 ; i < count ; i++){
           const question_title = message[i]["title"]
           const question_id_all = message[i]["id"]
+          console.log(question_title);
           if(question_id_all != question_id)
           select_option = select_option +
             "<option>"+question_title+"</option>"
         }      
         Swal.fire({
           title: '<strong><u>請選擇要前往的題目</u></strong>',
-          icon: 'info',
+          // icon: 'info',
           html: 
           "<select data-action='change->skip-logic#skip_to_question_id'>" +
           "<option>打開下拉選單</option>"+
           select_option +
-          "</select>"   ,
+          "</select>",
           showCloseButton: true,
           showCancelButton: true,
           focusConfirm: false,
@@ -56,8 +57,11 @@ export default class extends Controller {
   
   skip_to_question_id(){
     console.log(123);
-    
-    // const id = this.survey_idTarget.dataset.id
+  }
+
+}
+
+ // const id = this.survey_idTarget.dataset.id
     // console.log(id);
 
     // const question_id = e.target.closest(".question").dataset.question_id;
@@ -85,11 +89,3 @@ export default class extends Controller {
     //     console.log("失敗");
     //   },
     //   });
-
-
-  }
-
-
-
-}
-
