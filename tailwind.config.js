@@ -11,6 +11,13 @@ module.exports = {
     "ironGrayHover",
     "footerBlack",
     "bgGray",
+    "brightRed",
+    "brightOrange",
+    "brightYellow",
+    "brightGreen",
+    "brightBlue",
+    "brightNavy",
+    "brightGray",
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {

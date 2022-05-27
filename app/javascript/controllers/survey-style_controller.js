@@ -42,8 +42,24 @@ export default class extends Controller {
 
   pick_color(e) {
     const id = this.survey_idTarget.dataset.id;
-    const theme = this.colorTarget.value;
-    this.survey_idTarget.style.borderColor = theme;
+    const colorMap = {
+      "#8E354A": "brightRed",
+      "#E62": "brightOrange",
+      "#EA0": "brightYellow",
+      transparent: "transparent",
+      "#6C6": "brightGreen",
+      "#19F": "brightBlue",
+      "#2B5F75": "brightNavy",
+      "#7A7573": "brightGray",
+    };
+
+    const theme = colorMap[this.colorTarget.value];
+    this.survey_idTarget.classList.forEach((className, _, classArray) => {
+      if (className.includes("border-")) {
+        classArray.remove(className);
+      }
+    });
+    this.survey_idTarget.classList.add(`border-${theme}`);
 
     const data = new FormData();
     data.append("theme", theme);
@@ -59,6 +75,17 @@ export default class extends Controller {
 
   pick_background_color() {
     const id = this.survey_idTarget.dataset.id;
+
+    const bgcolorMap = {
+      "#DC9FB4": "softRed",
+      "#eca38f": "softOrange",
+      "#ffc97b": "softYellow",
+      transparent: "transparent",
+      "#bfe8c5": "softGreen",
+      "#bfe2e8": "softBlue",
+      "#6699A1": "softNavy",
+      "#a4b5c4": "softGray",
+    };
     const background_color = this.background_colorTarget.value;
     this.element.style.backgroundColor = background_color;
 
