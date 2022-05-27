@@ -1,10 +1,11 @@
-<div class="h-full min-h-screen padding-for-fixed" style="background-color:<%=@survey.background_color %>">
-  <section class="sections response-fields max-w-lg mx-auto <%= @survey.font_style %>" >
-  
-    <h1 class="title text-5xl text-ironGray my-5"><%= @survey.title %></h1>
-    <p class="description text-md text-ironGray break-words relative"><%= @survey.description %></p>
-  
-      <%= form_with model: [@survey, response],data: {controller: "responses"} do |form| %>
+<div class="h-full min-h-screen padding-for-fixed bg-<%= @survey.background_color %>">
+    <section class="sections response-fields <%= @survey.font_style %> focus-within:outline-<%= @survey.theme %>" data-controller="responses">
+    
+    <div class="hidden" data-responses-target="survey_title">
+      <h1 class="title text-5xl text-ironGray my-5"><%= @survey.title %></h1>
+      <p class="description text-md text-ironGray break-words relative"><%= @survey.description %></p>
+    </div>
+      <%= form_with model: [@survey, response] do |form| %>
         <%= form.fields_for :answers do |response| %>
           <% @survey.questions.each do |question| %>
           <div class="question_field hidden my-10" data-responses-target="question">
@@ -14,12 +15,13 @@
                 <span class="text-sm">(必填)</span>
               <% end %>
             </h1>
-            
+            <span class="hidden bg-brightRed bg-brightOrange bg-brightYellow bg-brightGreen
+            bg-brightBlue bg-brightNavy bg-brightGray hover:bg-softRed hover:bg-softOrange hover:bg-softYellow hover:bg-softGreen hover:bg-softBlue hover:bg-softNavy hover:bg-softGray"></span>
             <div class="question_content">
               <% case question.question_type %>
               <% when 'single_choice' %>
                 <% question.answers.each do |answer| %>
-                  <label class= "response_choice" style="background-color:<%= @survey.theme %>">
+                  <label class= "response_choice bg-<%= @survey.theme %> hover:bg-<%= @survey.background_color %> hover:text-gray-600">
                     <%= response.radio_button question.id, answer.id, required: question.required, class: 'radio_button h-6 w-6 ml-1 mr-3' %>
                     <%= answer.title %>
                   </label>

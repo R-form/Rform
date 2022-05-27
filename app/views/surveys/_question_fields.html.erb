@@ -1,6 +1,6 @@
 <div class="question group focus-within:outline-<%= @survey.theme %>" data-id="<%= @survey.id %>" data-question_id="<%= form.object.id %>" data-controller='nested-form dynamic-select' data-nested-form-target="question" data-auto-save-target="question"
 data-survey-style-target="question" >
-  <span class="hidden focus-within:outline-brightRed focus-within:outline-brightOrange focus-within:outline-brightYellow focus-within:outline-brightGreen focus-within:outline-brightBlue focus-within:outline-brightNavy focus-within:outline-brightGray"></span>
+  
   <%= form.hidden_field :_destroy %>
   <div class='title_type'>
       <%= form.text_field :title, placeholder: '問題題目', autocomplete: "off", class: 'input q_title', data: {action: "change->auto-save#add_question "} %>
