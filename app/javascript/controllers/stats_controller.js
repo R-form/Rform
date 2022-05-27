@@ -18,9 +18,9 @@ export default class extends Controller {
   }
 
   chartTypeSelect(e) {
-    var selectedChartType = e.target.value // get type from select
-    var targetIndex = e.target.closest(".canvas_container").id // check which container we got
-    var currentCanvasTarget = this.canvas_barTarget // just a initial value
+    const selectedChartType = e.target.value // get type from select
+    const targetIndex = e.target.closest(".canvas_container").id // check which container we got
+    let currentCanvasTarget = this.canvas_barTarget // just a initial value
 
     // clear all charts first
     this.canvas_barTargets[targetIndex].closest(".canvas_area").classList.add("hidden")
