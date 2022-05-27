@@ -9,7 +9,8 @@ export default class extends Controller {
 
   next(e) {
     e.preventDefault();
-    e.target.closest(".question_field").classList.add("hidden");
+    const question = e.target.closest(".question_field");
+    question.classList.add("hidden");
     e.target
       .closest(".question_field")
       .nextElementSibling.classList.remove("hidden");
@@ -17,14 +18,10 @@ export default class extends Controller {
 
   last(e) {
     e.preventDefault();
-    if (
-      e.target.closest(".question_field").previousElementSibling.nodeName ==
-      "DIV"
-    ) {
-      e.target.closest(".question_field").classList.add("hidden");
-      e.target
-        .closest(".question_field")
-        .previousElementSibling.classList.remove("hidden");
+    const question = e.target.closest(".question_field");
+    if (question.previousElementSibling.nodeName == "DIV") {
+      question.classList.add("hidden");
+      question.previousElementSibling.classList.remove("hidden");
     }
   }
 }
