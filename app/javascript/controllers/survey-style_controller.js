@@ -10,6 +10,7 @@ export default class extends Controller {
     "color",
     "background_color",
     "responses",
+    "question",
   ];
 
   connect() {
@@ -60,12 +61,22 @@ export default class extends Controller {
     };
 
     const theme = colorMap[this.colorTarget.value];
-    this.survey_idTarget.classList.forEach((className, _, classArray) => {
-      if (className.includes("border-")) {
-        classArray.remove(className);
-      }
+    const classList = [...this.survey_idTarget.classList];
+
+    const classArray = classList
+      .filter((className) => !className.includes("border-"))
+      .filter((className) => !className.includes("focus-within:outline-"));
+    classArray.push(`border-${theme}`, `focus-within:outline-${theme}`);
+    this.survey_idTarget.classList = classArray.join(" ");
+
+    this.questionTargets.forEach((question) => {
+      const questionList = [...question.classList];
+      const questionArray = questionList.filter(
+        (className) => !className.includes("focus-within:outline-")
+      );
+      questionArray.push(`focus-within:outline-${theme}`);
+      question.classList = questionArray.join(" ");
     });
-    this.survey_idTarget.classList.add(`border-${theme}`);
 
     const data = new FormData();
     data.append("theme", theme);
