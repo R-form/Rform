@@ -5,6 +5,15 @@ module.exports = {
     "./app/helpers/**/*.rb",
     "./app/javascript/**/*.js",
   ],
+  safelist: [
+    "brightRed",
+    "brightOrange",
+    "brightYellow",
+    "brightGreen",
+    "brightBlue",
+    "brightNavy",
+    "brightGray",
+  ],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
