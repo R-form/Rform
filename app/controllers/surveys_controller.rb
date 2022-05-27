@@ -178,7 +178,7 @@ class SurveysController < ApplicationController
     chart_datas = []
     chart_options = []
     chart_types = ['bar', 'pie', 'line']
-    canvas_target_name = ['canvas_bar', 'canvas_pie', 'canvas_line']
+    canvas_target_name = ['canvasBar', 'canvasPie', 'canvasLine']
     
     @survey.questions.each do |question|
       case question.question_type

@@ -6,7 +6,7 @@
 
 <div data-controller="stats">
   <button data-action="click->stats#hideAndShow">顯示所有回應</button>
-  <div data-stats-target="show_responses" class="hidden">
+  <div data-stats-target="showResponses" class="hidden">
     <h2>填答份數: <%= @survey.responses.count %></h2>
     <% @responseAnswerDatas.each do |responseAnswerData| %>
       <h2><%= responseAnswerData %></h2>
@@ -16,10 +16,10 @@
   <hr>
   <div>
     <% 0.upto(@chart_count-1) do |chart_index| %>
-      <div id="<%= chart_index.to_s %>" class="canvas_container">
+      <div id="<%= chart_index.to_s %>" class="canvasContainer">
         <%= select_tag(:chart_type, options_for_select([['長條圖', 'bar'], ['圓餅圖', 'pie'], ['折線圖', 'line']]), data: { action: "change->stats#chartTypeSelect"}) %>
         <% 0.upto(@chart_types.count-1) do |chart_type_index| %>
-          <div class="hidden canvas_area">
+          <div class="hidden canvasArea">
             <canvas
             data-controller="chart"
             data-chart-type-value="<%= @chart_types[chart_type_index] %>"
