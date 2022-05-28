@@ -67,7 +67,8 @@ export default class extends Controller {
       .filter((className) => !className.includes("border-"))
       .filter((className) => !className.includes("focus-within:outline-"));
     classArray.push(`border-${theme}`, `focus-within:outline-${theme}`);
-    this.survey_idTarget.classList = classArray.join(" ");
+    this.survey_idTarget.className = "";
+    this.survey_idTarget.classList.add(...classArray);
 
     this.questionTargets.forEach((question) => {
       const questionList = [...question.classList];
@@ -75,7 +76,8 @@ export default class extends Controller {
         (className) => !className.includes("focus-within:outline-")
       );
       questionArray.push(`focus-within:outline-${theme}`);
-      question.classList = questionArray.join(" ");
+      question.className = "";
+      question.classList.add(...questionArray);
     });
 
     const data = new FormData();
@@ -109,9 +111,10 @@ export default class extends Controller {
     const classArray = classList.filter(
       (className) => !className.includes("bg-")
     );
-
     classArray.push(`bg-${background_color}`);
-    this.element.classList = classArray.join(" ");
+
+    this.element.className = "";
+    this.element.classList.add(...classArray);
 
     const data = new FormData();
     data.append("background_color", background_color);
@@ -129,7 +132,7 @@ export default class extends Controller {
     const id = this.survey_idTarget.dataset.id;
     const form = this.formTarget;
     const font_style = e.target.value;
-    const new_font_style = form.setAttribute("class", font_style);
+    form.setAttribute("class", font_style);
 
     const data = new FormData();
     data.append("font_style", font_style);
