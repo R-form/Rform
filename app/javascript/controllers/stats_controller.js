@@ -11,11 +11,13 @@ export default class extends Controller {
     this.showSingleResponseTargets[0].classList.remove("hidden") //default show the first response
   }
 
-  hideAndShow() {
+  hideAndShow(e) {
     if (this.showResponsesTarget.className === "hidden"){
       this.showResponsesTarget.classList.remove("hidden")
+      e.target.textContent = "隱藏所有回應"
     } else {
       this.showResponsesTarget.classList.add("hidden")
+      e.target.textContent = "顯示所有回應"
     }
   }
 
