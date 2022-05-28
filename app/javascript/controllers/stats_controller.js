@@ -2,7 +2,7 @@ import { Controller } from "stimulus"
 // import Chart from "chart.js"
 
 export default class extends Controller {
-  static targets = ["showResponses", "showSingleResponse", "currentResponse","responsesCount", "canvasBar", "canvasPie", "canvasLine"];
+  static targets = ["showResponses", "showSingleResponse", "currentResponse", "responsesCount", "canvasBar", "canvasPie", "canvasLine"];
   connect() {
     this.canvasBarTargets.forEach ((target)=>{
       target.closest(".canvasArea").classList.remove("hidden") //default display with bar chart
@@ -71,6 +71,20 @@ export default class extends Controller {
       this.currentResponseTarget.textContent = currentResponse - 1
     } else {
       alert("已經是第一份囉")
+    }
+  }
+
+  jumpToPage(e) {
+    let jumpToPageNumber = e.target.value
+    let currentResponse = Number(this.currentResponseTarget.textContent)
+    let responsesCount = Number(this.responsesCountTarget.textContent)
+
+    if (jumpToPageNumber > 0 && jumpToPageNumber <= responsesCount) {
+      this.showSingleResponseTargets[currentResponse-1].classList.add("hidden")
+      this.showSingleResponseTargets[jumpToPageNumber-1].classList.remove("hidden")
+      this.currentResponseTarget.textContent = jumpToPageNumber
+    } else {
+      alert("沒有這頁喔")
     }
   }
 }

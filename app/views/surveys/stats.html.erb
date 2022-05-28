@@ -23,7 +23,9 @@
         </table>
       </div>
     <% end %>
-    <button data-action="click->stats#previousPage">上一份</button><button data-action="click->stats#nextPage">下一份</button>
+    <button data-action="click->stats#previousPage">上一份</button>
+    <button data-action="click->stats#nextPage">下一份</button>
+    跳轉到:<input data-action="change->stats#jumpToPage" placeholder="輸入頁數"></input>
   </div>
 
   <hr>
