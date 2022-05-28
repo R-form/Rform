@@ -6,7 +6,7 @@
 
 <div data-controller="stats">
   <button data-action="click->stats#hideAndShow">顯示所有回應</button>
-  <div data-stats-target="show_responses" class="hidden">
+  <div data-stats-target="showResponses" class="hidden">
     <h2>填答份數: <%= @survey.responses.count %></h2>
     <% @responseAnswerDatas.each do |responseAnswerData| %>
       <h2><%= responseAnswerData %></h2>
@@ -14,15 +14,22 @@
   </div>
 
   <hr>
-
-  <div width="200">
-    <% 0.upto(@survey.questions.count) do |i| %>
-      <canvas
-      data-controller="chart"
-      data-chart-type-value="<%= @chart_types[i] %>"
-      data-chart-data-value="<%= @chart_datas[i].to_json %>"
-      data-chart-options-value="<%= @chart_options[i].to_json %>"
-      ></canvas>
+  <div>
+    <% 0.upto(@chart_count-1) do |chart_index| %>
+      <div id="<%= chart_index.to_s %>" class="canvasContainer">
+        <%= select_tag(:chart_type, options_for_select([['長條圖', 'bar'], ['圓餅圖', 'pie'], ['折線圖', 'line']]), data: { action: "change->stats#chartTypeSelect"}) %>
+        <% 0.upto(@chart_types.count-1) do |chart_type_index| %>
+          <div class="hidden canvasArea">
+            <canvas
+            data-controller="chart"
+            data-chart-type-value="<%= @chart_types[chart_type_index] %>"
+            data-chart-data-value="<%= @chart_datas[chart_index].to_json %>"
+            data-chart-options-value="<%= @chart_options[chart_index].to_json %>"
+            data-stats-target="<%= @canvas_target_name[chart_type_index] %>"
+            ></canvas>
+          </div>  
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>

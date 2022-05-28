@@ -106,7 +106,6 @@ class SurveysController < ApplicationController
     response_answer_datas = []
     response_answer_ids = []
     xls_answer_arrays = []
-    
 
     @survey.responses.each do |response|
       response_answer_datas << '==========================='
@@ -177,9 +176,11 @@ class SurveysController < ApplicationController
     # create charts
     chart_index = 0
     slice_from = 0
-    chart_types = []
     chart_datas = []
     chart_options = []
+    chart_types = ['bar', 'pie', 'line']
+    canvas_target_name = ['canvasBar', 'canvasPie', 'canvasLine']
+    
     @survey.questions.each do |question|
       case question.question_type
       when 'multiple_choice' , 'single_choice', 'satisfaction', 'drop_down_menu'
@@ -187,7 +188,6 @@ class SurveysController < ApplicationController
         slice_from += answers_counts[chart_index]
         slice_length = answers_counts[chart_index+1]  
 
-        chart_types[chart_index] = 'bar'
         chart_datas[chart_index] = {
           labels: answer_titles.slice(slice_from, slice_length),
           datasets: [{
@@ -211,7 +211,8 @@ class SurveysController < ApplicationController
     @chart_types = chart_types
     @chart_datas = chart_datas
     @chart_options = chart_options
-
+    @chart_count = chart_index
+    @canvas_target_name = canvas_target_name
     #excel
     @questionTitles = question_titles.insert(0,'時間')
     @xlsAnswerArrays = xls_answer_arrays
