@@ -8,14 +8,15 @@
 }
 
 .slide {
-  @apply sm:w-1/6 fixed right-0 w-28 block right-0 top-0 bg-gentleYellow h-full shadow-md;
+  @apply sm:w-1/6 fixed right-0 w-28 block top-0 bg-gentleYellow h-full shadow-md overflow-auto;
 }
-// .invisible{
-//     @apply invisible
-// }
 
 .slide_content {
   @apply right-2 top-2 cursor-pointer flex justify-between;
+}
+
+.aside_choice_title {
+  @apply mx-4 inline-block;
 }
 
 .formsection {
@@ -83,9 +84,6 @@ textarea {
   @apply bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2  rounded-full;
 }
 
-.choices_field {
-}
-
 #answer {
   @apply flex shadow-none outline-none;
 }
@@ -118,4 +116,8 @@ textarea {
   top: 40px;
 
   @apply bg-ironGrayHover;
+}
+
+.survey_status_time {
+  @apply w-28;
 }

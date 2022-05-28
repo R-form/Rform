@@ -19,7 +19,7 @@
             <% end %>
         <% when "問答題" %>
         <p><%= @response.answers[question.id.to_s] %></p>
-        <% when "線性問題" %>
+        <% when "滿意度" %>
         <table>
             <tr>
             <% question.answers.each do |answer| %>

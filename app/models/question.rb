@@ -10,7 +10,7 @@ class Question < ApplicationRecord
   acts_as_paranoid
   acts_as_list scope: :survey
 
-  enum question_type: { 單選題: 0, 多選題: 1, 問答題: 2, 線性問題: 3, 日期: 4, 時間: 5, 下拉選單: 6, 範圍: 7, 檔案: 8 }
+  enum question_type: { 單選題: 0, 多選題: 1, 問答題: 2, 滿意度: 3, 日期: 4, 時間: 5, 下拉選單: 6, 範圍: 7, 檔案: 8 }
 
   def self.question_type_select
     question_types.keys.map { |k| [k, k] }

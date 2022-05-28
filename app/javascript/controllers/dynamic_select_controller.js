@@ -12,7 +12,7 @@ export default class extends Controller {
     switch (this.selectTarget.value) {
       case "單選題":
       case "多選題":
-      case "線性問題":
+      case "滿意度":
       case "下拉選單":
         this.choiceTarget.classList.remove("hidden");
         if (status == "published" || status == "draft") {

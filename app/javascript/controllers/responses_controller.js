@@ -11,9 +11,7 @@ export default class extends Controller {
     e.preventDefault();
     const question = e.target.closest(".question_field");
     question.classList.add("hidden");
-    e.target
-      .closest(".question_field")
-      .nextElementSibling.classList.remove("hidden");
+    question.nextElementSibling.classList.remove("hidden");
   }
 
   last(e) {
