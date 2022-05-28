@@ -8,9 +8,10 @@ export default class extends Controller {
 
   open_alert(e) {
     e.preventDefault()
+
     const survey_id = this.survey_idTarget.dataset.id
     const question_id = e.target.closest(".question").dataset.question_id;
-    const answer_id = e.target.closest(".answer").firstElementChild.value;
+    const answer_id = e.target.closest("#answer").firstElementChild.value;
   
     Rails.ajax({
       type: "get", 
@@ -34,9 +35,7 @@ export default class extends Controller {
           </select>`,
           showCloseButton: true,
           showCancelButton: true,
-          confirmButtonText:'<i class="fa fa-thumbs-up"></i> 儲存',
-          confirmButtonAriaLabel: 'Thumbs up, great!',
-          cancelButtonAriaLabel: 'Thumbs down'
+          confirmButtonText:'<i class="fa fa-thumbs-up"></i> save',
         })  
     },
       error: () => {
