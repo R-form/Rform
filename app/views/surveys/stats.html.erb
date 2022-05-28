@@ -7,7 +7,7 @@
 <div data-controller="stats">
   <button data-action="click->stats#hideAndShow">顯示所有回應</button>
   <div data-stats-target="showResponses" class="hidden">
-    <h2>填答份數: <%= @survey.responses.count %></h2>
+    <h2>填答份數: <span data-stats-target="responsesCount"><%= @survey.responses.count %></span></h2>
     <h2>目前顯示: 第<span data-stats-target="currentResponse">1</span>份</h2>
     <% 0.upto(@survey.responses.count-1) do |responseIndex| %>
       <div data-stats-target="showSingleResponse", class="hidden">

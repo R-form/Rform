@@ -2,8 +2,7 @@ import { Controller } from "stimulus"
 // import Chart from "chart.js"
 
 export default class extends Controller {
-  static targets = ["showResponses", "showSingleResponse", "currentResponse", "canvasBar", "canvasPie", "canvasLine"];
-
+  static targets = ["showResponses", "showSingleResponse", "currentResponse","responsesCount", "canvasBar", "canvasPie", "canvasLine"];
   connect() {
     this.canvasBarTargets.forEach ((target)=>{
       target.closest(".canvasArea").classList.remove("hidden") //default display with bar chart
@@ -50,17 +49,26 @@ export default class extends Controller {
 
   nextPage() {
     let currentResponse = Number(this.currentResponseTarget.textContent)
+    let responsesCount = Number(this.responsesCountTarget.textContent)
 
-    this.showSingleResponseTargets[currentResponse-1].classList.add("hidden")
-    this.showSingleResponseTargets[currentResponse].classList.remove("hidden")
-    this.currentResponseTarget.textContent = currentResponse + 1
+    if (currentResponse < responsesCount) {
+      this.showSingleResponseTargets[currentResponse-1].classList.add("hidden")
+      this.showSingleResponseTargets[currentResponse].classList.remove("hidden")
+      this.currentResponseTarget.textContent = currentResponse + 1
+    } else {
+      alert("已經是最後一份囉")
+    }
   }
 
   previousPage() {
     let currentResponse = Number(this.currentResponseTarget.textContent)
 
-    this.showSingleResponseTargets[currentResponse-1].classList.add("hidden")
-    this.showSingleResponseTargets[currentResponse-2].classList.remove("hidden")
-    this.currentResponseTarget.textContent = currentResponse - 1
+    if (currentResponse > 1) {
+      this.showSingleResponseTargets[currentResponse-1].classList.add("hidden")
+      this.showSingleResponseTargets[currentResponse-2].classList.remove("hidden")
+      this.currentResponseTarget.textContent = currentResponse - 1
+    } else {
+      alert("已經是第一份囉")
+    }
   }
 }
