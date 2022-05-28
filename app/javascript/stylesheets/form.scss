@@ -43,16 +43,10 @@ textarea {
   @apply p-2 my-2 w-full text-sm;
 }
 
-.formtitle {
-  @apply text-2xl;
-}
-
-.formfield {
-  @apply rounded overflow-hidden shadow-lg bg-white p-6 my-6;
-}
 .question {
   @apply rounded overflow-hidden shadow-lg bg-white p-6 my-6;
 }
+
 #deco_checkbox {
   @apply w-7 self-center;
 }
@@ -60,6 +54,7 @@ textarea {
 .title_type {
   @apply flex;
 }
+
 .question_input {
   @apply appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white;
 }
