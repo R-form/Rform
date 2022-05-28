@@ -75,7 +75,7 @@
           </li> 
           <li>
             <div class="mx-4">
-              <%= form.datetime_field :closetime, min: Date.today, data: { action: "change -> survey-style#update_closetime"},class: "survey_status_time" %>
+              <%= form.datetime_field :closetime, min: form.object.opentime, data: { action: "change -> survey-style#update_closetime"},class: "survey_status_time" %>
             </div>
           </li>
         </ul>
