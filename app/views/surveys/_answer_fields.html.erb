@@ -6,15 +6,8 @@
   <%= link_to "刪除選項", data: { action: "click->nested-form#remove_association click->auto-save#remove_answer" }, class: "linkbtn" do %>
     <i class="fas fa-trash-alt"></i>
   <% end %>
-  <%= link_to "跳題", data: { action: "click->skip-logic#open_alert" }, class: "btn" do %>
-   跳題
-  <% end %>
-    <%# <select data-action = "change->skip-logic#skip_to_question_id">
-    <option>1</option>
-    <option>2</option>
-    <option>3</option>
-    <option>4</option>
-    </select> %>
+  <%= link_to "跳題","#",data: {
+    action: "click->skip-logic-modal#open_alert"},class: "btn" %>
 </div>
 
 

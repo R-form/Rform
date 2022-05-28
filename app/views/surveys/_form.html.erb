@@ -108,7 +108,8 @@
     <%= form_with(model: survey,  data: { controller: "auto-save", auto_save_target: "form", survey_style_target: "form" } ) do |form| %>
       <span class="hidden border-brightRed border-brightOrange border-brightYellow border-brightGreen
     border-brightBlue border-brightNavy border-brightGray         focus-within:outline-brightRed focus-within:outline-brightOrange focus-within:outline-brightYellow focus-within:outline-brightGreen focus-within:outline-brightBlue focus-within:outline-brightNavy focus-within:outline-brightGray"></span>
-      <div class="formsection_title  border-<%= survey.theme %> focus-within:outline-<%= survey.theme %>"  data-id="<%= survey.id %>" data-status="<%= survey.status %>" data-auto-save-target="survey_id" data-survey-style-target="survey_id">
+      <div class="formsection_title  border-<%= survey.theme %> focus-within:outline-<%= survey.theme %>"  data-id="<%= survey.id %>" data-status="<%= survey.status %>" data-auto-save-target="survey_id" data-survey-style-target="survey_id" data-skip-logic-modal-target="survey_id"
+      data-select-question-target="survey_id">
         <%= form.text_field :title, placeholder: "問卷標題",autocomplete: "off", class: "title input ", 
           data: {action: "change->auto-save#add_survey_title "}%>
         <%= form.text_area :description, placeholder: "問卷敘述", class: "input",
