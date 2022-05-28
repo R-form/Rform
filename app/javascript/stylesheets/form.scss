@@ -88,26 +88,23 @@ textarea {
 }
 
 .down {
-  @apply relative  w-28 block;
-  top: 160px;
+  @apply relative  w-28 block top-40;
+}
 
-  .new_question_btn {
-    @apply fixed left-6 top-48 bg-gray-500 hover:bg-gray-700 text-white font-bold p-3 my-auto rounded shadow-lg;
-  }
+.new_question_btn {
+  @apply fixed left-6 top-48 bg-gray-500 hover:bg-gray-700 text-white font-bold p-3 my-auto rounded shadow-lg;
 }
 
 .side-border {
-  position: relative;
+  @apply relative;
 }
 
 .side-border::before {
   content: "";
   height: 2px;
   width: 250px;
-  position: absolute;
-  top: 40px;
 
-  @apply bg-ironGrayHover;
+  @apply bg-ironGrayHover absolute top-10;
 }
 
 .survey_status_time {

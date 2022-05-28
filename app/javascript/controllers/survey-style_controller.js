@@ -104,13 +104,14 @@ export default class extends Controller {
       "#a4b5c4": "softGray",
     };
     const background_color = bgColorMap[this.background_colorTarget.value];
+    const classList = [...this.element.classList];
 
-    this.element.classList.forEach((className, _, classArray) => {
-      if (className.includes("bg-")) {
-        classArray.remove(className);
-      }
-    });
-    this.element.classList.add(`bg-${background_color}`);
+    const classArray = classList.filter(
+      (className) => !className.includes("bg-")
+    );
+
+    classArray.push(`bg-${background_color}`);
+    this.element.classList = classArray.join(" ");
 
     const data = new FormData();
     data.append("background_color", background_color);
