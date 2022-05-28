@@ -1,7 +1,5 @@
 import { Controller } from "stimulus";
 import Rails from "@rails/ujs";
-import Swal from "sweetalert2";
-import 'sweetalert2/src/sweetalert2.scss'
 
 export default class extends Controller {
   static targets = ['survey_id'];
