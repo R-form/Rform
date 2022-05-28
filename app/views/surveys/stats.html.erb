@@ -11,13 +11,16 @@
     <h2>目前顯示: 第<span data-stats-target="currentResponse">1</span>份</h2>
     <% 0.upto(@survey.responses.count-1) do |responseIndex| %>
       <div data-stats-target="showSingleResponse", class="hidden">
-        <% @responseJsons.each do |responseJson| %>
-          <% if responseJson.as_json["responseIndex"] === responseIndex %>
-            <h2><%= responseJson.as_json["questionTitles"] %></h2>
-            <h2><%= responseJson.as_json["responseAnswerTitles"].join('  ') %></h2>
-            <br>
+        <table class="table-auto">
+          <% @responseJsons.each do |responseJson| %>
+            <% if responseJson.as_json["responseIndex"] === responseIndex %>
+              <tr>
+                <th class="bg-gentleYellow text-ironGray"><%= responseJson.as_json["questionTitles"] %></th>
+                <td><%= responseJson.as_json["responseAnswerTitles"].join('  ') %></td>
+              </tr>
+            <% end %>
           <% end %>
-        <% end %>
+        </table>
       </div>
     <% end %>
     <button data-action="click->stats#previousPage">上一份</button><button data-action="click->stats#nextPage">下一份</button>
