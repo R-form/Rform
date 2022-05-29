@@ -8,7 +8,7 @@
       <%= form_with model: [@survey, response] do |form| %>
         <%= form.fields_for :answers do |response| %>
           <% @survey.questions.each do |question| %>
-          <div class="question_field hidden my-10" data-responses-target="question">
+          <div class="question_field hidden my-10" data-responses-target="question" data-question_id="<%= question.id %>">
             <h1 class="question_title inline-block py-2 text-3xl text-gray-600">
               <%= question.title %>
               <% if question.required %>
@@ -22,7 +22,7 @@
               <% when '單選題' %>
                 <% question.answers.each do |answer| %>
                   <label class= "response_choice bg-<%= @survey.theme %> hover:bg-<%= @survey.background_color %> hover:text-gray-600">
-                    
+                    <%= response.radio_button question.id, answer.id, required: question.required, class: 'radio_button h-6 w-6 ml-1 mr-3' %>
                     <%= answer.title %>
                   </label>
                 <% end %>

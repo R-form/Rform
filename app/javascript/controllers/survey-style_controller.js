@@ -47,8 +47,14 @@ export default class extends Controller {
     });
   }
 
-  pick_color(e) {
-    const id = this.survey_idTarget.dataset.id;
+  resetStyle(target, classes) {
+    target.className = "";
+    target.classList.add(...classes);
+  }
+
+  pick_color() {
+    const { id } = this.survey_idTarget.dataset;
+
     const colorMap = {
       "#8E354A": "brightRed",
       "#E62": "brightOrange",
@@ -67,8 +73,7 @@ export default class extends Controller {
       .filter((className) => !className.includes("border-"))
       .filter((className) => !className.includes("focus-within:outline-"));
     classArray.push(`border-${theme}`, `focus-within:outline-${theme}`);
-    this.survey_idTarget.className = "";
-    this.survey_idTarget.classList.add(...classArray);
+    this.resetStyle(this.survey_idTarget, classArray);
 
     this.questionTargets.forEach((question) => {
       const questionList = [...question.classList];
@@ -76,8 +81,7 @@ export default class extends Controller {
         (className) => !className.includes("focus-within:outline-")
       );
       questionArray.push(`focus-within:outline-${theme}`);
-      question.className = "";
-      question.classList.add(...questionArray);
+      this.resetStyle(question, questionArray);
     });
 
     const data = new FormData();
@@ -93,7 +97,7 @@ export default class extends Controller {
   }
 
   pick_background_color() {
-    const id = this.survey_idTarget.dataset.id;
+    const { id } = this.survey_idTarget.dataset;
 
     const bgColorMap = {
       "#DC9FB4": "softRed",
@@ -112,9 +116,7 @@ export default class extends Controller {
       (className) => !className.includes("bg-")
     );
     classArray.push(`bg-${background_color}`);
-
-    this.element.className = "";
-    this.element.classList.add(...classArray);
+    this.resetStyle(this.element, classArray);
 
     const data = new FormData();
     data.append("background_color", background_color);
@@ -129,7 +131,7 @@ export default class extends Controller {
   }
 
   select_font(e) {
-    const id = this.survey_idTarget.dataset.id;
+    const { id } = this.survey_idTarget.dataset;
     const form = this.formTarget;
     const font_style = e.target.value;
     form.setAttribute("class", font_style);
@@ -147,7 +149,7 @@ export default class extends Controller {
   }
 
   update_status(e) {
-    const id = this.survey_idTarget.dataset.id;
+    const { id } = this.survey_idTarget.dataset;
     const status_value = e.target.value;
 
     const data = new FormData();
@@ -163,7 +165,7 @@ export default class extends Controller {
   }
 
   update_opentime(e) {
-    const id = this.survey_idTarget.dataset.id;
+    const { id } = this.survey_idTarget.dataset;
     const opentime = e.target.value;
 
     const data = new FormData();
@@ -178,7 +180,7 @@ export default class extends Controller {
   }
 
   update_closetime(e) {
-    const id = this.survey_idTarget.dataset.id;
+    const { id } = this.survey_idTarget.dataset;
     const closetime = e.target.value;
 
     const data = new FormData();
