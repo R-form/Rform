@@ -11,11 +11,16 @@ export default class extends Controller {
     const survey_id = this.survey_idTarget.dataset.id
     const question_id = e.target.closest(".question").dataset.question_id;
     const answer_id = e.target.closest("#answer").firstElementChild.value;
+
+    const data = new FormData();
+    data.append("question_id", question_id);
+    data.append("answer_id", answer_id);
   
     Rails.ajax({
       type: "get", 
       url: `/surveys/${survey_id}/questions_list`,
-      success: ({ message }) => {
+      data,
+      success: ({message}) => {
         let select_option  = "" 
         message.forEach((element)=>{
           const { title, id } = element;
@@ -34,12 +39,13 @@ export default class extends Controller {
           </select>`,
           showCloseButton: true,
           showCancelButton: true,
-          confirmButtonText:'<i class="fa fa-thumbs-up"></i> save',
-          cancelButtonText: '移除',
-        }) 
+          confirmButtonText:'儲存',
+          cancelButtonText: '取消',
+        })
+
     },
-      error: () => {
-        console.log("失敗");
+      error: ({params}) => {
+        console.log(params);
       },
     });
 
