@@ -343,6 +343,30 @@ class SurveysController < ApplicationController
     }
   end
 
+  def update_status
+    @survey.update(status: params[:status_value])
+    render json: {
+      message: "問卷狀態更新",
+      params: params
+    }
+  end
+
+  def update_opentime
+    @survey.update(opentime: params[:opentime])
+    render json: {
+      message: "預設開啟時間設定成功",
+      params: params
+    }
+  end
+
+  def update_closetime
+    @survey.update(closetime: params[:closetime])
+    render json: {
+      message: "預設關閉時間設定成功",
+      params: params
+    }
+  end
+
   def font_style
     @survey.update(font_style: params[:font_style])
     render json: {
@@ -377,6 +401,9 @@ class SurveysController < ApplicationController
       :font_style,
       :theme,
       :image,
+      :status,
+      :opentime,
+      :closetime,
       questions_attributes: [
         :_destroy,
         :id,

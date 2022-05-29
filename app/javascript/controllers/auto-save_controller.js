@@ -2,7 +2,30 @@ import { Controller } from "stimulus";
 import Rails from "@rails/ujs";
 
 export default class extends Controller {
-  static targets = ["form", "survey_id", "question", "answer"];
+  static targets = ["form", "survey_id", "question", "answer", "select"];
+
+  connect() {
+    const status = this.survey_idTarget.dataset.status;
+    const disabled_inputs = this.element.querySelectorAll("input");
+    const disabled_buttons = this.element.querySelectorAll("a");
+    const disabled_selects = this.selectTargets;
+    const disabled_textareas = this.element.querySelectorAll("textarea");
+
+    if (status == "closed") {
+      disabled_inputs.forEach((input) => {
+        input.setAttribute("disabled", "");
+      });
+      disabled_buttons.forEach((button) => {
+        button.classList.add("hidden");
+      });
+      disabled_textareas.forEach((textarea) => {
+        textarea.setAttribute("disabled", "");
+      });
+      disabled_selects.forEach((select) => {
+        select.setAttribute("disabled", "");
+      });
+    }
+  }
 
   add_survey_title(e) {
     const id = this.survey_idTarget.dataset.id;
