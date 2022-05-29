@@ -3,7 +3,11 @@
 Rails.application.routes.draw do
   
   root 'homepage#index'
-  resources :users
+  resources :users do
+    get :orders ,to: 'orders#index'
+  end
+  get 'orders/done' => 'orders#done'
+  get 'orders/update' => 'orders#update'
   get 'login' => 'user_sessions#new', :as => :login
   post 'login' => 'user_sessions#create'
   post 'logout' => 'user_sessions#destroy', :as => :logout

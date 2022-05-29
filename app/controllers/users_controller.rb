@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  
   before_action :set_user, only: %i[ show edit update destroy ]
   before_action :require_login, only: %i[show edit update destroy] 
   def index
@@ -52,6 +53,9 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+ 
+  
 
   private
     def set_user

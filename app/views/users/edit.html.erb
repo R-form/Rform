@@ -1,4 +1,49 @@
-<h1>Editing User</h1>
 
-<%= render 'form', user: @user %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+        <% user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<main class="relative min-h-screen w-full bg-white">
+  <div class="p-6" x-data="app">
+    <section
+      class="absolute top-80 left-1/2 mx-auto max-w-sm -translate-x-1/2 -translate-y-1/2 transform space-y-4 text-center"
+    >
+      <div x-show="isLoginPage" class="space-y-4">
+        <header class="mb-3 text-2xl font-bold">Account | 會員中心</header>
 
+          <div class="field w-full bg-gray-50 px-4 ">
+            <h2>Hi!  <%= @user.email %></h2>
+            <p>我們可以為你做什麼呢？</p>
+          </div>
+
+          
+
+        <%= form_with url: password_resets_path, local: true, method: :post do |form| %>
+            <%= form.text_field :email , class: "hidden" %>
+            <%= form.submit "更換密碼" , class: "actions w-full rounded-2xl border-b-4 border-b-blue-600 bg-ironGray py-3 font-bold text-white hover:bg-ironGrayHover active:translate-y-[0.125rem] active:border-b-blue-400"%>
+
+        <% end %>
+        <%= button_to  "登出" ,   logout_path , class:"actions w-full rounded-2xl border-b-4 border-b-blue-600 bg-ironGray py-3 font-bold text-white hover:bg-ironGrayHover active:translate-y-[0.125rem] active:border-b-blue-400" %>
+      </div>       
+
+      <div class="flex items-center space-x-4">
+        <hr class="w-full border border-gray-300" />
+        <div class="font-semibold text-gray-400">OR</div>
+        <hr class="w-full border border-gray-300" />
+      </div>
+
+        <div class="field w-full bg-gray-50 px-4 ">
+             <%= button_to  "查看目前方案" ,   user_orders_path(@user) ,method: :get, class:"actions w-full rounded-2xl border-b-4 border-b-blue-600 bg-ironGray py-3 font-bold text-white hover:bg-ironGrayHover active:translate-y-[0.125rem] active:border-b-blue-400" %>
+        </div>
+
+
+
+    </section>
+  </div>
+</main>
