@@ -1,6 +1,7 @@
 import { Controller } from "stimulus";
 import Rails from "@rails/ujs";
 
+
 export default class extends Controller {
   static targets = ['survey_id'];
 
@@ -14,22 +15,39 @@ export default class extends Controller {
     data.append("question_id", question_id);
     data.append("answer_id", answer_id);
     data.append("skip_to_question_id", skip_to_question_id);
-
+    
     Rails.ajax({
       type: "patch", 
       url: `/surveys/${survey_id}/skip_to_question_id`,
       data,
       success: () => {
-        console.log("成功");
+        console.log("儲存成功");
       },
       error: () => {
-        console.log("失敗");
+        console.log("儲存失敗");
       },
-      });
+      }); 
 
-    }
+      const save_button = this.element.querySelector(".swal2-cancel")
+      save_button.addEventListener("click",(e)=>{
+        if (e.target.nodeName === 'BUTTON') { 
+          data.append("question_id", question_id);
+          data.append("answer_id", answer_id);
+          data.append("skip_to_question_id", skip_to_question_id);
+          
+          Rails.ajax({
+            type: "delete", 
+            url: `/surveys/${survey_id}/remove_skip_to_question_id`,
+            data,
+            success: () => {
+              console.log("移除成功");
+            },
+            error: () => {
+              console.log("移除失敗");
+            },
+          }); 
+        }       
+      })
+    } 
+
 }
-
- 
-
-

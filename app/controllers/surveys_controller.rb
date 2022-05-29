@@ -422,6 +422,20 @@ class SurveysController < ApplicationController
     question = @survey.questions.find(params[:question_id])
     answer = question.answers.find(params[:answer_id])
     answer.update(skip_to_question_id: params[:skip_to_question_id])
+    render json: {
+      message: "儲存成功",
+      params: params
+    }
+  end
+
+  def remove_skip_to_question_id
+    question = @survey.questions.find(params[:question_id])
+    answer = question.answers.find(params[:answer_id])
+    answer.update(skip_to_question_id: nil)
+    render json: {
+      message: "移除成功",
+      params: params
+    }
   end
 
   
