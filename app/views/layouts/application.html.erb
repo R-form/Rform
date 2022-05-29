@@ -21,7 +21,7 @@
         <div>
           <div class="mx-12">
           <span class="my-1 mx-3 py-2 px-4 font-bold text-ironGray active:translate-y-[0.125rem] active:border-b-gray-200">
-            <%= link_to "登出", :logout, method: :post %>
+            <%= link_to "登出", user_session_path(:user), method: :delete %>
           </span>
           <span class="my-1 mx-3 py-2 px-4 font-bold text-ironGray active:translate-y-[0.125rem] active:border-b-gray-200">
             <%= link_to "我的問卷", surveys_path  %>
@@ -35,10 +35,10 @@
       </div>
         <div class="mx-12">
           <span class="my-1 mx-3 py-2 px-4 font-bold text-ironGray active:translate-y-[0.125rem] active:border-b-gray-200"">
-            <%= link_to "註冊", new_user_path %>
+            <%= link_to "註冊", new_users_path %>
           </span>
           <span class="my-1 mx-3 py-2 px-4 font-bold text-ironGray active:translate-y-[0.125rem] active:border-b-gray-200"">
-            <%= link_to "登入", :login %>
+            <%= link_to "登入", new_user_session_path %>
           </span>
         </div>
       <% end %>

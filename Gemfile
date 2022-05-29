@@ -12,7 +12,7 @@ gem 'pg', '~> 1.1'
 gem "puma", ">= 5.6.4"
 gem 'rails', '~> 6.1.5', '>= 6.1.5.1'
 gem 'sass-rails', '>= 6'
-gem 'sorcery'
+gem 'sorcery', '~> 0.16.3'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'
 gem 'deep_cloneable', '~> 3.2.0'
@@ -37,16 +37,16 @@ group :development do
   gem 'foreman', '~> 0.87.2'
   gem 'listen', '~> 3.3'
   gem 'web-console', '>= 4.1.0'
-  gem 'omniauth'
-  gem 'omniauth-google-oauth2'
-  gem 'figaro'
-  gem "letter_opener", group: :development
+  gem 'omniauth', '~> 2.1'
+  gem 'omniauth-google-oauth2', '~> 1.0', '>= 1.0.1'
+  gem 'figaro', '~> 1.2'
+  gem 'letter_opener', '~> 1.8', '>= 1.8.1'
 end
 
 group :test do
   gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver', '>= 4.0.0.rc1'
-  gem 'webdrivers'
+  gem 'webdrivers', '~> 5.0'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
