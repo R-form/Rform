@@ -167,6 +167,8 @@ export default class extends Controller {
   update_opentime(e) {
     const { id } = this.survey_idTarget.dataset;
     const opentime = e.target.value;
+    const notice = e.target.closest("div");
+    const previousNotice = e.target.previousElementSibling;
 
     const data = new FormData();
     data.append("opentime", opentime);
@@ -174,7 +176,15 @@ export default class extends Controller {
       type: "patch",
       url: `/surveys/${id}/update_opentime`,
       data,
-      success: ({ message }) => {},
+      success: ({ message }) => {
+        if (previousNotice) {
+          previousNotice.remove();
+        }
+        notice.insertAdjacentHTML(
+          "afterbegin",
+          `<small style="color:red;">${message}</small><br>`
+        );
+      },
       error: (err) => {},
     });
   }
@@ -182,6 +192,8 @@ export default class extends Controller {
   update_closetime(e) {
     const { id } = this.survey_idTarget.dataset;
     const closetime = e.target.value;
+    const notice = e.target.closest("div");
+    const previousNotice = e.target.previousElementSibling;
 
     const data = new FormData();
     data.append("closetime", closetime);
@@ -190,7 +202,15 @@ export default class extends Controller {
       type: "patch",
       url: `/surveys/${id}/update_closetime`,
       data,
-      success: ({ message }) => {},
+      success: ({ message }) => {
+        if (previousNotice) {
+          previousNotice.remove();
+        }
+        notice.insertAdjacentHTML(
+          "afterbegin",
+          `<small style="color:red;">${message}</small><br>`
+        );
+      },
       error: (err) => {},
     });
   }

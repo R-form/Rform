@@ -351,18 +351,34 @@ class SurveysController < ApplicationController
 
   def update_opentime
     @survey.update(opentime: params[:opentime])
-    render json: {
-      message: "預設開啟時間設定成功",
-      params: params
-    }
+    if @survey.closetime.present? && @survey.closetime < @survey.opentime
+      @survey.update(opentime: @survey.created_at)
+      render json: {
+        message: "不能晚於關閉時間",
+        params: params
+      }
+    else
+      render json: {
+        message: "設定成功!",
+        params: params
+      }
+    end
   end
 
   def update_closetime
     @survey.update(closetime: params[:closetime])
-    render json: {
-      message: "預設關閉時間設定成功",
-      params: params
-    }
+    if @survey.closetime > @survey.opentime
+      render json: {
+        message: "設定成功!",
+        params: params
+      }
+    else
+      @survey.update(closetime: nil)
+      render json: {
+        message: "不能早於開啟時間",
+        params: params
+      }
+    end
   end
 
   def font_style

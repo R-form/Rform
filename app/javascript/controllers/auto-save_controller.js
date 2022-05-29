@@ -4,6 +4,12 @@ import Rails from "@rails/ujs";
 export default class extends Controller {
   static targets = ["form", "survey_id", "question", "answer", "select"];
 
+  setDisabled(allTargets) {
+    allTargets.forEach((target) => {
+      target.setAttribute("disabled", "");
+    });
+  }
+
   connect() {
     const { status } = this.survey_idTarget.dataset;
     const disabled_inputs = this.element.querySelectorAll("input");
@@ -12,17 +18,12 @@ export default class extends Controller {
     const disabled_textareas = this.element.querySelectorAll("textarea");
 
     if (status == "closed") {
-      disabled_inputs.forEach((input) => {
-        input.setAttribute("disabled", "");
-      });
+      this.setDisabled(disabled_inputs);
+      this.setDisabled(disabled_textareas);
+      this.setDisabled(disabled_selects);
+
       disabled_buttons.forEach((button) => {
         button.classList.add("hidden");
-      });
-      disabled_textareas.forEach((textarea) => {
-        textarea.setAttribute("disabled", "");
-      });
-      disabled_selects.forEach((select) => {
-        select.setAttribute("disabled", "");
       });
     }
   }

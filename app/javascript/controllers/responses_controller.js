@@ -2,6 +2,7 @@ import { Controller } from "stimulus";
 
 export default class extends Controller {
   static targets = ["question", "survey_title"];
+
   connect() {
     this.questionTarget.classList.remove("hidden");
     this.survey_titleTarget.classList.remove("hidden");
