@@ -8,7 +8,6 @@ export default class extends Controller {
 
   open_alert(e) {
     e.preventDefault()
-
     const survey_id = this.survey_idTarget.dataset.id
     const question_id = e.target.closest(".question").dataset.question_id;
     const answer_id = e.target.closest("#answer").firstElementChild.value;
@@ -36,7 +35,8 @@ export default class extends Controller {
           showCloseButton: true,
           showCancelButton: true,
           confirmButtonText:'<i class="fa fa-thumbs-up"></i> save',
-        })  
+          cancelButtonText: '移除',
+        }) 
     },
       error: () => {
         console.log("失敗");

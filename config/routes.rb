@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       patch :tag
       get :questions_list
       patch :skip_to_question_id
+      delete :remove_skip_to_question_id
     end 
 
   end
