@@ -182,7 +182,7 @@ export default class extends Controller {
         }
         notice.insertAdjacentHTML(
           "afterbegin",
-          `<small style="color:red;">${message}</small><br>`
+          `<p style="color:red;font-size: smaller;">${message}</p>`
         );
       },
       error: (err) => {},
@@ -208,7 +208,7 @@ export default class extends Controller {
         }
         notice.insertAdjacentHTML(
           "afterbegin",
-          `<small style="color:red;">${message}</small><br>`
+          `<p style="color:red;font-size: smaller;">${message}</p>`
         );
       },
       error: (err) => {},
