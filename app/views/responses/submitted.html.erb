@@ -1,6 +1,12 @@
-<h1 class="text-3xl text-center text-ironGray my-10">謝謝您，您的問卷已順利提交
-  <i class="far fa-paper-plane"></i>
-</h1>
+<% if @response %>
+  <h1 class="text-3xl text-center text-ironGray my-10 padding-for-fixed">謝謝您，您的問卷已順利提交
+    <i class="far fa-paper-plane"></i>
+  </h1>
+<% else %>
+  <h1 class="text-3xl text-center text-ironGray my-10 padding-for-fixed">這個問卷可能已經關閉了，快來建立自己的問卷吧
+    <i class="far fa-hand-point-down"></i>
+  </h1>
+<% end %>
 
 <%= link_to root_path do %>
   <div class="m-auto w-10/12 lg:flex shadow-md">

@@ -18,6 +18,7 @@ class SurveysController < ApplicationController
 
   def edit
     @survey.questions.order(:position)
+    @survey_url = "#{ENV['HOST_NAME']}/to/#{params[:id]}"
   end
 
   def create
@@ -43,7 +44,7 @@ class SurveysController < ApplicationController
   def duplicate_survey
     dup = @survey.deep_clone include: {questions: :answers }
     dup.title.insert(-1, " - 副本")
-    if dup.save
+    if dup.save 
       redirect_to surveys_path, notice: '問卷已複製成功'
     end
   end
@@ -99,46 +100,64 @@ class SurveysController < ApplicationController
     response_index = 0
     response_answer_datas = []
     response_answer_ids = []
-  
+    xls_answer_arrays = []
+
     @survey.responses.each do |response|
       response_answer_datas << '==========================='
       response_answer_datas << '第' + (response_index+1).to_s + '份'
       response_answer_datas << '==========================='
 
+      xls_answer_array = [response.created_at]
+      key_index = 0
+      while key_index < question_ids.length
+        if !response.answers.has_key?(question_ids[key_index].to_s)
+          response.answers[question_ids[key_index].to_s] = ''
+        end
+        key_index += 1
+      end
       @survey.questions.each do |question|
         response_answer_datas << question.title
-        current_response_answers = response.answers[question.id.to_s]
-
+        current_response_answers = response.answers[question.id.to_s] 
         case question.question_type
         when 'multiple_choice'
           if current_response_answers.present?
             current_response_answers.delete('0')
+            multiple_answers = []
             current_response_answers.each do |current_response_answer|
               answer_index = 0
               while answer_index < answers_counts.sum
                 if current_response_answer == answer_ids[answer_index].to_s
                   response_answer_datas << answer_titles[answer_index]
+                  multiple_answers << answer_titles[answer_index]
+
                   response_answer_ids << answer_ids[answer_index]
                 end
                 answer_index += 1
               end
             end
+            xls_answer_array << multiple_answers.join(', ')
           end
         when 'single_choice', 'satisfaction', 'drop_down_menu'
           answer_index = 0
-          while answer_index < answers_counts.sum
-            if current_response_answers == answer_ids[answer_index].to_s
-              response_answer_datas << answer_titles[answer_index]
-              response_answer_ids << answer_ids[answer_index]
+          if current_response_answers.present?
+            while answer_index < answers_counts.sum
+              if current_response_answers == answer_ids[answer_index].to_s
+                response_answer_datas << answer_titles[answer_index]
+                response_answer_ids << answer_ids[answer_index]
+                xls_answer_array << answer_titles[answer_index]
+              end
+              answer_index += 1
             end
-            answer_index += 1
+          else
+            xls_answer_array << ''
           end
         when 'long_answer', 'date', 'time', 'range'
           response_answer_datas << current_response_answers
+          xls_answer_array << current_response_answers
+        xls_answer_arrays << xls_answer_array
         end
-
       end
-      response_index += 1
+      response_index += 1    
     end
 
     sum_of_response_answer_ids = []
@@ -152,9 +171,11 @@ class SurveysController < ApplicationController
     # create charts
     chart_index = 0
     slice_from = 0
-    chart_types = []
     chart_datas = []
     chart_options = []
+    chart_types = ['bar', 'pie', 'line']
+    canvas_target_name = ['canvasBar', 'canvasPie', 'canvasLine']
+    
     @survey.questions.each do |question|
       case question.question_type
       when 'multiple_choice' , 'single_choice', 'satisfaction', 'drop_down_menu'
@@ -162,7 +183,6 @@ class SurveysController < ApplicationController
         slice_from += answers_counts[chart_index]
         slice_length = answers_counts[chart_index+1]  
 
-        chart_types[chart_index] = 'bar'
         chart_datas[chart_index] = {
           labels: answer_titles.slice(slice_from, slice_length),
           datasets: [{
@@ -186,6 +206,15 @@ class SurveysController < ApplicationController
     @chart_types = chart_types
     @chart_datas = chart_datas
     @chart_options = chart_options
+    @chart_count = chart_index
+    @canvas_target_name = canvas_target_name
+    #excel
+    @questionTitles = question_titles.insert(0,'時間')
+    @xlsAnswerArrays = xls_answer_arrays
+    respond_to do |format|
+      format.xlsx
+      format.html
+    end
   end
 
   def tag
@@ -316,11 +345,49 @@ class SurveysController < ApplicationController
     }
   end
 
+  def update_status
+    @survey.update(status: params[:status_value])
+    render json: {
+      message: "問卷狀態更新",
+      params: params
+    }
+  end
+
+  def update_opentime
+    @survey.update(opentime: params[:opentime])
+    render json: {
+      message: "預設開啟時間設定成功",
+      params: params
+    }
+  end
+
+  def update_closetime
+    @survey.update(closetime: params[:closetime])
+    render json: {
+      message: "預設關閉時間設定成功",
+      params: params
+    }
+  end
+
   def font_style
     @survey.update(font_style: params[:font_style])
     render json: {
       message: "字體更新成功"
     }
+  end
+
+  def theme
+    @survey.update(theme: params[:theme])
+    render json: {
+      message: "主題顏色更新成功"
+    }  
+  end
+
+  def background_color
+    @survey.update(background_color: params[:background_color])
+    render json: {
+      message: "背景顏色更新成功"
+    }  
   end
   
   private
@@ -336,6 +403,9 @@ class SurveysController < ApplicationController
       :font_style,
       :theme,
       :image,
+      :status,
+      :opentime,
+      :closetime,
       questions_attributes: [
         :_destroy,
         :id,

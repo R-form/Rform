@@ -3,10 +3,18 @@ import e from "turbolinks";
 
 
 export default class extends Controller {
+  static values ={ index: Boolean }
+
  show(e){
   e.preventDefault();
+  this.indexValue = !this.indexValue
   const slideover = document.querySelector(".slideover")
-  slideover.classList.remove("hidden")
- }  
+
+  if(this.indexValue){
+    slideover.classList.remove("invisible")
+  }else{
+    slideover.classList.add("invisible")
+  }
+ }   
   
 } 

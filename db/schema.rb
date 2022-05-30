@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_23_065243) do
+ActiveRecord::Schema.define(version: 2022_05_25_070506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,10 +105,11 @@ ActiveRecord::Schema.define(version: 2022_05_23_065243) do
     t.string "slug"
     t.string "tag"
     t.string "font_style"
-    t.string "theme"
+    t.string "theme", default: "#8E354A"
     t.string "status", default: "published"
     t.datetime "opentime", default: -> { "now()" }
     t.datetime "closetime"
+    t.string "background_color", default: "#DC9FB4"
     t.index ["slug"], name: "index_surveys_on_slug", unique: true
     t.index ["user_id"], name: "index_surveys_on_user_id"
   end

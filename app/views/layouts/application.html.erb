@@ -9,11 +9,10 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-
   </head>
 
-  <body>
-    <header class="px-1 bg-gentleYellow	">
+  <body data-controller="modal surveys" style="position:relative">
+    <header class="px-1 bg-gentleYellow	fixed z-10 w-full top-0">
       <div id="nav" class="flex w-full justify-between items-center">
         <div class="w-20 mx-12 my-4 text-3xl text-gray-700 italic">
            <%= link_to 'Rform', root_path%>
@@ -45,7 +44,7 @@
       <% end %>
         </div>
     </header>
-  <div>
+  <div class="w-full flex justify-center fixed z-10" >
     <p id="notice"><%= flash[:notice] %></p>
     <p id="alert"><%= flash[:alert] %></p>
   </div>

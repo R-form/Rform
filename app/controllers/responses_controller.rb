@@ -8,7 +8,12 @@ class ResponsesController < ApplicationController
   end
 
   def new
-    @response = @survey.responses.new
+    if @survey.published? && @survey.closetime > Time.now && @survey.opentime <= Time.now
+      @response = @survey.responses.new
+    else
+      
+      redirect_to submitted_survey_responses_path(@survey)
+    end
   end
 
   def create
@@ -22,11 +27,9 @@ class ResponsesController < ApplicationController
   end
 
   def submitted
-    
   end
 
   private
-
   def set_survey
     @survey = Survey.find(params[:survey_id])
   end
@@ -38,4 +41,5 @@ class ResponsesController < ApplicationController
   def response_params
     params.require(:response).permit(:survey_id, answers: {})
   end
+
 end
