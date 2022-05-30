@@ -6,9 +6,10 @@
         <h2 class="question_title"><%= question.title %></h2>
         <div class="question_content">
         <% case question.question_type %>
-        <% when 'single_choice' %>
+       
+        <% when "單選題" %>
             <p><%= (question.answers.find { |a| a.id.to_s == @response.answers[question.id.to_s] }) ?  question.answers.find { |a| a.id.to_s == @response.answers[question.id.to_s] }.title : "未填答"  %></p>
-        <% when 'multiple_choice' %>
+        <% when "多選題" %>
             <% if @response.multiple_choice_answers(question.id).uniq.length == 1 %>
                 <p>未填答</p>
             <% else %>
@@ -16,9 +17,9 @@
                 <p><%= answer.title %></p>
                     <% end %>  
             <% end %>
-        <% when 'long_answer' %>
+        <% when "問答題" %>
         <p><%= @response.answers[question.id.to_s] %></p>
-        <% when 'satisfaction' %>
+        <% when "滿意度" %>
         <table>
             <tr>
             <% question.answers.each do |answer| %>
@@ -35,20 +36,16 @@
             <% end %>
             </tr>
         </table>
-        <% when 'date' %>
+        <% when "日期" %>
             <%= date_field_tag question.id, @response.answers["#{question.id}"]%>
-        <% when 'time' %>
+        <% when "時間" %>
             <%= time_field_tag question.id, @response.answers["#{question.id}"] %>
-        <% when 'drop_down_menu' %>
+        <% when "下拉選單" %>
             <%= select_tag question.id, options_for_select(question.answers.collect{ |o| [o.title, o.id] }, @response.answers["#{question.id}"] ) %>
-        <% when 'range' %>
+        <% when "範圍" %>
             <%= range_field_tag question.id , @response.answers["#{question.id}"]  %>
-        <% when 'file' %>
+        <% when "上傳檔案" %>
             <%= file_field_tag question.id, accept: "application/pdf, application/zip", multiple: true %>
-        <% when 'image' %>
-            <% question.answers.each do |answer| %>
-                <%= image_tag answer.answerimg.variant(resize_to_limit: [200, 300]) %>
-            <% end %>
         <% end %>
         </div>
         </div>
