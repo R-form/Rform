@@ -69,8 +69,8 @@ export default class extends Controller {
     event.value = "";
   }
   change_question_image(event) {
-    this.change_question_imageTarget.childNodes[5].value = event.detail.id
-    this.change_question_imageTarget.childNodes[7].click()
+    this.change_question_imageTarget.querySelector('#question_id').value = event.detail.id
+    this.change_question_imageTarget.querySelector("input[type='file']").click()
   }
   change_image(event) {
     this.change_question_imageTarget.submit();

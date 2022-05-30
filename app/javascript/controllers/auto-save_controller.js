@@ -4,7 +4,7 @@ import Rails from "@rails/ujs";
 export default class extends Controller {
   static targets = ["form", "survey_id", "question", "answer"];
 
-  creatEvent(id){
+  creat_event(id){
    this.imageEvent = new CustomEvent("image", {
       detail: {
         id
@@ -224,7 +224,7 @@ export default class extends Controller {
     });
   }
   change_question_image(event) {
-    this.creatEvent(event.target.dataset.id);
+    this.creat_event(event.target.dataset.id);
     document.dispatchEvent(this.imageEvent);
   }
 }
