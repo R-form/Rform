@@ -412,8 +412,8 @@ class SurveysController < ApplicationController
   end
   
   def questions_list
-    question = @survey.questions.find(params[:question_id])
-    answer_select = question.answers.find(params[:answer_id]).skip_to_question_id
+    # question = @survey.questions.find(params[:question_id])
+    # answer_select = question.answers.find(params[:answer_id]).skip_to_question_id
     @questions = @survey.questions
     render json:{
       message:  @questions,

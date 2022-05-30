@@ -12,14 +12,14 @@ export default class extends Controller {
     const question_id = e.target.closest(".question").dataset.question_id;
     const answer_id = e.target.closest("#answer").firstElementChild.value;
 
-    const data = new FormData();
-    data.append("question_id", question_id);
-    data.append("answer_id", answer_id);
+    // const data = new FormData();
+    // data.append("question_id", question_id);
+    // data.append("answer_id", answer_id);
   
     Rails.ajax({
       type: "get", 
       url: `/surveys/${survey_id}/questions_list`,
-      data,
+      // data,
       success: ({message}) => {
         let select_option  = "" 
         message.forEach((element)=>{
@@ -40,7 +40,7 @@ export default class extends Controller {
           showCloseButton: true,
           showCancelButton: true,
           confirmButtonText:'儲存',
-          cancelButtonText: '取消',
+          cancelButtonText: '<span data-action="click->select-question#remove_question">取消</span>',
         })
 
     },
