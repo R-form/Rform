@@ -31,7 +31,7 @@
   <hr>
   <div>
     <% 0.upto(@chart_count-1) do |chart_index| %>
-      <div id="<%= chart_index.to_s %>" class="canvasContainer">
+      <div id="<%= chart_index %>" class="canvasContainer">
         <%= select_tag(:chart_type, options_for_select([['長條圖', 'bar'], ['圓餅圖', 'pie'], ['折線圖', 'line']]), data: { action: "change->stats#chartTypeSelect"}) %>
         <% 0.upto(@chart_types.count-1) do |chart_type_index| %>
           <div class="hidden canvasArea">
