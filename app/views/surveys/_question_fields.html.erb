@@ -18,11 +18,12 @@ data-survey-style-target="question" >
   <div class="choices_field"  data-nested-form-index-value ="ANSWER_RECORD" data-dynamic-select-target='choice' data-nested-form-target="add_item">
     <template data-nested-form-target='template'>
       <%= form.fields_for :answers, Answer.new, child_index: 'ANSWER_RECORD' do |answer| %>
-        <%= render 'answer_fields',form: answer %>
+        <%= render 'answer_fields', form: answer %>
       <% end %>
     </template>
     <%= form.fields_for :answers do |answer| %>
-      <%= render 'answer_fields', form: answer , id: "answer" %>
+      <%= render 'answer_fields',
+       form: answer, id: "answer" %>
     <% end %>
   </div>
   <div class="question_function">

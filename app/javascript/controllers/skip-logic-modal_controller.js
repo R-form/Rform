@@ -8,9 +8,11 @@ export default class extends Controller {
 
   open_alert(e) {
     e.preventDefault()
+
     const survey_id = this.survey_idTarget.dataset.id
     const question_id = e.target.closest(".question").dataset.question_id
     const answer_id = e.target.closest("#answer").firstElementChild.value
+    console.log(answer_id)
 
     const query = new URLSearchParams({ question_id, answer_id }).toString()
     Rails.ajax({

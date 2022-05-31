@@ -1,4 +1,6 @@
 <div class='group' id="answer">
+  <h1><%#= form.object.question&.question_type %></h1>
+
   <%= form.hidden_field :id, class: "answer_id",data:{"auto-save-target": "answer"}  %>
   <%= form.hidden_field :_destroy %>
   <input type="checkbox" name="" id="deco_checkbox" disabled>
@@ -6,8 +8,13 @@
   <%= link_to "刪除選項", data: { action: "click->nested-form#remove_association click->auto-save#remove_answer" }, class: "linkbtn" do %>
     <i class="fas fa-trash-alt"></i>
   <% end %>
-  <%= link_to "跳題","#",data: {
-    action: "click->skip-logic-modal#open_alert"},class: "btn" %>
+  
+  <% if form.object.question&.question_type != "多選題" %>
+  <%= link_to "跳題", "#", data: {
+    action: "click->skip-logic-modal#open_alert"}, 
+    class: "btn" %>
+  <% end %>
+
 </div>
 
 

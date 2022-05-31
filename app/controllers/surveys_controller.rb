@@ -353,7 +353,7 @@ class SurveysController < ApplicationController
   def update_status
     @survey.update(status: params[:status_value])
     render json: {
-      message: "問卷狀態更新",
+      message: '問卷狀態更新',
       params: params
     }
   end
