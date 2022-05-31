@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
     def update
         response = Newebpay::Mpgresponse.new(params[:TradeInfo])
         if response.success?
-        order = Order.find(response[:MerchantOrderNo])
+        order = Order.find(response.order_no)
         order.update(status: 1)
         end
     end
@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
     def done
         response = Newebpay::Mpgresponse.new(params[:TradeInfo])
         if response.success?
-          render html: response["MerchantOrderNo"]
+          render html: response.order_no
         else
           render html: "失敗"
         end
