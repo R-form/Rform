@@ -20,7 +20,7 @@ class OrdersController < ApplicationController
     end
     
     def done
-        
+        render html: params
     end
     
     private
