@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
     def done
         response = Newebpay::Mpgresponse.new(params[:TradeInfo])
         if response.success?
-          render html: "成功"
+          render html: response[:MerchantOrderNo]
         else
           render html: "失敗"
         end
