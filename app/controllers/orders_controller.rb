@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-    include HTTParty
+    skip_before_action :verify_authenticity_token, only: [:update, :done]
     before_action :set_user, except: [:update, :done]
 
     def index
