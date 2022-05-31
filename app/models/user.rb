@@ -14,6 +14,6 @@ class User < ApplicationRecord
   has_many :orders
 
   def status
-    self.orders.to_a.select { |e| e.status == 1}.nil? ?  "free" : "pro"
+    self.orders.to_a.select { |e| e.status == "paid"} == [] ?  "free" : "pro"
   end
 end

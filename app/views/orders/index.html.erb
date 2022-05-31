@@ -33,11 +33,13 @@
         </div>
     </div>
 
+<% if @form_info %>
 <%= form_with(url: "https://ccore.newebpay.com/MPG/mpg_gateway", method: :post, html: {name: "Newebpay"}, data: {orders_target:"form_post"}) do |form|  %>
 <%= form.text_field :MerchantID , value: @form_info[:MerchantID], class: "hidden" %>
 <%= form.text_field :TradeInfo , value: @form_info[:TradeInfo], class: "hidden"  %>
 <%= form.text_field :TradeSha , value: @form_info[:TradeSha], class: "hidden"  %>
 <%= form.text_field :Version , value: @form_info[:Version], class: "hidden"  %>
 <%= form.submit "" , class: "hidden" %>
+<% end %>
 <% end %>
 </div>

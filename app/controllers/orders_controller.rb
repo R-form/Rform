@@ -3,11 +3,10 @@ class OrdersController < ApplicationController
     before_action :set_user, except: [:update, :done]
 
     def index
-        order = @user.orders.create(name: "plan_pro", email: @user.email, amount: 100)
-        # @return_url = "#{request.protocol}#{request.host_with_port}#{orders_update_path}"
-        # @notify_url = "#{request.protocol}#{request.host_with_port}#{orders_update_path}"
+      if current_user.status == "free"
+        order = @user.orders.create(status: 0, name: "plan_pro", email: @user.email, amount: 100)
         @form_info = Newebpay::Mpg.new(order).form_info    
-        # render html: [@return_url,@notify_url, @form_info]
+      end
     end
         
     def create
@@ -24,9 +23,9 @@ class OrdersController < ApplicationController
     def done
         response = Newebpay::Mpgresponse.new(params[:TradeInfo])
         if response.success?
-          render :done
+          render :index
         else
-          render html: "失敗"
+          render html: "付款失敗"
         end
     end
     
