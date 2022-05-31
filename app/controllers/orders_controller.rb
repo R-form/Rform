@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
 
     def index
         order = @user.orders.create(name: "plan_pro", email: @user.email, amount: 100)
-        # @return_url = "#{request.protocol}#{request.host_with_port}#{orders_done_path}"
+        @return_url = "#{request.protocol}#{request.host_with_port}#{orders_update_path}"
         # @notify_url = "#{request.protocol}#{request.host_with_port}#{orders_update_path}"
         @form_info = Newebpay::Mpg.new(order).form_info    
         # render html: [@return_url,@notify_url, @form_info]
@@ -16,7 +16,9 @@ class OrdersController < ApplicationController
     def update
         response = Newebpay::Mpgresponse.new(params[:TradeInfo])
         order = Order.last
-        order.update(resp: [params, response])
+        order.update(resp: response)
+        # render html: response
+        redirect_to orders_done_path
     end
     
     def done

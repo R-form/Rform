@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :users do
     get :orders ,to: 'orders#index'
   end
-  post 'orders/done' => 'orders#done'
+  get 'orders/done' => 'orders#done'
   post 'orders/update' => 'orders#update'
   get 'login' => 'user_sessions#new', :as => :login
   post 'login' => 'user_sessions#create'
