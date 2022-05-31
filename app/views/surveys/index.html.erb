@@ -3,18 +3,11 @@
   <div class="container mt-4 mx-auto" data-controller="surveys" data-modal-allow-background-close="false" >
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" data-controller="sortable">
     <% @surveys.each_with_index do |survey, index| %>
-        <div class="m-2 transition-all duration-200 transform border border-gray-400 rounded-lg cursor-pointer card hover:shadow-md hover:border-opacity-0 hover:-translate-y-1" data-id="<%= survey.id %>"   >
+        <div class="m-2 transition-all duration-200 transform border border-gray-400 rounded-lg cursor-pointer card hover:shadow-md hover:border-opacity-0 hover:-translate-y-1" data-id="<%= survey.id %>" data-tags="<%= survey.tag %>" data-title="<%= survey.title %>" data-description="<%= survey.description %>" data-surveys-target="surveyCard">
           <div class="m-3">
               <h2 class="mb-2 text-lg truncate"><%= survey.title %></h2>
               <p class="font-mono text-sm font-light text-gray-700 truncate transition-all duration-200 hover:text-gray-900 "><%= survey.description %></p> 
-              <div class="flex" data-surveys-target="tagEditor" data-id="<%= survey.id %>">
-                <i class="px-2 py-4 fas fa-tags" title="分類標籤"></i>
-                <div class="w-full tagInput" id="<%= index %>">
-                  <%= form_with(model: survey, url: tag_survey_path(survey), method: "patch") do |form| %>
-                    <%= form.text_field :tag, data: {controller: "tag", action:"change->surveys#updateTags"} %>    
-                  <% end %>
-                </div>
-              </div> 
+ 
               <div class="flex justify-end mt-5">  
                 <%= link_to edit_survey_path(survey), title: "編輯問卷", class: "linkbtn" do %>
                   <i class="fas fa-pen"></i>
@@ -38,6 +31,14 @@
                   <i class="fas fa-trash-alt"></i>
                 <% end %>
               </div>
+              <div class="flex" data-surveys-target="tagEditor" data-id="<%= survey.id %>">
+              <i class="px-2 py-4 fas fa-tags" title="分類標籤"></i>
+              <div class="w-full tagInput" id="<%= index %>">
+                <%= form_with(model: survey, url: tag_survey_path(survey), method: "patch") do |form| %>
+                  <%= form.text_field :tag, data: {controller: "tag", action:"change->surveys#updateTags"} %>    
+                <% end %>
+              </div>
+            </div>
             </div>
 
         </div>
@@ -71,6 +72,10 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="fixed flex mx-4 bottom-8">
+      <input class="hidden" placeholder="搜尋標題敘述或分類標籤" data-surveys-target="searchInput" data-action="change->surveys#search"></input>
+      <i class="fas fa-search fa-2x" data-action="click->surveys#hideAndShowSearchBar"></i>
     </div>
   </div>
 </section>
