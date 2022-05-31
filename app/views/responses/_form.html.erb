@@ -1,4 +1,3 @@
-
 <style>
     <% if @survey.image.attached? %>
 .form_bg {
@@ -20,25 +19,29 @@
 </style>
 
 <div class="response_page bg-<%= @survey.background_color %> padding-for-fixed w-full <%= @survey.image.attached? ? "form_bg" : ""%> ">
+
+
     <section class="sections response-fields <%= @survey.font_style %> focus-within:outline-<%= @survey.theme %>" data-controller="responses">
     
     <div class="hidden" data-responses-target="survey_title">
       <h1 class="title text-5xl text-ironGray my-5"><%= @survey.title %></h1>
       <p class="description text-md text-ironGray break-words relative"><%= @survey.description %></p>
     </div>
-      <%= form_with model: [@survey, response] do |form| %>
+
+      <%= form_with model: [@survey, response], data: {controller: "responses"} do |form| %>
         <%= form.fields_for :answers do |response| %>
           <% @survey.questions.each do |question| %>
           <div class="question_field hidden my-10" data-responses-target="question" data-question_id="<%= question.id %>">
+
             <h1 class="question_title inline-block py-2 text-3xl text-gray-600">
               <%= question.title %>
               <% if question.required %>
                 <span class="text-sm">(必填)</span>
               <% end %>
               <p class="description text-base text-ironGray break-words"><%= question.description%></p>
-          <% if question.image.attached? %>
-            <%= image_tag question.image.variant(resize_to_limit: [250, 250]) %>
-          <% end %>
+              <% if question.image.attached? %>
+                <%= image_tag question.image.variant(resize_to_limit: [250, 250]) %>
+              <% end %>
             </h1>
             <span class="hidden bg-brightRed bg-brightOrange bg-brightYellow bg-brightGreen
             bg-brightBlue bg-brightNavy bg-brightGray hover:bg-softRed hover:bg-softOrange hover:bg-softYellow hover:bg-softGreen hover:bg-softBlue hover:bg-softNavy hover:bg-softGray"></span>
@@ -47,7 +50,7 @@
               <% when '單選題' %>
                 <% question.answers.each do |answer| %>
                   <label class= "response_choice bg-<%= @survey.theme %> hover:bg-<%= @survey.background_color %>" >
-                    <%= response.radio_button question.id, answer.id, required: question.required, class: 'radio_button h-6 w-6 ml-1 mr-3', data: {action: "change->responses#checked"} %>
+                    <%= response.radio_button question.id, answer.id, required: question.required, class: 'radio_button h-6 w-6 ml-1 mr-3', data: {action: "change->responses#checked", "skip_to_question_id": answer.skip_to_question_id } %>
                     <%= answer.title %>
                   </label>
                 <% end %>
@@ -72,7 +75,7 @@
                   <tr class="tr flex justify-around flex-wrap ">
                     <% question.answers.each do |answer| %>
                       <td>
-                        <%= response.radio_button question.id, answer.id, class: 'radio_button h-6 w-6'%>
+                        <%= response.radio_button question.id, answer.id, data_skip_to_question_id: answer.skip_to_question_id, class: 'radio_button h-6 w-6' %>
                       </td>
                     <% end %>
                   </tr>
