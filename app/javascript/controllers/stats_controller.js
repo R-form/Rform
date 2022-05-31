@@ -53,9 +53,8 @@ export default class extends Controller {
     let currentResponse = Number(this.currentResponseTarget.textContent)
     let responsesCount = Number(this.responsesCountTarget.textContent)
 
-    if (currentResponse >= 1) {
-      this.previousPageButtonTarget.classList.remove("hidden")
-    }
+    this.previousPageButtonTarget.classList.remove("hidden")
+
     if (currentResponse < responsesCount) {
       this.showSingleResponseTargets[currentResponse-1].classList.add("hidden")
       this.showSingleResponseTargets[currentResponse].classList.remove("hidden")
@@ -70,9 +69,8 @@ export default class extends Controller {
     let currentResponse = Number(this.currentResponseTarget.textContent)
     let responsesCount = Number(this.responsesCountTarget.textContent)
 
-    if (currentResponse <= responsesCount) {
-      this.nextPageButtonTarget.classList.remove("hidden")
-    }
+    this.nextPageButtonTarget.classList.remove("hidden")
+
     if (currentResponse > 1) {
       this.showSingleResponseTargets[currentResponse-1].classList.add("hidden")
       this.showSingleResponseTargets[currentResponse-2].classList.remove("hidden")
@@ -88,12 +86,21 @@ export default class extends Controller {
     let currentResponse = Number(this.currentResponseTarget.textContent)
     let responsesCount = Number(this.responsesCountTarget.textContent)
 
+    this.previousPageButtonTarget.classList.remove("hidden")
+    this.nextPageButtonTarget.classList.remove("hidden")
+
     if (jumpToPageNumber > 0 && jumpToPageNumber <= responsesCount) {
       this.showSingleResponseTargets[currentResponse-1].classList.add("hidden")
       this.showSingleResponseTargets[jumpToPageNumber-1].classList.remove("hidden")
       this.currentResponseTarget.textContent = jumpToPageNumber
     } else {
       alert("沒有這頁喔")
+    }
+    if (jumpToPageNumber == 1) {
+      this.previousPageButtonTarget.classList.add("hidden")
+    }
+    if (jumpToPageNumber == responsesCount) {
+      this.nextPageButtonTarget.classList.add("hidden")
     }
   }
 }
