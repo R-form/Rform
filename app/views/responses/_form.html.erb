@@ -1,5 +1,5 @@
 <style>
-    <% if @survey.image.attached? %>
+  <% if @survey.image.attached? %>
 .form_bg {
       background-image: url("<%= url_for(@survey.image) %>");
       position: relative;
@@ -15,14 +15,11 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
 }
-    <% end %>
+  <% end %>
 </style>
 
 <div class="response_page bg-<%= @survey.background_color %> padding-for-fixed w-full <%= @survey.image.attached? ? "form_bg" : ""%> ">
-
-
     <section class="sections response-fields <%= @survey.font_style %> focus-within:outline-<%= @survey.theme %>" data-controller="responses">
-    
     <div class="hidden" data-responses-target="survey_title">
       <h1 class="title text-5xl text-ironGray my-5"><%= @survey.title %></h1>
       <p class="description text-md text-ironGray break-words relative"><%= @survey.description %></p>
@@ -75,7 +72,7 @@
                   <tr class="tr flex justify-around flex-wrap ">
                     <% question.answers.each do |answer| %>
                       <td>
-                        <%= response.radio_button question.id, answer.id, data_skip_to_question_id: answer.skip_to_question_id, class: 'radio_button h-6 w-6' %>
+                        <%= response.radio_button question.id, answer.id, data_skip_to_question_id: answer.skip_to_question_id, class: 'radio_button h-6 w-6', data: {action: "change->responses#checked"} %>
                       </td>
                     <% end %>
                   </tr>
@@ -93,14 +90,15 @@
               <% end %>
             </div>
 
-            <%= form.button "上一題", data: { action: "click->responses#last" }, class: "response_button"%>
-            <%= form.button "下一題", data: { action: "click->responses#next" }, class: "response_button"%>
+            <%= form.button "上一題", data: { action: "click->responses#last", "responses_target": "previous_question" }, class: "response_button"%>
+            <%= form.button "下一題", data: { action: "click->responses#next", "responses_target": "next_question" }, class: "response_button"%>
           </div>
           <% end %>
         <% end %>
         <div class="response_submit hidden" data-responses-target="submit">
           <%= form.submit "送出問卷",class:"response_button" %>
         </div>
+
       <% end %>
   </section>
 </div>
