@@ -17,7 +17,7 @@
       <% end %>
     </template>
     <%= form.fields_for :answers do |answer| %>
-      <%= render 'answer_fields', form: answer , id: "answer" %>
+      <%= render 'answer_fields', form: answer , id: "answer" ,data-set %>
     <% end %>
   </div>
   <div class="question_function">
