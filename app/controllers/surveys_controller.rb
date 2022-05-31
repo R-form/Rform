@@ -77,7 +77,7 @@ class SurveysController < ApplicationController
       question_titles << question.title
 
       case question.question_type
-      when 'multiple_choice', 'single_choice', 'satisfaction', 'drop_down_menu'
+      when '多選題', '單選題', '滿意度', '下拉選單'
         answers_count = 0
         question.answers.each do |answer|
           answer_ids << answer.id
@@ -113,7 +113,7 @@ class SurveysController < ApplicationController
         response_question_answer = []
         current_response_answers = response.answers[question.id.to_s] 
         case question.question_type
-        when 'multiple_choice'
+        when '多選題'
           if current_response_answers.present?
             current_response_answers.delete('0')
             multiple_answers = []
@@ -131,7 +131,7 @@ class SurveysController < ApplicationController
             end
             xls_answer_array << multiple_answers.join(', ')
           end
-        when 'single_choice', 'satisfaction', 'drop_down_menu'
+        when '單選題', '滿意度', '下拉選單'
           answer_index = 0
           if current_response_answers.present?
             while answer_index < answers_counts.sum
@@ -146,8 +146,9 @@ class SurveysController < ApplicationController
           else
             xls_answer_array << ''
           end
-        when 'long_answer', 'date', 'time', 'range'
-          response_question_answer << current_response_answers
+
+        when '問答題', '日期', '時間', '範圍'
+          response_answer_datas << current_response_answers
           xls_answer_array << current_response_answers
           xls_answer_arrays << xls_answer_array
         end
@@ -182,7 +183,7 @@ class SurveysController < ApplicationController
     
     @survey.questions.each do |question|
       case question.question_type
-      when 'multiple_choice' , 'single_choice', 'satisfaction', 'drop_down_menu'
+      when '多選題' , '單選題', '滿意度', '下拉選單'
           
         slice_from += answers_counts[chart_index]
         slice_length = answers_counts[chart_index+1]  
@@ -343,6 +344,30 @@ class SurveysController < ApplicationController
     }
   end
 
+  def update_status
+    @survey.update(status: params[:status_value])
+    render json: {
+      message: "問卷狀態更新",
+      params: params
+    }
+  end
+
+  def update_opentime
+    @survey.update(opentime: params[:opentime])
+    render json: {
+      message: "預設開啟時間設定成功",
+      params: params
+    }
+  end
+
+  def update_closetime
+    @survey.update(closetime: params[:closetime])
+    render json: {
+      message: "預設關閉時間設定成功",
+      params: params
+    }
+  end
+
   def font_style
     @survey.update(font_style: params[:font_style])
     render json: {
@@ -377,6 +402,9 @@ class SurveysController < ApplicationController
       :font_style,
       :theme,
       :image,
+      :status,
+      :opentime,
+      :closetime,
       questions_attributes: [
         :_destroy,
         :id,
