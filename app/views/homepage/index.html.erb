@@ -6,8 +6,7 @@
                 <p class="max-w-md mt-4 text-gray-600">
                     餐廳滿意度調查、研究報告蒐集、民意調查、消費行為調查，生活中處處充滿需要問卷的時候，快來 Rform 免費建立自己的問卷吧！</p>
                 <div class="my-5">
-                  <%=link_to '免費申請體驗', new_users_path, class:"sendbtn" if current_user.nil?%>
-                  <%=link_to '免費申請體驗', surveys_path, class:"sendbtn" if logged_in?%>
+                  <%=link_to '免費申請體驗', surveys_path, class:"sendbtn"%>
                 </div>
             </div>
 
