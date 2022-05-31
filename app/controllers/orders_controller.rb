@@ -16,12 +16,12 @@ class OrdersController < ApplicationController
     def update
         response = Newebpay::Mpgresponse.new(params[:TradeInfo])
         order = Order.last
-        order.update(resp: [response, params])
+        order.update(resp: { response })
     end
     
     def done
         response = Newebpay::Mpgresponse.new(params[:TradeInfo])
-        render html: response
+        render html: { response }
     end
     
     private
