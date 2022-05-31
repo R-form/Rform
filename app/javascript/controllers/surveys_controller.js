@@ -3,7 +3,7 @@ import QRCode from "qrcode";
 import Rails from "@rails/ujs";
 
 export default class extends Controller {
-  static targets = ["short_url", "short_url_in_edit", "tagEditor", "tagLabel", "tagValues"];
+  static targets = ["short_url", "short_url_in_edit", "tagEditor"];
 
   share(e) {
     e.preventDefault();
@@ -15,38 +15,18 @@ export default class extends Controller {
       qrcode.remove();
     }
   }
+  updateTags(e) {
+    const currentTarget = e.target
+    const currentTargetId = currentTarget.closest(".tagInput").id
+    const tagValues = currentTarget.value
+    const surveyId = this.tagEditorTargets[currentTargetId].dataset.id
 
-  hideAndShowTagInput(e) {
-    const currentTarget = e.target.closest("button")
-    const tagEditor = this.tagEditorTargets[currentTarget.id]
-    const tagLabel = this.tagLabelTargets[currentTarget.id]
-    const tagValues = this.tagValuesTargets[currentTarget.id].value
-    const id = currentTarget.dataset.id
-
-    tagEditor.classList.toggle("hidden")
-    tagLabel.classList.toggle("hidden")
-
-    console.log(e.target.closest("form"))
-    // tagEditor.addEventListener("keyup", (e)=>{
-    //   if (e.key === "Enter"){
-    //     const data = new FormData();
-    //     data.append("tag", tagValues);
-
-    //     Rails.ajax({
-    //       type: "patch",
-    //       url: `/surveys/${id}/tag`,
-    //       data,
-    //       success: ({ message }) => {},
-    //       error: (err) => {},
-    //     });
-    //   }
-    // })
     const data = new FormData();
     data.append("tag", tagValues);
 
     Rails.ajax({
       type: "patch",
-      url: `/surveys/${id}/tag`,
+      url: `/surveys/${surveyId}/tag`,
       data,
       success: ({ message }) => {},
       error: (err) => {},

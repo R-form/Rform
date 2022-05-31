@@ -7,25 +7,15 @@
           <div class="m-3">
               <h2 class="mb-2 text-lg truncate"><%= survey.title %></h2>
               <p class="font-mono text-sm font-light text-gray-700 truncate transition-all duration-200 hover:text-gray-900 "><%= survey.description %></p> 
-              <div>
-                <%= form_with(model: survey, url: tag_survey_path(survey), method: "patch") do |form| %>
-                <div id="tagEditor" class="hidden" data-surveys-target="tagEditor">
-                  <%= form.text_field :tag, data: {controller: "tag", surveys_target: "tagValues"} %>
-                </div>
-                <div id="tagLabel" data-surveys-target="tagLabel">
-                  <% if survey.tag != nil %>
-                  <% survey.tag.split(',') do |currentTag| %>
-                    <button class="tagbtn"><%= currentTag %></button>
-                  <% end %>
+              <div class="flex" data-surveys-target="tagEditor" data-id="<%= survey.id %>">
+                <i class="px-2 py-4 fas fa-tags" title="分類標籤"></i>
+                <div class="w-full tagInput" id="<%= index %>">
+                  <%= form_with(model: survey, url: tag_survey_path(survey), method: "patch") do |form| %>
+                    <%= form.text_field :tag, data: {controller: "tag", action:"change->surveys#updateTags"} %>    
                   <% end %>
                 </div>
-                <% end %>
               </div> 
-              <div class="flex justify-end mt-5">
-                <button id="<%= index.to_s %>" title="分類標籤" class="linkbtn" data-id="<%= survey.id %>" data-action="click->surveys#hideAndShowTagInput">
-                <i class="fas fa-tags"></i>
-                </button>
-                             
+              <div class="flex justify-end mt-5">  
                 <%= link_to edit_survey_path(survey), title: "編輯問卷", class: "linkbtn" do %>
                   <i class="fas fa-pen"></i>
                 <% end %>
