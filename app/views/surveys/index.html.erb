@@ -2,18 +2,33 @@
   <h1 class="text-5xl text-center text-gray-700 mt-4"><%= link_to '我的問卷', surveys_path %></h1>
   <div class="container mt-4 mx-auto" data-controller="surveys" data-modal-allow-background-close="false" >
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" data-controller="sortable">
-      <% @surveys.each do |survey| %>
-        <div class="card m-2 cursor-pointer border border-gray-400 rounded-lg hover:shadow-md hover:border-opacity-0 transform hover:-translate-y-1 transition-all duration-200" data-id="<%= survey.id %>"   >
-          
-            <div class="m-3">
-              <span class="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">Tag</span>
-              <h2 class="text-lg mb-2 truncate"><%= survey.title %></h2>
-              <p class="font-light font-mono text-sm text-gray-700 hover:text-gray-900 transition-all duration-200  truncate "><%= survey.description %></p> 
-              <div class="mt-5 flex justify-end">
-                             
-                  <%= link_to edit_survey_path(survey), class: "linkbtn" do %>
-                    <i class="fas fa-pen"></i>
+    <% @surveys.each_with_index do |survey, index| %>
+        <div class="m-2 transition-all duration-200 transform border border-gray-400 rounded-lg cursor-pointer card hover:shadow-md hover:border-opacity-0 hover:-translate-y-1" data-id="<%= survey.id %>"   >
+          <div class="m-3">
+              <h2 class="mb-2 text-lg truncate"><%= survey.title %></h2>
+              <p class="font-mono text-sm font-light text-gray-700 truncate transition-all duration-200 hover:text-gray-900 "><%= survey.description %></p> 
+              <div>
+                <%= form_with(model: survey, url: tag_survey_path(survey), method: "patch") do |form| %>
+                <div id="tagEditor" class="hidden" data-surveys-target="tagEditor">
+                  <%= form.text_field :tag, data: {controller: "tag", surveys_target: "tagValues"} %>
+                </div>
+                <div id="tagLabel" data-surveys-target="tagLabel">
+                  <% if survey.tag != nil %>
+                  <% survey.tag.split(',') do |currentTag| %>
+                    <button class="tagbtn"><%= currentTag %></button>
                   <% end %>
+                  <% end %>
+                </div>
+                <% end %>
+              </div> 
+              <div class="flex justify-end mt-5">
+                <button id="<%= index.to_s %>" title="分類標籤" class="linkbtn" data-id="<%= survey.id %>" data-action="click->surveys#hideAndShowTagInput">
+                <i class="fas fa-tags"></i>
+                </button>
+                             
+                <%= link_to edit_survey_path(survey), title: "編輯問卷", class: "linkbtn" do %>
+                  <i class="fas fa-pen"></i>
+                <% end %>
 
                 <%= link_to duplicate_survey_path(survey), class: "linkbtn" do %>
                   <i class="fas fa-copy"></i>
@@ -31,13 +46,6 @@
               
                 <%= link_to survey, method: :delete, data: { confirm: '確定要刪除問卷嗎?' }, class: "linkbtn" do%>
                   <i class="fas fa-trash-alt"></i>
-                <% end %>
-              </div>
-              <div>
-                <%= form_with(model: survey, url: survey_tag_path(survey), method: "patch") do |form| %>
-                  <%= form.label :tag %>
-                  <%= form.text_field :tag, data: {controller: "tag"} %>
-                  <%= form.submit "更新分類標籤" %>
                 <% end %>
               </div>
             </div>

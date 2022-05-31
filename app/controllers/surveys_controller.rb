@@ -223,10 +223,7 @@ class SurveysController < ApplicationController
   end
 
   def tag
-    survey = Survey.find(params[:survey_id])
-    tag = params[:survey][:tag]
-    survey.update(tag: tag)
-    redirect_to surveys_path(survey)
+    @survey.update(tag: params[:tag])
   end
 
   def sort
