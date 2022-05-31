@@ -12,4 +12,8 @@ class User < ApplicationRecord
   has_many :surveys, -> { order(position: :asc) } , :dependent => :destroy
   has_many :authentications, :dependent => :destroy
   has_many :orders
+
+  def status
+    self.orders.to_a.select { |e| e.status == 1}.nil? ?  "free" : "pro"
+  end
 end
