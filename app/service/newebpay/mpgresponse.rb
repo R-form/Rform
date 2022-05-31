@@ -1,5 +1,5 @@
 module Newebpay
-    class MpgResponse
+    class Mpgresponse
         # 使用 attr_reader 可以更方便取用這些資訊
         attr_reader :status, :message, :result, :order_no, :trans_no
 

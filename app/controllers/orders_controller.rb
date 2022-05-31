@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
     end
     
     def update
-        response = Newebpay::MpgResponse.new(params[:TradeInfo])
+        response = Newebpay::Mpgresponse.new(params[:TradeInfo])
         order = Orders.max
         order.update(ps: response)
     end
