@@ -15,13 +15,19 @@ class OrdersController < ApplicationController
     
     def update
         response = Newebpay::Mpgresponse.new(params[:TradeInfo])
-        order = Order.last
-        order.update(resp: { response })
+        if response.success?
+        order = Order.find(response.MerchantOrderNo)
+        order.update(status: 1)
+        end
     end
     
     def done
         response = Newebpay::Mpgresponse.new(params[:TradeInfo])
-        render html: { response }
+        if response.success?
+          render html: "成功"
+        else
+          render html: "失敗"
+        end
     end
     
     private
