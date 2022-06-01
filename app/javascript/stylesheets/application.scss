@@ -31,19 +31,3 @@ select {
 .linkbtn {
   @apply w-10 h-10 bg-gray-500 hover:bg-gray-700 text-white font-bold p-2 mx-2 rounded-full text-center;
 }
-
-tagbtn{
-  display: inline-block;
-  vertical-align: middle;
-  border-radius: 20px;
-  padding: 4px 10px;
-  font-size: 12px;
-  font-weight: 500;
-  margin-right: 3.75px;
-  margin-bottom: 3.75px;
-  background-color: #00bcd4;
-  border: 1px solid #00a5bb;
-  color: #fff;
-  word-break: break-all;
-  box-sizing: border-box;
-}
