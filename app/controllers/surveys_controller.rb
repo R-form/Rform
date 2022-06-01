@@ -18,7 +18,7 @@ class SurveysController < ApplicationController
 
   def edit
     @survey.questions.order(:position)
-    @survey_url = "#{ENV['HOST_NAME']}/to/#{params[:id]}"
+    @survey_url = "#{request.protocol}#{request.host_with_port}/to/#{params[:id]}"
   end
 
   def create
@@ -292,6 +292,13 @@ class SurveysController < ApplicationController
     }
   end
 
+  def question_image
+    question = Question.find(params[:question_id])
+    question.image.attach(params[:image])
+    redirect_to edit_survey_path(params[:survey_id])
+  end
+  
+
   def save_checkbox
     question = @survey.questions.find(params[:question_id])
     question.update(required: !question.required)
@@ -319,7 +326,7 @@ class SurveysController < ApplicationController
       params: params
     }
   end
-
+  
   def remove_question
     question = @survey.questions.find(params[:question_id])
     question.destroy
@@ -424,7 +431,7 @@ class SurveysController < ApplicationController
         :required,
         :position,
         :description,
-        {images: []},
+        :image,
         { answers_attributes: %i[
           _destroy
           id
