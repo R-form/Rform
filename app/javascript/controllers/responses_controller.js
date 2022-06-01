@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["question", "previous_question", "next_question"]
+  static targets = ["question", "previous_question", "next_question", "submit"]
 
   connect() {
     this.questionTarget.classList.remove("hidden")
@@ -24,13 +24,20 @@ export default class extends Controller {
 
     question.classList.add("hidden")
     this.skip_from_question_id.push(question_id)
-
+    const next_question = question.nextElementSibling
     const skip_question = this.element.querySelector(`div [data-question_id='${this.skip_to_question_id}']`)
+    const final_question_id = this.questionTargets[this.questionTargets.length - 1].dataset.question_id
 
     if (this.skip_to_question_id && this.skip_to_question_id != 0 && this.skip_to_question_id != question_id) {
       skip_question.classList.remove("hidden")
+      if (this.skip_to_question_id == final_question_id) {
+        this.submitTarget.classList.remove("hidden")
+      }
     } else {
-      question.nextElementSibling.classList.remove("hidden")
+      next_question.classList.remove("hidden")
+      if (next_question.dataset.question_id == final_question_id) {
+        this.submitTarget.classList.remove("hidden")
+      }
     }
     this.skip_to_question_id = ""
   }
