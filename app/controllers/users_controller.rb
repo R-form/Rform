@@ -20,11 +20,16 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-
-    respond_to do |format|
       if @user.save
-        format.html { redirect_to users_url(@user), notice: 'User was successfully created.' }
+        login_user = login(user_params[:email], user_params[:password])
+        if login_user
+          redirect_back_or_to(surveys_path, notice: 'Login successful')
+        else
+          flash.now[:alert] = 'Login failed'
+          render action: 'new'
+        end
       else
+        respond_to do |format|
         format.html { render :new, status: :unprocessable_entity }
       end
     end
