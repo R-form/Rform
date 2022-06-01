@@ -3,7 +3,7 @@ class PasswordResetsController < ApplicationController
   def create 
     @user = User.find_by_email(params[:email])    
     @user.deliver_reset_password_instructions! if @user
-    redirect_to(root_path, notice: 'Instructions have been sent to your email.')
+    redirect_to(root_path, notice: '忘記密碼的指示已經送到email內')
   end
     
   def edit
@@ -26,7 +26,7 @@ class PasswordResetsController < ApplicationController
 
     user.password_confirmation = params[:user][:password_confirmation]
     if user.change_password(params[:user][:password])
-      redirect_to(root_path, :notice => 'Password was successfully updated.')
+      redirect_to(root_path, :notice => '密碼成功更新')
     else
       render :action => "edit"
     end
