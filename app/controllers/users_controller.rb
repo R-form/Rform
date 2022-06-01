@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    redirect_to(surveys_path, notice: 'Login successful')
+    redirect_to(surveys_path, notice: '登入成功')
   end
 
   def new
@@ -23,9 +23,9 @@ class UsersController < ApplicationController
       if @user.save
         login_user = login(user_params[:email], user_params[:password])
         if login_user
-          redirect_back_or_to(surveys_path, notice: 'Login successful')
+          redirect_back_or_to(surveys_path, notice: '登入成功')
         else
-          flash.now[:alert] = 'Login failed'
+          flash.now[:alert] = '登入失敗'
           render action: 'new'
         end
       else
@@ -38,7 +38,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if current_user.update(user_params)
-        format.html { redirect_to users_url(current_user), notice: 'User was successfully updated.' }
+        format.html { redirect_to users_url(current_user), notice: '使用者成功更新' }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -49,7 +49,7 @@ class UsersController < ApplicationController
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      format.html { redirect_to users_url, notice: '使用者成功刪除' }
     end
   end
 
