@@ -1,10 +1,6 @@
 .question_title {
 }
 
-.res_fields {
-  @apply  rounded overflow-hidden shadow-lg bg-white p-3 focus-within:outline-ironGray
-}
-
 .response-fields {
   @apply rounded overflow-hidden shadow-lg bg-white p-12 focus-within:outline-ironGray;
 }
