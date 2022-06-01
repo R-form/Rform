@@ -7,7 +7,7 @@ export default class extends Controller {
   static targets = ["survey_id", "form", "color", "background_color"];
 
   connect() {
-    new huebee(this.colorTarget, {
+    this.theme = new huebee(this.colorTarget, {
       staticOpen: true,
       customColors: [
         "#8E354A",
@@ -23,7 +23,7 @@ export default class extends Controller {
       hues: 4,
     });
 
-    new huebee(this.background_colorTarget, {
+    this.backgroundColor = new huebee(this.background_colorTarget, {
       staticOpen: true,
       customColors: [
         "#DC9FB4",
@@ -138,5 +138,10 @@ export default class extends Controller {
       success: ({ message }) => {},
       error: (err) => {},
     });
+  }
+
+  disconnect() {
+    this.theme.remove();
+    this.backgroundColor.remove();
   }
 }
