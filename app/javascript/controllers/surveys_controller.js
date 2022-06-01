@@ -3,7 +3,7 @@ import QRCode from "qrcode";
 import Rails from "@rails/ujs";
 
 export default class extends Controller {
-  static targets = ["short_url", "short_url_in_edit", "tagEditor", "surveyCard", "searchInput"];
+  static targets = ["short_url", "short_url_in_edit", "tagEditor", "tagValue", "surveyCard", "searchInput"];
 
   share(e) {
     e.preventDefault();
@@ -22,12 +22,12 @@ export default class extends Controller {
   }
 
   search(e) {
-    let searchValue = e.target.value
+    const searchValue = e.target.value.toLowerCase()
 
-    this.surveyCardTargets.forEach((surveyCard)=>{
-      let surveyTags = surveyCard.dataset.tags
-      let surveyTitle = surveyCard.dataset.title
-      let surveyDescription = surveyCard.dataset.description
+    this.surveyCardTargets.forEach((surveyCard, index)=>{
+      const surveyTags = this.tagValueTargets[index].value.toLowerCase()
+      const surveyTitle = surveyCard.dataset.title.toLowerCase()
+      const surveyDescription = surveyCard.dataset.description.toLowerCase()
 
       surveyCard.classList.add("hidden")
       if (surveyTags.includes(searchValue) || surveyTitle.includes(searchValue) || surveyDescription.includes(searchValue)) {
