@@ -33,7 +33,7 @@ export default class extends Controller {
     }
   }
 
-  last(e) {
+  previous(e) {
     e.preventDefault()
     const question_count = this.skip_from_question_id.length
     const previous_question_id = this.skip_from_question_id[Number(question_count) - 1]
