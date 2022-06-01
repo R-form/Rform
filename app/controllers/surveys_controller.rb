@@ -67,20 +67,14 @@ class SurveysController < ApplicationController
   def stats
     question_ids = []
     question_titles = []
-    question_types = []
     answer_ids = []
     answer_titles = []
-    answer_question_ids = []
-    question_answer_data = []
     answers_counts = [0]
   
     # combine question and answers
     @survey.questions.each do |question|
       question_ids << question.id
       question_titles << question.title
-      question_types << question.question_type
-      question_answer_data << question.title
-      question_answer_data << question.question_type
 
       case question.question_type
       when '多選題', '單選題', '滿意度', '下拉選單'
@@ -88,9 +82,7 @@ class SurveysController < ApplicationController
         question.answers.each do |answer|
           answer_ids << answer.id
           answer_titles << answer.title
-          answer_question_ids << answer.question_id
           if answer.question_id == question.id
-            question_answer_data << answer.title
             answers_count += 1
           end
         end
@@ -99,19 +91,15 @@ class SurveysController < ApplicationController
       
     end
    
-    @questionAnswerDatas = question_answer_data
-  
     # deal with responses  
     response_index = 0
-    response_answer_datas = []
+    response_question_index = 0
     response_answer_ids = []
     xls_answer_arrays = []
-
+    response_jsons = []
+    response_question_answers = []
+    
     @survey.responses.each do |response|
-      response_answer_datas << '==========================='
-      response_answer_datas << '第' + (response_index+1).to_s + '份'
-      response_answer_datas << '==========================='
-
       xls_answer_array = [response.created_at]
       key_index = 0
       while key_index < question_ids.length
@@ -120,8 +108,9 @@ class SurveysController < ApplicationController
         end
         key_index += 1
       end
+
       @survey.questions.each do |question|
-        response_answer_datas << question.title
+        response_question_answer = []
         current_response_answers = response.answers[question.id.to_s] 
         case question.question_type
         when '多選題'
@@ -132,10 +121,10 @@ class SurveysController < ApplicationController
               answer_index = 0
               while answer_index < answers_counts.sum
                 if current_response_answer == answer_ids[answer_index].to_s
-                  response_answer_datas << answer_titles[answer_index]
+                  response_question_answer << answer_titles[answer_index]
                   multiple_answers << answer_titles[answer_index]
-
                   response_answer_ids << answer_ids[answer_index]
+                  break
                 end
                 answer_index += 1
               end
@@ -147,31 +136,42 @@ class SurveysController < ApplicationController
           if current_response_answers.present?
             while answer_index < answers_counts.sum
               if current_response_answers == answer_ids[answer_index].to_s
-                response_answer_datas << answer_titles[answer_index]
+                response_question_answer << answer_titles[answer_index]
                 response_answer_ids << answer_ids[answer_index]
                 xls_answer_array << answer_titles[answer_index]
+                break
               end
               answer_index += 1
             end
           else
             xls_answer_array << ''
           end
+
         when '問答題', '日期', '時間', '範圍'
           response_answer_datas << current_response_answers
           xls_answer_array << current_response_answers
-        xls_answer_arrays << xls_answer_array
+          xls_answer_arrays << xls_answer_array
         end
+
+        response_question_answers << response_question_answer
+
+        response_jsons[response_question_index] = {
+          responseIndex: response_index,
+          questionTitles: question.title,
+          responseAnswerTitles: response_question_answers[response_question_index],
+        }
+        response_question_index += 1
       end
       response_index += 1    
     end
 
+    @responseJsons = response_jsons
+    
     sum_of_response_answer_ids = []
 
     answer_ids.each do |answer_id|
       sum_of_response_answer_ids << response_answer_ids.count(answer_id)
     end
-
-    @responseAnswerDatas = response_answer_datas
 
     # create charts
     chart_index = 0
@@ -213,6 +213,7 @@ class SurveysController < ApplicationController
     @chart_options = chart_options
     @chart_count = chart_index
     @canvas_target_name = canvas_target_name
+
     #excel
     @questionTitles = question_titles.insert(0,'時間')
     @xlsAnswerArrays = xls_answer_arrays
