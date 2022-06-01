@@ -1,0 +1,12 @@
+/users/2/edit?a=2&b=3&c=4
+
+params[:id] => 2
+params[:a] => 2
+params[:b] => 3
+params[:c] => 4
+
+GET /users/login?username=1111&password=22222
+
+qs = new URLSSS(aaa).toString()
+GET /users/login?qs 
+FormData
