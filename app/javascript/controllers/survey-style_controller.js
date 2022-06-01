@@ -1,20 +1,20 @@
 import { Controller } from "stimulus"
 import Rails from "@rails/ujs"
-import huebee from "huebee"
+import Huebee from "huebee"
 import "huebee/dist/huebee.min"
 
 export default class extends Controller {
   static targets = ["survey_id", "form", "color", "background_color", "responses", "question"]
 
   connect() {
-    this.theme = new huebee(this.colorTarget, {
+    new Huebee(this.colorTarget, {
       staticOpen: true,
       customColors: ["#8E354A", "#E62", "#EA0", "transparent", "#6C6", "#19F", "#2B5F75", "#7A7573"],
       shades: 0,
       hues: 4,
     })
 
-    this.backgroundColor = new huebee(this.background_colorTarget, {
+    new Huebee(this.background_colorTarget, {
       staticOpen: true,
       customColors: ["#DC9FB4", "#eca38f", "#ffc97b", "transparent", "#bfe8c5", "#bfe2e8", "#6699A1", "#a4b5c4"],
       shades: 0,
