@@ -11,7 +11,7 @@ export default class extends Controller {
 
     const survey_id = this.survey_idTarget.dataset.id
     const question_id = e.target.closest(".question").dataset.question_id
-    const answer_id = e.target.closest("#answer").firstElementChild.value
+    const answer_id = document.querySelector("#answer").firstElementChild.value
 
     const query = new URLSearchParams({ question_id, answer_id }).toString()
     Rails.ajax({
