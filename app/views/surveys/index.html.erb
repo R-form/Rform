@@ -34,7 +34,7 @@
                 <% end %>
               </div>
               <div>
-                <%= form_with(model: survey, url: survey_tag_path(survey), method: "patch") do |form| %>
+                <%= form_with(model: survey, url: tag_survey_path(survey), method: "patch") do |form| %>
                   <%= form.label :tag %>
                   <%= form.text_field :tag, data: {controller: "tag"} %>
                   <%= form.submit "更新分類標籤" %>

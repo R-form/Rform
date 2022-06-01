@@ -4,7 +4,11 @@ class SurveysController < ApplicationController
   before_action :find_survey, except: %i[index new create]
 
   def index
-    @surveys = current_user.surveys
+    if logged_in?
+      @surveys = current_user.surveys
+    else
+      redirect_to new_users_path
+    end
   end
 
   def show; end
@@ -41,7 +45,7 @@ class SurveysController < ApplicationController
     redirect_to surveys_path, notice: '問卷已刪除'
   end
 
-  def duplicate_survey
+  def duplicate
     dup = @survey.deep_clone include: {questions: :answers }
     dup.title.insert(-1, " - 副本")
     if dup.save 

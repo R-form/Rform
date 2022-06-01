@@ -3,10 +3,8 @@
 Rails.application.routes.draw do
   
   root 'homepage#index'
-  resources :users
-  get 'login' => 'user_sessions#new', :as => :login
-  post 'login' => 'user_sessions#create'
-  post 'logout' => 'user_sessions#destroy', :as => :logout
+  resource :users
+  resource :user_sessions, only: [:new, :create, :destroy]
 
   resources :surveys do
     resources :responses do
@@ -38,16 +36,18 @@ Rails.application.routes.draw do
       patch :question_image
       get :stats
       patch :background_color
-    end 
-
-    get 'duplicate', on: :member , to: "surveys#duplicate_survey"
-    patch :tag
+      get :duplicate
+      patch :tag
+    end
   end
   
-  post "oauth/callback" => "oauths#callback"
-  get "oauth/callback" => "oauths#callback" # for use with Github, Facebook
-  get "oauth/:provider" => "oauths#oauth", :as => :auth_at_provider
-  get "survey_style", to:"survey#style"
+  resources :oauths, only: [] do
+    collection do
+      post :callback
+      get :callback
+      get :provider
+    end
+  end
 
   resources :password_resets, only: [:new, :create, :edit, :update]
   get 'to/:survey_id' , as: 'responses_new' , to: 'responses#new'
