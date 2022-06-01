@@ -28,7 +28,7 @@ export default class extends Controller {
   }
 
   creat_event(id){
-   this.imageEvent = new CustomEvent("image", {
+   this.question_imageEvent = new CustomEvent("question_image", {
       detail: {
         id
       }
@@ -248,6 +248,6 @@ export default class extends Controller {
   }
   change_question_image(event) {
     this.creat_event(event.target.dataset.id);
-    document.dispatchEvent(this.imageEvent);
+    document.dispatchEvent(this.question_imageEvent);
   }
 }
