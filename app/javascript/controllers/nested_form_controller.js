@@ -11,13 +11,11 @@ export default class extends Controller {
     question.setAttribute("data-nested-form-target", "question_copy");
 
     if (this.question_copyTarget) {
-      const id = question.dataset.id;
-      const question_id = question.dataset.question_id;
+      const { id } = question.dataset;
+      const { question_id } = question.dataset;
       question.insertAdjacentHTML("afterend", question.outerHTML);
       const new_question = question.nextElementSibling;
-      const new_question_answers = new_question.querySelectorAll(
-        "#answer"
-      );
+      const new_question_answers = new_question.querySelectorAll("#answer");
 
       const new_question_title = new_question.querySelector(".q_title");
       new_question_title.value = `${new_question_title.value} - 副本`;
@@ -47,15 +45,16 @@ export default class extends Controller {
       new Date().getTime()
     );
     this.add_itemTarget.insertAdjacentHTML("beforebegin", content);
-    this.add_itemTarget.previousElementSibling.querySelector('.q_title').focus()
+    this.add_itemTarget.previousElementSibling
+      .querySelector(".q_title")
+      .focus();
   }
 
   add_answer(event) {
     event.preventDefault();
-    let content = this.templateTarget.innerHTML
+    let content = this.templateTarget.innerHTML;
     this.add_itemTarget.insertAdjacentHTML("beforeend", content);
   }
-
 
   remove_association(event) {
     event.preventDefault();

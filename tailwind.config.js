@@ -1,16 +1,30 @@
 module.exports = {
-  mode: 'jit', 
+  mode: "jit",
   purge: [
-    "./app/**/*.html.erb",
+    "./app/views/**/*.{erb,html}",
     "./app/helpers/**/*.rb",
     "./app/javascript/**/*.js",
   ],
-  safelist:[
+  safelist: [
     "gentleYellow",
     "ironGray",
     "ironGrayHover",
     "footerBlack",
     "bgGray",
+    "brightRed",
+    "brightOrange",
+    "brightYellow",
+    "brightGreen",
+    "brightBlue",
+    "brightNavy",
+    "brightGray",
+    "softRed",
+    "softOrange",
+    "softYellow",
+    "softGreen",
+    "softBlue",
+    "softNavy",
+    "softGray",
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -21,9 +35,31 @@ module.exports = {
         ironGrayHover: "#A5A2A0",
         footerBlack: "#1A1919",
         bgGray: "#a4b5c4",
+        brightRed: "#8E354A",
+        brightOrange: "#E62",
+        brightYellow: "#EA0",
+        brightGreen: "#6C6",
+        brightBlue: "#19F",
+        brightNavy: "#2B5F75",
+        brightGray: "#7A7573",
+        softRed: "#DC9FB4",
+        softOrange: "#eca38f",
+        softYellow: "#ffc97b",
+        softGreen: "#bfe8c5",
+        softBlue: "#bfe2e8",
+        softNavy: "#6699A1",
+        softGray: "#a4b5c4",
       },
       outline: {
-        ironGray: "3px solid #66BB6A",
+        ironGrayHover: "3px solid #A5A2A0",
+        brightRed: "3px solid #8E354A",
+        brightOrange: "3px solid #E62",
+        brightYellow: "3px solid #EA0",
+        transparent: "3px solid #transparent",
+        brightGreen: "3px solid #6C6",
+        brightBlue: "3px solid #19F",
+        brightNavy: "3px solid #2B5F75",
+        brightGray: "3px solid #7A7573",
       },
     },
     aspectRatio: {
@@ -33,12 +69,8 @@ module.exports = {
   },
   variants: {
     extend: {
-      outline: ['focus-within'],
+      outline: ["focus-within"],
     },
   },
-  // 本次新增tailwind套件，啟動前須先yarn add @tailwindcss/forms
-  plugins: [
-    require("@tailwindcss/aspect-ratio"),
-  ]
-
+  plugins: [require("@tailwindcss/aspect-ratio")],
 };

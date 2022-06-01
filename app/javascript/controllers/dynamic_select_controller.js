@@ -7,7 +7,7 @@ export default class extends Controller {
   }
 
   selected() {
-    const status = this.element.dataset.status;
+    const { status } = this.element.dataset;
 
     switch (this.selectTarget.value) {
       case "單選題":
