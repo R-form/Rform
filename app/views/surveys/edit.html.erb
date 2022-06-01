@@ -1,2 +1,36 @@
-<%= render "nav" %>
-<%= render 'form', survey: @survey %>
+
+  <%= render "nav" %>
+  <%= render 'form', survey: @survey %>
+
+
+<!-- Modal Container -->
+    <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard" 
+         class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999 ;">
+      <div class="min-w-screen h-screen animated fadeIn faster  fixed  left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none bg-no-repeat bg-center bg-cover"  id="modal-id">
+        <div class="w-full  max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg bg-white ">
+          <!--content-->
+          <div class="">
+            <!--body-->
+            <div class="text-center p-5 flex-auto justify-center">
+              <i class="fas fa-check-circle fa-5x" style="color: limegreen;" ></i>
+              <h2 class="text-xl font-bold py-4 ">按下複製分享你的問卷！</h3>
+              <p class="text-sm text-gray-500 px-8">透過下方網址，可以讓你的朋友們更容易地看到你的問卷</p>
+              <div class="flex items-center border-b border-teal-500 py-2">
+                <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" value="<%= @survey_url %>" disabled="true" aria-label="Full name" data-surveys-target="short_url_in_edit" >
+                <button class="urlbtn" type="button" data-action="click->surveys#copy_in_edit">
+                  複製
+                </button>
+                <button class="urlbtn" type="button" data-action="click->surveys#qrcode_in_edit">
+                QRcode
+                </button>
+              </div>
+            </div>
+            <!--footer-->
+            <div class="p-3  mt-2 text-center space-x-4 md:block">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" data-action="click->modal#close">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  

@@ -1,3 +1,7 @@
-.question_title {
-  text-indent: -0.9rem;
+.response-fields {
+  @apply rounded overflow-hidden shadow-lg bg-white p-12 focus-within:outline-ironGray;
+}
+
+.choice {
+  @apply bg-ironGray rounded-md p-2 my-6 flex items-center min-h-full hover:bg-ironGrayHover;
 }

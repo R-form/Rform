@@ -1,7 +1,6 @@
-<h1 class="text-5xl text-center text-gray-700"><%= link_to '我的問卷', surveys_path %></h1>
-
-<section>
-  <div class="container mt-4 mx-auto" data-controller="modal surveys" data-modal-allow-background-close="false" >
+<section class="padding-for-fixed">
+  <h1 class="text-5xl text-center text-gray-700 mt-4"><%= link_to '我的問卷', surveys_path %></h1>
+  <div class="container mt-4 mx-auto" data-controller="surveys" data-modal-allow-background-close="false" >
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" data-controller="sortable">
       <% @surveys.each do |survey| %>
         <div class="card m-2 cursor-pointer border border-gray-400 rounded-lg hover:shadow-md hover:border-opacity-0 transform hover:-translate-y-1 transition-all duration-200" data-id="<%= survey.id %>"   >
@@ -10,23 +9,27 @@
               <span class="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">Tag</span>
               <h2 class="text-lg mb-2 truncate"><%= survey.title %></h2>
               <p class="font-light font-mono text-sm text-gray-700 hover:text-gray-900 transition-all duration-200  truncate "><%= survey.description %></p> 
-              <div class="mt-5 text-right">
-                <%= link_to edit_survey_path(survey), class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do %>
-                  <i class="fas fa-pen"></i>
-                <% end %>
-                <%= link_to duplicate_survey_path(survey), class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do %>
+              <div class="mt-5 flex justify-end">
+                             
+                  <%= link_to edit_survey_path(survey), class: "linkbtn" do %>
+                    <i class="fas fa-pen"></i>
+                  <% end %>
+
+                <%= link_to duplicate_survey_path(survey), class: "linkbtn" do %>
                   <i class="fas fa-copy"></i>
                 <% end %>
                 
-                <%= link_to "#", data: {action:"click->modal#open click->surveys#share" ,url: responses_new_path(survey) }, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do %>
-                  <i class="fas fa-share"></i>
+                <% if survey.published? %>
+                  <%= link_to "#", data: {action:"click->modal#open click->surveys#share" ,url: responses_new_path(survey) }, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do %>
+                    <i class="fas fa-share"></i>
+                  <% end %>
                 <% end %>
 
                 <%= link_to stats_survey_path(survey), title: "統計數據管理", class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do %>
                   <i class="fas fa-chart-pie"></i>
                 <% end %>
               
-                <%= link_to survey, method: :delete, data: { confirm: '確定要刪除問卷嗎?' }, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do%>
+                <%= link_to survey, method: :delete, data: { confirm: '確定要刪除問卷嗎?' }, class: "linkbtn" do%>
                   <i class="fas fa-trash-alt"></i>
                 <% end %>
               </div>
@@ -55,10 +58,10 @@
               <p class="text-sm text-gray-500 px-8">透過下方網址，可以讓你的朋友們更容易地看到你的問卷</p>
               <div class="flex items-center border-b border-teal-500 py-2">
                 <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" value="待放網址" disabled="true" aria-label="Full name" data-surveys-target="short_url" >
-                <button class="flex-shrink-0 text-sm bg-gray-500 border-gray-500 text-white hover:bg-gray-700 hover:border-gray-700  border-4 py-1 px-2 rounded" type="button" data-action="click->surveys#copy">
+                <button class="urlbtn" type="button" data-action="click->surveys#copy">
                   複製
                 </button>
-                <button class="flex-shrink-0 text-sm bg-gray-500 border-gray-500 text-white hover:bg-gray-700 hover:border-gray-700  border-4 py-1 px-2 rounded" type="button" data-action="click->surveys#qrcode">
+                <button class="urlbtn" type="button" data-action="click->surveys#qrcode">
                 QRcode
                 </button>
               </div>
@@ -75,5 +78,5 @@
 </section>
 
 <div class="text-right">
-  <%= link_to '建立問卷', new_survey_path ,class: "absolute bottom-8 right-8 bg-gray-500 hover:bg-gray-700 text-white font-bold py-5 px-10 rounded-full"%>
+  <%= link_to '建立問卷', new_survey_path ,class: "fixed bottom-8 right-8 bg-gray-500 hover:bg-gray-700 text-white font-bold py-5 px-10 rounded"%>
 </div>

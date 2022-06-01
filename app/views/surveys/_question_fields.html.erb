@@ -1,13 +1,13 @@
-<div class="question fields group" data-id="<%= @survey.id %>" data-question_id="<%= form.object.id %>" data-controller='nested-form dynamic-select' data-nested-form-target="question" data-auto-save-target="question" >
+<div class="question fields group" data-id="<%= @survey.id %>" data-question_id="<%= form.object.id %>" data-status="<%= @survey.status %>" data-controller='nested-form dynamic-select' data-nested-form-target="question" data-auto-save-target="question" >
   <%= form.hidden_field :_destroy %>
   <div class='title_type'>
-      <%= form.text_field :title, placeholder: '問題題目', class: 'input q_title', data: {action: "change->auto-save#add_question "} %>
+      <%= form.text_field :title, placeholder: '問題題目', autocomplete: "off", class: 'input q_title', data: {action: "change->auto-save#add_question "} %>
       <%= form.select :question_type,
         options_for_select(Question.question_type_select, selected: form.object.question_type),
         {},class: "select",
         'data-dynamic-select-target': 'select',
         'data-auto-save-target': 'select',
-        'data-action': 'dynamic-select#selected auto-save#selected'%>
+        'data-action': 'dynamic-select#selected auto-save#selected' %>
   </div>
   <%= form.text_area :description, placeholder: "題目敘述", class: "input", data: {action: "change->auto-save#add_question_description" , controller: "textarea-autogrow"} %>
   <div class="choices_field"  data-nested-form-index-value ="ANSWER_RECORD" data-dynamic-select-target='choice' data-nested-form-target="add_item">
@@ -17,20 +17,22 @@
       <% end %>
     </template>
     <%= form.fields_for :answers do |answer| %>
-      <%= render 'answer_fields', form: answer , id: "answer" ,data-set %>
+      <%= render 'answer_fields', form: answer , id: "answer" %>
     <% end %>
   </div>
   <div class="question_function">
     <div>
     <%= link_to "新增選項", "#", data: { action: "nested-form#add_answer auto-save#add_answer_item" , dynamic_select_target:'addbtn' } , class: "add_btn" %>
     </div>
-    <div>
+    <div class="flex">
     <%= form.check_box :required, data: {action: "click->auto-save#checked"}, id: "deco_checkbox"%>
-    <%= form.label :required, "*必填" %>
-    <%= link_to "刪除問題", data: { action: "click->nested-form#remove_association click->auto-save#remove_question" }, class: "btn mx-1" do %>
+    <div class="flex justify-end items-center">
+      <div class="mx-4"><%= form.label :required, "必填" %></div>
+    </div>
+    <%= link_to "刪除問題", data: { action: "click->nested-form#remove_association click->auto-save#remove_question" }, class: "linkbtn mx-1" do %>
         <i class="fas fa-trash-alt"></i>
     <% end %>
-    <%= link_to "複製問題", data: { action: "click->nested-form#duplicate_question" } ,class: "btn mx-1" do %>
+    <%= link_to "複製問題", data: { action: "click->nested-form#duplicate_question" } ,class: "linkbtn mx-1" do %>
       <i class="fas fa-copy"></i>
     <% end %>
     </div>
