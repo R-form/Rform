@@ -22,6 +22,7 @@
     "stimulus-chartjs": "^4.0.0",
     "stimulus-rails-autosave": "^4.0.0",
     "stimulus-textarea-autogrow": "^4.0.0",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
     "tailwindcss-stimulus-components": "^3.0.4",
     "turbolinks": "^5.2.0",
     "webpack": "^4.46.0",

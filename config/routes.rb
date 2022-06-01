@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       post :duplicate_question
       patch :font_style
       patch :theme
+      patch :question_image
       get :stats
       patch :background_color
       get :duplicate
