@@ -67,7 +67,6 @@ export default class extends Controller {
 
   previousPage(e) {
     let currentResponse = Number(this.currentResponseTarget.textContent)
-    let responsesCount = Number(this.responsesCountTarget.textContent)
 
     this.nextPageButtonTarget.classList.remove("hidden")
 
