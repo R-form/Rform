@@ -5,6 +5,8 @@ export default class extends Controller {
 
   connect() {
     this.questionTarget.classList.remove("hidden")
+    this.next_questionTargets[this.next_questionTargets.length - 1].classList.add("hidden")
+    this.previous_questionTarget.classList.add("hidden")
     this.skip_to_question_id = ""
     this.skip_from_question_id = []
   }
@@ -17,7 +19,6 @@ export default class extends Controller {
 
   next(e) {
     e.preventDefault()
-
     const question = e.target.closest(".question_field")
     const question_id = question.dataset.question_id
 
@@ -31,6 +32,7 @@ export default class extends Controller {
     } else {
       question.nextElementSibling.classList.remove("hidden")
     }
+    this.skip_to_question_id = ""
   }
 
   previous(e) {
