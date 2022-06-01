@@ -52,7 +52,8 @@ export default class extends Controller {
     target.classList.add(...classes);
   }
 
-  pick_color() {
+  pick_color(e) {
+    e.preventDefault();
     const { id } = this.survey_idTarget.dataset;
 
     const colorMap = {
@@ -96,7 +97,8 @@ export default class extends Controller {
     });
   }
 
-  pick_background_color() {
+  pick_background_color(e) {
+    e.preventDefault();
     const { id } = this.survey_idTarget.dataset;
 
     const bgColorMap = {

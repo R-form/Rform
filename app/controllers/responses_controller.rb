@@ -8,10 +8,11 @@ class ResponsesController < ApplicationController
   end
 
   def new
-    if @survey.published? && @survey.closetime > Time.now && @survey.opentime <= Time.now
+    if @survey.published? && @survey.closetime == nil && @survey.opentime <= Time.now
+      @response = @survey.responses.new
+    elsif @survey.published? && @survey.closetime > Time.now && @survey.opentime <= Time.now
       @response = @survey.responses.new
     else
-      
       redirect_to submitted_survey_responses_path(@survey)
     end
   end
