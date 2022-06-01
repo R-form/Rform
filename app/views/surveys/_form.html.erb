@@ -131,7 +131,7 @@
               <%= form.file_field :image , class:"hidden" , data: {action: "input->nested-form#change_background"} %>
               <%= form.submit "上傳" , class: "hidden btn w-max mx-auto"%>
             <% end %>
-            <%= form_with( url:question_image_survey_path(survey), method: "patch" , data: {nested_form_target: "change_question_image" , controller: "nested-form auto-save" , action: "image@document->nested-form#change_question_image" } )  do |form| %>
+            <%= form_with( url:question_image_survey_path(survey), method: "patch" , data: {nested_form_target: "change_question_image" , controller: "nested-form auto-save" , action: "question_image@document->nested-form#change_question_image" } )  do |form| %>
               <%= form.text_field :survey_id , class: "hidden" , value: survey.id %>
               <%= form.text_field :question_id , class: "hidden" %>
               <%= form.file_field :image , class: "hidden" , data: {action: "input->nested-form#change_image"} %>

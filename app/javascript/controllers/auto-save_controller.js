@@ -247,6 +247,7 @@ export default class extends Controller {
     });
   }
   change_question_image(event) {
+    console.log("點到");
     this.creat_event(event.target.dataset.id);
     document.dispatchEvent(this.question_imageEvent);
   }
