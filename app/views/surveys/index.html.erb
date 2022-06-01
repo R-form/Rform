@@ -33,7 +33,7 @@
             </div>
             <div class="flex" data-surveys-target="tagEditor" data-id="<%= survey.id %>">
               <i class="px-2 py-4 fas fa-tags" title="分類標籤"></i>
-              <div class="w-full tagInput" id="<%= index %>">
+              <div class="w-full my-4 tagInput" id="<%= index %>">
                 <%= form_with(model: survey, url: tag_survey_path(survey), method: "patch") do |form| %>
                   <%= form.text_field :tag, data: {controller: "tag", surveys_target:"tagValue", action:"change->surveys#updateTags"} %>                
                 <% end %>
