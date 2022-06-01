@@ -4,31 +4,32 @@ import Rails from "@rails/ujs";
 export default class extends Controller {
   static targets = ["form", "survey_id", "question", "answer", "select"];
 
+  setDisabled(allTargets) {
+    allTargets.forEach((target) => {
+      target.setAttribute("disabled", "");
+    });
+  }
+
   connect() {
-    const status = this.survey_idTarget.dataset.status;
+    const { status } = this.survey_idTarget.dataset;
     const disabled_inputs = this.element.querySelectorAll("input");
     const disabled_buttons = this.element.querySelectorAll("a");
     const disabled_selects = this.selectTargets;
     const disabled_textareas = this.element.querySelectorAll("textarea");
 
     if (status == "closed") {
-      disabled_inputs.forEach((input) => {
-        input.setAttribute("disabled", "");
-      });
+      this.setDisabled(disabled_inputs);
+      this.setDisabled(disabled_textareas);
+      this.setDisabled(disabled_selects);
+
       disabled_buttons.forEach((button) => {
         button.classList.add("hidden");
-      });
-      disabled_textareas.forEach((textarea) => {
-        textarea.setAttribute("disabled", "");
-      });
-      disabled_selects.forEach((select) => {
-        select.setAttribute("disabled", "");
       });
     }
   }
 
   add_survey_title(e) {
-    const id = this.survey_idTarget.dataset.id;
+    const { id } = this.survey_idTarget.dataset;
     const survey_title = e.target.value;
 
     const data = new FormData();
@@ -44,7 +45,7 @@ export default class extends Controller {
   }
 
   add_survey_description(e) {
-    const id = this.survey_idTarget.dataset.id;
+    const { id } = this.survey_idTarget.dataset;
     const survey_description = e.target.value;
 
     const data = new FormData();
@@ -60,7 +61,7 @@ export default class extends Controller {
   }
 
   add_question_item(e) {
-    const id = this.survey_idTarget.dataset.id;
+    const { id } = this.survey_idTarget.dataset;
 
     Rails.ajax({
       type: "post",
@@ -77,8 +78,8 @@ export default class extends Controller {
   }
 
   selected(e) {
-    const id = this.survey_idTarget.dataset.id;
-    const question_id = e.target.closest(".question").dataset.question_id;
+    const { id } = this.survey_idTarget.dataset;
+    const { question_id } = e.target.closest(".question").dataset;
     const select = e.target.value;
     const select_value = e.target.querySelector("option[selected='selected']");
     select_value.removeAttribute("selected");
@@ -102,8 +103,8 @@ export default class extends Controller {
   }
 
   add_question(e) {
-    const id = this.survey_idTarget.dataset.id;
-    const question_id = e.target.closest(".question").dataset.question_id;
+    const { id } = this.survey_idTarget.dataset;
+    const { question_id } = e.target.closest(".question").dataset;
     const question_value = e.target.value;
     e.target.setAttribute("value", question_value);
 
@@ -121,8 +122,8 @@ export default class extends Controller {
   }
 
   add_question_description(e) {
-    const id = this.survey_idTarget.dataset.id;
-    const question_id = e.target.closest(".question").dataset.question_id;
+    const { id } = this.survey_idTarget.dataset;
+    const { question_id } = e.target.closest(".question").dataset;
     const question_description = e.target.value;
     e.target.innerHTML = question_description;
 
@@ -140,8 +141,8 @@ export default class extends Controller {
   }
 
   checked(e) {
-    const id = this.survey_idTarget.dataset.id;
-    const question_id = e.target.closest(".question").dataset.question_id;
+    const { id } = this.survey_idTarget.dataset;
+    const { question_id } = e.target.closest(".question").dataset;
 
     const data = new FormData();
     data.append("question_id", question_id);
@@ -160,8 +161,8 @@ export default class extends Controller {
     let item = e.target.closest(".question");
     item.style.display = "none";
 
-    const id = this.survey_idTarget.dataset.id;
-    const question_id = e.target.closest(".question").dataset.question_id;
+    const { id } = this.survey_idTarget.dataset;
+    const { question_id } = e.target.closest(".question").dataset;
 
     const data = new FormData();
     data.append("question_id", question_id);
@@ -176,8 +177,8 @@ export default class extends Controller {
   }
 
   add_answer_item(e) {
-    const id = this.survey_idTarget.dataset.id;
-    const question_id = e.target.closest(".question").dataset.question_id;
+    const { id } = this.survey_idTarget.dataset;
+    const { question_id } = e.target.closest(".question").dataset;
 
     const data = new FormData();
     data.append("question_id", question_id);
@@ -196,8 +197,8 @@ export default class extends Controller {
   }
 
   add_answer(e) {
-    const id = this.survey_idTarget.dataset.id;
-    const question_id = e.target.closest(".question").dataset.question_id;
+    const { id } = this.survey_idTarget.dataset;
+    const { question_id } = e.target.closest(".question").dataset;
     const answer_id = e.target.closest("#answer").firstElementChild.value;
     const answer_value = e.target.value;
     e.target.setAttribute("value", answer_value);
@@ -220,8 +221,8 @@ export default class extends Controller {
     let item = e.target.closest("#answer");
     item.style.display = "none";
 
-    const id = this.survey_idTarget.dataset.id;
-    const question_id = e.target.closest(".question").dataset.question_id;
+    const { id } = this.survey_idTarget.dataset;
+    const { question_id } = e.target.closest(".question").dataset;
     const answer_id = e.target.closest("#answer").firstElementChild.value;
 
     const data = new FormData();

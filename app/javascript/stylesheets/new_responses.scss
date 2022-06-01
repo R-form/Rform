@@ -1,7 +1,21 @@
-.response-fields {
-  @apply rounded overflow-hidden shadow-lg bg-white p-12 focus-within:outline-ironGray;
+.response_page {
+  @apply h-full min-h-screen py-28;
 }
 
-.choice {
-  @apply bg-ironGray rounded-md p-2 my-6 flex items-center min-h-full hover:bg-ironGrayHover;
+.response-fields {
+  @apply rounded overflow-hidden shadow-lg bg-white py-7 px-12 max-w-lg mx-auto;
+}
+
+.response_choice {
+  @apply text-xl text-white rounded-md p-2 my-6 flex items-center min-h-full;
+}
+
+.response_button {
+  @apply p-3 bg-ironGray text-lg text-white font-bold rounded my-auto mr-4 shadow-lg hover:bg-ironGrayHover;
+}
+
+.description::after {
+  content: "";
+
+  @apply bg-ironGray absolute -bottom-6 inset-x-0 h-1;
 }
