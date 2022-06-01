@@ -50,7 +50,4 @@ class Survey < ApplicationRecord
     ]
   end
 
-  def response_may_new?(current_suevey)
-    current_suevey.published? && current_suevey.opentime <= Time.now && current_suevey.closetime == nil || current_suevey.closetime > Time.now 
-  end
 end

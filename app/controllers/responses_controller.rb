@@ -8,7 +8,7 @@ class ResponsesController < ApplicationController
   end
 
   def new
-    if response_may_new?(@suevey)
+    if @survey.published? && @survey.opentime <= Time.now && @survey.closetime == nil || @survey.closetime > Time.now 
       @response = @survey.responses.new
     else
       redirect_to submitted_survey_responses_path(@survey)
