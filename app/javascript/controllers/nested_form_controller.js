@@ -2,13 +2,7 @@ import { Controller } from "stimulus";
 import Rails from "@rails/ujs";
 
 export default class extends Controller {
-  static targets = [
-    "add_item",
-    "template",
-    "question",
-    "question_copy",
-    "add_answer",
-  ];
+  static targets = ["add_item", "template", "question", "question_copy","add_answer","change_bg","change_question_image" ];
   static values = { index: String };
 
   duplicate_question(e) {
@@ -67,5 +61,18 @@ export default class extends Controller {
     let item = event.target.closest(".group");
     item.querySelector("input[name*='_destroy']").value = true;
     item.style.display = "none";
+  }
+
+  change_background(event) {
+    this.change_bgTarget.submit();
+    event.value = "";
+  }
+  change_question_image(event) {
+    this.change_question_imageTarget.querySelector('#question_id').value = event.detail.id
+    this.change_question_imageTarget.querySelector("input[type='file']").click()
+  }
+  change_image(event) {
+    this.change_question_imageTarget.submit();
+    event.value = "";
   }
 }

@@ -28,6 +28,16 @@ export default class extends Controller {
     }
   }
 
+  creat_event(id){
+   this.question_imageEvent = new CustomEvent("question_image", {
+      detail: {
+        id
+      }
+    })
+  }
+
+
+
   add_survey_title(e) {
     const { id } = this.survey_idTarget.dataset;
     const survey_title = e.target.value;
@@ -236,5 +246,10 @@ export default class extends Controller {
       success: ({ message }) => {},
       error: (err) => {},
     });
+  }
+  change_question_image(event) {
+    console.log("點到");
+    this.creat_event(event.target.dataset.id);
+    document.dispatchEvent(this.question_imageEvent);
   }
 }

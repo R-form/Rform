@@ -1,3 +1,7 @@
+.form_bg {
+    @apply bg-fixed bg-no-repeat bg-cover;
+}
+
 .huebee__cursor {
   width: 30px;
   height: 30px;
@@ -17,6 +21,10 @@
 
 .aside_choice_title {
   @apply mx-4 inline-block;
+}
+
+.field {
+  @apply rounded overflow-hidden shadow-lg bg-white my-6 p-3;
 }
 
 .formsection {
@@ -88,7 +96,7 @@ textarea {
 }
 
 .down {
-  @apply relative  w-28 block top-40;
+  @apply fixed left-10  w-28 block top-40;
 }
 
 .new_question_btn {

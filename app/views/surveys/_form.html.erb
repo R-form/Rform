@@ -1,4 +1,24 @@
-<div data-controller = "survey-style" class="style-survey-div padding-for-fixed-body min-hight bg-<%= @survey.background_color %>">
+<style>
+    <% if survey.image.attached? %>
+.form_bg {
+      background-image: url("<%= url_for(survey.image) %>");
+      position: relative;
+      z-index: 0;
+}   
+.form_bg:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+    <% end %>
+</style>
+
+<div data-controller = "survey-style" class="style-survey-div padding-for-fixed-body min-hight bg-<%= @survey.background_color %> <%= "form_bg" if survey.image.attached? %>  ">
   <span class="hidden bg-softRed bg-softOrange bg-softYellow bg-softGreen bg-softBlue bg-softNavy bg-softGray"></span>
   <aside data-controller="slideover" data-slideover-target="closeAside" class="slideover slide invisible">
     <div class="pt-4 p-4 padding-for-fixed-body">
@@ -93,6 +113,7 @@
           data: {action: "change->auto-save#add_survey_title "}%>
         <%= form.text_area :description, placeholder: "問卷敘述", class: "input",
           data: {controller: "textarea-autogrow", action: "change->auto-save#add_survey_description "} %>
+        
       </div>
       <div data-controller="nested-form sortable-question" data-nested-form-index-value ="QUESTION_RECORD">
         <template data-nested-form-target='template'>
@@ -104,14 +125,21 @@
           <%= form.fields_for :questions do |question| %>
             <%= render 'question_fields', form: question %>
           <% end %>
-          <div data-nested-form-target="add_item" class="down">
-            <%= link_to "新增問題", "#", data: { action: "nested-form#add_association auto-save#add_question_item" }, class: "new_question_btn" %>
-            <%= form_with(model: survey) do |form| %>
-              <%= form.file_field :image, class:"hidden" %>
-              <%= form.submit "更換圖片", class:"hidden" %>
+    <% end %>
+          <div data-nested-form-target="add_item" class="field down text-center">
+            <%= link_to "新增問題", "#", data: { action: "nested-form#add_association auto-save#add_question_item"  }, class: "btn w-max " %>
+            <%= form_with(model: survey, data: {nested_form_target: "change_bg"}) do |form| %>
+              <%= form.label :image , "更換圖片", class: "btn w-max " %>
+              <%= form.file_field :image , class:"hidden" , data: {action: "input->nested-form#change_background"} %>
+              <%= form.submit "上傳" , class: "hidden btn w-max mx-auto"%>
+            <% end %>
+            <%= form_with( url:question_image_survey_path(survey), method: "patch" , data: {nested_form_target: "change_question_image" , controller: "nested-form auto-save" , action: "question_image@document->nested-form#change_question_image" } )  do |form| %>
+              <%= form.text_field :survey_id , class: "hidden" , value: survey.id %>
+              <%= form.text_field :question_id , class: "hidden" %>
+              <%= form.file_field :image , class: "hidden" , data: {action: "input->nested-form#change_image"} %>
+              <%= form.submit "upload", class: "hidden" %>
             <% end %>
           </div>
       </div>
-    <% end %>
   </section>
 </div>
