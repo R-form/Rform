@@ -1,4 +1,4 @@
-<div class="question group focus-within:outline-<%= @survey.theme %>" data-id="<%= @survey.id %>" data-question_id="<%= form.object.id %>" data-controller='nested-form dynamic-select' data-nested-form-target="question" data-auto-save-target="question"
+<div class="question group focus-within:outline-<%= @survey.theme %>" data-id="<%= @survey.id %>" data-question_id="<%= form.object.id %>" data-status="<%= @survey.status %>" data-controller='nested-form dynamic-select' data-nested-form-target="question" data-auto-save-target="question"
 data-survey-style-target="question" >
   
   <%= form.hidden_field :_destroy %>

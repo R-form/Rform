@@ -2,7 +2,7 @@ import { Controller } from "stimulus"
 import Rails from "@rails/ujs"
 
 export default class extends Controller {
-  static targets = ["survey_id", "question", "answer", "select"]
+  static targets = ["surveyId", "question", "answer", "select"]
 
   setDisabled(allTargets) {
     allTargets.forEach((target) => {
@@ -10,25 +10,29 @@ export default class extends Controller {
     })
   }
 
+  get surveyId() {
+    return this.surveyIdTarget.dataset.id
+  }
+
   connect() {
-    const { status } = this.survey_idTarget.dataset
-    const disabled_inputs = this.element.querySelectorAll("input")
-    const disabled_buttons = this.element.querySelectorAll("a")
-    const disabled_selects = this.selectTargets
-    const disabled_textareas = this.element.querySelectorAll("textarea")
+    const { status } = this.surveyIdTarget.dataset
+    const disabledInputs = this.element.querySelectorAll("input")
+    const disabledButtons = this.element.querySelectorAll("a")
+    const disabledSelects = this.selectTargets
+    const disabledTextareas = this.element.querySelectorAll("textarea")
 
     if (status == "closed") {
-      this.setDisabled(disabled_inputs)
-      this.setDisabled(disabled_textareas)
-      this.setDisabled(disabled_selects)
+      this.setDisabled(disabledInputs)
+      this.setDisabled(disabledTextareas)
+      this.setDisabled(disabledSelects)
 
-      disabled_buttons.forEach((button) => {
+      disabledButtons.forEach((button) => {
         button.classList.add("hidden")
       })
     }
   }
 
-  creat_event(id) {
+  create_event(id) {
     this.question_imageEvent = new CustomEvent("question_image", {
       detail: {
         id,
@@ -37,60 +41,50 @@ export default class extends Controller {
   }
 
   add_survey_title(e) {
-    const { id } = this.survey_idTarget.dataset
-    const survey_title = e.target.value
+    const surveyTitle = e.target.value
 
     const data = new FormData()
-    data.append("survey_title", survey_title)
+    data.append("survey_title", surveyTitle)
 
     Rails.ajax({
       type: "patch",
-      url: `/surveys/${id}/add_survey_title`,
+      url: `/surveys/${this.surveyId}/add_survey_title`,
       data,
-      success: ({ message }) => {},
-      error: (err) => {},
     })
   }
 
   add_survey_description(e) {
-    const { id } = this.survey_idTarget.dataset
-    const survey_description = e.target.value
+    const surveyDescription = e.target.value
 
     const data = new FormData()
-    data.append("survey_description", survey_description)
+    data.append("survey_description", surveyDescription)
 
     Rails.ajax({
       type: "patch",
-      url: `/surveys/${id}/add_survey_description`,
+      url: `/surveys/${this.surveyId}/add_survey_description`,
       data,
-      success: ({ message }) => {},
-      error: (err) => {},
     })
   }
 
   add_question_item() {
-    const { id } = this.survey_idTarget.dataset
-
     Rails.ajax({
       type: "post",
-      url: `/surveys/${id}/add_question_item`,
+      url: `/surveys/${this.surveyId}/add_question_item`,
 
-      success: ({ new_question_id }) => {
-        const question_count = this.questionTargets.length - 1
+      success: ({ new_question_id: newQuestionId }) => {
+        const questionCount = this.questionTargets.length - 1
 
-        const new_question_item = this.questionTargets[question_count]
-        new_question_item.dataset.question_id = new_question_id
+        const newQuestionItem = this.questionTargets[questionCount]
+        newQuestionItem.dataset.question_id = newQuestionId
       },
-      error: (err) => {},
     })
   }
 
   selected(e) {
-    const { id } = this.survey_idTarget.dataset
     const { question_id } = e.target.closest(".question").dataset
     const select = e.target.value
-    const select_value = e.target.querySelector("option[selected='selected']")
-    select_value.removeAttribute("selected")
+    const selectValue = e.target.querySelector("option[selected='selected']")
+    selectValue.removeAttribute("selected")
 
     const data = new FormData()
     data.append("select", select)
@@ -98,56 +92,49 @@ export default class extends Controller {
 
     Rails.ajax({
       type: "patch",
-      url: `/surveys/${id}/update_select`,
+      url: `/surveys/${this.surveyId}/update_select`,
       data,
-      success: ({ message, params }) => {
-        const new_select_value = e.target.querySelector(`option[value=${params.select}]`)
-        new_select_value.setAttribute("selected", "selected")
+      success: ({ params }) => {
+        const selectedOption = e.target.querySelector(`option[value=${params.select}]`)
+        selectedOption.setAttribute("selected", "selected")
       },
-      error: (err) => {},
     })
   }
 
   add_question(e) {
-    const { id } = this.survey_idTarget.dataset
     const { question_id } = e.target.closest(".question").dataset
-    const question_value = e.target.value
-    e.target.setAttribute("value", question_value)
+
+    const questionValue = e.target.value
+    e.target.setAttribute("value", questionValue)
 
     const data = new FormData()
     data.append("question_id", question_id)
-    data.append("question_value", question_value)
+    data.append("question_value", questionValue)
 
     Rails.ajax({
       type: "patch",
-      url: `/surveys/${id}/add_question`,
+      url: `/surveys/${this.surveyId}/add_question`,
       data,
-      success: ({ message }) => {},
-      error: (err) => {},
     })
   }
 
   add_question_description(e) {
-    const { id } = this.survey_idTarget.dataset
     const { question_id } = e.target.closest(".question").dataset
-    const question_description = e.target.value
-    e.target.innerHTML = question_description
+    const questionDescription = e.target.value
+    e.target.innerHTML = questionDescription
 
     const data = new FormData()
     data.append("question_id", question_id)
-    data.append("question_description", question_description)
+    data.append("question_description", questionDescription)
 
     Rails.ajax({
       type: "patch",
-      url: `/surveys/${id}/add_question_description`,
+      url: `/surveys/${this.surveyId}/add_question_description`,
       data,
-      success: ({ message }) => {},
-      error: (err) => {},
     })
   }
 
   checked(e) {
-    const { id } = this.survey_idTarget.dataset
     const { question_id } = e.target.closest(".question").dataset
 
     const data = new FormData()
@@ -155,10 +142,8 @@ export default class extends Controller {
 
     Rails.ajax({
       type: "patch",
-      url: `/surveys/${id}/save_checkbox`,
+      url: `/surveys/${this.surveyId}/save_checkbox`,
       data,
-      success: ({ message }) => {},
-      error: (err) => {},
     })
   }
 
@@ -167,7 +152,6 @@ export default class extends Controller {
     let item = e.target.closest(".question")
     item.style.display = "none"
 
-    const { id } = this.survey_idTarget.dataset
     const { question_id } = e.target.closest(".question").dataset
 
     const data = new FormData()
@@ -175,15 +159,12 @@ export default class extends Controller {
 
     Rails.ajax({
       type: "delete",
-      url: `/surveys/${id}/remove_question`,
+      url: `/surveys/${this.surveyId}/remove_question`,
       data,
-      success: ({ message }) => {},
-      error: (err) => {},
     })
   }
 
   add_answer_item(e) {
-    const { id } = this.survey_idTarget.dataset
     const { question_id } = e.target.closest(".question").dataset
 
     const data = new FormData()
@@ -191,60 +172,54 @@ export default class extends Controller {
 
     Rails.ajax({
       type: "post",
-      url: `/surveys/${id}/add_answer_item`,
+      url: `/surveys/${this.surveyId}/add_answer_item`,
       data,
-      success: ({ new_answer_id }) => {
-        const answer_count = this.answerTargets.length - 1
-        const new_answer_item = this.answerTargets[answer_count]
-        new_answer_item.value = new_answer_id
+      success: ({ new_answer_id: newAnswerId }) => {
+        const answerCount = this.answerTargets.length - 1
+        const newAnswerItem = this.answerTargets[answerCount]
+        newAnswerItem.value = newAnswerId
       },
-      error: (err) => {},
     })
   }
 
   add_answer(e) {
-    const { id } = this.survey_idTarget.dataset
     const { question_id } = e.target.closest(".question").dataset
-    const answer_id = e.target.closest("#answer").firstElementChild.value
-    const answer_value = e.target.value
-    e.target.setAttribute("value", answer_value)
+    const answerId = e.target.closest(".answer").firstElementChild.value
+    const answerValue = e.target.value
+    e.target.setAttribute("value", answerValue)
+
     const data = new FormData()
     data.append("question_id", question_id)
-    data.append("answer_id", answer_id)
-    data.append("answer_value", answer_value)
+    data.append("answer_id", answerId)
+    data.append("answer_value", answerValue)
 
     Rails.ajax({
       type: "patch",
-      url: `/surveys/${id}/add_answer`,
+      url: `/surveys/${this.surveyId}/add_answer`,
       data,
-      success: ({ message }) => {},
-      error: (err) => {},
     })
   }
 
   remove_answer(e) {
     e.preventDefault()
-    let item = e.target.closest("#answer")
+    let item = e.target.closest(".answer")
     item.style.display = "none"
 
-    const { id } = this.survey_idTarget.dataset
     const { question_id } = e.target.closest(".question").dataset
-    const answer_id = e.target.closest("#answer").firstElementChild.value
+    const answerId = e.target.closest(".answer").firstElementChild.value
 
     const data = new FormData()
     data.append("question_id", question_id)
-    data.append("answer_id", answer_id)
+    data.append("answer_id", answerId)
 
     Rails.ajax({
       type: "delete",
-      url: `/surveys/${id}/remove_answer`,
+      url: `/surveys/${this.surveyId}/remove_answer`,
       data,
-      success: ({ message }) => {},
-      error: (err) => {},
     })
   }
   change_question_image(event) {
-    this.creat_event(event.target.dataset.id)
+    this.create_event(event.target.dataset.id)
     document.dispatchEvent(this.question_imageEvent)
   }
 }

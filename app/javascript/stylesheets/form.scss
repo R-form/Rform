@@ -1,5 +1,5 @@
 .form_bg {
-    @apply bg-fixed bg-no-repeat bg-cover;
+  @apply bg-fixed bg-no-repeat bg-cover;
 }
 
 .huebee__cursor {
@@ -78,7 +78,7 @@ textarea {
   @apply inline-block bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-2 my-1 rounded;
 }
 
-#answer {
+.answer {
   @apply flex shadow-none outline-none;
 }
 
