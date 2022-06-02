@@ -1,10 +1,10 @@
 <%= form_with model: user, url: users_path do |form| %>
-  <% if user.errors.any? %>
+  <% if current_user.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <h2><%= pluralize(current_user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
       <ul>
-        <% user.errors.each do |error| %>
+        <% current_user.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
