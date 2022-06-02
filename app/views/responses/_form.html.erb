@@ -18,14 +18,13 @@
   <% end %>
 </style>
 
-<div class="response_page bg-<%= @survey.background_color %> padding-for-fixed w-full <%= @survey.image.attached? ? "form_bg" : ""%> ">
+<div class="response_page bg-<%= @survey.background_color %> w-full <%= @survey.image.attached? ? "form_bg" : ""%> ">
     <section class="sections response-fields <%= @survey.font_style %> focus-within:outline-<%= @survey.theme %>" data-controller="responses">
-    <div class="hidden" data-responses-target="survey_title">
-      <h1 class="title text-5xl text-ironGray my-5"><%= @survey.title %></h1>
-      <p class="description text-md text-ironGray break-words relative"><%= @survey.description %></p>
-    </div>
-
-      <%= form_with model: [@survey, response], data: {controller: "responses"} do |form| %>
+      <div class="survey_title hidden" data-responses-target="survey_title">
+        <h1 class="title text-5xl text-ironGray my-5"><%= @survey.title %></h1>
+        <p class="description text-md text-ironGray break-words relative"><%= @survey.description %></p>
+      </div>
+      <%= form_with model: [@survey, response] do |form| %>
         <%= form.fields_for :answers do |response| %>
           <% @survey.questions.each do |question| %>
           <div class="question_field hidden my-10" data-responses-target="question" data-question_id="<%= question.id %>">
@@ -35,7 +34,7 @@
               <% if question.required %>
                 <span class="text-sm">(必填)</span>
               <% end %>
-              <p class="description text-base text-ironGray break-words"><%= question.description%></p>
+              <p class="text-base text-ironGray break-words"><%= question.description%></p>
               <% if question.image.attached? %>
                 <%= image_tag question.image.variant(resize_to_limit: [250, 250]) %>
               <% end %>
