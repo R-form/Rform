@@ -21,11 +21,12 @@ class ResponsesController < ApplicationController
     if @response.save
       redirect_to submitted_survey_responses_path(@survey)
     else
-      render :new, status: :unprocessable_entity
+      render :new, notice: "提交失敗"
     end
   end
 
   def submitted
+    
   end
 
   private
