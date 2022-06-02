@@ -12,7 +12,7 @@ export default class extends Controller {
     const survey_id = this.survey_idTarget.dataset.id
     const question_id = e.target.closest(".question").dataset.question_id
     //因前面建置有誤，導致產生很多id="answer"，須先確認id="answer"是否必要，會在修正成class。
-    const answer_id = e.target.closest("#answer").firstElementChild.value
+    const answer_id = e.target.closest(".answer").firstElementChild.value
 
     const query = new URLSearchParams({ question_id, answer_id }).toString()
     Rails.ajax({

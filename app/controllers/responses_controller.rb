@@ -19,9 +19,9 @@ class ResponsesController < ApplicationController
     @response = @survey.responses.new(response_params)
 
     if @response.save
-      redirect_to submitted_survey_responses_path(@survey, success: 1)
+      redirect_to submitted_survey_responses_path(@survey, submit: "success")
     else
-      redirect_to submitted_survey_responses_path(@survey, fail: 0)
+      redirect_to submitted_survey_responses_path(@survey, submit: "fail")
     end
   end
 

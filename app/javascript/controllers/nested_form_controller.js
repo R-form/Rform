@@ -15,7 +15,7 @@ export default class extends Controller {
       const { question_id } = question.dataset
       question.insertAdjacentHTML("afterend", question.outerHTML)
       const new_question = question.nextElementSibling
-      const new_question_answers = new_question.querySelectorAll("#answer")
+      const new_question_answers = new_question.querySelectorAll(".answer")
 
       const new_question_title = new_question.querySelector(".q_title")
       new_question_title.value = `${new_question_title.value} - 副本`
