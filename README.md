@@ -23,18 +23,18 @@ Rform 是向 Google Form 致敬的免費線上問卷設計產品，為了讓使�
 - 第三方登入；若要使用第三方登入，請務必填寫下方參數
   FACEBOOK_KEY=
   FACEBOOK_SECRET=
-  google_client_id=
-  google_client_secret=
+  GOOGLE_KEY=
+  GOOGLE_SECRET=
 
 ## 使用技術
 
-- Frontend : HTML / CSS（ SCSS 、 TailWind ） / JavaScript（ Stimulusjs ）
-- Backend : Ruby on Rails
-- Database : PostgreSQL
-- Deployment : Heroku
-- Version Control : Git / GitHub
-- Third-Party Login : Facebook、Google
-- Other Technologies : AWS S3
+- 前端: HTML / CSS（ SCSS 、 TailWindcss ） / JavaScript（ Stimulusjs ）
+- 後端 : Ruby on Rails
+- 資料庫 : PostgreSQL
+- 部署 : Heroku
+- 版本控制 : Git / GitHub
+- 第三方登入 : Facebook、Google
+- 其他技術 : AWS S3
 
 ## 專案規劃
 
