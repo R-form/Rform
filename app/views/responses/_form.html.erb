@@ -19,7 +19,7 @@
 </style>
 
 <div class="response_page bg-<%= @survey.background_color %> w-full <%= @survey.image.attached? ? "form_bg" : ""%> ">
-    <section class="sections response-fields <%= @survey.font_style %> focus-within:outline-<%= @survey.theme %>" data-controller="responses">
+    <section class="sections response_fields <%= @survey.font_style %> focus-within:outline-<%= @survey.theme %>" data-controller="responses">
       <div class="survey_title hidden" data-responses-target="survey_title">
         <h1 class="title text-5xl text-ironGray my-5"><%= @survey.title %></h1>
         <p class="description text-md text-ironGray break-words relative"><%= @survey.description %></p>

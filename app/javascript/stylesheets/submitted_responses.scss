@@ -1,4 +1,29 @@
+.submitted_feedback {
+  @apply text-3xl text-center text-ironGray pb-10 m-auto w-2/3;
+  padding-top: 108px;
+}
 
-.submit_img {
+.introduce_item {
+  @apply m-auto w-10/12 lg:flex shadow-md;
+}
+
+.introduce_card_img {
+  @apply h-auto w-full lg:w-6/12 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden;
+}
+
+.introduce_card_content {
+  @apply border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal  hover:bg-gray-100;
+}
+
+.introduce_card_title {
+  @apply text-ironGray font-bold text-2xl my-4;
+}
+
+.function_img {
+  @apply object-cover rounded-full;
   aspect-ratio: 1/1;
+}
+
+.function_caption {
+  @apply text-center text-ironGray text-lg;
 }

@@ -19,12 +19,8 @@ export default class extends Controller {
       type: "patch",
       url: `/surveys/${survey_id}/skip_to_question_id`,
       data,
-      success: () => {
-        console.log("儲存成功")
-      },
-      error: () => {
-        console.log("儲存失敗")
-      },
+      success: () => {},
+      error: () => {},
     })
   }
 
@@ -40,12 +36,8 @@ export default class extends Controller {
       type: "delete",
       url: `/surveys/${survey_id}/remove_skip_to_question_id`,
       data,
-      success: () => {
-        console.log("移除成功")
-      },
-      error: () => {
-        console.log("移除失敗")
-      },
+      success: () => {},
+      error: () => {},
     })
   }
 }

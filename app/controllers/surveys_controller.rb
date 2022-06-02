@@ -2,6 +2,7 @@
 
 class SurveysController < ApplicationController
   before_action :find_survey, except: %i[index new create]
+  before_action :find_question, only: %i[question_sort add_answer_item add_question add_question_description save_checkbox add_answer update_select remove_question remove_answer questions_list skip_to_question_id remove_skip_to_question_id]
 
   def index
     if logged_in?
@@ -234,7 +235,6 @@ class SurveysController < ApplicationController
   end
 
   def question_sort
-    @question = @survey.questions.find(params[:question_id])
     @question.insert_at(params[:newIndex].to_i)
   end
 
@@ -266,8 +266,7 @@ class SurveysController < ApplicationController
   end
 
   def add_answer_item
-    question = @survey.questions.find(params[:question_id])
-    question.answers.create
+    @question.answers.create
     new_answer_id = Answer.last
 
     render json: {
@@ -278,8 +277,7 @@ class SurveysController < ApplicationController
   end
 
   def add_question
-    question = @survey.questions.find(params[:question_id])
-    question.update(title: params[:question_value])
+    @question.update(title: params[:question_value])
     render json: {
       message: '更新成功',
       params: params
@@ -287,8 +285,7 @@ class SurveysController < ApplicationController
   end
 
   def add_question_description
-    question = @survey.questions.find(params[:question_id])
-    question.update(description: params[:question_description])
+    @question.update(description: params[:question_description])
 
     render json: {
       message: '更新成功',
@@ -304,8 +301,7 @@ class SurveysController < ApplicationController
   
 
   def save_checkbox
-    question = @survey.questions.find(params[:question_id])
-    question.update(required: !question.required)
+    @question.update(required: !@question.required)
     render json: {
       message: '更新成功',
       params: params
@@ -313,8 +309,7 @@ class SurveysController < ApplicationController
   end
 
   def add_answer
-    question = @survey.questions.find(params[:question_id])
-    answer = question.answers.find(params[:answer_id])
+    answer = @question.answers.find(params[:answer_id])
     answer.update(title: params[:answer_value])
     render json: {
       message: '更新成功',
@@ -323,8 +318,7 @@ class SurveysController < ApplicationController
   end
 
   def update_select
-    question = @survey.questions.find(params[:question_id])
-    question.update(question_type: params[:select])
+    @question.update(question_type: params[:select])
     render json: {
       message: '更新成功',
       params: params
@@ -332,8 +326,7 @@ class SurveysController < ApplicationController
   end
   
   def remove_question
-    question = @survey.questions.find(params[:question_id])
-    question.destroy
+    @question.destroy
     render json: {
       message: '刪除問題成功',
       params: params
@@ -341,8 +334,7 @@ class SurveysController < ApplicationController
   end
 
   def remove_answer
-    question = @survey.questions.find(params[:question_id])
-    answer = question.answers.find(params[:answer_id])
+    answer = @question.answers.find(params[:answer_id])
     answer.destroy
     render json: {
       message: '刪除答案成功',
@@ -412,8 +404,7 @@ class SurveysController < ApplicationController
   end
 
   def questions_list
-    question = @survey.questions.find(params[:question_id])
-    answer_skip_to_question_id = question.answers.find(params[:answer_id]).skip_to_question_id
+    answer_skip_to_question_id = @question.answers.find(params[:answer_id]).skip_to_question_id
     @questions = @survey.questions
     render json: {
       message: @questions,
@@ -422,8 +413,7 @@ class SurveysController < ApplicationController
   end
 
   def skip_to_question_id
-    question = @survey.questions.find(params[:question_id])
-    answer = question.answers.find(params[:answer_id])
+    answer = @question.answers.find(params[:answer_id])
     answer.update(skip_to_question_id: params[:skip_to_question_id])
     render json: {
       message: '儲存成功',
@@ -432,9 +422,8 @@ class SurveysController < ApplicationController
   end
 
   def remove_skip_to_question_id
-    question = @survey.questions.find(params[:question_id])
-    answer = question.answers.find(params[:answer_id])
-    answer_skip_to_question_id = question.answers.find(params[:answer_id]).skip_to_question_id
+    answer = @question.answers.find(params[:answer_id])
+    answer_skip_to_question_id = @question.answers.find(params[:answer_id]).skip_to_question_id
     answer.update(skip_to_question_id: nil)
     render json: {
       message: '移除成功',
@@ -443,9 +432,12 @@ class SurveysController < ApplicationController
   end
 
   private
-
   def find_survey
     @survey = current_user.surveys.find(params[:id])
+  end
+
+  def find_question
+    @question = @survey.questions.find(params[:question_id])
   end
 
   def survey_params
