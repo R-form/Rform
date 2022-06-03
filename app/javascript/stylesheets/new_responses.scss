@@ -1,21 +1,62 @@
-.response_page {
-  @apply h-full min-h-screen py-28;
+.response-page {
+  @apply h-full min-h-screen py-28 w-full;
 }
 
-.response_fields {
+.response-section {
   @apply rounded overflow-hidden shadow-lg bg-white py-7 px-12 max-w-lg mx-auto;
 }
 
-.response_choice {
+.response-survey-title {
+  @apply text-5xl font-bold  text-ironGray my-5 text-center;
+}
+
+.response-descriptions {
+  @apply text-base text-ironGray break-words;
+}
+
+.response-survey-description::after {
+  content: "";
+
+  @apply bg-ironGray absolute -bottom-6 inset-x-0 h-1;
+}
+
+.question_title {
+  @apply inline-block py-2 text-3xl text-gray-600;
+}
+
+.response-choice {
   @apply text-xl text-white rounded-md p-2 my-6 flex items-center min-h-full;
+}
+
+.radio-button {
+  @apply h-6 w-6 ml-1 mr-3 border-0;
+  accent-color: #a5a2a0;
+}
+
+.response-textarea {
+  @apply w-full my-6 border-2 rounded-md border-ironGrayHover focus:outline-none focus:ring-ironGray focus:border-ironGray text-base;
+}
+
+.response-datetime {
+  @apply w-full my-6 p-4 border-2 rounded-md border-ironGrayHover focus:outline-none focus:ring-ironGray focus:border-ironGray;
+}
+
+.response-select {
+  @apply my-6 p-4 w-full text-base text-gray-600 bg-gray-50 rounded border border-ironGrayHover focus:outline-none focus:ring-ironGray focus:border-ironGray;
+}
+
+.range {
+  @apply w-full my-6 rounded-full overflow-hidden cursor-pointer;
+  -webkit-appearance: none;
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    @apply h-9 w-9 rounded-full bg-white;
+
+    border: 2px solid #999;
+  }
 }
 
 .response_button {
   @apply p-3 bg-ironGray text-lg text-white font-bold rounded my-auto mr-4 shadow-lg hover:bg-ironGrayHover;
-}
-
-.description::after {
-  content: "";
-
-  @apply bg-ironGray absolute -bottom-6 inset-x-0 h-1;
 }
