@@ -52,18 +52,18 @@
       <% end %>
         </div>
     </header>
-  <div class="flex justify-center fixed z-10" >
-  <%if flash[:notice]%>
-  <div class="flex">
-    <p class="font-medium mb-4 text-sm text-green-700 bg-green-100 dark:bg-green-200 dark:text-green-800" role="alert" id="notice"><%= flash[:notice] %></p>
-    <bottom class="font-medium mb-4 text-sm text-green-700 bg-green-100 dark:bg-green-200 dark:text-green-800" role="alert" id="notice">X</bottom>
-  </div>
-  <%elsif flash[:alert]%>
-  <div class="flex">
-    <p class="font-medium mb-4 text-sm text-red-700 bg-red-100 dark:bg-red-200 dark:text-red-800" role="alert" id="alert"><%= flash[:alert] %></p>
-    <bottom class="font-medium mb-4 text-sm text-red-700 bg-red-100 dark:bg-red-200 dark:text-red-800" role="alert" id="alert">X</bottom>
-  </div>
-  <%end%>
+  <div data-controller="flash" class="flex justify-center fixed z-10">
+    <%if flash[:notice]%>
+      <div class="flex">
+        <p class="font-medium mb-4 text-sm text-green-700 bg-green-100 dark:bg-green-200 dark:text-green-800" role="alert" id="notice"><%= flash[:notice] %></p>
+        <button data-action="click->flash#close" class="font-medium mb-4 text-sm text-green-700 bg-green-100 dark:bg-green-200 dark:text-green-800" role="alert" id="notice">X</button>
+      </div>
+    <%elsif flash[:alert]%>
+      <div class="flex">
+        <p class="font-medium mb-4 text-sm text-red-700 bg-red-100 dark:bg-red-200 dark:text-red-800" role="alert" id="alert"><%= flash[:alert] %></p>
+        <button data-action="click->flash#close" class="font-medium mb-4 text-sm text-red-700 bg-red-100 dark:bg-red-200 dark:text-red-800" role="alert" id="alert">X</button>
+      </div>
+    <%end%>
   </div>
     <%= yield %>
   </body>
