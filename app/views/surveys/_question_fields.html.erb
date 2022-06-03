@@ -36,10 +36,10 @@ data-survey-style-target="question" >
     <div class="flex justify-end items-center">
       <div class="mx-4"><%= form.label :required, "必填" %></div>
     </div>
-    <%= link_to "刪除問題", data: { action: "click->nested-form#remove_association click->auto-save#remove_question" }, class: "linkbtn mx-1" do %>
+    <%= link_to "#", data: { action: "click->nested-form#remove_association click->auto-save#remove_question" }, class: "linkbtn mx-1", title: "刪除問題" do %>
         <i class="fas fa-trash-alt"></i>
     <% end %>
-    <%= link_to "複製問題", data: { action: "click->nested-form#duplicate_question" } ,class: "linkbtn mx-1" do %>
+    <%= link_to "#", data: { action: "click->nested-form#duplicate_question" } ,class: "linkbtn mx-1", title: "複製問題" do %>
       <i class="fas fa-copy"></i>
     <% end %>
     </div>

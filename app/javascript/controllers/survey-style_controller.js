@@ -4,17 +4,17 @@ import Huebee from "huebee"
 import "huebee/dist/huebee.min"
 
 export default class extends Controller {
-  static targets = ["survey_id", "form", "color", "background_color", "responses", "question"]
+  static targets = ["surveyId", "form", "color", "backgroundColor", "responses", "question"]
 
   connect() {
-    new Huebee(this.colorTarget, {
+    this.theme = new Huebee(this.colorTarget, {
       staticOpen: true,
       customColors: ["#8E354A", "#E62", "#EA0", "transparent", "#6C6", "#19F", "#2B5F75", "#7A7573"],
       shades: 0,
       hues: 4,
     })
 
-    new Huebee(this.background_colorTarget, {
+    this.backgroundColor = new Huebee(this.backgroundColorTarget, {
       staticOpen: true,
       customColors: ["#DC9FB4", "#eca38f", "#ffc97b", "transparent", "#bfe8c5", "#bfe2e8", "#6699A1", "#a4b5c4"],
       shades: 0,
@@ -27,9 +27,9 @@ export default class extends Controller {
     target.classList.add(...classes)
   }
 
-  pick_color(e) {
+  pickColor(e) {
     e.preventDefault()
-    const { id } = this.survey_idTarget.dataset
+    const { id } = this.surveyIdTarget.dataset
 
     const colorMap = {
       "#8E354A": "brightRed",
@@ -43,13 +43,13 @@ export default class extends Controller {
     }
 
     const theme = colorMap[this.colorTarget.value]
-    const classList = [...this.survey_idTarget.classList]
+    const classList = [...this.surveyIdTarget.classList]
 
     const classArray = classList
       .filter((className) => !className.includes("border-"))
       .filter((className) => !className.includes("focus-within:outline-"))
     classArray.push(`border-${theme}`, `focus-within:outline-${theme}`)
-    this.resetStyle(this.survey_idTarget, classArray)
+    this.resetStyle(this.surveyIdTarget, classArray)
 
     this.questionTargets.forEach((question) => {
       const questionList = [...question.classList]
@@ -70,9 +70,9 @@ export default class extends Controller {
     })
   }
 
-  pick_background_color(e) {
+  pickBackgroundColor(e) {
     e.preventDefault()
-    const { id } = this.survey_idTarget.dataset
+    const { id } = this.surveyIdTarget.dataset
 
     const bgColorMap = {
       "#DC9FB4": "softRed",
@@ -84,15 +84,15 @@ export default class extends Controller {
       "#6699A1": "softNavy",
       "#a4b5c4": "softGray",
     }
-    const background_color = bgColorMap[this.background_colorTarget.value]
+    const backgroundColor = bgColorMap[this.backgroundColorTarget.value]
     const classList = [...this.element.classList]
 
     const classArray = classList.filter((className) => !className.includes("bg-"))
-    classArray.push(`bg-${background_color}`)
+    classArray.push(`bg-${backgroundColor}`)
     this.resetStyle(this.element, classArray)
 
     const data = new FormData()
-    data.append("background_color", background_color)
+    data.append("background_color", backgroundColor)
 
     Rails.ajax({
       type: "patch",
@@ -103,26 +103,27 @@ export default class extends Controller {
     })
   }
 
-  select_font(e) {
-    const { id } = this.survey_idTarget.dataset
+  selectFont(e) {
+    const { id } = this.surveyIdTarget.dataset
     const form = this.formTarget
-    const font_style = e.target.value
-    form.setAttribute("class", font_style)
+    const fontStyle = e.target.value
 
     const data = new FormData()
-    data.append("font_style", font_style)
+    data.append("font_style", fontStyle)
 
     Rails.ajax({
       type: "patch",
       url: `/surveys/${id}/font_style`,
       data,
-      success: ({ message }) => {},
+      success: () => {
+        form.setAttribute("class", fontStyle)
+      },
       error: (err) => {},
     })
   }
 
   update_status(e) {
-    const { id } = this.survey_idTarget.dataset
+    const { id } = this.surveyIdTarget.dataset
     const status_value = e.target.value
 
     const data = new FormData()
@@ -138,7 +139,7 @@ export default class extends Controller {
   }
 
   update_opentime(e) {
-    const { id } = this.survey_idTarget.dataset
+    const { id } = this.surveyIdTarget.dataset
     const opentime = e.target.value
     const notice = e.target.closest("div")
     const previousNotice = e.target.previousElementSibling
@@ -160,7 +161,7 @@ export default class extends Controller {
   }
 
   update_closetime(e) {
-    const { id } = this.survey_idTarget.dataset
+    const { id } = this.surveyIdTarget.dataset
     const closetime = e.target.value
     const notice = e.target.closest("div")
     const previousNotice = e.target.previousElementSibling

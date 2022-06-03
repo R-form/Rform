@@ -42,7 +42,7 @@
           <div class="mx-4" > 
             <%= form.select :font_style,
             options_for_select([['請選擇字體', 'nill' ],['font-sans(default)', 'font-sans'],['font-serif','font-serif'], ['font-mono', 'font-mono']],
-            selected: form.object.font_style ),{},data: { action: "change -> survey-style#select_font"}    %>
+            selected: form.object.font_style ),{},data: { action: "change -> survey-style#selectFont"}    %>
           </div> 
         </li>
         <li class="aside_choice_title">             
@@ -52,7 +52,7 @@
           </span>                 
         </li> 
         <li>
-          <button class="mx-4" data-action="click-> survey-style#pick_color" >
+          <button class="mx-4" data-action="click-> survey-style#pickColor" >
             <input class="text-input hidden" data-survey-style-target="color"  />
           </button>
         </li>
@@ -63,8 +63,8 @@
           </span>                 
         </li> 
         <li>
-          <button class="mx-4" data-action="click-> survey-style#pick_background_color" >
-            <input class="text-input hidden" data-survey-style-target="background_color"  />
+          <button class="mx-4" data-action="click-> survey-style#pickBackgroundColor" >
+            <input class="text-input hidden" data-survey-style-target="backgroundColor"  />
           </button>
         </li>
         <li class="aside_choice_title">             
@@ -108,7 +108,7 @@
     <%= form_with(model: survey,  data: { controller: "auto-save skip-logic-modal", survey_style_target: "form" } ) do |form| %>
       <span class="hidden border-brightRed border-brightOrange border-brightYellow border-brightGreen
     border-brightBlue border-brightNavy border-brightGray         focus-within:outline-brightRed focus-within:outline-brightOrange focus-within:outline-brightYellow focus-within:outline-brightGreen focus-within:outline-brightBlue focus-within:outline-brightNavy focus-within:outline-brightGray"></span>
-      <div class="formsection_title  border-<%= survey.theme %> focus-within:outline-<%= survey.theme %>"  data-id="<%= survey.id %>" data-status="<%= survey.status %>" data-auto-save-target="surveyId" data-survey-style-target="survey_id" data-skip-logic-modal-target="survey_id"
+      <div class="formsection_title  border-<%= survey.theme %> focus-within:outline-<%= survey.theme %>"  data-id="<%= survey.id %>" data-status="<%= survey.status %>" data-auto-save-target="surveyId" data-survey-style-target="surveyId" data-skip-logic-modal-target="survey_id"
       data-select-question-target="survey_id">
         <%= form.text_field :title, placeholder: "問卷標題",autocomplete: "off", class: "title input ", 
           data: {action: "change->auto-save#add_survey_title "}%>

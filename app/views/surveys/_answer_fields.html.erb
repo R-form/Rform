@@ -6,13 +6,15 @@
    <% if form.object.question&.question_type != "多選題" %>
   <%= link_to "#", data: {
     action: "click->skip-logic-modal#open_alert"}, 
-    class: "btn-for-answer" do %>
+    class: "btn-for-answer",
+    title: "跳題設計" do %>
     <i class="fas fa-forward"></i>
     <% end %>
   <% end %>
-  <%= link_to "刪除選項", data: { action: "click->nested-form#remove_association click->auto-save#remove_answer" }, class: "btn-for-answer" do %>
+  <%= link_to "#", data: { action: "click->nested-form#remove_association click->auto-save#remove_answer" }, class: "btn-for-answer", title:"刪除答案選項" do %>
     <i class="fas fa-trash-alt"></i>
   <% end %>
+
 </div>
 
 
