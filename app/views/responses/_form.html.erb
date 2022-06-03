@@ -1,89 +1,88 @@
 <style>
   <% if @survey.image.attached? %>
-.form_bg {
+    .form_bg {
       background-image: url("<%= url_for(@survey.image) %>");
       position: relative;
       z-index: 0;
-}   
-.form_bg:before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-}
+    }   
+    .form_bg:before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
   <% end %>
 </style>
 
-<div class="response_page bg-<%= @survey.background_color %> w-full <%= @survey.image.attached? ? "form_bg" : ""%> ">
-    <section class="sections response_fields <%= @survey.font_style %> focus-within:outline-<%= @survey.theme %>" data-controller="responses">
-      <div class="survey_title hidden" data-responses-target="survey_title">
-        <h1 class="title text-5xl text-ironGray my-5"><%= @survey.title %></h1>
-        <p class="description text-md text-ironGray break-words relative"><%= @survey.description %></p>
+<div class="response-page bg-<%= @survey.background_color %> <%= @survey.image.attached? ? "form_bg" : ""%> ">
+    <section class="response-section <%= @survey.font_style %> focus-within:outline-<%= @survey.theme %>" data-controller="responses">
+      <div class="response-survey-title-group hidden" data-responses-target="survey_title">
+        <h1 class="response-survey-title"><%= @survey.title %></h1>
+        <p class="response-descriptions relative"><%= @survey.description %></p>
       </div>
       <%= form_with model: [@survey, response] do |form| %>
         <%= form.fields_for :answers do |response| %>
           <% @survey.questions.each do |question| %>
-          <div class="question_field hidden my-10" data-responses-target="question" data-question_id="<%= question.id %>">
-
-            <h1 class="question_title inline-block py-2 text-3xl text-gray-600">
+          <div class="question_field hidden my-8" data-responses-target="question" data-question_id="<%= question.id %>">
+            <h1 class="question_title">
               <%= question.title %>
               <% if question.required %>
                 <span class="text-sm">(必填)</span>
               <% end %>
-              <p class="text-base text-ironGray break-words"><%= question.description%></p>
+            </h1>
+            <p class="response-descriptions"><%= question.description%></p>
               <% if question.image.attached? %>
                 <%= image_tag question.image.variant(resize_to_limit: [250, 250]) %>
               <% end %>
-            </h1>
             <span class="hidden bg-brightRed bg-brightOrange bg-brightYellow bg-brightGreen
             bg-brightBlue bg-brightNavy bg-brightGray hover:bg-softRed hover:bg-softOrange hover:bg-softYellow hover:bg-softGreen hover:bg-softBlue hover:bg-softNavy hover:bg-softGray"></span>
-            <div class="question_content">
+            <div class="question-content">
               <% case question.question_type %>
               <% when '單選題' %>
                 <% question.answers.each do |answer| %>
-                  <label class= "response_choice bg-<%= @survey.theme %> hover:bg-<%= @survey.background_color %>" >
-                    <%= response.radio_button question.id, answer.id, required: question.required, class: 'radio_button h-6 w-6 ml-1 mr-3', data: {action: "change->responses#checked", "skip_to_question_id": answer.skip_to_question_id } %>
+                  <label class= "response-choice bg-<%= @survey.theme %> hover:bg-<%= @survey.background_color %>" >
+                    <%= response.radio_button question.id, answer.id, required: question.required, class: 'radio-button', data: {action: "change->responses#checked", "skip_to_question_id": answer.skip_to_question_id } %>
                     <%= answer.title %>
                   </label>
                 <% end %>
               <% when '多選題' %>
                 <% question.answers.each do |answer| %>
-                  <label class= "response_choice bg-<%= @survey.theme%> hover:bg-<%= @survey.background_color %>">
-                    <%= response.check_box question.id, { multiple: true, class: 'radio_button h-6 w-6 ml-1 mr-3 accent-ironGaryHover' }, answer.id %>
+                  <label class= "response-choice bg-<%= @survey.theme%> hover:bg-<%= @survey.background_color %>">
+                    <%= response.check_box question.id, { multiple: true, class: 'radio-button' }, answer.id %>
                     <%= answer.title %>
                   </label>
                 <% end %>
               <% when '問答題' %>
-                <%= response.text_area question.id, required: question.required, class: 'text_area w-full my-6 border-2 rounded-md border-ironGaryHover focus:outline-none focus:ring-ironGray focus:border-ironGray text-md' %>
+                <%= response.text_area question.id, required: question.required, class: 'response-textarea' %>
               <% when '滿意度' %>
-                <table class="default w-full my-6">
-                  <tr class="tr flex justify-around flex-wrap">
+                <table class="w-full my-6 flex-wrap border">
+                  <tr class="text-center border">
                     <% question.answers.each do |answer| %>
-                      <td>
+                      <td class="border">
                         <%= answer.title %>
                       </td>
                     <% end %>
                   </tr>
-                  <tr class="tr flex justify-around flex-wrap ">
+                  <tr class="text-center">
                     <% question.answers.each do |answer| %>
-                      <td>
-                        <%= response.radio_button question.id, answer.id, data_skip_to_question_id: answer.skip_to_question_id, class: 'radio_button h-6 w-6', data: {action: "change->responses#checked"} %>
+                      <td class="border">
+                        <%= response.radio_button question.id, answer.id, data_skip_to_question_id: answer.skip_to_question_id, class: 'radio-button', data: {action: "change->responses#checked"} %>
                       </td>
                     <% end %>
                   </tr>
                 </table>
               <% when '日期' %>
-                <%= response.date_field question.id , class: "default w-full my-6", data: {controller: "date"}%>
+                <%= response.date_field question.id, placeholder: "點按已選擇日期", class: "response-datetime", data: {controller: "date"}%>
               <% when '時間' %>
-                <%= response.time_field question.id, class: "default w-full my-6", data: {controller: "time"} %>
+                <%= response.time_field question.id, placeholder: "點按已選擇時間", class: "response-datetime", data: {controller: "time"} %>
               <% when '下拉選單' %>
-                <%= response.select question.id, options_for_select(question.answers.collect{ |o| [o.title, o.id, class: "option"] }), {class: "default w-full my-6"}  %>
+                <%= response.select question.id, options_for_select(question.answers.collect{ |o| [o.title, o.id, class: "option break-words"] }),{}, {class: "response-select"}  %>
               <% when '範圍' %>
-                <%= response.range_field question.id %>
+                <%= response.range_field question.id, class: "range bg-#{@survey.theme}" %>
               <% when '上傳檔案' %>
                 <%= response.file_field question.id, accept: "application/pdf, application/zip", multiple: true %>
               <% end %>
