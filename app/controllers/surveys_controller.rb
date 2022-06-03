@@ -97,6 +97,7 @@ class SurveysController < ApplicationController
     xls_answer_arrays = []
     response_jsons = []
     response_question_answers = []
+    responses_by_questions = []
     
     @survey.responses.each do |response|
       xls_answer_array = [response.created_at]
@@ -110,6 +111,7 @@ class SurveysController < ApplicationController
 
       @survey.questions.each do |question|
         response_question_answer = []
+        responses_by_question = []
         current_response_answers = response.answers[question.id.to_s] 
         case question.question_type
         when '多選題'
@@ -147,16 +149,25 @@ class SurveysController < ApplicationController
           end
 
         when '問答題', '日期', '時間', '範圍'
-          response_answer_datas << current_response_answers
+          response_question_answer << current_response_answers
           xls_answer_array << current_response_answers
           xls_answer_arrays << xls_answer_array
         end
+
+        #save answers of the same question from every responses
+        if response_question_index % @survey.questions.count === 0
+          responses_by_question << response_question_answer
+        end
+
+        #combine into an array for display in view
+        responses_by_questions << responses_by_question
 
         response_question_answers << response_question_answer
 
         response_jsons[response_question_index] = {
           responseIndex: response_index,
           questionTitles: question.title,
+          questionTypes: question.question_type,
           responseAnswerTitles: response_question_answers[response_question_index],
         }
         response_question_index += 1
@@ -165,6 +176,8 @@ class SurveysController < ApplicationController
     end
 
     @responseJsons = response_jsons
+    @responses_by_question = responses_by_questions
+    @response_question_answers = response_question_answers
     
     sum_of_response_answer_ids = []
 
@@ -200,7 +213,7 @@ class SurveysController < ApplicationController
 
         chart_options[chart_index] = {
           layout: {
-            padding: 200
+            padding: 50
           }
         }   
         

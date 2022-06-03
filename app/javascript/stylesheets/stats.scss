@@ -1,0 +1,23 @@
+.padding-for-fixed-stats{
+    @apply pt-20;
+  }
+  
+  .stats-tab-button{
+    @apply px-4 py-3 font-bold bg-gentleYellow hover:bg-ironGray;
+  }
+  
+  .stats-display-area{
+    @apply bg-gentleYellow mx-2 px-4 py-4 min-h-screen;
+  }
+  
+  .input-jump-to-page{
+    @apply w-16;
+  }
+  
+  .table-style{
+    @apply border-solid border-2 border-black text-xl;
+  }
+  
+  .taglabel{
+    @apply inline-block bg-irisBlue align-middle rounded-2xl px-2.5 py-1 text-xs text-white font-medium mr-1 mb-1 border-solid border break-all break-all;
+  }
