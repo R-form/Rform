@@ -212,9 +212,23 @@ class SurveysController < ApplicationController
         }
 
         chart_options[chart_index] = {
+          plugins: {
+            title: {
+              display: true,
+              text: question.title
+            }
+          },
           layout: {
             padding: 50
-          }
+          },
+          scales: {
+            y: {
+              ticks: {
+                stepSize: 1
+              },
+              beginAtZero: true
+            }
+          },
         }   
         
         chart_index += 1
