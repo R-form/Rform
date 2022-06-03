@@ -128,11 +128,11 @@
           <% end %>
     <% end %>
           <div data-nested-form-target="add_item" class="field down text-center">
-            <%= link_to "新增問題", "#", data: { action: "nested-form#add_association auto-save#add_question_item"  }, class: "btn w-max " %>
+            <%= link_to "新增問題", "#", data: { action: "nested-form#add_association auto-save#add_question_item"  }, class: "btn " %>
             <%= form_with(model: survey, data: {nested_form_target: "change_bg"}) do |form| %>
-              <%= form.label :image , "更換圖片", class: "btn w-max " %>
+              <%= form.label :image , "更換圖片", class: "btn" %>
               <%= form.file_field :image , class:"hidden" , data: {action: "input->nested-form#change_background"} %>
-              <%= form.submit "上傳" , class: "hidden btn w-max mx-auto"%>
+              <%= form.submit "上傳" , class: "hidden"%>
             <% end %>
             <%= form_with( url:question_image_survey_path(survey), method: "patch" , data: {nested_form_target: "change_question_image" , controller: "nested-form auto-save" , action: "question_image@document->nested-form#change_question_image" } )  do |form| %>
               <%= form.text_field :survey_id , class: "hidden" , value: survey.id %>
