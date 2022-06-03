@@ -1,10 +1,6 @@
 module.exports = {
   mode: "jit",
-  purge: [
-    "./app/views/**/*.{erb,html}",
-    "./app/helpers/**/*.rb",
-    "./app/javascript/**/*.js",
-  ],
+  purge: ["./app/views/**/*.{erb,html}", "./app/helpers/**/*.rb", "./app/javascript/**/*.js"],
   safelist: [
     "gentleYellow",
     "ironGray",
@@ -73,4 +69,4 @@ module.exports = {
     },
   },
   plugins: [require("@tailwindcss/aspect-ratio")],
-};
+}
