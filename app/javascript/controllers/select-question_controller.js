@@ -2,10 +2,10 @@ import { Controller } from "stimulus"
 import Rails from "@rails/ujs"
 
 export default class extends Controller {
-  static targets = ["survey_id"]
+  static targets = ["surveyId"]
 
-  get_question(e) {
-    const survey_id = this.survey_idTarget.dataset.id
+  getQuestion(e) {
+    const survey_id = this.surveyIdTarget.dataset.id
     const question_id = e.target.dataset.question_id
     const answer_id = e.target.dataset.answer_id
     const skip_to_question_id = e.target.value
@@ -24,7 +24,7 @@ export default class extends Controller {
     })
   }
 
-  remove_question() {
+  removeQuestion() {
     const select = document.querySelector("#select_for_skip_logic")
     const { survey_id, question_id, answer_id } = select.dataset
 

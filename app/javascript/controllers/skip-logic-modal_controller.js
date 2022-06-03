@@ -4,14 +4,13 @@ import Swal from "sweetalert2"
 import "sweetalert2/src/sweetalert2.scss"
 
 export default class extends Controller {
-  static targets = ["survey_id"]
+  static targets = ["surveyId"]
 
-  open_alert(e) {
+  openAlert(e) {
     e.preventDefault()
 
-    const survey_id = this.survey_idTarget.dataset.id
+    const survey_id = this.surveyIdTarget.dataset.id
     const question_id = e.target.closest(".question").dataset.question_id
-    //因前面建置有誤，導致產生很多id="answer"，須先確認id="answer"是否必要，會在修正成class。
     const answer_id = e.target.closest(".answer").firstElementChild.value
 
     const query = new URLSearchParams({ question_id, answer_id }).toString()
@@ -39,13 +38,13 @@ export default class extends Controller {
             data-question_id = '${question_id}'
             data-answer_id = '${answer_id}'
             data-survey_id = '${survey_id}'
-            data-action='change->select-question#get_question'>
+            data-action='change->select-question#getQuestion'>
             <option>請選擇</option>${select_option}
           </select>`,
           showCloseButton: true,
           showCancelButton: true,
           confirmButtonText: "儲存",
-          cancelButtonText: '<span data-action="click->select-question#remove_question">取消</span>',
+          cancelButtonText: '<span data-action="click->select-question#removeQuestion">取消</span>',
         })
       },
       error: () => {
