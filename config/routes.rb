@@ -30,14 +30,18 @@ Rails.application.routes.draw do
       patch :update_status
       patch :update_opentime
       patch :update_closetime
+      get :duplicate
       post :duplicate_question
       patch :font_style
       patch :theme
       patch :question_image
-      get :stats
       patch :background_color
-      get :duplicate
+      get :stats
       patch :tag
+      get :questions_list
+      patch :skip_to_question_id
+      delete :remove_skip_to_question_id
+    end 
   end
   
   resources :oauths, only: [] do

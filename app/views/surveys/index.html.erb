@@ -18,7 +18,7 @@
               <% end %>
                 
               <% if survey.published? %>
-                <%= link_to "#", title: "分享問卷", data: {action:"click->modal#open click->surveys#share" ,url: responses_new_path(survey) }, class: "bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 mx-2 rounded-full" do %>
+                <%= link_to "#", title: "分享問卷", data: {action:"click->modal#open click->surveys#share" ,url: responses_new_path(survey) }, class: "linkbtn" do %>
                   <i class="fas fa-share"></i>
                 <% end %>
               <% end %>
@@ -80,5 +80,5 @@
 </section>
 
 <div class="text-right">
-  <%= link_to '建立問卷', new_survey_path ,class: "fixed bottom-8 right-8 bg-gray-500 hover:bg-gray-700 text-white font-bold py-5 px-10 rounded"%>
+  <%= link_to '建立問卷', new_survey_path ,class: "fixed bottom-8 right-8 bg-gray-500 hover:bg-gray-700 text-white text-xl font-bold py-5 px-10 rounded"%>
 </div>
