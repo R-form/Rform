@@ -1,23 +1,43 @@
 .padding-for-fixed-stats{
-    @apply pt-20;
-  }
+  padding-top: 80px;
+}
   
-  .stats-tab-button{
-    @apply px-4 py-3 font-bold bg-gentleYellow hover:bg-ironGray;
-  }
+.stats-tab-button{
+  @apply px-4 py-3 font-bold bg-gentleYellow hover:bg-softOrange;
+}
   
-  .stats-display-area{
-    @apply bg-gentleYellow mx-2 px-4 py-4 min-h-screen;
-  }
+.stats-display-area{
+  @apply flex bg-gentleYellow mx-2 px-4 py-4 min-h-screen;
+}
+
+.survey-info-area{
+  @apply bg-gentleYellow w-60;
+}
   
-  .input-jump-to-page{
-    @apply w-16;
-  }
+.canvasContainer{
+  width: 560px;
+}
+
+.page-button{
+  @apply hover:bg-softOrange;
+}
+
+.input-jump-to-page{
+  @apply w-16;
+}
   
-  .table-style{
-    @apply border-solid border-2 border-black text-xl;
-  }
+.table-style{
+  @apply border-solid border-2 border-yellow-900 text-2xl shadow-xl;
+}
+
+.th-style{
+  @apply bg-softOrange text-2xl shadow-xl;
+}
+
+.td-style{
+  @apply bg-gentleYellow text-2xl shadow-xl;
+}
   
-  .taglabel{
-    @apply inline-block bg-irisBlue align-middle rounded-2xl px-2.5 py-1 text-xs text-white font-medium mr-1 mb-1 border-solid border break-all break-all;
-  }
+.taglabel{
+  @apply inline-block bg-irisBlue align-middle rounded-2xl px-2.5 py-1 text-xs text-white font-medium mr-1 mb-1 border-solid border break-all break-all;
+}
