@@ -1,28 +1,23 @@
-import { Controller } from "stimulus";
+import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["select", "choice", "addbtn", "image"];
+  static targets = ["select", "choice", "addbtn", "image"]
   connect() {
-    this.selected();
+    this.selected()
   }
 
   selected() {
-    const { status } = this.element.dataset;
+    const { status } = this.element.dataset
 
-    switch (this.selectTarget.value) {
-      case "單選題":
-      case "多選題":
-      case "滿意度":
-      case "下拉選單":
-        this.choiceTarget.classList.remove("hidden");
-        if (status == "published" || status == "draft") {
-          this.addbtnTarget.classList.remove("hidden");
-        }
-        break;
-      default:
-        this.choiceTarget.classList.add("hidden");
-        this.addbtnTarget.classList.add("hidden");
-        break;
+    this.choiceTarget.classList.add("hidden")
+    this.addbtnTarget.classList.add("hidden")
+
+    const quesitonTypes = ["單選題", "多選題", "滿意度", "下拉選單"]
+    if (quesitonTypes.includes(this.selectTarget.value)) {
+      this.choiceTarget.classList.remove("hidden")
+      if (status == "published" || status == "draft") {
+        this.addbtnTarget.classList.remove("hidden")
+      }
     }
   }
 }

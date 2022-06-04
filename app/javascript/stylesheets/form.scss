@@ -1,5 +1,5 @@
 .form_bg {
-    @apply bg-fixed bg-no-repeat bg-cover;
+  @apply bg-fixed bg-no-repeat bg-cover;
 }
 
 .huebee__cursor {
@@ -73,20 +73,18 @@ textarea {
 .question_function {
   @apply flex justify-between my-2;
 }
+
 .btn {
-  @apply bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2 my-auto rounded-full;
-}
-.add_btn {
-  @apply bg-gray-500 hover:bg-gray-700 text-white font-bold py-1 px-2  rounded-full;
+  @apply inline-block bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-2 my-1 rounded;
 }
 
-#answer {
+.answer {
   @apply flex shadow-none outline-none;
 }
 
-.answer_input {
-  @apply focus:bg-gray-100 rounded;
-}
+// .answer_input {
+//   @apply focus:bg-gray-100 rounded;
+// }
 
 .add_answer {
   @apply bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full;
