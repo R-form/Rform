@@ -20,7 +20,6 @@ export default class extends Controller {
       success: ({ message, params }) => {
         let select_option = ""
         message.forEach((element) => {
-          // filter
           const { title, id } = element
           if (id != question_id) {
             if (id == params) {
@@ -32,8 +31,10 @@ export default class extends Controller {
         })
 
         Swal.fire({
-          title: "<strong>請選擇要前往的題目</strong>",
-          html: `<select
+          title: "<strong>請選擇您的操作</strong>",
+          html:
+            `使用者選擇此選項後，將會接續到以下題目：<br><br>` +
+            `<select
             id = 'select_for_skip_logic'
             data-question_id = '${question_id}'
             data-answer_id = '${answer_id}'
@@ -41,10 +42,18 @@ export default class extends Controller {
             data-action='change->select-question#getQuestion'>
             <option>請選擇</option>${select_option}
           </select>`,
+          showDenyButton: true,
           showCloseButton: true,
           showCancelButton: true,
-          confirmButtonText: "儲存",
-          cancelButtonText: '<span data-action="click->select-question#removeQuestion">取消</span>',
+          confirmButtonText: "儲存變更",
+          denyButtonText: '<span data-action="click->select-question#removeQuestion">移除設定</span>',
+          cancelButtonText: "取消操作",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire("儲存成功!", "", "success")
+          } else if (result.isDenied) {
+            Swal.fire("您已移除跳題的設定。", "", "info")
+          }
         })
       },
       error: () => {
