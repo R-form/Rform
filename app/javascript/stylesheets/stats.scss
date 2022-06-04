@@ -1,5 +1,5 @@
 .padding-for-fixed-stats{
-  padding-top: 80px;
+  @apply pt-20;
 }
   
 .stats-tab-button{
@@ -14,7 +14,7 @@
   @apply bg-gentleYellow mx-2 px-8 py-4 w-full min-h-screen;
 }
   
-.canvasContainer{
+.canvas-container{
   width: 560px;
 }
 
