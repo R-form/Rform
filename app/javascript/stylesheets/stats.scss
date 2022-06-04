@@ -3,15 +3,15 @@
 }
   
 .stats-tab-button{
-  @apply px-4 py-3 font-bold bg-gentleYellow hover:bg-softOrange;
+  @apply px-4 py-3 w-full font-bold bg-gentleYellow hover:bg-softOrange;
 }
   
-.stats-display-area{
-  @apply flex bg-gentleYellow mx-2 px-4 py-4 min-h-screen;
+.side-bar-area{
+  @apply bg-gentleYellow mx-2 w-60;
 }
 
-.survey-info-area{
-  @apply bg-gentleYellow w-60;
+.stats-display-area{
+  @apply bg-gentleYellow mx-2 px-8 py-4 w-full min-h-screen;
 }
   
 .canvasContainer{
