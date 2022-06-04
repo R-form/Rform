@@ -6,32 +6,59 @@ export default class extends Controller {
   connect() {
     this.surveyTitleTarget.classList.remove("hidden")
     this.questionTarget.classList.remove("hidden")
-    // this.nextQuestionTargets.forEach((target) => {
-    //   target.setAttribute("disabled", "")
-    // })
+
+    this.questionTargets.forEach((target, index) => {
+      if (target.dataset.required == "true") {
+        this.nextQuestionTargets[index].setAttribute("disabled", "")
+        this.nextQuestionTargets[index].setAttribute("class", "disabled-response-button")
+        this.nextQuestionTargets[index].textContent = "請先填答"
+      }
+    })
 
     this.nextQuestionTargets[this.nextQuestionTargets.length - 1].classList.add("hidden")
     this.previousQuestionTarget.classList.add("hidden")
     this.skipToQuestionId = ""
     this.skipFromQuestionId = []
-    this.questionTargets.forEach((target, index) => {
-      if (target.dataset.required == "true") {
-        this.nextQuestionTargets[index].setAttribute("disabled", "")
-      }
-    })
+  }
+
+  removeButtonDisabled(e) {
+    const nextQuestionButton = e.target.closest(".question_field").lastElementChild
+    if (!nextQuestionButton.className.includes("hidden")) {
+      nextQuestionButton.removeAttribute("disabled")
+      nextQuestionButton.setAttribute("class", "response-button")
+      nextQuestionButton.textContent = "下一題"
+    }
+  }
+
+  addButtonDisabled(e) {
+    const nextQuestionButton = e.target.closest(".question_field").lastElementChild
+    nextQuestionButton.setAttribute("disabled", "")
+    nextQuestionButton.setAttribute("class", "disabled-response-button")
+    nextQuestionButton.textContent = "請先填答"
   }
 
   checked(e) {
     if (e.target.checked) {
       this.skipToQuestionId = e.target.dataset.skipToQuestionId
-      const nextQuestionButton = e.target.closest(".question_field").lastElementChild
-      nextQuestionButton.removeAttribute("disabled")
+      this.removeButtonDisabled(e)
     }
   }
 
-  required(e) {
-    // TODO del
-    console.log(e.target.textContent)
+  checkedCheckBox(e) {
+    if (e.target.checked) {
+      this.removeButtonDisabled(e)
+    } else {
+      this.addButtonDisabled(e)
+    }
+  }
+
+  responded(e) {
+    if (e.target.value) {
+      this.removeButtonDisabled(e)
+    }
+    if (e.target.value == "") {
+      this.addButtonDisabled(e)
+    }
   }
 
   next(e) {

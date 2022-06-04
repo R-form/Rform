@@ -60,3 +60,7 @@
 .response-button {
   @apply p-3 bg-ironGray text-lg text-white font-bold rounded my-auto mr-4 shadow-lg hover:bg-ironGrayHover;
 }
+
+.disabled-response-button {
+  @apply p-3 bg-ironGray text-lg text-white font-bold rounded my-auto mr-4 shadow-lg bg-opacity-50;
+}
