@@ -11,7 +11,7 @@ class ResponsesController < ApplicationController
     if @survey.publish_opening_time
       @response = @survey.responses.new
     else
-      redirect_to submitted_survey_responses_path(@survey)
+      redirect_to submitted_survey_responses_path(@survey, submit: "fail")
     end
   end
 
