@@ -148,7 +148,6 @@ class SurveysController < ApplicationController
           end
 
         when '問答題', '日期', '時間', '範圍'
-          response_answer_datas << current_response_answers
           xls_answer_array << current_response_answers
           xls_answer_arrays << xls_answer_array
         end
