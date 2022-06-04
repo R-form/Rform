@@ -45,7 +45,7 @@
               <% when '單選題' %>
                 <% question.answers.each do |answer| %>
                   <label class= "response-choice bg-<%= @survey.theme %> hover:bg-<%= @survey.background_color %>" >
-                    <%= response.radio_button question.id, answer.id, required: question.required, class: 'radio-button', style: "accent-color: #{@survey.background_color};", data: {action: "change->responses#checked", "skip_to_question_id": answer.skip_to_question_id } %>
+                    <%= response.radio_button question.id, answer.id, class: 'radio-button', style: "accent-color: #{@survey.background_color};", data: {action: "change->responses#checked", "skip_to_question_id": answer.skip_to_question_id } %>
                     <%= answer.title %>
                   </label>
                 <% end %>
@@ -57,7 +57,7 @@
                   </label>
                 <% end %>
               <% when '問答題' %>
-                <%= response.text_area question.id, required: question.required, class: 'response-textarea',data: {action: "change->responses#responded"} %>
+                <%= response.text_area question.id, class: 'response-textarea',data: {action: "change->responses#responded"} %>
               <% when '滿意度' %>
                 <table class="w-full my-6 flex-wrap">
                   <tr class="text-center">
