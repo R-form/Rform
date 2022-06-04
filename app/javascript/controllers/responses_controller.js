@@ -6,16 +6,32 @@ export default class extends Controller {
   connect() {
     this.surveyTitleTarget.classList.remove("hidden")
     this.questionTarget.classList.remove("hidden")
+    // this.nextQuestionTargets.forEach((target) => {
+    //   target.setAttribute("disabled", "")
+    // })
+
     this.nextQuestionTargets[this.nextQuestionTargets.length - 1].classList.add("hidden")
     this.previousQuestionTarget.classList.add("hidden")
     this.skipToQuestionId = ""
     this.skipFromQuestionId = []
+    this.questionTargets.forEach((target, index) => {
+      if (target.dataset.required == "true") {
+        this.nextQuestionTargets[index].setAttribute("disabled", "")
+      }
+    })
   }
 
   checked(e) {
     if (e.target.checked) {
       this.skipToQuestionId = e.target.dataset.skipToQuestionId
+      const nextQuestionButton = e.target.closest(".question_field").lastElementChild
+      nextQuestionButton.removeAttribute("disabled")
     }
+  }
+
+  required(e) {
+    // TODO del
+    console.log(e.target.textContent)
   }
 
   next(e) {
