@@ -27,7 +27,7 @@
       <%= form_with model: [@survey, response] do |form| %>
         <%= form.fields_for :answers do |response| %>
           <% @survey.questions.each do |question| %>
-          <div class="question_field hidden my-8" data-responses-target="question" data-question_id="<%= question.id %>">
+          <div class="question_field hidden my-8" data-responses-target="question" data-question_id="<%= question.id %>" data-required="<%= question.required %>">
             <h1 class="question_title">
               <%= question.title %>
               <% if question.required %>
@@ -57,7 +57,7 @@
                   </label>
                 <% end %>
               <% when '問答題' %>
-                <%= response.text_area question.id, required: question.required, class: 'response-textarea' %>
+                <%= response.text_area question.id, required: question.required, class: 'response-textarea',data: {action: "change->responses#required"} %>
               <% when '滿意度' %>
                 <table class="w-full my-6 flex-wrap">
                   <tr class="text-center">
@@ -88,13 +88,13 @@
               <% end %>
             </div>
 
-            <%= form.button "上一題", data: { action: "click->responses#previous", "responses_target": "previousQuestion" }, class: "response_button"%>
-            <%= form.button "下一題", data: { action: "click->responses#next", "responses_target": "nextQuestion" }, class: "response_button"%>
+            <%= form.button "上一題", data: { action: "click->responses#previous", "responses_target": "previousQuestion" }, class: "response-button"%>
+            <%= form.button "下一題", data: { action: "click->responses#next", "responses_target": "nextQuestion" }, class: "response-button next-response"%>
           </div>
           <% end %>
         <% end %>
         <div class="response_submit hidden" data-responses-target="submit">
-          <%= form.submit "送出問卷",class:"response_button" %>
+          <%= form.submit "送出問卷",class:"response-button" %>
         </div>
 
       <% end %>
