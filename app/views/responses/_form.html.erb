@@ -20,7 +20,7 @@
 
 <div class="response-page bg-<%= @survey.background_color %> <%= @survey.image.attached? ? "form_bg" : ""%> ">
     <section class="response-section <%= @survey.font_style %> focus-within:outline-<%= @survey.theme %>" data-controller="responses">
-      <div class="response-survey-title-group hidden" data-responses-target="survey_title">
+      <div class="response-survey-title-group hidden" data-responses-target="surveyTitle">
         <h1 class="response-survey-title"><%= @survey.title %></h1>
         <p class="response-descriptions relative"><%= @survey.description %></p>
       </div>
@@ -45,40 +45,40 @@
               <% when '單選題' %>
                 <% question.answers.each do |answer| %>
                   <label class= "response-choice bg-<%= @survey.theme %> hover:bg-<%= @survey.background_color %>" >
-                    <%= response.radio_button question.id, answer.id, required: question.required, class: 'radio-button', data: {action: "change->responses#checked", "skip_to_question_id": answer.skip_to_question_id } %>
+                    <%= response.radio_button question.id, answer.id, required: question.required, class: 'radio-button', style: "accent-color: #{@survey.background_color};", data: {action: "change->responses#checked", "skip_to_question_id": answer.skip_to_question_id } %>
                     <%= answer.title %>
                   </label>
                 <% end %>
               <% when '多選題' %>
                 <% question.answers.each do |answer| %>
                   <label class= "response-choice bg-<%= @survey.theme%> hover:bg-<%= @survey.background_color %>">
-                    <%= response.check_box question.id, { multiple: true, class: 'radio-button' }, answer.id %>
+                    <%= response.check_box question.id, { multiple: true, class: 'radio-button'}, answer.id %>
                     <%= answer.title %>
                   </label>
                 <% end %>
               <% when '問答題' %>
                 <%= response.text_area question.id, required: question.required, class: 'response-textarea' %>
               <% when '滿意度' %>
-                <table class="w-full my-6 flex-wrap border">
-                  <tr class="text-center border">
+                <table class="w-full my-6 flex-wrap">
+                  <tr class="text-center">
                     <% question.answers.each do |answer| %>
-                      <td class="border">
+                      <td>
                         <%= answer.title %>
                       </td>
                     <% end %>
                   </tr>
                   <tr class="text-center">
                     <% question.answers.each do |answer| %>
-                      <td class="border">
+                      <td>
                         <%= response.radio_button question.id, answer.id, data_skip_to_question_id: answer.skip_to_question_id, class: 'radio-button', data: {action: "change->responses#checked"} %>
                       </td>
                     <% end %>
                   </tr>
                 </table>
               <% when '日期' %>
-                <%= response.date_field question.id, placeholder: "點按已選擇日期", class: "response-datetime", data: {controller: "date"}%>
+                <%= response.date_field question.id, placeholder: "點按以選擇日期", class: "response-datetime", data: {controller: "date"}%>
               <% when '時間' %>
-                <%= response.time_field question.id, placeholder: "點按已選擇時間", class: "response-datetime", data: {controller: "time"} %>
+                <%= response.time_field question.id, placeholder: "點按以選擇時間", class: "response-datetime", data: {controller: "time"} %>
               <% when '下拉選單' %>
                 <%= response.select question.id, options_for_select(question.answers.collect{ |o| [o.title, o.id, class: "option break-words"] }),{}, {class: "response-select"}  %>
               <% when '範圍' %>
@@ -88,8 +88,8 @@
               <% end %>
             </div>
 
-            <%= form.button "上一題", data: { action: "click->responses#previous", "responses_target": "previous_question" }, class: "response_button"%>
-            <%= form.button "下一題", data: { action: "click->responses#next", "responses_target": "next_question" }, class: "response_button"%>
+            <%= form.button "上一題", data: { action: "click->responses#previous", "responses_target": "previousQuestion" }, class: "response_button"%>
+            <%= form.button "下一題", data: { action: "click->responses#next", "responses_target": "nextQuestion" }, class: "response_button"%>
           </div>
           <% end %>
         <% end %>
