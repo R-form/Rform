@@ -164,7 +164,6 @@ export default class extends Controller {
       cancelButtonText: "取消",
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log(456)
         item.style.display = "none"
 
         const data = new FormData()
