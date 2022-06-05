@@ -45,7 +45,7 @@
               <% when '單選題' %>
                 <% question.answers.each do |answer| %>
                   <label class= "response-choice bg-<%= @survey.theme %> hover:bg-<%= @survey.background_color %>" >
-                    <%= response.radio_button question.id, answer.id, class: 'radio-button', style: "accent-color: #{@survey.background_color};", data: {action: "change->responses#checked", "skip_to_question_id": answer.skip_to_question_id } %>
+                    <%= response.radio_button question.id, answer.id, class: 'radio-button', data: {action: "change->responses#checked", "skip_to_question_id": answer.skip_to_question_id } %>
                     <%= answer.title %>
                   </label>
                 <% end %>
@@ -70,7 +70,7 @@
                   <tr class="text-center">
                     <% question.answers.each do |answer| %>
                       <td>
-                        <%= response.radio_button question.id, answer.id, data_skip_to_question_id: answer.skip_to_question_id, class: 'radio-button', data: {action: "change->responses#checked"} %>
+                        <%= response.radio_button question.id, answer.id, class: 'radio-button', data: {action: "change->responses#checked", "skip_to_question_id": answer.skip_to_question_id } %>
                       </td>
                     <% end %>
                   </tr>
@@ -80,7 +80,7 @@
               <% when '時間' %>
                 <%= response.time_field question.id, placeholder: "點按以選擇時間", class: "response-datetime", data: {controller: "time", action: "change->responses#responded"} %>
               <% when '下拉選單' %>
-                <%= response.select question.id, options_for_select(question.answers.collect{ |o| [o.title, o.id, class: "option break-words"] }),{}, {class: "response-select", data: {action: "change->responses#responded"}}  %>
+                <%= response.select question.id, options_for_select(question.answers.collect{ |o| [o.title, o.id, class: "option break-words"] }),{include_blank: "請選擇選項"}, {class: "response-select", data: {action: "change->responses#responded"}} %>
               <% when '範圍' %>
                 <%= response.range_field question.id, class: "range bg-#{@survey.theme}", data: {action: "change->responses#responded"} %>
               <% when '上傳檔案' %>
