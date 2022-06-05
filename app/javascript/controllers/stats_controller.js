@@ -31,15 +31,12 @@ export default class extends Controller {
 
     switch (e.target.id) {
       case "showResponsesBtn":
-        console.log("showResponsesBtn")
         this.showResponsesTarget.classList.remove("hidden")
         break
       case "showQuestionsBtn":
-        console.log("showQuestionsBtn")
         this.showQuestionsTarget.classList.remove("hidden")
         break
       case "showChartsBtn":
-        console.log("showChartsBtn")
         this.showChartsTarget.classList.remove("hidden")
         break
     }

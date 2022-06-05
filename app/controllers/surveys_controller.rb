@@ -158,7 +158,6 @@ class SurveysController < ApplicationController
         response_jsons[response_question_index] = {
           responseIndex: response_index,
           questionTitles: question.title,
-          questionTypes: question.question_type,
           responseAnswerTitles: response_question_answers[response_question_index],
         }
         response_question_index += 1
