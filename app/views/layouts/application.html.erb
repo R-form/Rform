@@ -19,7 +19,7 @@
 
   </head>
 
-  <body data-controller="modal surveys select-question" style="position:relative">
+  <body data-controller="modal surveys select-question" style="position:relative;">
     <header class="px-1 bg-gentleYellow	fixed z-10 w-full ">
       <div id="nav" class="flex w-full justify-between items-center">
         <div class="w-20 mx-12 my-4 text-3xl text-gray-700 italic">
@@ -48,10 +48,23 @@
       <% end %>
         </div>
     </header>
-  <div class="w-full flex justify-center fixed z-10" >
-    <p id="notice"><%= flash[:notice] %></p>
+
+    <% if flash[:notice] %>
+    <div
+    data-controller="notification"
+    class="notice hidden"
+    data-notification-delay-value="5000"
+    data-transition-enter-from="opacity-0 translate-x-6"
+    data-transition-enter-to="opacity-100 translate-x-0"
+    data-transition-leave-from="opacity-100 translate-x-0"
+    data-transition-leave-to="opacity-0 translate-x-6">
+      <p id="notice" class=""><%= flash[:notice] %></p>
+      <button data-action="notification#hide" class="notice-button"><i class="fas fa-times-circle"></i></button>
+    </div>
+    <% end %>
+
     <p id="alert"><%= flash[:alert] %></p>
-  </div>
+
     <%= yield %>
   </body>
 </html>
