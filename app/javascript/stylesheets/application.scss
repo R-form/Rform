@@ -38,3 +38,11 @@ select {
 .btn-for-answer {
   @apply w-10 h-10 bg-ironGrayHover hover:bg-gray-700 text-white font-bold p-2 m-2 rounded-full text-center;
 }
+
+.notice {
+  @apply absolute top-24 right-5 flex items-center bg-ironGray py-2 px-4 rounded text-white hover:bg-ironGrayHover transition transform duration-1000;
+}
+
+.notice-button {
+  @apply text-2xl ml-2;
+}
