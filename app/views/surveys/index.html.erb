@@ -24,7 +24,8 @@
                 <%= link_to stats_survey_path(survey), title: "統計數據管理", class: "linkbtn" do %>
                   <i class="fas fa-chart-pie"></i>
                 <% end %>
-                <%= link_to survey, title: "刪除問卷", method: :delete, data: { confirm: '確定要刪除問卷嗎?' }, class: "linkbtn" do%>
+              
+                <%= link_to survey, title: "刪除問卷", method: :delete, data: { confirm: '按下確定，刪除的問卷將無法復原' }, class: "linkbtn" do%>
                   <i class="fas fa-trash-alt"></i>
                 <% end %>
               </div>

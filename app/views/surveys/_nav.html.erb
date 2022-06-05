@@ -16,10 +16,10 @@
       <%= link_to responses_new_path(@survey), class:"inline-block md:px-2" do %>
         <i class="fas fa-eye text-xlfa-solid block mx-2 lg:inline-block lg:mt-0 text-teal-200 hover:text-gray-500 text-xl"></i>
       <% end %>
-      <%= link_to duplicate_survey_path(@survey), data:{confirm: "確定要複製問卷嗎？"},class: "inline-block md:px-2" do %>
+      <%= link_to duplicate_survey_path(@survey), data:{confirm: '複製的問卷副本將出現在「我的問卷」'},class: "inline-block px-2" do %>
         <i class="fas fa-copy text-xlfa-solid block mx-2 lg:inline-block lg:mt-0 text-teal-200 hover:text-gray-500 text-xl"></i>
       <% end %>
-      <%= link_to @survey, method: :delete, data: { confirm: '確定要刪除問卷嗎?' }, class: "inline-block md:px-2" do%>
+      <%= link_to @survey, method: :delete, data: { confirm: '刪除後的問卷將無法復原' }, class: "inline-block px-2" do%>
         <i class="fas fa-trash-alt text-xlfa-solid block mx-2 lg:inline-block lg:mt-0 text-teal-200 hover:text-gray-500 text-xl "></i>
       <% end %>
       <div>
