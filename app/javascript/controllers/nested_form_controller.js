@@ -55,7 +55,7 @@ export default class extends Controller {
     event.preventDefault()
     let item = event.target.closest(".group")
     item.querySelector("input[name*='_destroy']").value = true
-    item.style.display = "none"
+    // item.style.display = "none "
   }
 
   change_background(event) {
