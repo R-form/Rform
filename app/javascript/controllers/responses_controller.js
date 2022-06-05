@@ -44,6 +44,11 @@ export default class extends Controller {
     }
   }
 
+  selected(e) {
+    const currentOption = e.target.options[e.target.selectedIndex]
+    this.skipToQuestionId = currentOption.dataset.skipToQuestionId
+  }
+
   checkedCheckBox(e) {
     if (e.target.checked) {
       this.removeButtonDisabled(e)
