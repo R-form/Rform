@@ -51,13 +51,6 @@ export default class extends Controller {
     this.add_itemTarget.insertAdjacentHTML("beforeend", content)
   }
 
-  remove_association(event) {
-    event.preventDefault()
-    let item = event.target.closest(".group")
-    item.querySelector("input[name*='_destroy']").value = true
-    // item.style.display = "none "
-  }
-
   change_background(event) {
     this.change_bgTarget.submit()
     event.value = ""
