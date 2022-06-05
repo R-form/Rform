@@ -30,17 +30,14 @@ select {
   min-height: 1080px;
 }
 
+.survey-card-icon {
+  @apply mt-5 flex justify-around;
+}
+
 .linkbtn {
-  @apply w-10 h-10 bg-gray-500 hover:bg-gray-700 text-white font-bold p-2 mx-2 rounded-full text-center;
+  @apply w-10 h-10 bg-gray-500 hover:bg-gray-700 text-white font-bold p-2 rounded-full text-center cursor-pointer;
 }
 
-.btn-for-answer{
-
-  @apply w-10 h-10 bg-ironGrayHover hover:bg-gray-700 text-white font-bold p-2 mx-2 rounded-full text-center ;
-
+.btn-for-answer {
+  @apply w-10 h-10 bg-ironGrayHover hover:bg-gray-700 text-white font-bold p-2 m-2 rounded-full text-center;
 }
-
-
-
-
-
