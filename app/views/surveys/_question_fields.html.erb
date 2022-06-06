@@ -31,7 +31,7 @@ data-survey-style-target="question" >
     <%= link_to "新增選項", "#", data: { action: "nested-form#add_answer auto-save#add_answer_item" , dynamic_select_target:'addbtn' } , class: "btn mr-4" %>
     <%= form.label :image , (form.object.image.attached? ? "更換圖片" : "新增圖片" ), class: "btn" , data: { action: "click->auto-save#change_question_image" ,id: form.object.id } %>
     </div>
-    <div class="flex">
+    <div class="flex items-center">
     <%= form.check_box :required, data: {action: "click->auto-save#checked"}, id: "deco_checkbox"%>
     <div class="flex justify-end items-center">
       <div class="mx-4"><%= form.label :required, "必填" %></div>

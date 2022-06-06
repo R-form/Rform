@@ -43,6 +43,10 @@ select {
   @apply absolute top-24 right-5 flex items-center bg-ironGray py-2 px-4 rounded text-white hover:bg-ironGrayHover transition transform duration-1000;
 }
 
+.alert {
+  @apply absolute top-24 right-5 flex items-center bg-vermilion py-2 px-4 rounded text-white hover:bg-paleVermilion transition transform duration-1000;
+}
+
 .notice-button {
   @apply text-2xl ml-2;
 }

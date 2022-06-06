@@ -15,6 +15,6 @@ class UserSessionsController < ApplicationController
 
   def destroy
     logout
-    redirect_to(root_path, notice: '登出!')
+    redirect_to(root_path, notice: '登出成功!')
   end
 end
