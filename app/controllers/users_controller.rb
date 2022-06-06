@@ -39,7 +39,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if current_user.update(user_params)
-        format.html { redirect_to users_url(current_user), notice: '使用者成功更新' }
+        format.html { redirect_to users_url(current_user), notice: '成功更新使用者資料' }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to users_url, notice: '使用者成功刪除' }
+      format.html { redirect_to users_url, notice: '已刪除！' }
     end
   end
 

@@ -58,13 +58,23 @@
     data-transition-enter-to="opacity-100 translate-x-0"
     data-transition-leave-from="opacity-100 translate-x-0"
     data-transition-leave-to="opacity-0 translate-x-6">
-      <p id="notice" class=""><%= flash[:notice] %></p>
+      <p id="notice"><%= flash[:notice] %></p>
       <button data-action="notification#hide" class="notice-button"><i class="fas fa-times-circle"></i></button>
     </div>
     <% end %>
-
-    <p id="alert"><%= flash[:alert] %></p>
-
+    <% if flash[:alert] %>
+    <div
+    data-controller="notification"
+    class="alert hidden"
+    data-notification-delay-value="5000"
+    data-transition-enter-from="opacity-0 translate-x-6"
+    data-transition-enter-to="opacity-100 translate-x-0"
+    data-transition-leave-from="opacity-100 translate-x-0"
+    data-transition-leave-to="opacity-0 translate-x-6">
+      <p id="alert" class=""><%= flash[:alert] %></p>
+      <button data-action="notification#hide" class="notice-button"><i class="fas fa-times-circle"></i></button>
+    </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

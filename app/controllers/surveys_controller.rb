@@ -55,14 +55,14 @@ class SurveysController < ApplicationController
   def destroy
     @survey.image.purge
     @survey.destroy
-    redirect_to surveys_path, notice: '問卷已刪除'
+    redirect_to surveys_path, notice: '問卷刪除成功！'
   end
 
   def duplicate
     dup = @survey.deep_clone include: {questions: :answers }
     dup.title.insert(-1, " - 副本")
     if dup.save 
-      redirect_to surveys_path, notice: '問卷已複製成功'
+      redirect_to surveys_path, notice: '問卷複製成功！'
     end
   end
 
