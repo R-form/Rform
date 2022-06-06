@@ -1,54 +1,92 @@
-<h1>TITLE: <%= @survey.title %></h1>
-<h1>DESC:  <%= @survey.description %></h1>
-<h2>TAG:   <%= @survey.tag %></h2>
-<hr>
-
-
-<div data-controller="stats">
-  <button data-action="click->stats#hideAndShow">顯示所有回應</button>
-  <div data-stats-target="showResponses" class="hidden">
-    <h2>填答份數: <span data-stats-target="responsesCount"><%= @survey.responses.count %></span></h2>
-    <h2>目前顯示: 第<span data-stats-target="currentResponse">1</span>份</h2>
-    <% 0.upto(@survey.responses.count-1) do |responseIndex| %>
-      <div data-stats-target="showSingleResponse", class="hidden">
-        <table class="table-auto">
-          <% @responseJsons.each do |responseJson| %>
-            <% if responseJson.as_json["responseIndex"] === responseIndex %>
-              <tr>
-                <th class="bg-gentleYellow text-ironGray"><%= responseJson.as_json["questionTitles"] %></th>
-                <td><%= responseJson.as_json["responseAnswerTitles"].join('  ') %></td>
-              </tr>
-            <% end %>
-          <% end %>
-        </table>
-      </div>
-    <% end %>
-    <button data-stats-target="previousPageButton" data-action="click->stats#previousPage" class="hidden">上一份</button>
-    <button data-stats-target="nextPageButton" data-action="click->stats#nextPage">下一份</button>
-    跳轉到:<input data-action="change->stats#jumpToPage" placeholder="輸入頁數"></input>
+<div data-controller="stats" class="flex min-h-screen px-1 padding-for-fixed-stats">
+  <div class="side-bar-area">
+    <button id="showResponsesBtn" class="stats-tab-button" data-action="click->stats#hideAndShow">所有回應</button><br>
+    <button id="showQuestionsBtn" class="stats-tab-button" data-action="click->stats#hideAndShow">數據統計</button><br>
+    <button id="showChartsBtn" class="stats-tab-button" data-action="click->stats#hideAndShow">統計圖表</button><br>
+    <button class="stats-tab-button"><%= link_to '匯出Excel檔案', stats_survey_path(format: :xlsx) %></button></br>
   </div>
-
-  <hr>
-  <div>
-    <% 0.upto(@chart_count-1) do |chart_index| %>
-      <div id="<%= chart_index %>" class="canvasContainer">
-        <%= select_tag(:chart_type, options_for_select([['長條圖', 'bar'], ['圓餅圖', 'pie'], ['折線圖', 'line']]), data: { action: "change->stats#chartTypeSelect"}) %>
-        <% 0.upto(@chart_types.count-1) do |chart_type_index| %>
-          <div class="hidden canvasArea">
-            <canvas
-            data-controller="chart"
-            data-chart-type-value="<%= @chart_types[chart_type_index] %>"
-            data-chart-data-value="<%= @chart_datas[chart_index].to_json %>"
-            data-chart-options-value="<%= @chart_options[chart_index].to_json %>"
-            data-stats-target="<%= @canvas_target_name[chart_type_index] %>"
-            ></canvas>
-          </div>  
+  <div class="stats-display-area">
+    <div class="survey-info-area">
+      <h1 class="mx-2 text-3xl font-bold text-gray-700"><%= @survey.title %></h1>
+      <h2 class="mx-2 text-lg font-bold text-gray-500"><%= @survey.description %></h2>
+      <div class="mx-2">
+        <% if @survey.tag.present? %>
+          <% @survey.tag.split(',') do |currentTag| %>
+            <h2 class="taglabel"><%= currentTag %></h2>
+          <% end %>
         <% end %>
       </div>
-    <% end %>
+    </div>
+    <br>
+    <div data-stats-target="showResponses" id=0 class="hidden">
+      <h2 class="px-2 text-xl font-bold">填答份數: <span data-stats-target="responsesCount"><%= @survey.responses.count %></span></h2>
+      <h2 class="px-2 text-xl font-bold">目前顯示: 第<span data-stats-target="currentResponse">1</span>份</h2>
+      <br>
+      <button class="hidden px-2 page-button" data-stats-target="previousPageButton" data-action="click->stats#previousResponse">上一份</button>
+      <button class="px-2 page-button" data-stats-target="nextPageButton" data-action="click->stats#nextResponse">下一份</button>
+      跳轉到:<input class="input-jump-to-page" data-action="change->stats#jumpToResponse" placeholder="輸入頁數"></input>
+      <% 0.upto(@survey.responses.count-1) do |responseIndex| %>
+        <div data-stats-target="showSingleResponse", class="hidden px-2">
+          <table class="table-style">
+            <% @responseJsons.each do |responseJson| %>
+              <% if responseJson.as_json["responseIndex"] === responseIndex %>
+                <tr>
+                  <th class="th-style"><%= responseJson.as_json["questionTitles"] %></th>
+                  <td class="td-style"><%= responseJson.as_json["responseAnswerTitles"].join('  ') %></td>
+                </tr>
+              <% end %>
+            <% end %>
+          </table>
+        </div>
+      <% end %>
+    </div>
+    <div data-stats-target="showQuestions" id=1 class="hidden">
+      <h2 class="px-2 text-xl font-bold">問題數量: <span data-stats-target="questionsCount"><%= @survey.questions.count %></span></h2>
+      <h2 class="px-2 text-xl font-bold">目前顯示: 第<span data-stats-target="currentQuestion">1</span>題</h2>
+      <br>
+      <button class="hidden px-2 page-button" data-stats-target="previousPageButton" data-action="click->stats#previousQuestion">上一份</button>
+      <button class="px-2 page-button" data-stats-target="nextPageButton" data-action="click->stats#nextQuestion">下一份</button>
+      跳轉到:<input class="input-jump-to-page" data-action="change->stats#jumpToQuestion" placeholder="輸入頁數"></input>
+      <% @survey.questions.each_with_index do |question, questionIndex| %>
+        <div data-stats-target="showSingleQuestion", class="hidden px-2">
+          <table class="table-style">
+            <tr>
+              <th class="th-style">編號</th>
+              <th class="th-style"><%= question.title %></th>
+            </tr>
+            <% @response_question_answers.each_with_index do |response_question_answer, index| %>
+              <% if index % @survey.questions.length === questionIndex %>
+                <tr>
+                  <% if response_question_answer.join('  ').present? %>
+                    <th class="th-style"><%= (index/@survey.questions.length)+1 %></th>                
+                    <td class="td-style"><%= response_question_answer.join('  ') %></td>
+                  <% end %>  
+                </tr>
+              <% end %>
+            <% end %>
+          </table>         
+        </div>
+      <% end %>
+    </div>
+    <div data-stats-target="showCharts" class="grid hidden grid-cols-2 px-2">
+      <% 0.upto(@chart_count-1) do |chart_index| %>
+        <div id="<%= chart_index %>" class="canvas-container">
+          <%= select_tag(:chart_type, options_for_select([['長條圖', 'bar'], ['圓餅圖', 'pie'], ['折線圖', 'line']]), data: { action: "change->stats#chartTypeSelect"}) %>
+          <% 0.upto(@chart_types.count-1) do |chart_type_index| %>
+            <div class="hidden canvasArea">
+              <canvas
+              data-controller="chart"
+              data-chart-type-value="<%= @chart_types[chart_type_index] %>"
+              data-chart-data-value="<%= @chart_datas[chart_index].to_json %>"
+              data-chart-options-value="<%= @chart_options[chart_index].to_json %>"
+              data-stats-target="<%= @canvas_target_name[chart_type_index] %>"
+              ></canvas>
+            </div>  
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
 
 <br>
-<%= link_to 'back', surveys_path %>
-<%= link_to 'Download as .xlsx', stats_survey_path(format: :xlsx) %>
