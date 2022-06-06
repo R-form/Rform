@@ -1,5 +1,5 @@
 <section class="padding-for-fixed">
-  <h1 class="my-surveys"><%= link_to '我的問卷', surveys_path %></h1>
+  <h1 class="text-3xl text-center font-bold text-gray-700 mt-4">我的問卷</h1>
   <div class="container mt-4 mx-auto" data-controller="modal surveys" data-modal-allow-background-close="false" >
     <div class="cards-item" data-controller="sortable">
       <% @surveys.each do |survey| %>
