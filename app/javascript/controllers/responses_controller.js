@@ -15,6 +15,19 @@ export default class extends Controller {
       }
     })
 
+    this.final_question = this.questionTargets[this.questionTargets.length - 1]
+    this.final_question_id = this.questionTargets[this.questionTargets.length - 1].dataset.question_id
+    this.final_question_required = this.questionTargets[this.questionTargets.length - 1].dataset.required
+
+    if (this.final_question_required) {
+      this.submitTarget.setAttribute("disabled", "")
+      this.submitTarget.setAttribute("class", "disabled-response-button hidden")
+    }
+
+    if (this.questionTargets.length == 1) {
+      this.submitTarget.classList.remove("hidden")
+    }
+
     this.nextQuestionTargets[this.nextQuestionTargets.length - 1].classList.add("hidden")
     this.previousQuestionTarget.classList.add("hidden")
     this.skipToQuestionId = ""
@@ -38,9 +51,21 @@ export default class extends Controller {
   }
 
   checked(e) {
+    const current_question = e.target.closest(".question_field")
+
     if (e.target.checked) {
       this.skipToQuestionId = e.target.dataset.skipToQuestionId
       this.removeButtonDisabled(e)
+    }
+    if (e.target.checked && this.questionTargets.length == 1) {
+      this.submitTarget.classList.remove("hidden")
+      this.submitTarget.removeAttribute("disabled")
+      this.submitTarget.setAttribute("class", "response-button")
+    }
+
+    if (e.target.checked && current_question == this.final_question) {
+      this.submitTarget.removeAttribute("disabled")
+      this.submitTarget.setAttribute("class", "response-button")
     }
   }
 
@@ -50,19 +75,44 @@ export default class extends Controller {
   }
 
   checkedCheckBox(e) {
+    const current_question = e.target.closest(".question_field")
+
     if (e.target.checked) {
       this.removeButtonDisabled(e)
     } else {
       this.addButtonDisabled(e)
     }
+
+    if (e.target.checked && this.questionTargets.length == 1) {
+      this.submitTarget.classList.remove("hidden")
+      this.submitTarget.removeAttribute("disabled")
+      this.submitTarget.setAttribute("class", "response-button")
+    }
+
+    if (e.target.checked && current_question == this.final_question) {
+      this.submitTarget.removeAttribute("disabled")
+      this.submitTarget.setAttribute("class", "response-button")
+    }
   }
 
   responded(e) {
+    const current_question = e.target.closest(".question_field")
+
     if (e.target.value) {
       this.removeButtonDisabled(e)
     }
     if (e.target.value == "") {
       this.addButtonDisabled(e)
+    }
+    if (e.target.value && this.questionTargets.length == 1) {
+      this.submitTarget.classList.remove("hidden")
+      this.submitTarget.removeAttribute("disabled")
+      this.submitTarget.setAttribute("class", "response-button")
+    }
+
+    if (e.target.value && current_question == this.final_question) {
+      this.submitTarget.removeAttribute("disabled")
+      this.submitTarget.setAttribute("class", "response-button")
     }
   }
 
@@ -76,16 +126,15 @@ export default class extends Controller {
 
     const nextQuestion = question.nextElementSibling
     const skip_question = this.element.querySelector(`div [data-question_id='${this.skipToQuestionId}']`)
-    const final_question_id = this.questionTargets[this.questionTargets.length - 1].dataset.question_id
 
     if (this.skipToQuestionId && this.skipToQuestionId != 0 && this.skipToQuestionId != question_id) {
       skip_question.classList.remove("hidden")
-      if (this.skipToQuestionId == final_question_id) {
+      if (this.skipToQuestionId == this.final_question_id) {
         this.submitTarget.classList.remove("hidden")
       }
     } else {
       nextQuestion.classList.remove("hidden")
-      if (nextQuestion.dataset.question_id == final_question_id) {
+      if (nextQuestion.dataset.question_id == this.final_question_id) {
         this.submitTarget.classList.remove("hidden")
       }
     }

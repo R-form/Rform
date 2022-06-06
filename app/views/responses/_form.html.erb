@@ -93,9 +93,9 @@
           </div>
           <% end %>
         <% end %>
-        <div class="response_submit hidden" data-responses-target="submit">
-          <%= form.submit "送出問卷",class:"response-button" %>
-        </div>
+        
+          <%= form.submit "送出問卷",class:"response-button hidden", data: {"responses-target": "submit"} %>
+        
 
       <% end %>
   </section>
