@@ -1,4 +1,5 @@
 import { Controller } from "stimulus"
+import Swal from "sweetalert2"
 
 export default class extends Controller {
   static targets = ["showResponses",
@@ -17,55 +18,42 @@ export default class extends Controller {
                     "canvasLine"];
   connect() {
     this.canvasBarTargets.forEach ((target)=>{
-      target.closest(".canvasArea").classList.remove("hidden") //default display with bar chart
+      //default display with bar chart
+      target.closest(".canvasArea").classList.remove("hidden")
     })
-
-    this.showSingleResponseTargets[0].classList.remove("hidden") //default show the first response
+    //default show the first response
+    this.showSingleResponseTargets[0].classList.remove("hidden")
     this.showSingleQuestionTargets[0].classList.remove("hidden")
   }
 
   hideAndShow(e) {
-    this.showChartsTarget.classList.add("hidden") //clear all first
-    this.showQuestionsTarget.classList.add("hidden")
-    this.showResponsesTarget.classList.add("hidden")
+    const selectedTargetId = e.target.id
+    let showCurrentTarget = [
+      this.showChartsTarget,
+      this.showQuestionsTarget,
+      this.showResponsesTarget,
+    ].forEach((target)=>{
+      target.classList.add("hidden")
+    })
 
-    switch (e.target.id) {
-      case "showResponsesBtn":
-        this.showResponsesTarget.classList.remove("hidden")
-        break
-      case "showQuestionsBtn":
-        this.showQuestionsTarget.classList.remove("hidden")
-        break
-      case "showChartsBtn":
-        this.showChartsTarget.classList.remove("hidden")
-        break
-    }
+    showCurrentTarget = this[`${selectedTargetId.slice(0, selectedTargetId.length-3)}Target`]
+    showCurrentTarget.classList.remove("hidden")
   }
 
   chartTypeSelect(e) {
-    const selectedChartType = e.target.value // get type from select
-    const targetIndex = e.target.closest(".canvas-container").id // check which container we got
-    let currentCanvasTarget = this.canvasBarTarget // just a initial value
+    const selectedChartType = e.target.value
+    const targetIndex = e.target.closest(".canvas-container").id
+    let currentCanvasTarget = [
+      this.canvasBarTargets[targetIndex],
+      this.canvasPieTargets[targetIndex],
+      this.canvasLineTargets[targetIndex],
+    ].forEach((target)=>{
+      target.closest(".canvasArea").classList.add("hidden")
+    })
 
-    // clear all charts first
-    this.canvasBarTargets[targetIndex].closest(".canvasArea").classList.add("hidden")
-    this.canvasPieTargets[targetIndex].closest(".canvasArea").classList.add("hidden")
-    this.canvasLineTargets[targetIndex].closest(".canvasArea").classList.add("hidden")
-
-    switch (selectedChartType) {
-      case 'pie':
-        currentCanvasTarget = this.canvasPieTargets[targetIndex]
-        break
-      case 'line':
-        currentCanvasTarget = this.canvasLineTargets[targetIndex]
-        break
-      case 'bar':
-      default:
-        currentCanvasTarget = this.canvasBarTargets[targetIndex]
-        break
-    }
-
-    if (currentCanvasTarget.getAttribute("data-chart-type-value")===selectedChartType) {
+    currentCanvasTarget = this[`canvas${selectedChartType[0].toUpperCase()+selectedChartType.slice(1)}Targets`][targetIndex]
+    
+    if (currentCanvasTarget.getAttribute("data-chart-type-value") === selectedChartType) {
       currentCanvasTarget.closest(".canvasArea").classList.remove("hidden") // only show the type we selected
     }
   }
@@ -104,7 +92,7 @@ export default class extends Controller {
   jumpToPage(target, targetCount, showTargets, currentTarget, targetIndex) {
     let currentResponse = Number(target.textContent)
     const responsesCount = Number(targetCount.textContent)
-    const jumpToPageNumber = currentTarget.value
+    const jumpToPageNumber = Number(currentTarget.value)
 
     this.previousPageButtonTargets[targetIndex].classList.remove("hidden")
     this.nextPageButtonTargets[targetIndex].classList.remove("hidden")
@@ -114,12 +102,12 @@ export default class extends Controller {
       showTargets[jumpToPageNumber-1].classList.remove("hidden")
       target.textContent = jumpToPageNumber
     } else {
-      alert("沒有這頁喔")
+      Swal.fire("沒有這頁喔")
     }
-    if (jumpToPageNumber == 1) {
+    if (target.textContent == 1) {
       this.previousPageButtonTargets[targetIndex].classList.add("hidden")
     }
-    if (jumpToPageNumber == responsesCount) {
+    if (target.textContent == responsesCount) {
       this.nextPageButtonTargets[targetIndex].classList.add("hidden")
     }
   }
