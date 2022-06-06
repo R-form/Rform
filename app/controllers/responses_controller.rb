@@ -8,9 +8,7 @@ class ResponsesController < ApplicationController
   end
 
   def new
-    if @survey.published? && @survey.closetime == nil && @survey.opentime <= Time.now
-      @response = @survey.responses.new
-    elsif @survey.published? && @survey.closetime > Time.now && @survey.opentime <= Time.now
+    if @survey.publish_opening_time
       @response = @survey.responses.new
     else
       redirect_to submitted_survey_responses_path(@survey)
@@ -21,13 +19,14 @@ class ResponsesController < ApplicationController
     @response = @survey.responses.new(response_params)
 
     if @response.save
-      redirect_to submitted_survey_responses_path(@survey)
+      redirect_to submitted_survey_responses_path(@survey, submit: "success")
     else
-      render :new, status: :unprocessable_entity
+      redirect_to submitted_survey_responses_path(@survey, submit: "fail")
     end
   end
 
   def submitted
+    
   end
 
   private

@@ -4,10 +4,9 @@
             <div class="md:w-1/2">
                 <h3 class="text-4xl font-semibold text-gray-800">Rform<br>客製化的問卷體驗</h3>
                 <p class="max-w-md mt-4 text-gray-600">
-                    餐廳滿意度調查、研究報告蒐集、民意調查、消費行為調查，生活中處處充滿需要問卷的時候，快來 Rform 免費建立自己的問卷吧！</p>
+                    生活中處處有需要問卷調查的時候，想事先調查你的生日派對有多少朋友會參與嗎？想知道你的餐廳客人的用餐滿意度如何嗎？又或者課堂上有作業需要用到問卷調查？快來使用Rform，製作屬於你風格的線上問卷吧！</p>
                 <div class="my-5">
-                  <%=link_to '免費申請體驗', new_user_path, class:"sendbtn" if current_user.nil?%>
-                  <%=link_to '免費申請體驗', surveys_path, class:"sendbtn" if logged_in?%>
+                  <%=link_to '免費申請體驗', surveys_path, class:"sendbtn"%>
                 </div>
             </div>
 

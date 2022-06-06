@@ -1,81 +1,80 @@
-import { Controller } from "stimulus";
-import QRCode from "qrcode";
+import { Controller } from "stimulus"
+import QRCode from "qrcode"
 
 export default class extends Controller {
-  static targets = ["short_url", "short_url_in_edit"];
+  static targets = ["short_url", "short_url_in_edit"]
 
   share(e) {
-    e.preventDefault();
-    const url = `${location.protocol}${location.host}${
-      e.target.closest("a").dataset.url}`;
-    this.short_urlTarget.value = url;
-    let qrcode = document.getElementById("qrcode");
+    e.preventDefault()
+    const url = `${location.protocol}//${location.host}${e.target.closest("a").dataset.url}`
+    this.short_urlTarget.value = url
+    let qrcode = document.getElementById("qrcode")
     if (qrcode) {
-      qrcode.remove();
+      qrcode.remove()
     }
   }
 
   copy(e) {
-    e.preventDefault();
-    const copyText = `${this.short_urlTarget.value}`;
+    e.preventDefault()
+    const copyText = `${this.short_urlTarget.value}`
     navigator.clipboard
       .writeText(copyText)
       .then((resp) => {})
-      .catch((err) => {});
+      .catch((err) => {})
   }
 
   qrcode(e) {
-    e.preventDefault();
+    e.preventDefault()
     QRCode.toDataURL(this.short_urlTarget.value)
       .then((url) => {
-        let img = document.createElement("img");
-        img.src = url;
-        img.id = "qrcode";
-        let qrcode = document.getElementById("qrcode");
+        let img = document.createElement("img")
+        img.src = url
+        img.id = "qrcode"
+        let qrcode = document.getElementById("qrcode")
         if (qrcode) {
-          qrcode.remove();
+          qrcode.remove()
         } else {
-          e.target.appendChild(img);
+          e.target.appendChild(img)
         }
       })
       .catch((url) => {
-        console.error(url);
-      });
+        console.error(url)
+      })
   }
 
-  share_in_edit(e){
-    e.preventDefault();
-    let qrcode = document.getElementById("qrcode_in_edit");
+  shareInEdit(e) {
+    e.preventDefault()
+    let qrcode = document.getElementById("qrcode_in_edit")
     if (qrcode) {
-      qrcode.remove();
+      qrcode.remove()
     }
   }
 
-  copy_in_edit(e){
-    e.preventDefault();
-    const copyText = `${this.short_url_in_editTarget.value}`;
+  copyInEdit(e) {
+    e.preventDefault()
+    const copyText = `${this.short_url_in_editTarget.value}`
     navigator.clipboard
       .writeText(copyText)
       .then((resp) => {})
-      .catch((err) => {});
+      .catch((err) => {})
   }
 
-  qrcode_in_edit(e){
-    e.preventDefault();
+  qrcodeInEdit(e) {
+    e.preventDefault()
     QRCode.toDataURL(this.short_url_in_editTarget.value)
-    .then((url) => {
-      let img = document.createElement("img");
-      img.src = url;
-      img.id = "qrcode_in_edit";
-      let qrcode = document.getElementById("qrcode_in_edit");
-      if (qrcode) {
-        qrcode.remove();
-      } else {
-        e.target.appendChild(img);
-      }
-    })
-    .catch((url) => {
-      console.error(url);
-    });
+      .then((url) => {
+        let img = document.createElement("img")
+        img.src = url
+        img.id = "qrcodeInEdit"
+        let qrcode = document.getElementById("qrcodeInEdit")
+        if (qrcode) {
+          qrcode.remove()
+        } else {
+          e.target.appendChild(img)
+        }
+      })
+      .catch((url) => {
+        console.error(url)
+      })
   }
 }

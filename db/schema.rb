@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2022_05_27_170439) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
+    t.integer "skip_to_question_id"
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
 

@@ -21,9 +21,7 @@ class Survey < ApplicationRecord
   after_find do |survey|
     if survey.published? && survey.closetime? && Time.now >= survey.closetime
       survey.close
-    end
-
-    
+    end 
   end
 
   belongs_to :user
@@ -37,12 +35,17 @@ class Survey < ApplicationRecord
   acts_as_paranoid
   acts_as_list scope: :user
 
+  def publish_opening_time
+    self.published? && self.opentime<=Time.now && self.closetime == nil || self.closetime > Time.now
+  end
+
+  
   private 
   # Generates an 6 character alphanumeric id
   def generate_slug
     self.slug = SecureRandom.alphanumeric(6)
   end 
-
+  
   def self.all_status
     [
       %w[發佈 published],

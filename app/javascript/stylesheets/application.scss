@@ -3,6 +3,7 @@
 @import "tailwindcss/utilities";
 @import "./form.scss";
 @import "./submitted_responses.scss";
+@import "./new_responses.scss";
 @import "./homepage.scss";
 @import "./pricing_plan.scss";
 
@@ -30,7 +31,16 @@ select {
 }
 
 .linkbtn {
-  @apply bg-gray-500 hover:bg-gray-700 text-white font-bold p-2 mx-2 rounded-full flex justify-center items-center;
-  width: 40px;
-  height: 40px;
+  @apply w-10 h-10 bg-gray-500 hover:bg-gray-700 text-white font-bold p-2 mx-2 rounded-full text-center;
 }
+
+.btn-for-answer{
+
+  @apply w-10 h-10 bg-ironGrayHover hover:bg-gray-700 text-white font-bold p-2 mx-2 rounded-full text-center ;
+
+}
+
+
+
+
+

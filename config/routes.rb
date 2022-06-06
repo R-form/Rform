@@ -3,14 +3,12 @@
 Rails.application.routes.draw do
   
   root 'homepage#index'
-  resources :users do
-    get :orders ,to: 'orders#index'
-  end
-  post 'orders/done' => 'orders#done'
-  post 'orders/update' => 'orders#update'
-  get 'login' => 'user_sessions#new', :as => :login
-  post 'login' => 'user_sessions#create'
-  post 'logout' => 'user_sessions#destroy', :as => :logout
+resource :user_sessions, only: [:new, :create, :destroy]
+resource :users do
+  get :orders ,to: 'orders#index'
+end
+post 'orders/done' => 'orders#done'
+post 'orders/update' => 'orders#update'
 
   resources :surveys do
     resources :responses do
@@ -36,21 +34,28 @@ Rails.application.routes.draw do
       patch :update_status
       patch :update_opentime
       patch :update_closetime
+      get :duplicate
       post :duplicate_question
       patch :font_style
       patch :theme
-      get :stats
+      patch :question_image
       patch :background_color
+      get :stats
+      patch :tag
+      get :questions_list
+      patch :skip_to_question_id
+      delete :remove_skip_to_question_id
     end 
 
-    get 'duplicate', on: :member , to: "surveys#duplicate_survey"
-    patch :tag
   end
   
-  post "oauth/callback" => "oauths#callback"
-  get "oauth/callback" => "oauths#callback" # for use with Github, Facebook
-  get "oauth/:provider" => "oauths#oauth", :as => :auth_at_provider
-  get "survey_style", to:"survey#style"
+  resources :oauth, only: [] do
+    collection do
+      post :callback
+      get :callback
+      get :provider
+    end
+  end
 
   resources :password_resets, only: [:new, :create, :edit, :update]
   get 'to/:survey_id' , as: 'responses_new' , to: 'responses#new'

@@ -7,16 +7,31 @@
 <div data-controller="stats">
   <button data-action="click->stats#hideAndShow">顯示所有回應</button>
   <div data-stats-target="showResponses" class="hidden">
-    <h2>填答份數: <%= @survey.responses.count %></h2>
-    <% @responseAnswerDatas.each do |responseAnswerData| %>
-      <h2><%= responseAnswerData %></h2>
+    <h2>填答份數: <span data-stats-target="responsesCount"><%= @survey.responses.count %></span></h2>
+    <h2>目前顯示: 第<span data-stats-target="currentResponse">1</span>份</h2>
+    <% 0.upto(@survey.responses.count-1) do |responseIndex| %>
+      <div data-stats-target="showSingleResponse", class="hidden">
+        <table class="table-auto">
+          <% @responseJsons.each do |responseJson| %>
+            <% if responseJson.as_json["responseIndex"] === responseIndex %>
+              <tr>
+                <th class="bg-gentleYellow text-ironGray"><%= responseJson.as_json["questionTitles"] %></th>
+                <td><%= responseJson.as_json["responseAnswerTitles"].join('  ') %></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </table>
+      </div>
     <% end %>
+    <button data-stats-target="previousPageButton" data-action="click->stats#previousPage" class="hidden">上一份</button>
+    <button data-stats-target="nextPageButton" data-action="click->stats#nextPage">下一份</button>
+    跳轉到:<input data-action="change->stats#jumpToPage" placeholder="輸入頁數"></input>
   </div>
 
   <hr>
   <div>
     <% 0.upto(@chart_count-1) do |chart_index| %>
-      <div id="<%= chart_index.to_s %>" class="canvasContainer">
+      <div id="<%= chart_index %>" class="canvasContainer">
         <%= select_tag(:chart_type, options_for_select([['長條圖', 'bar'], ['圓餅圖', 'pie'], ['折線圖', 'line']]), data: { action: "change->stats#chartTypeSelect"}) %>
         <% 0.upto(@chart_types.count-1) do |chart_type_index| %>
           <div class="hidden canvasArea">
@@ -35,5 +50,5 @@
 </div>
 
 <br>
-
+<%= link_to 'back', surveys_path %>
 <%= link_to 'Download as .xlsx', stats_survey_path(format: :xlsx) %>

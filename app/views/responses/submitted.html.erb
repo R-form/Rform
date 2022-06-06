@@ -1,45 +1,47 @@
-<% if @response %>
-  <h1 class="text-3xl text-center text-ironGray my-10 padding-for-fixed">謝謝您，您的問卷已順利提交
+<% if params[:submit] == "success" %>
+  <h1 class="submitted-feedback">
+    謝謝您，您的問卷已順利提交
     <i class="far fa-paper-plane"></i>
   </h1>
 <% else %>
-  <h1 class="text-3xl text-center text-ironGray my-10 padding-for-fixed">這個問卷可能已經關閉了，快來建立自己的問卷吧
+  <h1 class="submitted-feedback">
+    這個問卷可能已經關閉，快來建立自己的問卷吧
     <i class="far fa-hand-point-down"></i>
   </h1>
 <% end %>
 
-<%= link_to root_path  do %>
-  <div class="m-auto w-10/12 lg:flex shadow-md">
-    <%= image_tag("survey02.jpeg",{class: "h-auto w-full lg:w-6/12 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" })%>
-    <div class="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal  hover:bg-gray-100">
-      <div class="mb-8">
-        <p class="text-sm text-gray-600 flex items-center">
-          <i class="fa-solid fa-lock-keyhole text-gray-500 w-3 h-3 mr-2"></i>
-          Members only
-        </p>
-        <h2 class="text-ironGray font-bold text-2xl my-4">馬上來Rform建立屬於自己的問卷吧
-        </h2>
-        <div class="grid grid-cols-3 gap-4">
-          <div class="w-full">
-            <%= image_tag("create_survey.png",{class: "submit_img object-cover rounded-full"}) %>
+<%= link_to root_path do %>
+  <div class="introduce-item">
+    <%=
+      image_tag("survey02.jpeg",{class: "introduce-card-img"
+      })%>
+      <div class="introduce-card-content">
+        <div class="mb-8">
+          <p class="text-sm text-gray-600 flex items-center">
+            <i class="fas fa-lock text-gray-500 w-3 h-3 mr-2"></i>
+            Members only
+          </p>
+          <h2 class="introduce-card-title">馬上來Rform建立屬於自己的問卷吧
+          </h2>
+          <div class="grid grid-cols-3 gap-4">
+            <div class="w-full">
+              <%= image_tag("create_survey.png",class: "function-img") %>
+            </div>
+            <div class="w-full">
+              <%= image_tag("reply.png",class: "function-img" ) %>
+            </div>
+            <div class="w-full">
+              <%= image_tag("analyze.png",class: "function-img") %>
+            </div>
+            <p class="function-caption">設計問卷</p>
+            <p class="function-caption">收集回覆</p>
+            <p class="function-caption">分析數據</p>
           </div>
-          <div class="w-full">
-            <%= image_tag("reply.png",{class: "submit_img object-cover rounded-full"}) %>
-          </div>
-          <div class="w-full">
-            <%= image_tag("analyze.png",{class: "submit_img object-cover rounded-full"}) %>
-          </div>
-          <p class="text-center text-ironGray">設計問卷</p>
-          <p class="text-center text-ironGray">收集回覆</p>
-          <p class="text-center text-ironGray">分析數據</p>
         </div>
-      </div>
-      <div class="flex items-center">
-        <div class="text-sm">
-          <p class="text-gray-900 leading-none">Rform Team</p>
+        <div class="items-center text-sm">
+          <p class="text-gray-600 leading-none">Rform Team</p>
           <p class="text-gray-600">Jun 11,2022</p>
         </div>
       </div>
-    </div>
   </div>
-<% end %>
+  <% end %>

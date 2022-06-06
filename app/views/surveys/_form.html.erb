@@ -1,4 +1,25 @@
-<div data-controller = "survey-style" class="style-survey-div padding-for-fixed-body min-hight" style="background-color:<%= @survey.background_color %>" >
+<style>
+    <% if survey.image.attached? %>
+.form_bg {
+      background-image: url("<%= url_for(survey.image) %>");
+      position: relative;
+      z-index: 0;
+}   
+.form_bg:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+    <% end %>
+</style>
+
+<div data-controller = "survey-style" class="style-survey-div padding-for-fixed-body min-hight bg-<%= @survey.background_color %> <%= "form_bg" if survey.image.attached? %>  ">
+  <span class="hidden bg-softRed bg-softOrange bg-softYellow bg-softGreen bg-softBlue bg-softNavy bg-softGray"></span>
   <aside data-controller="slideover" data-slideover-target="closeAside" class="slideover slide invisible">
     <div class="pt-4 p-4 padding-for-fixed-body">
       <div class="slide_content">        
@@ -7,91 +28,95 @@
           <span class="mx-4 font-bold text-xl	">自訂主題</span>
         </div>
       </div>
-      <nav>
-        <%= form_with(model: survey, class: survey.font_style ) do |form| %>
-        <ul class="flex flex-col overflow-hidden space-y-2">
-          <li class="aside_choice_title mt-4 pt-4">             
-            <i class="fas fa-font"></i>
-            <span>
-              字體樣式
-            </span>                 
-          </li> 
-          <li>
-            <div class="mx-4" > 
-              <%= form.select :font_style,
-              options_for_select([['請選擇字體', 'nill' ],['font-sans(default)', 'font-sans'],['font-serif','font-serif'], ['font-mono', 'font-mono']],
-              selected: form.object.font_style ),{},data: { action: "change -> survey-style#select_font"}    %>
-            </div> 
-          </li>
-          <li class="aside_choice_title">             
-            <i class="fas fa-paint-roller"></i>
-            <span>
-              主題顏色
-            </span>                 
-          </li> 
-          <li>
-            <button class="mx-4" data-action="click-> survey-style#pick_color" >
-              <input class="text-input hidden" data-survey-style-target="color"  />
-            </button>
-          </li>
-          <li class="aside_choice_title">             
-            <i class="fas fa-paint-roller"></i>
-            <span>
-              背景顏色
-            </span>                 
-          </li> 
-          <li>
-            <button class="mx-4" data-action="click-> survey-style#pick_background_color" >
-              <input class="text-input hidden" data-survey-style-target="background_color"  />
-            </button>
-          </li>
-          <li class="aside_choice_title">             
-            <i class="far fa-calendar-alt"></i>
-            <span>
-              狀態
-            </span>                 
-          </li> 
-          <li>
-            <div class="mx-4">
-              <%= form.select :status, Survey.all_status, {}, data: { action: "change -> survey-style#update_status"} %>
-            </div>
-          </li>
-          <li class="aside_choice_title">             
-            <i class="far fa-calendar-alt"></i>
-            <span>
-              開啟時間
-            </span>                 
-          </li> 
-          <li>
-            <div class="mx-4">
-              <%= form.datetime_field :opentime, min: Date.today, data: { action: "change -> survey-style#update_opentime"},class: "survey_status_time" %>
-            </div>
-          </li>
-          <li class="aside_choice_title">             
-            <i class="far fa-calendar-alt"></i>
-            <span>
-              關閉時間
-            </span>                 
-          </li> 
-          <li>
-            <div class="mx-4">
-              <%= form.datetime_field :closetime, min: Date.today, data: { action: "change -> survey-style#update_closetime"},class: "survey_status_time" %>
-            </div>
-          </li>
-        </ul>
-        <% end %> 
-      </nav>
     </div>
+    <nav>
+      <%= form_with(model: survey, class: survey.font_style ) do |form| %>
+      <ul class="flex flex-col overflow-hidden space-y-2">
+        <li class="aside_choice_title mt-4 pt-4">             
+          <i class="fas fa-font"></i>
+          <span>
+            字體樣式
+          </span>                 
+        </li> 
+        <li>
+          <div class="mx-4" > 
+            <%= form.select :font_style,
+            options_for_select([['請選擇字體', 'nill' ],['font-sans(default)', 'font-sans'],['font-serif','font-serif'], ['font-mono', 'font-mono']],
+            selected: form.object.font_style ),{},data: { action: "change -> survey-style#selectFont"}    %>
+          </div> 
+        </li>
+        <li class="aside_choice_title">             
+          <i class="fas fa-paint-roller"></i>
+          <span>
+            主題顏色
+          </span>                 
+        </li> 
+        <li>
+          <button class="mx-4" data-action="click-> survey-style#pickColor" >
+            <input class="text-input hidden" data-survey-style-target="color"  />
+          </button>
+        </li>
+        <li class="aside_choice_title">             
+          <i class="fas fa-paint-roller"></i>
+          <span>
+            背景顏色
+          </span>                 
+        </li> 
+        <li>
+          <button class="mx-4" data-action="click-> survey-style#pickBackgroundColor" >
+            <input class="text-input hidden" data-survey-style-target="backgroundColor"  />
+          </button>
+        </li>
+        <li class="aside_choice_title">             
+          <i class="far fa-calendar-alt"></i>
+          <span>
+            狀態
+          </span>                 
+        </li> 
+        <li>
+          <div class="mx-4">
+            <%= form.select :status, Survey.all_status, {}, data: { action: "change -> survey-style#update_status"} %>
+          </div>
+        </li>
+        <li class="aside_choice_title">             
+          <i class="far fa-calendar-alt"></i>
+          <span>
+            開啟時間
+          </span>                 
+        </li> 
+        <li>
+          <div class="mx-4">
+            <%= form.datetime_field :opentime, min: form.object.created_at, data: { action: "change -> survey-style#update_opentime"},class: "survey_status_time" %>
+          </div>
+        </li>
+        <li class="aside_choice_title">             
+          <i class="far fa-calendar-alt"></i>
+          <span>
+            關閉時間
+          </span>                 
+        </li> 
+        <li>
+          <div class="mx-4">
+            <%= form.datetime_field :closetime, min: form.object.opentime, data: { action: "change -> survey-style#update_closetime"},class: "survey_status_time" %>
+          </div>
+        </li>
+      </ul>
+      <% end %> 
+    </nav>
   </aside>
   <section class="formsection h-full min-h-screen <%= survey.font_style %>">
-    <%= form_with(model: survey,  data: { controller: "auto-save", auto_save_target: "form", survey_style_target: "form"}) do |form| %>
-      <div class="form fields border-ironGray" style="border-color:<%= survey.theme %>" data-id="<%= survey.id %>" data-auto-save-target="survey_id" data-survey-style-target="survey_id" data-status="<%= @survey.status %>">
-        <%= form.text_field :title, placeholder: "問卷標題", autocomplete: "off", class: "title input", 
+    <%= form_with(model: survey,  data: { controller: "auto-save skip-logic-modal", survey_style_target: "form" } ) do |form| %>
+      <span class="hidden border-brightRed border-brightOrange border-brightYellow border-brightGreen
+    border-brightBlue border-brightNavy border-brightGray         focus-within:outline-brightRed focus-within:outline-brightOrange focus-within:outline-brightYellow focus-within:outline-brightGreen focus-within:outline-brightBlue focus-within:outline-brightNavy focus-within:outline-brightGray"></span>
+      <div class="formsection_title  border-<%= survey.theme %> focus-within:outline-<%= survey.theme %>"  data-id="<%= survey.id %>" data-status="<%= survey.status %>" data-auto-save-target="surveyId" data-survey-style-target="surveyId" data-skip-logic-modal-target="surveyId"
+      data-select-question-target="surveyId">
+        <%= form.text_field :title, placeholder: "問卷標題",autocomplete: "off", class: "title input ", 
           data: {action: "change->auto-save#add_survey_title "}%>
         <%= form.text_area :description, placeholder: "問卷敘述", class: "input",
           data: {controller: "textarea-autogrow", action: "change->auto-save#add_survey_description "} %>
+        
       </div>
-      <div data-controller="nested-form sortable-question" data-nested-form-index-value ="QUESTION_RECORD" >
+      <div data-controller="nested-form sortable-question" data-nested-form-index-value ="QUESTION_RECORD">
         <template data-nested-form-target='template'>
           <%= form.fields_for :questions, Question.new, child_index: 'QUESTION_RECORD' do |question| %>
             <%= render 'question_fields', form: question %>
@@ -101,16 +126,21 @@
           <%= form.fields_for :questions do |question| %>
             <%= render 'question_fields', form: question %>
           <% end %>
-
-          <div data-nested-form-target="add_item" class="fields down">
-            <%= link_to "新增問題", "#", data: { action: "nested-form#add_association auto-save#add_question_item" }, class: "btn" %>
-            
-            <%= form_with(model: survey) do |form| %>
-              <%= form.file_field :image, class:"hidden" %>
-              <%= form.submit "更換圖片", class:"hidden" %>
+    <% end %>
+          <div data-nested-form-target="add_item" class="field down text-center">
+            <%= link_to "新增問題", "#", data: { action: "nested-form#add_association auto-save#add_question_item"  }, class: "btn " %>
+            <%= form_with(model: survey, data: {nested_form_target: "change_bg"}) do |form| %>
+              <%= form.label :image , "更換圖片", class: "btn" %>
+              <%= form.file_field :image , class:"hidden" , data: {action: "input->nested-form#change_background"} %>
+              <%= form.submit "上傳" , class: "hidden"%>
+            <% end %>
+            <%= form_with( url:question_image_survey_path(survey), method: "patch" , data: {nested_form_target: "change_question_image" , controller: "nested-form auto-save" , action: "question_image@document->nested-form#change_question_image" } )  do |form| %>
+              <%= form.text_field :survey_id , class: "hidden" , value: survey.id %>
+              <%= form.text_field :question_id , class: "hidden" %>
+              <%= form.file_field :image , class: "hidden" , data: {action: "input->nested-form#change_image"} %>
+              <%= form.submit "upload", class: "hidden" %>
             <% end %>
           </div>
       </div>
-    <% end %>
   </section>
 </div>

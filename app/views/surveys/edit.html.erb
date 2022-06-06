@@ -1,6 +1,6 @@
 
   <%= render "nav" %>
-  <%= render 'form', survey: @survey %>
+  <%= render 'form', survey: @survey, question: @question %>
 
 
 <!-- Modal Container -->
@@ -17,10 +17,10 @@
               <p class="text-sm text-gray-500 px-8">透過下方網址，可以讓你的朋友們更容易地看到你的問卷</p>
               <div class="flex items-center border-b border-teal-500 py-2">
                 <input class="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" value="<%= @survey_url %>" disabled="true" aria-label="Full name" data-surveys-target="short_url_in_edit" >
-                <button class="urlbtn" type="button" data-action="click->surveys#copy_in_edit">
+                <button class="urlbtn" type="button" data-action="click->surveys#copyInEdit">
                   複製
                 </button>
-                <button class="urlbtn" type="button" data-action="click->surveys#qrcode_in_edit">
+                <button class="urlbtn" type="button" data-action="click->surveys#qrcodeInEdit">
                 QRcode
                 </button>
               </div>

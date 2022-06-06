@@ -1,5 +1,5 @@
-import { Application } from 'stimulus'
-import Chart from 'stimulus-chartjs'
+import { Application } from "stimulus"
+import Chart from "stimulus-chartjs"
 
 const application = Application.start()
-application.register('chart', Chart)
+application.register("chart", Chart)

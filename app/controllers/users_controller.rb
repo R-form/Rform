@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  
   before_action :set_user, only: %i[ show edit update destroy ]
   before_action :require_login, only: %i[show edit update destroy] 
   def index
-    @users = User.all
+
   end
 
   def show
-    redirect_to(surveys_path, notice: 'Login successful')
+    redirect_to(surveys_path, notice: '登入成功')
   end
 
   def new
@@ -17,30 +16,32 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = current_user
   end
 
   def create
     @user = User.new(user_params)
-
-    respond_to do |format|
       if @user.save
-        format.html { redirect_to user_url(@user), notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
+        login_user = login(user_params[:email], user_params[:password])
+        if login_user
+          redirect_back_or_to(surveys_path, notice: '登入成功')
+        else
+          flash.now[:alert] = '登入失敗'
+          render action: 'new'
+        end
       else
+        respond_to do |format|
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def update
     respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to user_url(@user), notice: 'User was successfully updated.' }
-        format.json { render :show, status: :ok, location: @user }
+      if current_user.update(user_params)
+        format.html { redirect_to users_url(current_user), notice: '使用者成功更新' }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -49,20 +50,17 @@ class UsersController < ApplicationController
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
-      format.json { head :no_content }
+      format.html { redirect_to users_url, notice: '使用者成功刪除' }
     end
   end
 
- 
-  
-
   private
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    def user_params
+  def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)
+  end
+
+  def set_user
+    @user = User.find(params[:format])
   end
 end
