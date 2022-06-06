@@ -42,7 +42,7 @@ export default class extends Controller {
     event.preventDefault()
     let content = this.templateTarget.innerHTML.replace(new RegExp(this.indexValue, "g"), new Date().getTime())
     this.add_itemTarget.insertAdjacentHTML("beforebegin", content)
-    this.add_itemTarget.previousElementSibling.querySelector(".q_title").focus()
+    this.add_itemTarget.previousElementSibling.querySelector(".question-title").focus()
   }
 
   add_answer(event) {

@@ -32,11 +32,15 @@ select {
 }
 
 .linkbtn {
-  @apply w-10 h-10 bg-gray-500 hover:bg-gray-700 text-white font-bold p-2 rounded-full text-center cursor-pointer;
+  @apply w-10 h-10 p-1 p-2 bg-gray-500 hover:bg-gray-700 text-white font-bold rounded-full text-center cursor-pointer;
+}
+
+.answer-button {
+  @apply w-8 sm:w-10 h-8 sm:h-10 p-1 sm:p-2 m-1 sm:m-2 bg-gray-500 hover:bg-gray-700 text-white font-bold rounded-full text-center cursor-pointer flex-shrink-0;
 }
 
 .btn-for-answer {
-  @apply w-10 h-10 bg-ironGrayHover hover:bg-gray-700 text-white font-bold p-2 m-2 rounded-full text-center;
+  @apply w-8 sm:w-10 h-8 sm:h-10 p-1 sm:p-2 m-1 sm:m-2 bg-ironGrayHover hover:bg-gray-700 text-white font-bold rounded-full text-center flex-shrink-0;
 }
 
 .notice {

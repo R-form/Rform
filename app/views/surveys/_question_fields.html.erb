@@ -27,21 +27,23 @@ data-survey-style-target="question" >
     <% end %>
   </div>
   <div class="question_function">
-    <div>
-    <%= link_to "新增選項", "#", data: { action: "nested-form#add_answer auto-save#add_answer_item" , dynamic_select_target:'addbtn' } , class: "btn mr-4" %>
-    <%= form.label :image , (form.object.image.attached? ? "更換圖片" : "新增圖片" ), class: "btn" , data: { action: "click->auto-save#change_question_image" ,id: form.object.id } %>
+    <div class="flex justify-between w-full">
+      <div>
+        <%= link_to "新增選項", "#", data: { action: "nested-form#add_answer auto-save#add_answer_item" , dynamic_select_target:'addbtn' } , class: "btn md:mr-4" %>
+        <%= form.label :image , (form.object.image.attached? ? "更換圖片" : "新增圖片" ), class: "btn" , data: { action: "click->auto-save#change_question_image" ,id: form.object.id } %>
+      </div>
+      <div class="required">
+        <%= form.check_box :required, data: {action: "click->auto-save#checked"}, id: "deco_checkbox" %>
+        <%= form.label :required, "必填", class: "md:mx-2" %>
+      </div>
     </div>
     <div class="flex items-center">
-    <%= form.check_box :required, data: {action: "click->auto-save#checked"}, id: "deco_checkbox"%>
-    <div class="flex justify-end items-center">
-      <div class="mx-4"><%= form.label :required, "必填" %></div>
-    </div>
-    <%= link_to "#", data: { action: "click->nested-form#duplicate_question" } ,class: "linkbtn mx-3", title: "複製問題" do %>
-      <i class="fas fa-copy"></i>
-    <% end %>
-    <%= link_to "#", data: { action: "click->nested-form#remove_association click->auto-save#remove_question" }, class: "linkbtn mx-2", title: "刪除問題" do %>
-        <i class="fas fa-trash-alt"></i>
-    <% end %>
+      <%= link_to "#", data: { action: "click->nested-form#duplicate_question" } ,class: "answer-button", title: "複製問題" do %>
+        <i class="fas fa-copy"></i>
+      <% end %>
+      <%= link_to "#", data: { action: "click->nested-form#remove_association click->auto-save#remove_question" }, class: "answer-button", title: "刪除問題" do %>
+          <i class="fas fa-trash-alt"></i>
+      <% end %>
     </div>
   </div>
 </div>
