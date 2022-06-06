@@ -173,8 +173,10 @@ export default class extends Controller {
           type: "delete",
           url: `/surveys/${this.surveyId}/remove_question`,
           data,
+          success: () => {
+            Swal.fire("問題選項已刪除!", "", "success")
+          },
         })
-        Swal.fire("問題選項已刪除!", "", "success")
       }
     })
   }
@@ -242,8 +244,10 @@ export default class extends Controller {
           type: "delete",
           url: `/surveys/${this.surveyId}/remove_answer`,
           data,
+          success: () => {
+            Swal.fire("答案選項已刪除!", "", "success")
+          },
         })
-        Swal.fire("答案選項已刪除!", "", "success")
       }
     })
   }

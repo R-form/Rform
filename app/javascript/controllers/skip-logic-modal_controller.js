@@ -1,7 +1,6 @@
 import { Controller } from "stimulus"
 import Rails from "@rails/ujs"
 import Swal from "sweetalert2"
-import "sweetalert2/src/sweetalert2.scss"
 
 export default class extends Controller {
   static targets = ["surveyId"]
@@ -55,9 +54,6 @@ export default class extends Controller {
             Swal.fire("您已移除跳題的設定。", "", "info")
           }
         })
-      },
-      error: () => {
-        console.log("失敗")
       },
     })
   }
