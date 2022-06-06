@@ -8,6 +8,6 @@ class Order < ApplicationRecord
   private 
   # Generates an 6 character alphanumeric id
   def generate_slug
-    self.slug = SecureRandom.hex(3)
+    self.slug = SecureRandom.alphanumeric(6)
   end 
 end

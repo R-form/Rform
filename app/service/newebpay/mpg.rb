@@ -41,8 +41,6 @@ module Newebpay
             info[:TimeStamp] = Time.now.to_i 
             info[:RespondType] = "JSON"
             info[:Version] = "1.6"
-            # info[:ReturnURL] = @return_url
-            # info[:NotifyURL] = @notify_url
             info[:LoginType] = 0 
             info[:CREDIT] =  1,
             info[:VACC] = 1
@@ -72,5 +70,5 @@ module Newebpay
         encode_string = "HashKey=#{key}&#{trade_info}&HashIV=#{iv}"
         Digest::SHA256.hexdigest(encode_string).upcase
         end
-        end
+    end
 end

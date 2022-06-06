@@ -1,8 +1,7 @@
 <div class="background" data-controller="orders">
     <div class="container">
         <div class="panel justify-evenly">
-            <% if current_user.status == "pro" %>
-            <% else %>
+            <% if current_user.status != "pro" %>
             <div class="pricing-plan pricing-table">
                 <img src="https://s28.postimg.cc/ju5bnc3x9/plane.png" alt="" class="pricing-img">
                 <h2 class="pricing-header">Personal</h2>
