@@ -1,4 +1,4 @@
-class OauthsController < ApplicationController
+class OauthController < ApplicationController
       
   def provider
     login_at(params[:provider])
