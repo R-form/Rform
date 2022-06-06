@@ -45,7 +45,7 @@ Rails.application.routes.draw do
 
   end
   
-  resources :oauths, only: [] do
+  resources :oauth, only: [] do
     collection do
       post :callback
       get :callback

@@ -1,10 +1,10 @@
 <%= form_with model: user, url: users_path do |form| %>
-  <% if current_user.errors.any? %>
+  <% if user.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(current_user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
       <ul>
-        <% current_user.errors.each do |error| %>
+        <% user.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
@@ -48,10 +48,10 @@
 
       <footer>
         <div class="grid grid-cols-2 gap-4">
-         <%= link_to "FACEBOOK", provider_oauths_path(provider: :facebook), 
+          <%= link_to "FACEBOOK", provider_oauth_index_path(provider: :facebook), 
           class:"rounded-2xl border-b-2 border-b-gray-300 bg-white py-2.5 px-4 font-bold text-gray-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200"
             %>
-          <%= link_to "GOOGLE", provider_oauths_path(provider: :google), 
+          <%= link_to "GOOGLE", provider_oauth_index_path(provider: :google), 
           class:"rounded-2xl border-b-2 border-b-gray-300 bg-white py-2.5 px-4 font-bold text-gray-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200"
             %>
         </div>
