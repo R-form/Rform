@@ -11,20 +11,19 @@
       </ul>
     </div>
   <% end %>
-    
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= @user.email %>
-  </div>
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password %>
-  </div>
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+  <section class="absolute top-96 left-1/2 mx-auto max-w-sm -translate-x-1/2 -translate-y-1/2 transform space-y-4 text-center">
+      <div class=x-show="!isLoginPage" class="space-y-4">
+      <header class="mb-3 text-2xl font-bold">reset Password | 重設密碼</header>
+      <div class="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200">
+        <%= @user.email %>
+        <%= f.password_field :password, placeholder:"Password",
+    class: "my-3 w-full border-none bg-transparent outline-none focus:outline-none"%>
+        <%= f.password_field :password_confirmation, placeholder:"Password Confirmation",
+    class: "my-3 w-full border-none bg-transparent outline-none focus:outline-none"%>
+      </div>
+        <button class="w-full rounded-2xl border-b-4 border-b-blue-600 bg-ironGray py-3 font-bold text-white hover:bg-ironGrayHover active:translate-y-[0.125rem] active:border-b-blue-400">
+        Update password!
+        </button>
+      </div>
+    <% end %>
+</section>
