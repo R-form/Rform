@@ -1,0 +1,7 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "answers") do |sheet|
+  sheet.add_row @questionTitles
+  @xlsAnswerArrays.each do |xlsAnswerArray|
+    sheet.add_row xlsAnswerArray
+  end
+end
