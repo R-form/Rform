@@ -1,31 +1,31 @@
-<div class="background" data-controller="orders">
+<div class="background padding-for-fixed" data-controller="orders">
     <div class="container">
         <div class="panel justify-evenly">
             <% if current_user.status != "pro" %>
             <div class="pricing-plan pricing-table">
                 <img src="https://s28.postimg.cc/ju5bnc3x9/plane.png" alt="" class="pricing-img">
-                <h2 class="pricing-header">Personal</h2>
+                <h2 class="pricing-header">試用方案</h2>
                 <ul class="pricing-features">
-                    <li class="pricing-features-item">make online you want!</li>
-                    <li class="pricing-features-item">All feature we have!</li>
+                    <li class="pricing-features-item">免費建制3份問卷!</li>
+                    <li class="pricing-features-item">免費試用所有功能!</li>
                 </ul>
-                <span class="pricing-price">Free</span>
-                <button class="pricing-button-now" disabled>Your plan now</button>
+                <span class="pricing-price">NT$ 0/每月</span>
+                <button class="pricing-button-now" disabled>使用中方案</button>
             </div>
             <% end %>
 
             <div class="pricing-plan pricing-table">
                 <img src="https://s21.postimg.cc/tpm0cge4n/space-ship.png" alt="" class="pricing-img">
-                <h2 class="pricing-header">Pro team</h2>
+                <h2 class="pricing-header">頂級方案</h2>
                 <ul class="pricing-features">
-                    <li class="pricing-features-item">teamwork for same survey</li>
-                    <li class="pricing-features-item">design logic for question</li>
+                    <li class="pricing-features-item">建置問卷數量無上限！</li>
+                    <li class="pricing-features-item">升級所有功能！</li>
                 </ul>
-                <span class="pricing-price">$100/month</span>
+                <span class="pricing-price">NT$ 100/每月</span>
                 <% if current_user.status == "pro" %>
                 <a href="#/" class="pricing-button-now" data-action="click->orders#post" >Your plan now</a>
                 <% else %>
-                <a href="#/" class="pricing-button  is-featured" data-action="click->orders#post" >upgrade</a>
+                <a href="#/" class="pricing-button  is-featured" data-action="click->orders#post" >升級方案</a>
                 <% end %>
             </div>
 

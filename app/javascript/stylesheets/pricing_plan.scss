@@ -1,12 +1,9 @@
-
-
 .background {
   padding: 0 25px 25px;
   position: relative;
   width: 100%;
   box-sizing: border-box;
 }
-
 
 @media (min-width: 900px) {
   .background {
@@ -80,10 +77,11 @@
   color: #888;
   font-weight: 600;
   letter-spacing: 1px;
+  font-size: larger;
 }
 
 .pricing-features {
-  color: #016FF9;
+  color: #016ff9;
   font-weight: 600;
   letter-spacing: 1px;
   margin: 50px 0 25px;
@@ -91,7 +89,7 @@
 
 .pricing-features-item {
   border-top: 1px solid #e1f1ff;
-  font-size: 12px;
+  font-size: 15px;
   line-height: 1.5;
   padding: 15px 0;
 }
@@ -101,7 +99,7 @@
 }
 
 .pricing-price {
-  color: #016FF9;
+  color: #016ff9;
   display: block;
   font-size: 32px;
   font-weight: 700;
@@ -110,7 +108,7 @@
 .pricing-button {
   border: 1px solid #9dd1ff;
   border-radius: 10px;
-  color: #348EFE;
+  color: #348efe;
   display: inline-block;
   margin: 25px 0;
   padding: 15px 35px;
@@ -121,7 +119,7 @@
 .pricing-button-now {
   border: 1px solid #9dd1ff;
   border-radius: 10px;
-  color: #348EFE;
+  color: #348efe;
   display: inline-block;
   margin: 25px 0;
   padding: 15px 35px;
