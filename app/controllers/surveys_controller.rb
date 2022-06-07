@@ -101,7 +101,7 @@ class SurveysController < ApplicationController
         answers_counts << answers_count
       end
     end
-   
+
     # deal with responses  
     response_index = 0
     response_question_index = 0
@@ -109,9 +109,7 @@ class SurveysController < ApplicationController
     xls_answer_arrays = []
     response_jsons = []
     response_question_answers = []
-    
     @survey.responses.each do |response|
-      xls_answer_array = [response.created_at]
       key_index = 0
       while key_index < question_ids.length
         unless response.answers.has_key?(question_ids[key_index].to_s)
@@ -120,9 +118,9 @@ class SurveysController < ApplicationController
         end
         key_index += 1
       end
-
+      xls_answer_array = [response.created_at]
       @survey.questions.each do |question|
-        response_question_answer = []
+        response_question_answer = []        
         current_response_answers = response.answers[question.id.to_s] 
         case question.question_type
         when '多選題'
@@ -158,15 +156,11 @@ class SurveysController < ApplicationController
           else
             xls_answer_array << ''
           end
-
         when '問答題', '日期', '時間', '範圍'
           response_question_answer << current_response_answers
           xls_answer_array << current_response_answers
-          xls_answer_arrays << xls_answer_array
         end
-
         response_question_answers << response_question_answer
-
         response_jsons[response_question_index] = {
           responseIndex: response_index,
           questionTitles: question.title,
@@ -175,6 +169,7 @@ class SurveysController < ApplicationController
         response_question_index += 1
       end
       response_index += 1
+      xls_answer_arrays << xls_answer_array
     end
 
     @responseJsons = response_jsons
