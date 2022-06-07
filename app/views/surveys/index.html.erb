@@ -3,15 +3,18 @@
   <div class="container mt-4 mx-auto" data-controller="modal surveys" data-modal-allow-background-close="false" >
     <div class="cards-item" data-controller="sortable">
       <% @surveys.each do |survey| %>
-        <div class="survey-card" data-id="<%= survey.id %>">
-          <div class="m-3 h-full">
-            <div class="h-1/2 flex flex-col justify-between">
-              <h2 class="survey-card-title"><%= survey.title %></h2>
-              <p class="survey-card-description"><%= survey.description %></p> 
-              <div class="survey-card-icon">       
-                <%= link_to edit_survey_path(survey), title: "編輯問卷", class: "linkbtn" do %>
-                  <i class="fas fa-pen"></i>
-                <% end %>
+        <div class="card m-2 cursor-pointer border border-gray-400 rounded-lg hover:shadow-md hover:border-opacity-0 transform hover:-translate-y-1 transition-all duration-200" data-id="<%= survey.id %>"   >
+          
+            <div class="m-3">
+              <span class="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">Tag</span>
+              <h2 class="text-lg mb-2 truncate"><%= survey.title %></h2>
+              <p class="font-light font-mono text-sm text-gray-700 hover:text-gray-900 transition-all duration-200  truncate "><%= survey.description %></p> 
+              <div class="mt-5 flex justify-end">
+                             
+                  <%= link_to edit_survey_path(survey), title: "編輯問卷", class: "linkbtn md:" do %>
+                    <i class="fas fa-pen"></i>
+                  <% end %>
+
                 <%= link_to duplicate_survey_path(survey), title: "複製問卷", class: "linkbtn" do %>
                   <i class="fas fa-copy"></i>
                 <% end %>
