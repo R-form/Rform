@@ -38,31 +38,34 @@ export default class extends Controller {
     question.removeAttribute("data-nested-form-target", "question_copy")
   }
 
-  add_association(event) {
-    event.preventDefault()
-    let content = this.templateTarget.innerHTML.replace(new RegExp(this.indexValue, "g"), new Date().getTime())
-    this.add_itemTarget.insertAdjacentHTML("beforebegin", content)
-    this.add_itemTarget.previousElementSibling.querySelector(".question-title").focus()
-  }
-
   add_answer(event) {
     event.preventDefault()
     let content = this.templateTarget.innerHTML
     this.add_itemTarget.insertAdjacentHTML("beforeend", content)
   }
 
+  remove_association(event) {
+    event.preventDefault()
+    let item = event.target.closest(".group")
+    item.querySelector("input[name*='_destroy']").value = true
+    item.style.display = "none"
+  }
+
   change_background(event) {
     this.change_bgTarget.submit()
     event.value = ""
   }
+
   change_question_image(event) {
     this.change_question_imageTarget.querySelector("#question_id").value = event.detail.id
     this.change_question_imageTarget.querySelector("input[type='file']").click()
   }
+
   change_image(event) {
     this.change_question_imageTarget.submit()
     event.value = ""
   }
+
   add_association(event) {
     event.preventDefault()
     let content = this.templateTarget.innerHTML.replace(new RegExp(this.indexValue, "g"), new Date().getTime())
