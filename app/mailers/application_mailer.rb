@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 class ApplicationMailer < ActionMailer::Base
-  default from: 'rform@rform.com'
+  default from: '5xrform@gmail.com'
   layout 'mailer'
 end
