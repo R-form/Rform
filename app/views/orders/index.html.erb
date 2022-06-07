@@ -1,0 +1,44 @@
+<div class="background" data-controller="orders">
+    <div class="container">
+        <div class="panel justify-evenly">
+            <% if current_user.status != "pro" %>
+            <div class="pricing-plan pricing-table">
+                <img src="https://s28.postimg.cc/ju5bnc3x9/plane.png" alt="" class="pricing-img">
+                <h2 class="pricing-header">Personal</h2>
+                <ul class="pricing-features">
+                    <li class="pricing-features-item">make online you want!</li>
+                    <li class="pricing-features-item">All feature we have!</li>
+                </ul>
+                <span class="pricing-price">Free</span>
+                <button class="pricing-button-now" disabled>Your plan now</button>
+            </div>
+            <% end %>
+
+            <div class="pricing-plan pricing-table">
+                <img src="https://s21.postimg.cc/tpm0cge4n/space-ship.png" alt="" class="pricing-img">
+                <h2 class="pricing-header">Pro team</h2>
+                <ul class="pricing-features">
+                    <li class="pricing-features-item">teamwork for same survey</li>
+                    <li class="pricing-features-item">design logic for question</li>
+                </ul>
+                <span class="pricing-price">$100/month</span>
+                <% if current_user.status == "pro" %>
+                <a href="#/" class="pricing-button-now" data-action="click->orders#post" >Your plan now</a>
+                <% else %>
+                <a href="#/" class="pricing-button  is-featured" data-action="click->orders#post" >upgrade</a>
+                <% end %>
+            </div>
+
+        </div>
+    </div>
+
+<% if @form_info %>
+<%= form_with(url: "https://ccore.newebpay.com/MPG/mpg_gateway", method: :post, html: {name: "Newebpay"}, data: {orders_target:"form_post"}) do |form|  %>
+<%= form.text_field :MerchantID , value: @form_info[:MerchantID], class: "hidden" %>
+<%= form.text_field :TradeInfo , value: @form_info[:TradeInfo], class: "hidden"  %>
+<%= form.text_field :TradeSha , value: @form_info[:TradeSha], class: "hidden"  %>
+<%= form.text_field :Version , value: @form_info[:Version], class: "hidden"  %>
+<%= form.submit "" , class: "hidden" %>
+<% end %>
+<% end %>
+</div>
