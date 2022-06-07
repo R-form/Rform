@@ -21,6 +21,7 @@ module.exports = {
     "softBlue",
     "softNavy",
     "softGray",
+    "irisBlue",
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -45,6 +46,7 @@ module.exports = {
         softBlue: "#bfe2e8",
         softNavy: "#6699A1",
         softGray: "#a4b5c4",
+        irisBlue: "#00bcd4",
       },
       outline: {
         ironGrayHover: "3px solid #A5A2A0",

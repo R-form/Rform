@@ -1,29 +1,50 @@
 import { Controller } from "stimulus"
-// import Chart from "chart.js"
 
 export default class extends Controller {
-  static targets = ["showResponses", "showSingleResponse", "currentResponse", "responsesCount", "previousPageButton", "nextPageButton", "canvasBar", "canvasPie", "canvasLine"];
+  static targets = ["showResponses",
+                    "showSingleResponse", 
+                    "currentResponse", 
+                    "responsesCount", 
+                    "showQuestions",
+                    "showSingleQuestion",
+                    "questionsCount",
+                    "currentQuestion",
+                    "showCharts",
+                    "previousPageButton", 
+                    "nextPageButton", 
+                    "canvasBar", 
+                    "canvasPie", 
+                    "canvasLine"];
   connect() {
     this.canvasBarTargets.forEach ((target)=>{
       target.closest(".canvasArea").classList.remove("hidden") //default display with bar chart
     })
 
     this.showSingleResponseTargets[0].classList.remove("hidden") //default show the first response
+    this.showSingleQuestionTargets[0].classList.remove("hidden")
   }
 
   hideAndShow(e) {
-    if (this.showResponsesTarget.className === "hidden"){
-      this.showResponsesTarget.classList.remove("hidden")
-      e.target.textContent = "隱藏所有回應"
-    } else {
-      this.showResponsesTarget.classList.add("hidden")
-      e.target.textContent = "顯示所有回應"
+    this.showChartsTarget.classList.add("hidden") //clear all first
+    this.showQuestionsTarget.classList.add("hidden")
+    this.showResponsesTarget.classList.add("hidden")
+
+    switch (e.target.id) {
+      case "showResponsesBtn":
+        this.showResponsesTarget.classList.remove("hidden")
+        break
+      case "showQuestionsBtn":
+        this.showQuestionsTarget.classList.remove("hidden")
+        break
+      case "showChartsBtn":
+        this.showChartsTarget.classList.remove("hidden")
+        break
     }
   }
 
   chartTypeSelect(e) {
     const selectedChartType = e.target.value // get type from select
-    const targetIndex = e.target.closest(".canvasContainer").id // check which container we got
+    const targetIndex = e.target.closest(".canvas-container").id // check which container we got
     let currentCanvasTarget = this.canvasBarTarget // just a initial value
 
     // clear all charts first
@@ -49,57 +70,81 @@ export default class extends Controller {
     }
   }
 
-  nextPage(e) {
-    let currentResponse = Number(this.currentResponseTarget.textContent)
-    let responsesCount = Number(this.responsesCountTarget.textContent)
+  nextPage(target, targetCount, showTargets, currentTarget, targetIndex) {
+    let currentResponse = Number(target.textContent)
+    const responsesCount = Number(targetCount.textContent)
 
-    this.previousPageButtonTarget.classList.remove("hidden")
+    this.previousPageButtonTargets[targetIndex].classList.remove("hidden")
 
     if (currentResponse < responsesCount) {
-      this.showSingleResponseTargets[currentResponse-1].classList.add("hidden")
-      this.showSingleResponseTargets[currentResponse].classList.remove("hidden")
-      this.currentResponseTarget.textContent = ++currentResponse
+      showTargets[currentResponse-1].classList.add("hidden")
+      showTargets[currentResponse].classList.remove("hidden")
+      target.textContent = ++currentResponse
       if (currentResponse == responsesCount) {
-        e.target.classList.add("hidden")
+        currentTarget.classList.add("hidden")
       }
     }
   }
 
-  previousPage(e) {
-    let currentResponse = Number(this.currentResponseTarget.textContent)
+  previousPage(target, showTargets, currentTarget, targetIndex) {
+    let currentResponse = Number(target.textContent)
 
-    this.nextPageButtonTarget.classList.remove("hidden")
+    this.nextPageButtonTargets[targetIndex].classList.remove("hidden")
 
     if (currentResponse > 1) {
-      this.showSingleResponseTargets[currentResponse-1].classList.add("hidden")
-      this.showSingleResponseTargets[currentResponse-2].classList.remove("hidden")
-      this.currentResponseTarget.textContent = --currentResponse
+      showTargets[currentResponse-1].classList.add("hidden")
+      showTargets[currentResponse-2].classList.remove("hidden")
+      target.textContent = --currentResponse
       if (currentResponse == 1) {
-        e.target.classList.add("hidden")
+        currentTarget.classList.add("hidden")
       }
     }
   }
 
-  jumpToPage(e) {
-    let jumpToPageNumber = e.target.value
-    let currentResponse = Number(this.currentResponseTarget.textContent)
-    let responsesCount = Number(this.responsesCountTarget.textContent)
+  jumpToPage(target, targetCount, showTargets, currentTarget, targetIndex) {
+    let currentResponse = Number(target.textContent)
+    const responsesCount = Number(targetCount.textContent)
+    const jumpToPageNumber = currentTarget.value
 
-    this.previousPageButtonTarget.classList.remove("hidden")
-    this.nextPageButtonTarget.classList.remove("hidden")
+    this.previousPageButtonTargets[targetIndex].classList.remove("hidden")
+    this.nextPageButtonTargets[targetIndex].classList.remove("hidden")
 
     if (jumpToPageNumber > 0 && jumpToPageNumber <= responsesCount) {
-      this.showSingleResponseTargets[currentResponse-1].classList.add("hidden")
-      this.showSingleResponseTargets[jumpToPageNumber-1].classList.remove("hidden")
-      this.currentResponseTarget.textContent = jumpToPageNumber
+      showTargets[currentResponse-1].classList.add("hidden")
+      showTargets[jumpToPageNumber-1].classList.remove("hidden")
+      target.textContent = jumpToPageNumber
     } else {
       alert("沒有這頁喔")
     }
     if (jumpToPageNumber == 1) {
-      this.previousPageButtonTarget.classList.add("hidden")
+      this.previousPageButtonTargets[targetIndex].classList.add("hidden")
     }
     if (jumpToPageNumber == responsesCount) {
-      this.nextPageButtonTarget.classList.add("hidden")
+      this.nextPageButtonTargets[targetIndex].classList.add("hidden")
     }
+  }
+
+  nextResponse(e) {
+    this.nextPage(this.currentResponseTarget, this.responsesCountTarget, this.showSingleResponseTargets, e.target, this.showResponsesTarget.id)
+  }
+
+  previousResponse(e) {
+    this.previousPage(this.currentResponseTarget, this.showSingleResponseTargets, e.target, this.showResponsesTarget.id)
+  }
+
+  jumpToResponse(e) {
+    this.jumpToPage(this.currentResponseTarget, this.responsesCountTarget, this.showSingleResponseTargets, e.target, this.showResponsesTarget.id)
+  }
+
+  nextQuestion(e) {
+    this.nextPage(this.currentQuestionTarget, this.questionsCountTarget, this.showSingleQuestionTargets, e.target, this.showQuestionsTarget.id)
+  }
+
+  previousQuestion(e) {
+    this.previousPage(this.currentQuestionTarget, this.showSingleQuestionTargets, e.target, this.showQuestionsTarget.id)
+  }
+
+  jumpToQuestion(e) {
+    this.jumpToPage(this.currentQuestionTarget, this.questionsCountTarget, this.showSingleQuestionTargets, e.target, this.showQuestionsTarget.id)
   }
 }

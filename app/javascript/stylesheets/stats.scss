@@ -1,0 +1,43 @@
+.padding-for-fixed-stats{
+  @apply pt-20;
+}
+  
+.stats-tab-button{
+  @apply px-4 py-3 w-full font-bold bg-gentleYellow hover:bg-softOrange;
+}
+  
+.side-bar-area{
+  @apply bg-gentleYellow mx-2 w-60;
+}
+
+.stats-display-area{
+  @apply bg-gentleYellow mx-2 px-8 py-4 w-full min-h-screen;
+}
+  
+.canvas-container{
+  width: 560px;
+}
+
+.page-button{
+  @apply hover:bg-softOrange;
+}
+
+.input-jump-to-page{
+  @apply w-16;
+}
+  
+.table-style{
+  @apply border-solid border-2 border-yellow-900 text-2xl shadow-xl;
+}
+
+.th-style{
+  @apply bg-softOrange text-2xl shadow-xl;
+}
+
+.td-style{
+  @apply bg-gentleYellow text-2xl shadow-xl;
+}
+  
+.taglabel{
+  @apply inline-block bg-irisBlue align-middle rounded-2xl px-2.5 py-1 text-xs text-white font-medium mr-1 mb-1 border-solid border break-all;
+}
