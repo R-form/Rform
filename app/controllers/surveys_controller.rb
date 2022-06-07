@@ -148,6 +148,7 @@ class SurveysController < ApplicationController
           end
 
         when '問答題', '日期', '時間', '範圍'
+          response_question_answer << current_response_answers
           xls_answer_array << current_response_answers
           xls_answer_arrays << xls_answer_array
         end
@@ -165,6 +166,7 @@ class SurveysController < ApplicationController
     end
 
     @responseJsons = response_jsons
+    @response_question_answers = response_question_answers
     
     sum_of_response_answer_ids = []
 
@@ -199,10 +201,24 @@ class SurveysController < ApplicationController
         }
 
         chart_options[chart_index] = {
+          plugins: {
+            title: {
+              display: true,
+              text: question.title
+            }
+          },
           layout: {
-            padding: 200
-          }
-        }
+            padding: 50
+          },
+          scales: {
+            y: {
+              ticks: {
+                stepSize: 1
+              },
+              beginAtZero: true
+            }
+          },
+        }   
 
         chart_index += 1
       end
