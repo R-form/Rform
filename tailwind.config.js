@@ -27,6 +27,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        mint: "#91B493",
+        grassGreen: "#86C166",
         vermilion: "#AB3B3A",
         paleVermilion: "#D75455",
         gentleYellow: "#F3EADA",

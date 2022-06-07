@@ -95,7 +95,7 @@
             關閉時間
           </span>                 
         </li> 
-        <li>
+        <li class="mb-4">
           <div class="mx-4">
             <%= form.datetime_field :closetime, min: form.object.opentime, data: { action: "change -> survey-style#update_closetime"},class: "survey_status_time" %>
           </div>

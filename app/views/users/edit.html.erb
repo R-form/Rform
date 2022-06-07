@@ -26,10 +26,10 @@
 
         <%= form_with url: password_resets_path, local: true, method: :post do |form| %>
             <%= form.text_field :email , class: "hidden" %>
-            <%= form.submit "更換密碼" , class: "actions w-full rounded-2xl border-b-4 border-b-blue-600 bg-ironGray py-3 font-bold text-white hover:bg-ironGrayHover active:translate-y-[0.125rem] active:border-b-blue-400"%>
+            <%= form.submit "更換密碼" , class: "actions w-full rounded-2xl border-b-4 border-b-gray-600 bg-ironGray py-3 font-bold text-white hover:bg-ironGrayHover active:translate-y-[0.125rem] active:border-b-blue-400"%>
 
         <% end %>
-        <%= button_to  "登出" ,  user_sessions_path, method: :delete , class:"actions w-full rounded-2xl border-b-4 border-b-blue-600 bg-ironGray py-3 font-bold text-white hover:bg-ironGrayHover active:translate-y-[0.125rem] active:border-b-blue-400" %>
+        <%= button_to  "登出" ,  user_sessions_path, method: :delete , class:"actions w-full rounded-2xl border-b-4 border-b-gray-600 bg-ironGray py-3 font-bold text-white hover:bg-ironGrayHover active:translate-y-[0.125rem] active:border-b-blue-400" %>
       </div>       
 
       <div class="flex items-center space-x-4">
@@ -39,7 +39,7 @@
       </div>
 
         <div class=" w-full px-4 ">
-             <%= button_to  "查看目前方案" ,   orders_users_path(@user) ,method: :get, class:"actions w-full rounded-2xl border-b-4 border-b-blue-600 bg-ironGray py-3 font-bold text-white hover:bg-ironGrayHover active:translate-y-[0.125rem] active:border-b-blue-400" %>
+             <%= button_to  "查看目前方案" ,   orders_users_path(@user) ,method: :get, class:"actions w-full rounded-2xl border-b-4 border-b-gray-600 bg-ironGray py-3 font-bold text-white hover:bg-ironGrayHover active:translate-y-[0.125rem] active:border-b-blue-400" %>
         </div>
 
 
