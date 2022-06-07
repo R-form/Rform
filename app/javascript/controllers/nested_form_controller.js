@@ -63,4 +63,10 @@ export default class extends Controller {
     this.change_question_imageTarget.submit()
     event.value = ""
   }
+  add_association(event) {
+    event.preventDefault()
+    let content = this.templateTarget.innerHTML.replace(new RegExp(this.indexValue, "g"), new Date().getTime())
+    this.add_itemTarget.insertAdjacentHTML("beforebegin", content)
+    this.add_itemTarget.previousElementSibling.querySelector(".q_title").focus()
+  }
 }
