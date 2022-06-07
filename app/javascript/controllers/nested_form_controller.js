@@ -17,7 +17,7 @@ export default class extends Controller {
       const new_question = question.nextElementSibling
       const new_question_answers = new_question.querySelectorAll(".answer")
 
-      const new_question_title = new_question.querySelector(".q_title")
+      const new_question_title = new_question.querySelector(".question-title")
       new_question_title.value = `${new_question_title.value} - 副本`
 
       const data = new FormData()
@@ -67,6 +67,6 @@ export default class extends Controller {
     event.preventDefault()
     let content = this.templateTarget.innerHTML.replace(new RegExp(this.indexValue, "g"), new Date().getTime())
     this.add_itemTarget.insertAdjacentHTML("beforebegin", content)
-    this.add_itemTarget.previousElementSibling.querySelector(".q_title").focus()
+    this.add_itemTarget.previousElementSibling.querySelector(".question-title").focus()
   }
 }
