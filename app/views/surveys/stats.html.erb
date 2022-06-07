@@ -9,13 +9,6 @@
     <div class="survey-info-area">
       <h1 class="mx-2 text-3xl font-bold text-gray-700"><%= @survey.title %></h1>
       <h2 class="mx-2 text-lg font-bold text-gray-500"><%= @survey.description %></h2>
-      <div class="mx-2">
-        <% if @survey.tag.present? %>
-          <% @survey.tag.split(',') do |currentTag| %>
-            <h2 class="taglabel"><%= currentTag %></h2>
-          <% end %>
-        <% end %>
-      </div>
     </div>
     <br>
     <div data-stats-target="showResponses" id=0 class="hidden">
