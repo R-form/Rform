@@ -17,9 +17,8 @@ export default class extends Controller {
 
     this.final_question = this.questionTargets[this.questionTargets.length - 1]
     this.final_question_id = this.questionTargets[this.questionTargets.length - 1].dataset.question_id
-    this.final_question_required = this.questionTargets[this.questionTargets.length - 1].dataset.required
 
-    if (this.final_question_required) {
+    if (this.final_question.dataset.required) {
       this.submitTarget.setAttribute("disabled", "")
       this.submitTarget.setAttribute("class", "disabled-response-button hidden")
     }
