@@ -27,6 +27,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        vermilion: "#AB3B3A",
+        paleVermilion: "#D75455",
         gentleYellow: "#F3EADA",
         ironGray: "#7A7573",
         ironGrayHover: "#A5A2A0",

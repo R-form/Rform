@@ -3,8 +3,12 @@
 Rails.application.routes.draw do
   
   root 'homepage#index'
-  resource :users
-  resource :user_sessions, only: [:new, :create, :destroy]
+resource :user_sessions, only: [:new, :create, :destroy]
+resource :users do
+  get :orders ,to: 'orders#index'
+end
+post 'orders/done' => 'orders#done'
+post 'orders/update' => 'orders#update'
 
   resources :surveys do
     resources :responses do

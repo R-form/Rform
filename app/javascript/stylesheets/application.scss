@@ -5,7 +5,9 @@
 @import "./submitted_responses.scss";
 @import "./new_responses.scss";
 @import "./homepage.scss";
+@import "./pricing_plan.scss";
 @import "./stats.scss";
+@import "./survey_index.scss";
 
 input,
 textarea,
@@ -30,16 +32,29 @@ select {
 }
 
 .linkbtn {
-  @apply w-10 h-10 bg-gray-500 hover:bg-gray-700 text-white font-bold p-2 mx-2 rounded-full text-center;
+  @apply w-10 h-10 md:w-8 md:h-8 md:text-xs md:align-middle xl:w-10 xl:h-10 xl:text-base bg-gray-500 hover:bg-gray-700 text-white font-bold p-2 mx-2 md:mx-1 rounded-full text-center;
 }
 
-.btn-for-answer{
-
-  @apply w-10 h-10 bg-ironGrayHover hover:bg-gray-700 text-white font-bold p-2 mx-2 rounded-full text-center ;
-
+.answer-button {
+  @apply w-8 sm:w-10 h-8 sm:h-10 p-1 sm:p-2 m-1 sm:m-2 bg-gray-500 hover:bg-gray-700 text-white font-bold rounded-full text-center cursor-pointer flex-shrink-0;
 }
 
+.btn-for-answer {
+  @apply w-8 sm:w-10 h-8 sm:h-10 p-1 sm:p-2 m-1 sm:m-2 bg-ironGrayHover hover:bg-gray-700 text-white font-bold rounded-full text-center flex-shrink-0;
+}
 
+.notice {
+  @apply absolute top-24 right-5 flex items-center bg-ironGray py-2 px-4 rounded text-white hover:bg-ironGrayHover transition transform duration-1000;
+}
 
+.alert {
+  @apply absolute top-24 right-5 flex items-center bg-vermilion py-2 px-4 rounded text-white hover:bg-paleVermilion transition transform duration-1000;
+.card{
+  max-width: 100%;
+}
 
+.notice-button {
+  @apply text-2xl ml-2;
+}
 
+}

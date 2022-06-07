@@ -13,6 +13,7 @@ import { Application } from "@hotwired/stimulus"
 import { Modal } from "tailwindcss-stimulus-components"
 import TextareaAutogrow from "stimulus-textarea-autogrow"
 import Chart from "stimulus-chartjs"
+import "sweetalert"
 
 Rails.start()
 Turbolinks.start()

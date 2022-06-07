@@ -20,6 +20,7 @@
     "sortablejs": "^1.15.0",
     "stimulus": "^3.0.1",
     "stimulus-chartjs": "^4.0.0",
+    "stimulus-notification": "^2.0.0",
     "stimulus-rails-autosave": "^4.0.0",
     "stimulus-textarea-autogrow": "^4.0.0",
     "sweetalert2": "^11.4.17",

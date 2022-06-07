@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_25_070506) do
+ActiveRecord::Schema.define(version: 2022_06_04_050320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,13 +74,25 @@ ActiveRecord::Schema.define(version: 2022_05_25_070506) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.integer "status"
+    t.string "name"
+    t.integer "amount"
+    t.string "email"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "slug"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "questions", force: :cascade do |t|
     t.string "title"
     t.integer "question_type", default: 0
     t.bigint "survey_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "required"
+    t.boolean "required", default: false
     t.integer "position"
     t.string "description"
     t.datetime "deleted_at"
@@ -103,14 +115,14 @@ ActiveRecord::Schema.define(version: 2022_05_25_070506) do
     t.datetime "deleted_at"
     t.integer "position"
     t.bigint "user_id", null: false
-    t.string "tag"
     t.string "slug"
+    t.string "tag"
     t.string "font_style"
-    t.string "theme", default: "#8E354A"
+    t.string "theme", default: "brightRed"
     t.string "status", default: "published"
     t.datetime "opentime", default: -> { "now()" }
     t.datetime "closetime"
-    t.string "background_color", default: "#DC9FB4"
+    t.string "background_color", default: "softRed"
     t.index ["slug"], name: "index_surveys_on_slug", unique: true
     t.index ["user_id"], name: "index_surveys_on_user_id"
   end
@@ -132,6 +144,7 @@ ActiveRecord::Schema.define(version: 2022_05_25_070506) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "answers", "questions"
+  add_foreign_key "orders", "users"
   add_foreign_key "questions", "surveys"
   add_foreign_key "responses", "surveys"
   add_foreign_key "surveys", "users"

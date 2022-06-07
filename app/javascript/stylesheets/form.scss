@@ -24,27 +24,35 @@
 }
 
 .field {
-  @apply rounded overflow-hidden shadow-lg bg-white my-6 p-3;
+  @apply rounded overflow-hidden shadow-lg bg-white md:my-6 md:p-3 p-2;
 }
 
 .formsection {
-  @apply min-w-max mx-auto sm:w-4/6;
+  @apply min-w-min mx-auto w-5/6 md:w-4/6;
 }
 
 .formsection_title {
   @apply border-t-8 rounded overflow-hidden shadow-lg bg-white my-6 p-3;
 }
 
-.title {
-  @apply font-bold text-2xl;
+.survey-input {
+  @apply border-b-2 border-opacity-0 border-ironGrayHover focus:border-opacity-100 focus:bg-gray-100 rounded group-focus:border-l-2 p-2 my-2;
 }
 
-.input {
-  @apply appearance-none border-b-2 border-opacity-0 border-ironGrayHover focus:border-opacity-100 text-gray-700  leading-tight group-focus:border-l-2 p-2 my-2 w-full font-medium;
+.survey-title {
+  @apply text-gray-700 w-full font-bold text-4xl leading-tight;
 }
 
-.q_title {
-  @apply focus:bg-gray-200 focus:p-4 rounded;
+.discription {
+  @apply text-gray-500 w-full font-medium text-lg;
+}
+
+.question-title {
+  @apply text-gray-700 w-8/12 sm:w-10/12 font-medium text-2xl leading-tight mr-2;
+}
+
+.answer-input {
+  @apply text-gray-700 w-10/12 font-medium text-xl mr-auto;
 }
 
 textarea {
@@ -59,15 +67,12 @@ textarea {
   @apply w-7 self-center;
 }
 
-.title_type {
-  @apply flex;
+.title-type {
+  @apply flex justify-between;
 }
 
-.question_input {
-  @apply appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white;
-}
 .select {
-  @apply bg-gray-200 text-gray-800;
+  @apply bg-gray-200 text-gray-800 mr-2 w-3/12 sm:w-2/12 rounded text-base md:text-lg;
 }
 
 .question_function {
@@ -75,16 +80,16 @@ textarea {
 }
 
 .btn {
-  @apply inline-block bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-2 my-1 rounded;
+  @apply inline-block bg-gray-500 hover:bg-gray-700 text-white  font-bold py-2 my-1 rounded px-1 sm:px-2 text-sm sm:text-base;
 }
 
 .answer {
-  @apply flex shadow-none outline-none;
+  @apply flex shadow-none outline-none justify-between;
 }
 
-// .answer_input {
-//   @apply focus:bg-gray-100 rounded;
-// }
+.required {
+  @apply flex items-center w-1/2 sm:w-auto;
+}
 
 .add_answer {
   @apply bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mx-2 rounded-full;
@@ -94,7 +99,7 @@ textarea {
 }
 
 .down {
-  @apply fixed left-10  w-28 block top-40;
+  @apply fixed left-10  md:w-28 block top-44;
 }
 
 .new_question_btn {

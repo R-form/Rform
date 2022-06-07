@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  before_action :set_user, only: %i[ show edit update destroy ]
   before_action :require_login, only: %i[show edit update destroy] 
   def index
 
@@ -38,7 +39,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if current_user.update(user_params)
-        format.html { redirect_to users_url(current_user), notice: '使用者成功更新' }
+        format.html { redirect_to users_url(current_user), notice: '成功更新使用者資料' }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -49,13 +50,17 @@ class UsersController < ApplicationController
     @user.destroy
 
     respond_to do |format|
-      format.html { redirect_to users_url, notice: '使用者成功刪除' }
+      format.html { redirect_to users_url, notice: '已刪除！' }
     end
   end
 
   private
 
-    def user_params
+  def user_params
     params.require(:user).permit(:email, :password, :password_confirmation)
+  end
+
+  def set_user
+    @user = User.find(params[:format])
   end
 end

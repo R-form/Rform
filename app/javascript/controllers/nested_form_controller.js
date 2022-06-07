@@ -17,7 +17,7 @@ export default class extends Controller {
       const new_question = question.nextElementSibling
       const new_question_answers = new_question.querySelectorAll(".answer")
 
-      const new_question_title = new_question.querySelector(".q_title")
+      const new_question_title = new_question.querySelector(".question-title")
       new_question_title.value = `${new_question_title.value} - 副本`
 
       const data = new FormData()
@@ -42,20 +42,13 @@ export default class extends Controller {
     event.preventDefault()
     let content = this.templateTarget.innerHTML.replace(new RegExp(this.indexValue, "g"), new Date().getTime())
     this.add_itemTarget.insertAdjacentHTML("beforebegin", content)
-    this.add_itemTarget.previousElementSibling.querySelector(".q_title").focus()
+    this.add_itemTarget.previousElementSibling.querySelector(".question-title").focus()
   }
 
   add_answer(event) {
     event.preventDefault()
     let content = this.templateTarget.innerHTML
     this.add_itemTarget.insertAdjacentHTML("beforeend", content)
-  }
-
-  remove_association(event) {
-    event.preventDefault()
-    let item = event.target.closest(".group")
-    item.querySelector("input[name*='_destroy']").value = true
-    item.style.display = "none"
   }
 
   change_background(event) {
@@ -69,5 +62,11 @@ export default class extends Controller {
   change_image(event) {
     this.change_question_imageTarget.submit()
     event.value = ""
+  }
+  add_association(event) {
+    event.preventDefault()
+    let content = this.templateTarget.innerHTML.replace(new RegExp(this.indexValue, "g"), new Date().getTime())
+    this.add_itemTarget.insertAdjacentHTML("beforebegin", content)
+    this.add_itemTarget.previousElementSibling.querySelector(".question-title").focus()
   }
 }

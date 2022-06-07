@@ -1,0 +1,28 @@
+.my-surveys {
+  @apply text-5xl text-center text-gray-700 mt-8;
+}
+
+.cards-item {
+  @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
+}
+
+.survey-card {
+  @apply m-3 border border-gray-400 rounded-lg hover:shadow-md transform hover:-translate-y-1 transition-all duration-200 h-72;
+}
+
+.survey-card-title {
+  @apply text-gray-800 text-2xl mb-2 truncate;
+}
+
+.survey-card-description {
+  @apply font-light font-mono text-base text-gray-700 hover:text-gray-900 transition-all duration-200  truncate;
+}
+
+.survey-card-icon {
+  @apply mt-5 flex justify-around;
+}
+
+
+.card{
+  max-width: 100%;
+}

@@ -15,10 +15,22 @@ class SurveysController < ApplicationController
   def show; end
 
   def new
-    @survey = current_user.surveys.create
-    question = @survey.questions.create
-    2.times { question.answers.create }
-    redirect_to edit_survey_path(@survey.id)
+    case current_user.status
+    when "free"
+      if current_user.surveys.count >= 3
+        redirect_to surveys_path, alert: '你尚未升級為專業會員'
+      else
+        @survey = current_user.surveys.create
+        question = @survey.questions.create
+        2.times { question.answers.create }
+        redirect_to edit_survey_path(@survey.id)
+      end
+    when "pro"
+      @survey = current_user.surveys.create
+      question = @survey.questions.create
+      2.times { question.answers.create }
+      redirect_to edit_survey_path(@survey.id)
+    end
   end
 
   def edit
@@ -43,14 +55,14 @@ class SurveysController < ApplicationController
   def destroy
     @survey.image.purge
     @survey.destroy
-    redirect_to surveys_path, notice: '問卷已刪除'
+    redirect_to surveys_path, notice: '問卷刪除成功！'
   end
 
   def duplicate
     dup = @survey.deep_clone include: {questions: :answers }
     dup.title.insert(-1, " - 副本")
     if dup.save 
-      redirect_to surveys_path, notice: '問卷已複製成功'
+      redirect_to surveys_path, notice: '問卷複製成功！'
     end
   end
 

@@ -27,7 +27,7 @@
       <%= form_with model: [@survey, response] do |form| %>
         <%= form.fields_for :answers do |response| %>
           <% @survey.questions.each do |question| %>
-          <div class="question_field hidden my-8" data-responses-target="question" data-question_id="<%= question.id %>">
+          <div class="question_field hidden my-8" data-responses-target="question" data-question_id="<%= question.id %>" data-required="<%= question.required %>">
             <h1 class="question_title">
               <%= question.title %>
               <% if question.required %>
@@ -45,19 +45,19 @@
               <% when '單選題' %>
                 <% question.answers.each do |answer| %>
                   <label class= "response-choice bg-<%= @survey.theme %> hover:bg-<%= @survey.background_color %>" >
-                    <%= response.radio_button question.id, answer.id, required: question.required, class: 'radio-button', style: "accent-color: #{@survey.background_color};", data: {action: "change->responses#checked", "skip_to_question_id": answer.skip_to_question_id } %>
+                    <%= response.radio_button question.id, answer.id, class: 'radio-button', data: {action: "change->responses#checked", "skip_to_question_id": answer.skip_to_question_id } %>
                     <%= answer.title %>
                   </label>
                 <% end %>
               <% when '多選題' %>
                 <% question.answers.each do |answer| %>
                   <label class= "response-choice bg-<%= @survey.theme%> hover:bg-<%= @survey.background_color %>">
-                    <%= response.check_box question.id, { multiple: true, class: 'radio-button'}, answer.id %>
+                    <%= response.check_box question.id, { multiple: true, class: 'radio-button', data: {action: "change->responses#checkedCheckBox"}}, answer.id %>
                     <%= answer.title %>
                   </label>
                 <% end %>
               <% when '問答題' %>
-                <%= response.text_area question.id, required: question.required, class: 'response-textarea' %>
+                <%= response.text_area question.id, class: 'response-textarea',data: {action: "change->responses#responded"} %>
               <% when '滿意度' %>
                 <table class="w-full my-6 flex-wrap">
                   <tr class="text-center">
@@ -70,32 +70,32 @@
                   <tr class="text-center">
                     <% question.answers.each do |answer| %>
                       <td>
-                        <%= response.radio_button question.id, answer.id, data_skip_to_question_id: answer.skip_to_question_id, class: 'radio-button', data: {action: "change->responses#checked"} %>
+                        <%= response.radio_button question.id, answer.id, class: 'radio-button', data: {action: "change->responses#checked", "skip_to_question_id": answer.skip_to_question_id } %>
                       </td>
                     <% end %>
                   </tr>
                 </table>
               <% when '日期' %>
-                <%= response.date_field question.id, placeholder: "點按以選擇日期", class: "response-datetime", data: {controller: "date"}%>
+                <%= response.date_field question.id, placeholder: "點按以選擇日期", class: "response-datetime", data: {controller: "date", action: "change->responses#responded"}%>
               <% when '時間' %>
-                <%= response.time_field question.id, placeholder: "點按以選擇時間", class: "response-datetime", data: {controller: "time"} %>
+                <%= response.time_field question.id, placeholder: "點按以選擇時間", class: "response-datetime", data: {controller: "time", action: "change->responses#responded"} %>
               <% when '下拉選單' %>
-                <%= response.select question.id, options_for_select(question.answers.collect{ |o| [o.title, o.id, class: "option break-words"] }),{}, {class: "response-select"}  %>
+                <%= response.select question.id, options_for_select(question.answers.collect{ |o| [o.title, o.id, class: "option break-words", data:{ "skip_to_question_id": o.skip_to_question_id}]}), {include_blank: "請選擇選項"}, {class: "response-select", data: {action: "change->responses#responded change->responses#selected" }} %>
               <% when '範圍' %>
-                <%= response.range_field question.id, class: "range bg-#{@survey.theme}" %>
+                <%= response.range_field question.id, class: "range bg-#{@survey.theme}", data: {action: "change->responses#responded"} %>
               <% when '上傳檔案' %>
                 <%= response.file_field question.id, accept: "application/pdf, application/zip", multiple: true %>
               <% end %>
             </div>
 
-            <%= form.button "上一題", data: { action: "click->responses#previous", "responses_target": "previousQuestion" }, class: "response_button"%>
-            <%= form.button "下一題", data: { action: "click->responses#next", "responses_target": "nextQuestion" }, class: "response_button"%>
+            <%= form.button "上一題", data: { action: "click->responses#previous", "responses_target": "previousQuestion" }, class: "response-button"%>
+            <%= form.button "下一題", data: { action: "click->responses#next", "responses_target": "nextQuestion" }, class: "response-button"%>
           </div>
           <% end %>
         <% end %>
-        <div class="response_submit hidden" data-responses-target="submit">
-          <%= form.submit "送出問卷",class:"response_button" %>
-        </div>
+        
+          <%= form.submit "送出問卷",class:"response-button hidden", data: {"responses-target": "submit"} %>
+        
 
       <% end %>
   </section>

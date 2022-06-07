@@ -30,7 +30,8 @@
 
 .radio-button {
   @apply h-6 w-6 ml-1 mr-3 border-0;
-  accent-color: #fff;
+
+  accent-color: #7a7573;
 }
 
 .response-textarea {
@@ -57,6 +58,10 @@
   }
 }
 
-.response_button {
+.response-button {
   @apply p-3 bg-ironGray text-lg text-white font-bold rounded my-auto mr-4 shadow-lg hover:bg-ironGrayHover;
+}
+
+.disabled-response-button {
+  @apply p-3 bg-ironGray text-lg text-white font-bold rounded my-auto mr-4 shadow-lg bg-opacity-50;
 }
