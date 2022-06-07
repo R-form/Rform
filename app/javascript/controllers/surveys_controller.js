@@ -2,7 +2,7 @@ import { Controller } from "stimulus"
 import QRCode from "qrcode"
 
 export default class extends Controller {
-  static targets = ["short_url", "short_url_in_edit"]
+  static targets = ["short_url", "short_url_in_edit", "surveyCard", "searchInput"]
 
   share(e) {
     e.preventDefault()
@@ -77,4 +77,22 @@ export default class extends Controller {
         console.error(url)
       })
   }
+
+hideAndShowSearchBar() {
+  this.searchInputTarget.classList.toggle("hidden")
+  this.searchInputTarget.focus()
 }
+
+search(e) {
+  let searchValue = e.target.value
+
+  this.surveyCardTargets.forEach((surveyCard)=>{
+    let surveyTitle = surveyCard.dataset.title
+    let surveyDescription = surveyCard.dataset.description
+
+    surveyCard.classList.add("hidden")
+    if (surveyTitle.includes(searchValue) || surveyDescription.includes(searchValue)) {
+      surveyCard.classList.remove("hidden")
+    }
+  }) 
+}}

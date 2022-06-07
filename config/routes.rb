@@ -37,7 +37,6 @@ Rails.application.routes.draw do
       patch :question_image
       patch :background_color
       get :stats
-      patch :tag
       get :questions_list
       patch :skip_to_question_id
       delete :remove_skip_to_question_id

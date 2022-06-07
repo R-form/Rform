@@ -1,12 +1,14 @@
 <section class="padding-for-fixed">
-  <h1 class="text-5xl text-center text-gray-700 mt-4"><%= link_to '我的問卷', surveys_path %></h1>
   <div class="container mt-4 mx-auto" data-controller="modal surveys" data-modal-allow-background-close="false" >
+    <div class="fixed flex mx-4">
+      <input class="hidden" placeholder="搜尋問卷標題或敘述" data-surveys-target="searchInput" data-action="change->surveys#search"></input>
+      <i class="fas fa-search fa-2x" data-action="click->surveys#hideAndShowSearchBar"></i>
+    </div>
+    <h1 class="mt-4 text-5xl text-center text-gray-700"><%= link_to '我的問卷', surveys_path %></h1>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" data-controller="sortable">
       <% @surveys.each do |survey| %>
-        <div class="card m-2 cursor-pointer border border-gray-400 rounded-lg hover:shadow-md hover:border-opacity-0 transform hover:-translate-y-1 transition-all duration-200" data-id="<%= survey.id %>"   >
-          
+        <div class="m-2 transition-all duration-200 transform border border-gray-400 rounded-lg cursor-pointer card hover:shadow-md hover:border-opacity-0 hover:-translate-y-1" data-id="<%= survey.id %>"  data-title="<%= survey.title %>" data-description="<%= survey.description %>" data-surveys-target="surveyCard">
             <div class="m-3">
-              <span class="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top float-right animate-pulse">Tag</span>
               <h2 class="text-lg mb-2 truncate"><%= survey.title %></h2>
               <p class="font-light font-mono text-sm text-gray-700 hover:text-gray-900 transition-all duration-200  truncate "><%= survey.description %></p> 
               <div class="mt-5 flex justify-end">
@@ -14,7 +16,6 @@
                   <%= link_to edit_survey_path(survey), title: "編輯問卷", class: "linkbtn" do %>
                     <i class="fas fa-pen"></i>
                   <% end %>
-
                 <%= link_to duplicate_survey_path(survey), title: "複製問卷", class: "linkbtn" do %>
                   <i class="fas fa-copy"></i>
                 <% end %>
@@ -24,20 +25,12 @@
                     <i class="fas fa-share"></i>
                   <% end %>
                 <% end %>
-
                 <%= link_to stats_survey_path(survey), title: "統計數據管理", class: "linkbtn" do %>
                   <i class="fas fa-chart-pie"></i>
                 <% end %>
               
                 <%= link_to survey, title: "刪除問卷", method: :delete, data: { confirm: '確定要刪除問卷嗎?' }, class: "linkbtn" do%>
                   <i class="fas fa-trash-alt"></i>
-                <% end %>
-              </div>
-              <div>
-                <%= form_with(model: survey, url: tag_survey_path(survey), method: "patch") do |form| %>
-                  <%= form.label :tag %>
-                  <%= form.text_field :tag, data: {controller: "tag"} %>
-                  <%= form.submit "更新分類標籤" %>
                 <% end %>
               </div>
             </div>
