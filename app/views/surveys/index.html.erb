@@ -1,7 +1,7 @@
 <section class="padding-for-fixed">
   <h1 class="text-3xl text-center font-bold text-gray-700 mt-4">我的問卷</h1>
   <div class="container mt-4 mx-auto" data-controller="modal surveys" data-modal-allow-background-close="false" >
-    <div class="cards-item" data-controller="sortable">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" data-controller="sortable">
       <% @surveys.each do |survey| %>
         <div class="card m-2 cursor-pointer border border-gray-400 rounded-lg hover:shadow-md hover:border-opacity-0 transform hover:-translate-y-1 transition-all duration-200" data-id="<%= survey.id %>"   >
           
@@ -14,7 +14,6 @@
                   <%= link_to edit_survey_path(survey), title: "編輯問卷", class: "linkbtn md:" do %>
                     <i class="fas fa-pen"></i>
                   <% end %>
-
                 <%= link_to duplicate_survey_path(survey), title: "複製問卷", class: "linkbtn" do %>
                   <i class="fas fa-copy"></i>
                 <% end %>
@@ -32,15 +31,15 @@
                   <i class="fas fa-trash-alt"></i>
                 <% end %>
               </div>
+              <div>
+                <%= form_with(model: survey, url: tag_survey_path(survey), method: "patch") do |form| %>
+                  <%= form.label :tag %>
+                  <%= form.text_field :tag, data: {controller: "tag"} %>
+                  <%= form.submit "更新分類標籤" %>
+                <% end %>
+              </div>
             </div>
-            <div class="h-1/2">
-              <%= form_with(model: survey, url: tag_survey_path(survey), method: "patch") do |form| %>
-                <span class="text-sm text-teal-800 font-mono bg-teal-100 inline rounded-full px-2 align-top animate-pulse">Tag</span>
-                <%= form.text_field :tag, data: {controller: "tag"} %>
-                <%= form.submit "更新分類標籤" %>
-              <% end %>
-            </div>
-          </div>
+
         </div>
       <% end %>
     </div>
@@ -75,9 +74,9 @@
     </div>
   </div>
 </section>
-
 <div class="text-right">
   <%= link_to new_survey_path, title: "新增問卷", class: "cursor-pointer w-20 h-20 fixed bottom-8 right-8 bg-gray-500 hover:bg-gray-700 text-white text-3xl font-bold p-5 rounded-full text-center" do %>
     <i class="fas fa-plus"></i>
   <% end %>
 </div>
+

@@ -37,17 +37,13 @@ data-survey-style-target="question" >
         <%= form.label :required, "必填", class: "md:mx-2" %>
       </div>
     </div>
-    <div class="flex">
-    <%= form.check_box :required, data: {action: "click->auto-save#checked"}, id: "deco_checkbox"%>
-    <div class="flex justify-end items-center">
-      <div class="mx-4"><%= form.label :required, "必填" %></div>
-    </div>
-    <%= link_to "#", data: { action: "click->nested-form#duplicate_question" } ,class: "linkbtn mx-1", title: "複製問題" do %>
-      <i class="fas fa-copy"></i>
-    <% end %>
-    <%= link_to "#", data: { action: "click->nested-form#remove_association click->auto-save#remove_question"}, class: "linkbtn mx-1", title: "刪除問題" do %>
-        <i class="fas fa-trash-alt"></i>
-    <% end %>
+    <div class="flex items-center">
+      <%= link_to "#", data: { action: "click->nested-form#duplicate_question" } ,class: "answer-button", title: "複製問題" do %>
+        <i class="fas fa-copy"></i>
+      <% end %>
+      <%= link_to "#", data: { action: "click->nested-form#remove_association click->auto-save#remove_question" }, class: "answer-button", title: "刪除問題" do %>
+          <i class="fas fa-trash-alt"></i>
+      <% end %>
     </div>
   </div>
 </div>
