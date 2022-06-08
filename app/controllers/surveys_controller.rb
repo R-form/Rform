@@ -18,7 +18,7 @@ class SurveysController < ApplicationController
     case current_user.status
     when "free"
       if current_user.surveys.count >= 3
-        redirect_to surveys_path, alert: '你尚未升級為專業會員'
+        redirect_to surveys_path, alert: '免費會員建置問卷上限３個，請升級為專業會員'
       else
         @survey = current_user.surveys.create
         question = @survey.questions.create
@@ -59,10 +59,23 @@ class SurveysController < ApplicationController
   end
 
   def duplicate
-    dup = @survey.deep_clone include: {questions: :answers }
-    dup.title.insert(-1, " - 副本")
-    if dup.save 
-      redirect_to surveys_path, notice: '問卷複製成功！'
+    case current_user.status
+    when "free"
+      if current_user.surveys.count >= 3
+        redirect_to surveys_path, alert: '免費會員建置問卷上限３個，請升級為專業會員'
+      else
+        dup = @survey.deep_clone include: {questions: :answers }
+        dup.title.insert(-1, " - 副本")
+        if dup.save 
+          redirect_to surveys_path, notice: '問卷已複製成功'
+        end
+      end
+    when "pro"
+        dup = @survey.deep_clone include: {questions: :answers }
+        dup.title.insert(-1, " - 副本")
+        if dup.save 
+          redirect_to surveys_path, notice: '問卷已複製成功'
+        end
     end
   end
 
