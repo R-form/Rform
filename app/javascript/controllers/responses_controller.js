@@ -31,6 +31,7 @@ export default class extends Controller {
     this.previousQuestionTarget.classList.add("hidden")
     this.skipToQuestionId = ""
     this.skipFromQuestionId = []
+    this.multipleAnswers = []
   }
 
   removeButtonDisabled(e) {
@@ -78,11 +79,14 @@ export default class extends Controller {
 
   checkedCheckBox(e) {
     const current_question = e.target.closest(".question_field")
-
     if (e.target.checked) {
+      this.multipleAnswers.push(e.target.value)
       this.removeButtonDisabled(e)
     } else {
-      this.addButtonDisabled(e)
+      if (this.multipleAnswers.length == 1) {
+        this.addButtonDisabled(e)
+      }
+      this.multipleAnswers.splice(-1)
     }
 
     if (e.target.checked && this.questionTargets.length == 1) {
