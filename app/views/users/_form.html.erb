@@ -13,7 +13,7 @@
 <main class="relative min-h-screen w-full bg-white">
   <div class="p-6" x-data="app">
     <section
-      class="absolute top-80 left-1/2 mx-auto max-w-sm -translate-x-1/2 -translate-y-1/2 transform space-y-4 text-center"
+      class="absolute top-96 left-1/2 mx-auto max-w-sm -translate-x-1/2 -translate-y-1/2 transform space-y-4 text-center"
     >
       <div x-show="isLoginPage" class="space-y-4">
         <header class="mb-3 text-2xl font-bold">Register | 註冊</header>
@@ -46,13 +46,13 @@
         <hr class="w-full border border-gray-300" />
       </div>
 
-      <footer>
-        <div class="grid grid-cols-2 gap-4">
-          <%= link_to "FACEBOOK", provider_oauth_index_path(provider: :facebook), 
-          class:"rounded-2xl border-b-2 border-b-gray-300 bg-white py-2.5 px-4 font-bold text-gray-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200"
+        <footer>
+          <div class="grid grid-cols-2 gap-4">
+            <%= link_to "FACEBOOK", provider_oauth_index_path(provider: :facebook), 
+            class:"text-sm md:text-base rounded-2xl border-b-2 border-b-gray-300 bg-white py-3 md:py-2.5 px-1 md:px-4 font-bold text-gray-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200"
             %>
           <%= link_to "GOOGLE", provider_oauth_index_path(provider: :google), 
-          class:"rounded-2xl border-b-2 border-b-gray-300 bg-white py-2.5 px-4 font-bold text-gray-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200"
+          class:"text-sm md:text-base rounded-2xl border-b-2 border-b-gray-300 bg-white py-3 md:py-2.5 px-1 md:px-4 font-bold text-gray-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200"
             %>
         </div>
 
