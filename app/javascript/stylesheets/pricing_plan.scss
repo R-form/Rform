@@ -5,11 +5,6 @@
   box-sizing: border-box;
 }
 
-@media (min-width: 900px) {
-  .background {
-    padding: 0 0 25px;
-  }
-}
 
 .container {
   margin: 0 auto;
@@ -34,12 +29,6 @@
   flex-direction: column;
 }
 
-@media (min-width: 900px) {
-  .pricing-table {
-    flex-direction: column;
-  }
-}
-
 .pricing-table * {
   text-align: center;
   text-transform: uppercase;
@@ -48,22 +37,23 @@
 .pricing-plan {
   border-bottom: 1px solid #e1f1ff;
   padding: 25px;
+  flex-basis: 100%;
 }
 
 .pricing-plan:last-child {
   border-bottom: none;
 }
 
-@media (min-width: 900px) {
-  .pricing-plan {
-    border-bottom: none;
-    border-right: 1px solid #e1f1ff;
-    flex-basis: 100%;
-    padding: 25px 50px;
-  }
+@media (max-width: 640px) {
 
   .pricing-plan:last-child {
     border-right: none;
+  }
+  .panel {
+    display: block;
+  }
+  .pricing-table {
+    box-shadow: none
   }
 }
 

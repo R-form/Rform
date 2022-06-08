@@ -7,10 +7,12 @@
     <h1 class="mt-4 text-5xl text-center text-gray-700"><%= link_to '我的問卷', surveys_path %></h1>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" data-controller="sortable">
       <% @surveys.each do |survey| %>
-        <div class="m-2 transition-all duration-200 transform border border-gray-400 rounded-lg cursor-pointer card hover:shadow-md hover:border-opacity-0 hover:-translate-y-1" data-id="<%= survey.id %>"  data-title="<%= survey.title %>" data-description="<%= survey.description %>" data-surveys-target="surveyCard">
+        <div class="m-2 transition-all duration-200 transform border border-gray-400 rounded-lg cursor-pointer card hover:shadow-md hover:border-opacity-1 hover:-translate-y-1" data-id="<%= survey.id %>"  data-title="<%= survey.title %>" data-description="<%= survey.description %>" data-surveys-target="surveyCard">
             <div class="m-3">
-              <h2 class="text-lg mb-2 truncate"><%= survey.title %></h2>
-              <p class="font-light font-mono text-sm text-gray-700 hover:text-gray-900 transition-all duration-200  truncate "><%= survey.description %></p> 
+              <h2 class="text-2xl mb-2 truncate"><%= survey.title %></h2>
+              <div class="h-20">
+                <p class="font-light font-mono text-sm mt-6 text-gray-700 hover:text-gray-900 transition-all duration-200 toro "><%= survey.description %></p> 
+              </div>
               <div class="mt-5 flex justify-end">
                              
                   <%= link_to edit_survey_path(survey), title: "編輯問卷", class: "linkbtn md:" do %>

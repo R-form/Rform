@@ -121,3 +121,12 @@ textarea {
 .survey_status_time {
   @apply w-28;
 }
+
+
+.toro {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
