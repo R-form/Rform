@@ -18,7 +18,7 @@ export default class extends Controller {
     this.final_question = this.questionTargets[this.questionTargets.length - 1]
     this.final_question_id = this.questionTargets[this.questionTargets.length - 1].dataset.question_id
 
-    if (this.final_question.dataset.required) {
+    if (this.final_question.dataset.required == "true") {
       this.submitTarget.setAttribute("disabled", "")
       this.submitTarget.setAttribute("class", "disabled-response-button hidden")
     }
@@ -44,9 +44,12 @@ export default class extends Controller {
 
   addButtonDisabled(e) {
     const nextQuestionButton = e.target.closest(".question_field").lastElementChild
-    nextQuestionButton.setAttribute("disabled", "")
-    nextQuestionButton.setAttribute("class", "disabled-response-button")
-    nextQuestionButton.textContent = "請先填答"
+
+    if (nextQuestionButton != this.nextQuestionTargets[this.nextQuestionTargets.length - 1]) {
+      nextQuestionButton.setAttribute("disabled", "")
+      nextQuestionButton.setAttribute("class", "disabled-response-button")
+      nextQuestionButton.textContent = "請先填答"
+    }
   }
 
   checked(e) {
