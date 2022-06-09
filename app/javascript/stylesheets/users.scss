@@ -1,0 +1,15 @@
+.field_with_errors {
+  @apply w-full rounded-2xl bg-red-100 ring-2 ring-red-200;
+}
+
+.user-input-outer {
+  @apply w-full rounded-2xl bg-gray-50 ring-2 ring-gray-200;
+}
+
+.user-input {
+  @apply my-3 ml-3 w-full border-none bg-transparent outline-none focus:outline-none;
+}
+
+.user-button {
+  @apply w-full rounded-2xl border-b-4 border-b-gray-600 bg-ironGray py-3 font-bold text-white hover:bg-ironGrayHover active:translate-y-[0.125rem] active:border-b-blue-400;
+}

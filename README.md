@@ -20,11 +20,12 @@ Rform 是向 Google Form 致敬的免費線上問卷設計產品，為了讓使�
 
 ## 基礎設定
 
-- 第三方登入；若要使用第三方登入，請務必填寫下方參數
-  FACEBOOK_KEY=
-  FACEBOOK_SECRET=
-  GOOGLE_KEY=
-  GOOGLE_SECRET=
+第三方登入；若要使用第三方登入，請務必填寫下方參數
+
+- FACEBOOK_KEY=
+- FACEBOOK_SECRET=
+- GOOGLE_KEY=
+- GOOGLE_SECRET=
 
 ## 使用技術
 

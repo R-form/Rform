@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   
   root 'homepage#index'
 resource :user_sessions, only: [:new, :create, :destroy]
-resource :users do
+resource :users ,except: [:show] do
   get :orders ,to: 'orders#index'
 end
 post 'orders/done' => 'orders#done'
