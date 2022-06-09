@@ -1,15 +1,5 @@
 <%= form_with model: user, url: users_path do |form| %>
-  <% if user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-        <% user.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  
 <main class="relative min-h-screen w-full bg-white">
   <div class="p-6" x-data="app">
     <section
@@ -18,24 +8,22 @@
       <div x-show="isLoginPage" class="space-y-4">
         <header class="mb-3 text-2xl font-bold">Register | 註冊</header>
 
-          <div class="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200">
-            <%= form.text_field :email, placeholder:"Email",
-            class: "my-3 w-full border-none bg-transparent outline-none focus:outline-none" %>
+          <div class="user-input-outer">
+            <%= form.email_field :email, placeholder:"信箱",
+            class: "user-input" %>
           </div>
 
-          <div class="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200">
-            <%= form.password_field :password, placeholder:"Password", 
-            class:"my-3 w-full border-none bg-transparent outline-none focus:outline-none" %>
+          <div class="user-input-outer">
+            <%= form.password_field :password, placeholder:"密碼", 
+            class:"user-input" %>
           </div>
 
-          <div class="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200">
-            <%= form.password_field :password_confirmation, placeholder:"Password", 
-            class:"my-3 w-full border-none bg-transparent outline-none focus:outline-none" %>
+          <div class="user-input-outer">
+            <%= form.password_field :password_confirmation, placeholder:"密碼驗證", 
+            class:"user-input" %>
           </div>
                   
-        <button
-          class="actions w-full rounded-2xl border-b-4 border-b-gray-600 bg-ironGray py-3 font-bold text-white hover:bg-ironGrayHover active:translate-y-[0.125rem] active:border-b-blue-400"
-        >
+        <button class="user-button">
           <%="註冊會員"%>
         </button>
       </div>       
