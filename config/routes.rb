@@ -5,10 +5,13 @@ Rails.application.routes.draw do
   root 'homepage#index'
 resource :user_sessions, only: [:new, :create, :destroy]
 resource :users ,except: [:show] do
-  get :orders ,to: 'orders#index'
+  resource :orders, only: [:show ] do
+    post :done
+    post :update
+  end
 end
-post 'orders/done' => 'orders#done'
-post 'orders/update' => 'orders#update'
+# post 'orders/done' => 'orders#done'
+# post 'orders/update' => 'orders#update'
 
   resources :surveys do
     resources :responses do
