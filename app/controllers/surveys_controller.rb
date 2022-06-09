@@ -20,13 +20,13 @@ class SurveysController < ApplicationController
       if current_user.surveys.count >= 3
         redirect_to surveys_path, alert: '免費會員建置問卷上限３個，請升級為專業會員'
       else
-        @survey = current_user.surveys.create
+        @survey = current_user.surveys.create(title: "未命名的問卷")
         question = @survey.questions.create
         2.times { question.answers.create }
         redirect_to edit_survey_path(@survey.id)
       end
     when "pro"
-      @survey = current_user.surveys.create
+      @survey = current_user.surveys.create(title: "未命名的問卷")
       question = @survey.questions.create
       2.times { question.answers.create }
       redirect_to edit_survey_path(@survey.id)
