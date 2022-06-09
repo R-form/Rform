@@ -125,7 +125,7 @@ Rails.application.config.sorcery.configure do |config|
   #
   config.facebook.key = ENV["FACEBOOK_KEY"]
   config.facebook.secret = ENV["FACEBOOK_SECRET"]
-  config.facebook.callback_url = "https://rform.herokuapp.com/oauth/callback?provider=facebook"
+  config.facebook.callback_url = "https://#{ENV['host_name']}/oauth/callback?provider=facebook"
   config.facebook.user_info_path = "me?fields=email"
   config.facebook.user_info_mapping = {:email => "email"}
   config.facebook.access_permissions = ["email"]
