@@ -25,7 +25,7 @@
       <div class="slide_content">        
         <div class="side-border"> 
           <i class="fas fa-brush"></i>
-          <span class="mx-4 font-bold text-xl	">自訂主題</span>
+          <span class="mx-0 md:mx-2  font-bold text-sm md:text-base	">自訂主題</span>
         </div>
       </div>
     </div>
@@ -34,7 +34,7 @@
       <ul class="flex flex-col overflow-hidden space-y-2">
         <li class="aside_choice_title mt-4 pt-4">             
           <i class="fas fa-font"></i>
-          <span>
+          <span class="text-sm md:text-base">
             字體樣式
           </span>                 
         </li> 
@@ -47,7 +47,7 @@
         </li>
         <li class="aside_choice_title">             
           <i class="fas fa-paint-roller"></i>
-          <span>
+          <span class="text-sm md:text-base">
             主題顏色
           </span>                 
         </li> 
@@ -58,7 +58,7 @@
         </li>
         <li class="aside_choice_title">             
           <i class="fas fa-paint-roller"></i>
-          <span>
+          <span class="text-sm md:text-base">
             背景顏色
           </span>                 
         </li> 
@@ -69,7 +69,7 @@
         </li>
         <li class="aside_choice_title">             
           <i class="far fa-calendar-alt"></i>
-          <span>
+          <span class="text-sm md:text-base">
             狀態
           </span>                 
         </li> 
@@ -80,7 +80,7 @@
         </li>
         <li class="aside_choice_title">             
           <i class="far fa-calendar-alt"></i>
-          <span>
+          <span class="text-sm md:text-base">
             開啟時間
           </span>                 
         </li> 
@@ -91,7 +91,7 @@
         </li>
         <li class="aside_choice_title">             
           <i class="far fa-calendar-alt"></i>
-          <span>
+          <span class="text-sm md:text-base">
             關閉時間
           </span>                 
         </li> 
@@ -130,7 +130,7 @@
           <div data-nested-form-target="add_item" class="field down text-center">
             <%= link_to "新增問題", "#", data: { action: "nested-form#add_association auto-save#add_question_item"  }, class: "btn " %>
             <%= form_with(model: survey, data: {nested_form_target: "change_bg"}) do |form| %>
-              <%= form.label :image , "更換圖片", class: "btn" %>
+              <%= form.label :image , "背景圖片", class: "btn" %>
               <%= form.file_field :image , class:"hidden" , data: {action: "input->nested-form#change_background"} %>
               <%= form.submit "上傳" , class: "hidden"%>
             <% end %>
