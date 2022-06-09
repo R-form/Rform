@@ -84,11 +84,11 @@ hideAndShowSearchBar() {
 }
 
 search(e) {
-  let searchValue = e.target.value
+  let searchValue = e.target.value.toLowerCase()
 
   this.surveyCardTargets.forEach((surveyCard)=>{
-    let surveyTitle = surveyCard.dataset.title
-    let surveyDescription = surveyCard.dataset.description
+    let surveyTitle = surveyCard.dataset.title.toLowerCase()
+    let surveyDescription = surveyCard.dataset.description.toLowerCase()
 
     surveyCard.classList.add("hidden")
     if (surveyTitle.includes(searchValue) || surveyDescription.includes(searchValue)) {

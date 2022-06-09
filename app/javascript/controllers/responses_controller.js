@@ -18,7 +18,7 @@ export default class extends Controller {
     this.final_question = this.questionTargets[this.questionTargets.length - 1]
     this.final_question_id = this.questionTargets[this.questionTargets.length - 1].dataset.question_id
 
-    if (this.final_question.dataset.required) {
+    if (this.final_question.dataset.required == "true") {
       this.submitTarget.setAttribute("disabled", "")
       this.submitTarget.setAttribute("class", "disabled-response-button hidden")
     }
@@ -31,6 +31,7 @@ export default class extends Controller {
     this.previousQuestionTarget.classList.add("hidden")
     this.skipToQuestionId = ""
     this.skipFromQuestionId = []
+    this.multipleAnswers = []
   }
 
   removeButtonDisabled(e) {
@@ -44,9 +45,12 @@ export default class extends Controller {
 
   addButtonDisabled(e) {
     const nextQuestionButton = e.target.closest(".question_field").lastElementChild
-    nextQuestionButton.setAttribute("disabled", "")
-    nextQuestionButton.setAttribute("class", "disabled-response-button")
-    nextQuestionButton.textContent = "請先填答"
+
+    if (nextQuestionButton != this.nextQuestionTargets[this.nextQuestionTargets.length - 1]) {
+      nextQuestionButton.setAttribute("disabled", "")
+      nextQuestionButton.setAttribute("class", "disabled-response-button")
+      nextQuestionButton.textContent = "請先填答"
+    }
   }
 
   checked(e) {
@@ -75,11 +79,14 @@ export default class extends Controller {
 
   checkedCheckBox(e) {
     const current_question = e.target.closest(".question_field")
-
     if (e.target.checked) {
+      this.multipleAnswers.push(e.target.value)
       this.removeButtonDisabled(e)
     } else {
-      this.addButtonDisabled(e)
+      if (this.multipleAnswers.length == 1 && current_question.dataset.required == "true") {
+        this.addButtonDisabled(e)
+      }
+      this.multipleAnswers.splice(-1)
     }
 
     if (e.target.checked && this.questionTargets.length == 1) {
@@ -91,6 +98,11 @@ export default class extends Controller {
     if (e.target.checked && current_question == this.final_question) {
       this.submitTarget.removeAttribute("disabled")
       this.submitTarget.setAttribute("class", "response-button")
+    }
+
+    if (!e.target.checked && current_question == this.final_question && this.multipleAnswers.length < 1) {
+      this.submitTarget.setAttribute("disabled", "")
+      this.submitTarget.setAttribute("class", "disabled-response-button")
     }
   }
 
@@ -117,6 +129,7 @@ export default class extends Controller {
 
   next(e) {
     e.preventDefault()
+    this.multipleAnswers = []
     const question = e.target.closest(".question_field")
     const question_id = question.dataset.question_id
 

@@ -1,7 +1,14 @@
 <%= form_with url: password_resets_path, local: true, method: :post do |form| %>
-  <div class="field">
-    <%= form.label :email %><br />
-    <%= form.text_field :email %>
-    <%= form.submit "Reset my password!" %>
+<section class="absolute top-96 left-1/2 mx-auto max-w-sm -translate-x-1/2 -translate-y-1/2 transform space-y-4 text-center">
+  <div x-show="!isLoginPage" class="space-y-4">
+    <header class="mb-3 text-2xl font-bold">Forget Password | 忘記密碼</header>
+    <div class="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200">
+    <%= form.text_field :email, placeholder:"Email",
+    class: "my-3 w-full border-none bg-transparent outline-none focus:outline-none" %>
+    </div>
+    <button class="w-full rounded-2xl border-b-4 border-b-gray-600 bg-ironGray py-3 font-bold text-white hover:bg-ironGrayHover active:translate-y-[0.125rem] active:border-b-blue-400">
+        Reset my password!
+    </button>  
   </div>
+</section>
 <% end %>

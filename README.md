@@ -16,15 +16,16 @@ Rform 是向 Google Form 致敬的免費線上問卷設計產品，為了讓使�
 
 ## 示範網址
 
-[https://rform.herokuapp.com/](https://rform.herokuapp.com/)
+[https://www.rform.tw/](https://www.rform.tw/)
 
 ## 基礎設定
 
-- 第三方登入；若要使用第三方登入，請務必填寫下方參數
-  FACEBOOK_KEY=
-  FACEBOOK_SECRET=
-  GOOGLE_KEY=
-  GOOGLE_SECRET=
+第三方登入；若要使用第三方登入，請務必填寫下方參數
+
+- FACEBOOK_KEY=
+- FACEBOOK_SECRET=
+- GOOGLE_KEY=
+- GOOGLE_SECRET=
 
 ## 使用技術
 
@@ -43,8 +44,8 @@ Rform 是向 Google Form 致敬的免費線上問卷設計產品，為了讓使�
 
 ## 團隊成員
 
-- 石郁芳：自訂樣式（問卷字體、主題色）、跳題邏輯、第三方登入（Google）、網站切版、網頁風格設計
-- 林姿萱：自動儲存、狀態設定、問卷建置 拖拉功能、API 串接、跳題邏輯、網站切版
-- 林念瑾：資料分析、分類標籤、搜尋功能、第三方登入（Facebook）、圖表呈現、網站切版
-- 黃仲綸：複製功能、藍新金流串接、問卷建置、圖片上傳、產生短網址、部署 Heroku、網站切版
-- 萬昭宏：會員登入系統、資料分析、匯出 Excel、產生 QRcode
+- [石郁芳](https://github.com/moluishere)：自訂樣式（問卷字體、主題色）、跳題邏輯、第三方登入（Google）、網站切版、網頁風格設計
+- [林姿萱](https://github.com/Kkrystalll)：自動儲存、狀態設定、問卷建置 拖拉功能、必填呈現、跳題邏輯、網站切版
+- [林念瑾](https://github.com/NikkaLin)：資料分析、分類標籤、搜尋功能、第三方登入（Facebook）、圖表呈現、網站切版
+- [黃仲綸](https://github.com/zhonglunhuang)：複製功能、藍新金流串接、問卷建置、圖片上傳、產生短網址、部署 Heroku、網站切版
+- [萬昭宏](https://github.com/xchwan)：會員登入系統、資料分析(匯出 Excel)、產生 QRcode、忘記密碼、網頁切版
