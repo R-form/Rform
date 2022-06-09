@@ -19,7 +19,7 @@
 </style>
 
 <div data-controller = "survey-style" class="style-survey-div padding-for-fixed-body min-hight bg-<%= @survey.background_color %> <%= "form_bg" if survey.image.attached? %>  ">
-  <span class="hidden bg-softRed bg-softOrange bg-softYellow bg-softGreen bg-softBlue bg-softNavy bg-softGray"></span>
+  <span class="hidden bg-softRed bg-softOrange bg-softYellow bg-softGreen bg-softBlue bg-softNavy bg-softGray bg-softPurple"></span>
   <aside data-controller="slideover" data-slideover-target="closeAside" class="slideover slide invisible">
     <div class="pt-4 p-4 padding-for-fixed-body">
       <div class="slide_content">        
@@ -107,7 +107,7 @@
   <section class="formsection h-full min-h-screen <%= survey.font_style %>">
     <%= form_with(model: survey,  data: { controller: "auto-save skip-logic-modal", survey_style_target: "form" } ) do |form| %>
       <span class="hidden border-brightRed border-brightOrange border-brightYellow border-brightGreen
-    border-brightBlue border-brightNavy border-brightGray         focus-within:outline-brightRed focus-within:outline-brightOrange focus-within:outline-brightYellow focus-within:outline-brightGreen focus-within:outline-brightBlue focus-within:outline-brightNavy focus-within:outline-brightGray"></span>
+    border-brightBlue border-brightNavy border-brightGray  border-brightPurple focus-within:outline-brightRed focus-within:outline-brightOrange focus-within:outline-brightYellow focus-within:outline-brightGreen focus-within:outline-brightBlue focus-within:outline-brightNavy focus-within:outline-brightGray focus-within:outline-brightPurple"></span>
       <div class="formsection_title  border-<%= survey.theme %> focus-within:outline-<%= survey.theme %>"  data-id="<%= survey.id %>" data-status="<%= survey.status %>" data-auto-save-target="surveyId" data-survey-style-target="surveyId" data-skip-logic-modal-target="surveyId"
       data-select-question-target="surveyId">
         <%= form.text_field :title, placeholder: "問卷標題",autocomplete: "off", class: "survey-title survey-input", 

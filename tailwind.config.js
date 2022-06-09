@@ -22,6 +22,8 @@ module.exports = {
     "softNavy",
     "softGray",
     "irisBlue",
+    "brightPurple",
+    "softPurple",
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -51,17 +53,20 @@ module.exports = {
         softNavy: "#6699A1",
         softGray: "#a4b5c4",
         irisBlue: "#00bcd4",
+        brightPurple: "#6A4C9C",
+        softPurple: "#B28FCE",
       },
       outline: {
         ironGrayHover: "3px solid #A5A2A0",
         brightRed: "3px solid #8E354A",
         brightOrange: "3px solid #E62",
         brightYellow: "3px solid #EA0",
-        transparent: "3px solid #transparent",
+        brightPurple: "3px solid #6A4C9C",
         brightGreen: "3px solid #6C6",
         brightBlue: "3px solid #19F",
         brightNavy: "3px solid #2B5F75",
         brightGray: "3px solid #7A7573",
+        brightPurple: "3px solid #6A4C9C",
       },
     },
     aspectRatio: {

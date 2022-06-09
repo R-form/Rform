@@ -1,5 +1,6 @@
 import { Controller } from "stimulus"
 import Rails from "@rails/ujs"
+import Swal from "sweetalert2"
 
 export default class extends Controller {
   static targets = ["surveyId", "question", "answer", "select"]
@@ -150,8 +151,6 @@ export default class extends Controller {
   remove_question(e) {
     e.preventDefault()
     let item = e.target.closest(".question")
-    item.style.display = "none"
-
     const { question_id } = e.target.closest(".question").dataset
 
     Swal.fire({
@@ -221,25 +220,37 @@ export default class extends Controller {
   remove_answer(e) {
     e.preventDefault()
     let item = e.target.closest(".answer")
-    item.style.display = "none"
-
     const { question_id } = e.target.closest(".question").dataset
     const answerId = e.target.closest(".answer").firstElementChild.value
 
-    const data = new FormData()
-    data.append("question_id", question_id)
-    data.append("answer_id", answerId)
+    Swal.fire({
+      title: "請確認是否刪除此答案",
+      text: "刪除後的「答案選項」將無法復原",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "確定",
+      cancelButtonText: "取消",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        item.style.display = "none"
 
-    Rails.ajax({
-      type: "delete",
-      url: `/surveys/${this.surveyId}/remove_answer`,
-      data,
-      success: () => {
-        Swal.fire("答案選項已刪除!", "", "success")
-      },
+        const data = new FormData()
+        data.append("question_id", question_id)
+        data.append("answer_id", answerId)
+
+        Rails.ajax({
+          type: "delete",
+          url: `/surveys/${this.surveyId}/remove_answer`,
+          data,
+          success: () => {
+            Swal.fire("答案選項已刪除!", "", "success")
+          },
+        })
+      }
     })
   }
-
   change_question_image(event) {
     this.create_event(event.target.dataset.id)
     document.dispatchEvent(this.question_imageEvent)
