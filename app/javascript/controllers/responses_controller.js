@@ -83,7 +83,7 @@ export default class extends Controller {
       this.multipleAnswers.push(e.target.value)
       this.removeButtonDisabled(e)
     } else {
-      if (this.multipleAnswers.length == 1) {
+      if (this.multipleAnswers.length == 1 && current_question.dataset.required == "true") {
         this.addButtonDisabled(e)
       }
       this.multipleAnswers.splice(-1)
@@ -98,6 +98,11 @@ export default class extends Controller {
     if (e.target.checked && current_question == this.final_question) {
       this.submitTarget.removeAttribute("disabled")
       this.submitTarget.setAttribute("class", "response-button")
+    }
+
+    if (!e.target.checked && current_question == this.final_question && this.multipleAnswers.length < 1) {
+      this.submitTarget.setAttribute("disabled", "")
+      this.submitTarget.setAttribute("class", "disabled-response-button")
     }
   }
 
@@ -124,6 +129,7 @@ export default class extends Controller {
 
   next(e) {
     e.preventDefault()
+    this.multipleAnswers = []
     const question = e.target.closest(".question_field")
     const question_id = question.dataset.question_id
 
