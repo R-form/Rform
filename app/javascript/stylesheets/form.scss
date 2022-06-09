@@ -99,7 +99,7 @@ textarea {
 }
 
 .down {
-  @apply fixed left-10  bg-gentleYellow md:w-28 block top-3/4 md:top-44;
+  @apply fixed left-10  md:w-28 block top-44;
 }
 
 .new_question_btn {
