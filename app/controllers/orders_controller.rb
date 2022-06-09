@@ -1,10 +1,10 @@
 class OrdersController < ApplicationController
     skip_before_action :verify_authenticity_token, only: [:update, :done]
-    before_action :set_user, except: [:update ]
+    # before_action :set_user, except: [:update ]
 
     def show
       if current_user.status == "free"
-        order = @user.orders.create(status: 0, name: "plan_pro", email: @user.email, amount: 100)
+        order = current_user.orders.create(status: 0, name: "plan_pro", email: current_user.email, amount: 100)
         @form_info = Newebpay::Mpg.new(order).form_info    
       end
     end
@@ -23,15 +23,15 @@ class OrdersController < ApplicationController
     def done
         response = Newebpay::Mpgresponse.new(params[:TradeInfo])
         if response.success?
-          redirect_to users_orders_path(current_user)
+          redirect_to users_orders_path(response.user_id)
         else
           render html: "付款失敗"
         end
     end
     
     private
-    def set_user
-      @user = User.find(params[:format])
-    end
+    # def set_user
+    #   @user = User.find(params[:format])
+    # end
 
 end
