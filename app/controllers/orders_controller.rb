@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-    skip_before_action :verify_authenticity_token, only: [:update, :done, :show]
+    skip_before_action :verify_authenticity_token, only: [:notify, :done, :show]
   
     def show
       if current_user.status == "free"
@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
     def create
     end
     
-    def update
+    def notify
         response = Newebpay::Mpgresponse.new(params[:TradeInfo])
         if response.success?
         order = Order.find_by(slug: response.order_no)

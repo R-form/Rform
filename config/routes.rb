@@ -7,7 +7,7 @@ resource :user_sessions, only: [:new, :create, :destroy]
 resource :users ,except: [:show] do
   resource :orders, only: [:show ] do
     post :done
-    post :update
+    post :notify
   end
 end
 # post 'orders/done' => 'orders#done'
