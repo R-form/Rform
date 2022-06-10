@@ -115,8 +115,8 @@ ActiveRecord::Schema.define(version: 2022_06_04_050320) do
     t.datetime "deleted_at"
     t.integer "position"
     t.bigint "user_id", null: false
-    t.string "tag"
     t.string "slug"
+    t.string "tag"
     t.string "font_style"
     t.string "theme", default: "brightRed"
     t.string "status", default: "published"
