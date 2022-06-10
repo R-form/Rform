@@ -1,7 +1,6 @@
 class OrdersController < ApplicationController
     skip_before_action :verify_authenticity_token, only: [:update, :done, :show]
-    # before_action :set_user, except: [:update ]
-
+  
     def show
       if current_user.status == "free"
         order = current_user.orders.create(status: 0, name: "plan_pro", email: current_user.email, amount: 100)

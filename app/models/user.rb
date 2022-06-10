@@ -11,6 +11,7 @@ class User < ApplicationRecord
   validates :email, uniqueness: { message: "信箱錯誤"}
   has_many :surveys, -> { order(position: :asc) } , :dependent => :destroy
   has_many :authentications, :dependent => :destroy
+  accepts_nested_attributes_for :authentications
   has_many :orders
 
   def status
