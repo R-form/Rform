@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-    skip_before_action :verify_authenticity_token, only: [:update, :done]
+    skip_before_action :verify_authenticity_token, only: [:update, :done, :show]
     # before_action :set_user, except: [:update ]
 
     def show
