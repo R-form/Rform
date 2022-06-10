@@ -18,13 +18,14 @@ class OrdersController < ApplicationController
         order = Order.find_by(slug: response.order_no)
         order.update(status: 1)
         end
+
+        head :ok
     end
     
     def done
         response = Newebpay::Mpgresponse.new(params[:TradeInfo])
         if response.success?
-          # redirect_to users_orders_path(current_user)
-          render html: current_user
+          redirect_to users_orders_path(current_user)
         else
           render html: "付款失敗"
         end
