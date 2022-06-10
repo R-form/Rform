@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
     def done
         response = Newebpay::Mpgresponse.new(params[:TradeInfo])
         if response.success?
-          redirect_to users_orders_path
+          redirect_to root_path
         else
           render html: "付款失敗"
         end
