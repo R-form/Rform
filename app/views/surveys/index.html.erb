@@ -1,8 +1,8 @@
 <section class="padding-for-fixed">
   <div class="container mt-4 mx-auto" data-controller="modal surveys" data-modal-allow-background-close="false" >
     <div class="fixed flex mx-4 my-4">
-      <input class="hidden" placeholder="搜尋問卷標題或敘述" data-surveys-target="searchInput" data-action="change->surveys#search"></input>
-      <i class="mt-4 fas fa-search fa-2x" data-action="click->surveys#hideAndShowSearchBar"></i>
+      <input class="hidden" placeholder="搜尋問卷標題或敘述" data-surveys-target="searchInput" data-action="change->surveys#search"/>
+      <i class="mt-4 fas fa-search fa-2x cursor-pointer" data-action="click->surveys#hideAndShowSearchBar"></i>
     </div>
     <h1 class="mt-4 py-4 md:pt-4 text-5xl text-center text-gray-700"><%= link_to '我的問卷', surveys_path %></h1>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" data-controller="sortable">
