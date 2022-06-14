@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   
   root 'homepage#index'
 resource :user_sessions, only: [:new, :create, :destroy]
+  
 resource :users ,except: [:show] do
   resource :orders, only: [:show ] do
     post :done
