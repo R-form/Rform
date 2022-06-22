@@ -32,6 +32,9 @@ gem 'rubocop', '~> 1.28', '>= 1.28.2'
 gem 'dotenv', '~> 2.7', '>= 2.7.6'
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'rspec-rails', '~> 5.0.0'
+  gem 'factory_bot_rails', '~> 6.2'
+  gem 'faker'
 end
 
 group :development do
@@ -45,7 +48,6 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', '>= 3.26'
   gem 'selenium-webdriver', '>= 4.0.0.rc1'
   gem 'webdrivers', '~> 5.0'
 end
