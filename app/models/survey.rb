@@ -26,7 +26,8 @@ class Survey < ApplicationRecord
 
   belongs_to :user
   friendly_id :slug, use: :slugged
-  
+  validate :surveys_limit
+
   has_many :questions, -> { order(position: :asc) }, dependent: :destroy
   has_many :responses, dependent: :destroy
   has_one_attached :image
@@ -39,6 +40,9 @@ class Survey < ApplicationRecord
     self.published? && self.opentime <= Time.now && self.closetime == nil || self.published? && self.opentime <= Time.now && self.closetime > Time.now
   end
 
+  def surveys_limit
+    errors.add(:base, "免費會員問卷數量上限三個") if user.status == "free" && user.surveys.size >= 3
+  end
   
   private 
   # Generates an 6 character alphanumeric id
