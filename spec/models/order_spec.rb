@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Order', type: :model do
+RSpec.describe Order, type: :model do
   it '訂單未付費，當前使用者狀態為free' do
     user = FactoryBot.create(:user)
     Order.create(status: 0, user_id: user.id)
